@@ -87,4 +87,78 @@ jobs:
       run: vendor/bin/phpunit --coverage-text
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        REDIS_PORT: ${{ job.services.redis.ports['6379'] }}        
+        REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+  misc:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        commands: ['PHPSTAN', 'CS Fixer']
+    name: ${{ matrix.commands }}
+    env:
+      DB_DATABASE: laravel
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      BROADCAST_DRIVER: log
+      CACHE_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v6.2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, dom, fileinfo, mysql
+        coverage: xdebug
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        # Use composer.json for key, if composer.lock is not committed.
+        # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install Composer dependencies
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+    - name: Prepare the application
+      run: |
+        php -r "file_exists('.env') || copy('.env.testing', '.env');"
+        chmod -R 777 storage bootstrap/cache
+ 
+    - name: Clear Config
+      run: php artisan config:clear
+
+    - name: Run ${{ matrix.commands }}
+      run: |
+        if [[ "${{ matrix.commands }}" == "PHPSTAN" ]]; then
+          ./vendor/bin/phpstan analyse --memory-limit=2G
+        elif [[ "${{ matrix.commands }}" == "CS Fixer" ]]; then
+          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
+            if [[ $file == *.php ]]; then
+              cs_fix_files="${cs_fix_files} $file"
+            fi
+          done
+          if [[ $cs_fix_files ]]; then
+            ./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --show-progress=dots --diff $cs_fix_files
+          fi
+        else
+          echo "Invalid command"
+          exit 1
+        fi
