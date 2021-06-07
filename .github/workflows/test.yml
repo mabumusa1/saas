@@ -20,7 +20,7 @@ jobs:
       BROADCAST_DRIVER: log
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
-      SESSION_DRIVER: redis  
+      SESSION_DRIVER: redis
 
     services:
       mysql:
@@ -70,10 +70,7 @@ jobs:
 
     - name: Prepare the application
       run: |
-        php -r "file_exists('.env') || copy('.env.testing', '.env');"
-        cat .env
         php artisan key:generate
-        cat .env
         chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
