@@ -21,6 +21,7 @@ jobs:
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
+      
 
     services:
       mysql:
@@ -70,7 +71,7 @@ jobs:
 
     - name: Prepare the application
       run: |
-        php artisan key:generate
+        php -r "file_exists('.env') || copy('.env.testing', '.env');"
         chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
