@@ -52,6 +52,7 @@ jobs:
         export DB_PORT=${{ job.services.mysql.ports['3306'] }}        
         export DB_USERNAME="root"
         export DB_DATABASE="laravel"
+        php -r "file_exists('.env') || copy('.env.testing', '.env');"
         composer validate
         composer install -q --no-ansi --no-interaction --prefer-dist --no-progress --no-suggest
         php artisan key:generate
