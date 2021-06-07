@@ -93,6 +93,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        php-versions: ['8.0']
         commands: ['PHPSTAN', 'CS Fixer']
     name: ${{ matrix.commands }}
     env:
