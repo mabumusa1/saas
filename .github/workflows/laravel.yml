@@ -61,7 +61,7 @@ jobs:
     - name: Run tests - database = ${{ matrix.db-types }}
       run: |
         if [[ "${{ matrix.php-versions }}" == "8.0" ]] && [[ "${{ matrix.db-types }}" == "mysql" ]]; then
-          php artisan test -- --coverage-clover=coverage.xml
+          php artisan test
         else
           php artisan test
         fi
@@ -100,6 +100,7 @@ jobs:
         export DB_PORT=${{ job.services.mysql.ports['3306'] }}        
         export DB_USERNAME="root"
         export DB_DATABASE="laravel"
+        php -r "file_exists('.env') || copy('.env.testing', '.env');"
         composer validate
         composer install -q --no-ansi --no-interaction --prefer-dist --no-progress --no-suggest
         php artisan key:generate
