@@ -70,7 +70,7 @@ jobs:
 
     - name: Prepare the application
       run: |
-        php -r "file_exists('.env') || copy('.env.testing', '.env');"
+        php -r "file_exists('.env') || copy('.env.example', '.env');"
         php artisan key:generate
         chmod -R 777 storage bootstrap/cache
  
