@@ -70,8 +70,10 @@ jobs:
 
     - name: Prepare the application
       run: |
-        php -r "file_exists('.env') || copy('.env.example', '.env');"
+        php -r "file_exists('.env') || copy('.env.testing', '.env');"
+        cat .env
         php artisan key:generate
+        cat .env
         chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
@@ -87,4 +89,4 @@ jobs:
       run: vendor/bin/phpunit --coverage-text
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+        REDIS_PORT: ${{ job.services.redis.ports['6379'] }}        
