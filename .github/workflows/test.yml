@@ -195,5 +195,6 @@ jobs:
         run: |
           heroku run php artisan migrate --force
           heroku run php artisan migrate:reset --force
+          heroku run php artisan migrate --force
           heroku run php artisan db:seed        
 
