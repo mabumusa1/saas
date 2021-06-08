@@ -195,5 +195,5 @@ jobs:
         run: |
           heroku run php artisan migrate:rollback
           heroku run php artisan migrate
-        
+          heroku run php artisan db:seed        
 
