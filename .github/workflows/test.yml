@@ -82,9 +82,13 @@ jobs:
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }} 
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Test with phpunit
-      run: composer test
+      run: |
+        composer test
+        composer global require php-coveralls/php-coveralls
+        php-coveralls --coverage_clover=build/logs/clover.xml -v        
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
@@ -103,8 +107,7 @@ jobs:
       BROADCAST_DRIVER: log
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
-      SESSION_DRIVER: redis
-      COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SESSION_DRIVER: redis      
 
     steps:
     - name: Checkout
@@ -160,9 +163,6 @@ jobs:
           if [[ $cs_fix_files ]]; then
             composer checkcs
           fi
-        elseif [[ "${{ matrix.commands }}" == "Coveralls" ]]; then
-            composer global require php-coveralls/php-coveralls
-            php-coveralls --coverage_clover=build/logs/clover.xml -v
         else
           echo "Invalid command"
           exit 1
