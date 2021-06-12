@@ -84,7 +84,7 @@ jobs:
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }} 
 
     - name: Test with phpunit
-      run: vendor/bin/phpunit --coverage-text
+      run: composer test
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
@@ -94,7 +94,7 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: ['8.0']
-        commands: ['PHPSTAN', 'CS Fixer']
+        commands: ['PHPSTAN', 'CS Fixer', 'Coveralls']
     name: ${{ matrix.commands }}
     env:
       DB_DATABASE: laravel
@@ -104,6 +104,7 @@ jobs:
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
+      COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Checkout
@@ -149,7 +150,7 @@ jobs:
     - name: Run ${{ matrix.commands }}
       run: |
         if [[ "${{ matrix.commands }}" == "PHPSTAN" ]]; then
-          ./vendor/bin/phpstan analyse --memory-limit=2G
+          composer phpstan
         elif [[ "${{ matrix.commands }}" == "CS Fixer" ]]; then
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
             if [[ $file == *.php ]]; then
@@ -157,8 +158,11 @@ jobs:
             fi
           done
           if [[ $cs_fix_files ]]; then
-            ./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --show-progress=dots --diff $cs_fix_files
+            composer checkcs
           fi
+        elseif [[ "${{ matrix.commands }}" == "Coveralls" ]]; then
+            composer global require php-coveralls/php-coveralls
+            php-coveralls --coverage_clover=build/logs/clover.xml -v
         else
           echo "Invalid command"
           exit 1
