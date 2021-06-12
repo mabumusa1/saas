@@ -82,7 +82,6 @@ jobs:
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }} 
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Test with phpunit
       run: |
@@ -92,13 +91,18 @@ jobs:
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
   misc:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         php-versions: ['8.0']
-        commands: ['PHPSTAN', 'CS Fixer', 'Coveralls']
+        commands: ['PHPSTAN', 'CS Fixer']
     name: ${{ matrix.commands }}
     env:
       DB_DATABASE: laravel
