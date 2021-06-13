@@ -167,38 +167,3 @@ jobs:
           echo "Invalid command"
           exit 1
         fi
-  
-  deploy:
-    name: Deploy on Heroku
-    runs-on: ubuntu-latest
-    needs: [phpunit, misc]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Heroku login credentials
-        run: |
-          cat > ~/.netrc <<EOF
-            machine api.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-            machine git.heroku.com
-              login $HEROKU_EMAIL
-              password $HEROKU_API_KEY
-          EOF
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-      - name: Add Heroku remote
-        run: heroku git:remote --app $HEROKU_APP_NAME
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      - name: Push to Heroku
-        run: git push heroku main
-      - name: Re-Migrate the database
-        run: |
-          heroku run php artisan migrate --force
-          heroku run php artisan migrate:reset --force
-          heroku run php artisan migrate --force
-          heroku run php artisan db:seed        
-
