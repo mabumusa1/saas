@@ -86,12 +86,18 @@ jobs:
     - name: Test with phpunit
       run: |
         composer test
-        composer global require php-coveralls/php-coveralls
-        php-coveralls --coverage_clover=build/logs/clover.xml -vvv
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+
+    - name: Save Clover
+      uses: actions/upload-artifact@v2
+      if: success()
+      with:
+        name: PHP Unit Clover
+        path: build/logs/clover.xml
+
   misc:
     runs-on: ubuntu-latest
     strategy:
