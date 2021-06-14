@@ -173,10 +173,16 @@ jobs:
           echo "Invalid command"
           exit 1
         fi
+
   coverage:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.0']
+
     name: Coverage
-    needs: ['phpunit']
+    needs: ['phpunit', 'misc']
     env:
       DB_DATABASE: laravel
       DB_USERNAME: root
