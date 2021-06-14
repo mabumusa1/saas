@@ -95,7 +95,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: success()
       with:
-        name: PHP Unit Clover
+        name: clover
         path: build/logs/clover.xml
 
   misc:
@@ -236,8 +236,15 @@ jobs:
     - name: Get Clover
       uses: actions/download-artifact@v2
       with:
-        name: PHP Unit Clover
-        path: build/logs/clover.xml
+        name: clover
+        path: build/logs/
+
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: build/logs/
+    
+    - name: 'Echo download path'
+      run: echo ${{steps.download.outputs.download-path}}        
     
     - name: Get report
       run: |    
