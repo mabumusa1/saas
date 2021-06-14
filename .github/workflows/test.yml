@@ -239,14 +239,7 @@ jobs:
         name: clover
         path: build/logs/
 
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: build/logs/
-    
-    - name: 'Echo download path'
-      run: echo ${{steps.download.outputs.download-path}}        
-    
     - name: Get report
       run: |    
-        composer coverage
+        ./vendor/php-coveralls/php-coveralls/bin/php-coveralls --coverage_clover=build/logs/clover.xml
         
