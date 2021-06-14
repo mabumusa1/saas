@@ -241,5 +241,5 @@ jobs:
     
     - name: Get report
       run: |    
-        composer global require php-coveralls/php-coveralls
-        php-coveralls --coverage_clover=build/logs/clover.xml
+        composer coverage
+        
