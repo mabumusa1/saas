@@ -1,50 +1,96 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
 
-        <div class="card-body">
+    <!--begin::Reset Password Form-->
+    <form method="POST" action="{{ theme()->getPageUrl('password.update') }}" class="form w-100" novalidate="novalidate" id="kt_new_password_form">
+    @csrf
 
-            <x-jet-validation-errors class="mb-3" />
+    <!-- Password Reset Token -->
+        <input type="hidden" name="token" value="{{ $request->theme()->getPageUrl('token') }}">
 
-            <form method="POST" action="/reset-password">
-                @csrf
+        <!--begin::Heading-->
+        <div class="text-center mb-10">
+            <!--begin::Title-->
+            <h1 class="text-dark mb-3">
+                {{ __('Update Your Password') }}
+            </h1>
+            <!--end::Title-->
 
-                <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-                <div class="form-group">
-                    <x-jet-label value="{{ __('Email') }}" />
-
-                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
-                                 :value="old('email', $request->email)" required autofocus />
-                    <x-jet-input-error for="email"></x-jet-input-error>
-                </div>
-
-                <div class="form-group">
-                    <x-jet-label value="{{ __('Password') }}" />
-
-                    <x-jet-input class="{{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
-                                 name="password" required autocomplete="new-password" />
-                    <x-jet-input-error for="password"></x-jet-input-error>
-                </div>
-
-                <div class="form-group">
-                    <x-jet-label value="{{ __('Confirm Password') }}" />
-
-                    <x-jet-input class="{{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" type="password"
-                                 name="password_confirmation" required autocomplete="new-password" />
-                    <x-jet-input-error for="password_confirmation"></x-jet-input-error>
-                </div>
-
-                <div class="mb-0">
-                    <div class="d-flex justify-content-end">
-                        <x-jet-button>
-                            {{ __('Reset Password') }}
-                        </x-jet-button>
-                    </div>
-                </div>
-            </form>
+            <!--begin::Link-->
+            <div class="text-gray-400 fw-bold fs-4">
+                {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+            </div>
+            <!--end::Link-->
         </div>
-    </x-jet-authentication-card>
-</x-guest-layout>
+        <!--begin::Heading-->
+
+        <!--begin::Input group-->
+        <div class="fv-row mb-10">
+            <label class="form-label fw-bolder text-gray-900 fs-6">{{ __('Email') }}</label>
+            <input class="form-control form-control-solid" type="email" name="email" autocomplete="off" value="{{ old('email', $request->email) }}" required/>
+        </div>
+        <!--end::Input group-->
+
+        <!--begin::Input group-->
+        <div class="mb-10 fv-row" data-kt-password-meter="true">
+            <!--begin::Wrapper-->
+            <div class="mb-1">
+                <!--begin::Label-->
+                <label class="form-label fw-bolder text-dark fs-6">
+                    {{ __('Password') }}
+                </label>
+                <!--end::Label-->
+
+                <!--begin::Input wrapper-->
+                <div class="position-relative mb-3">
+                    <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="new-password"/>
+
+                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                        <i class="bi bi-eye-slash fs-2"></i>
+                        <i class="bi bi-eye fs-2 d-none"></i>
+                    </span>
+                </div>
+                <!--end::Input wrapper-->
+
+                <!--begin::Meter-->
+                <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                </div>
+                <!--end::Meter-->
+            </div>
+            <!--end::Wrapper-->
+
+            <!--begin::Hint-->
+            <div class="text-muted">
+                {{ __('Use 8 or more characters with a mix of letters, numbers & symbols.') }}
+            </div>
+            <!--end::Hint-->
+        </div>
+        <!--end::Input group--->
+
+        <!--begin::Input group-->
+        <div class="fv-row mb-10">
+            <label class="form-label fw-bolder text-gray-900 fs-6">{{ __('Confirm Password') }}</label>
+            <input class="form-control form-control-solid" type="password" name="password_confirmation" autocomplete="off" required/>
+        </div>
+        <!--end::Input group-->
+
+        <!--begin::Actions-->
+        <div class="d-flex flex-wrap justify-content-center pb-lg-0">
+            <button type="submit" id="kt_new_password_submit" class="btn btn-lg btn-primary fw-bolder me-4">
+                @include('partials.general._button-indicator')
+            </button>
+
+            <a href="{{ theme()->getPageUrl('login') }}" class="btn btn-lg btn-light-primary fw-bolder">{{ __('Cancel') }}</a>
+        </div>
+        <!--end::Actions-->
+    </form>
+    <!--end::Reset Password Form-->
+
+    @section('scripts')
+        <script src="{{ asset('js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
+    @endsection
+
+</x-auth-layout>

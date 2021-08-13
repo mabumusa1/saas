@@ -13,6 +13,6 @@ class GuestLayout extends Component
      */
     public function render()
     {
-        return view('layouts.guest');
+        return view('layouts.guest', ['comment' => 'Sign-in', 'wrapperClass' => 'w-lg-500px']);
     }
 }

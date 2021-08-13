@@ -1,43 +1,56 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.base')
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-        @livewireStyles
-
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
-    </head>
-    <body class="font-sans antialiased bg-light">
-        <x-jet-banner />
-        @livewire('navigation-menu')
-
-        <!-- Page Heading -->
-        <header class="d-flex py-3 bg-white shadow-sm border-bottom">
-            <div class="container">
-                {{ $header }}
-            </div>
-        </header>
-
-        <!-- Page Content -->
-        <main class="container my-5">
+    <!--begin::Main-->
+    @if (theme()->getOption('skin', 'main/type') === 'blank')
+        <div class="d-flex flex-column flex-root">
             {{ $slot }}
-        </main>
+        </div>
+    @else
+        <!--begin::Root-->
+        <div class="d-flex flex-column flex-root">
+            <!--begin::Page-->
+            <div class="page d-flex flex-row flex-column-fluid">
+            @if( theme()->getOption('skin', 'aside/display') === true )
+                {{ theme()->getView('skin/aside/_base') }}
+            @endif
 
-        @stack('modals')
+                <!--begin::Wrapper-->
+                <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                {{ theme()->getView('skin/header/_base') }}
 
-        @livewireScripts
+                    <!--begin::Content-->
+                    <div class="content d-flex flex-column flex-column-fluid {{ theme()->printHtmlClasses('content', false) }}" id="kt_content">
+                    @if (theme()->getOption('skin', 'toolbar/display') === true)
+                        {{ theme()->getView('skin/toolbars/_' . theme()->getOption('skin', 'toolbar/skin')) }}
+                    @endif
 
-        @stack('scripts')
-    </body>
-</html>
+                        <!--begin::Post-->
+                        <div class="post d-flex flex-column-fluid" id="kt_post">
+                            {{ theme()->getView('skin/_content', compact('slot')) }}
+                        </div>
+                        <!--end::Post-->
+                    </div>
+                    <!--end::Content-->
+
+                    {{ theme()->getView('skin/_footer') }}
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Page-->
+        </div>
+        <!--end::Root-->
+
+        <!--begin::Drawers-->
+        {{ theme()->getView('partials/topbar/_activity-drawer') }}
+        {{ theme()->getView('partials/explore/_main') }}
+        <!--end::Drawers-->
+
+        @if(theme()->getOption('skin', 'scrolltop/display') === true)
+            {{ theme()->getView('skin/_scrolltop') }}
+        @endif
+    @endif
+    <!--end::Main-->
+
+@endsection

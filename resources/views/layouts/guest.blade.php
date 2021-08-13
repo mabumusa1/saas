@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.base')
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+@section('content')
+    <!--begin::Authentication-->
+    <div
+        class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
+        style="background-image: url({{ asset(theme()->getMediaUrlPath() . 'illustrations/progress-hd.png') }})">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+        <!--begin::Content-->
+        <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+            <!--begin::Logo-->
+            <a href="{{ $theme->getPageUrl('index') }}" class="mb-12">
+                <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/logo-2-dark.svg') }}" class="h-45px"/>
+            </a>
+            <!--end::Logo-->
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <!--begin::Wrapper-->
+            <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+                {{ $slot }}
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Content-->
 
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
-    </head>
-    <body class="bg-light font-sans antialiased">
-        {{ $slot }}
-    </body>
-</html>
+        <!--begin::Footer-->
+        <div class="d-flex flex-center flex-column-auto p-10">
+            <!--begin::Links-->
+            <div class="d-flex align-items-center fw-bold fs-6">
+                <a href="{{ $theme->getOption("general", "about") }}" class="text-muted text-hover-primary px-2">{{ __('About') }}</a>
+
+                <a href="{{ $theme->getOption('general', 'contact') }}" class="text-muted text-hover-primary px-2">{{ __('Contact Us') }}</a>
+
+                <a href="{{ $theme->getOption('product', 'purchase') }}" class="text-muted text-hover-primary px-2">{{ __('Purchase') }}</a>
+            </div>
+            <!--end::Links-->
+        </div>
+        <!--end::Footer-->
+    </div>
+    <!--end::Authentication-->
+@endsection
