@@ -49,8 +49,9 @@ switch ($maxWidth ?? '') {
     aria-labelledby="{{ $id }}" 
     aria-hidden="true"
     x-ref="{{ $id }}"
+    data-backdrop="static"
 >
-    <div class="modal-dialog{{ $maxWidth }}">
+    <div class="modal-dialog{{ $maxWidth }}" role="document">
         {{ $slot }}
     </div>
 </div>

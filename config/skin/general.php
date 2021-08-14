@@ -104,28 +104,12 @@ return array(
                 'desktop'           => true,  // Set fixed header for desktop
                 'tablet-and-mobile' => false // Set fixed header for talet & mobile
             ),
-            'skin'  => 'toolbar-1', // Set toolbar type
+            'layout'  => 'toolbar-1', // Set toolbar type
             'layouts' => array(
                 'toolbar-1' => array(
                     'height'                   => '55px',
                     'height-tablet-and-mobile' => '55px',
-                ),
-                'toolbar-2' => array(
-                    'height'                   => '75px',
-                    'height-tablet-and-mobile' => '65px',
-                ),
-                'toolbar-3' => array(
-                    'height'                   => '55px',
-                    'height-tablet-and-mobile' => '55px',
-                ),
-                'toolbar-4' => array(
-                    'height'                   => '65px',
-                    'height-tablet-and-mobile' => '65px',
-                ),
-                'toolbar-5' => array(
-                    'height'                   => '75px',
-                    'height-tablet-and-mobile' => '65px',
-                ),
+                )
             ),
         ),
 

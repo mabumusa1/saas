@@ -28,6 +28,7 @@ let demo = getDemos(path.resolve(__dirname, 'resources/assets'))[0];
 mix.autoload({
     'jquery': ['$', 'jQuery'],
     Popper: ['popper.js', 'default'],
+    
 });
 
 // Remove existing generated assets from public folder
@@ -50,7 +51,8 @@ mix.sass(`resources/assets/${demo}/sass/plugins.scss`, `public/${demo}/plugins/g
 // Build Metronic css/js
 mix.sass(`resources/assets/${demo}/sass/style.scss`, `public/${demo}/css/style.bundle.css`, {sassOptions: {includePaths: ['node_modules']}})
     // .options({processCssUrls: false})
-    .js([`resources/assets/${demo}/js/scripts.js`, 'resources/assets/extended/button-ajax.js'], `public/${demo}/js/scripts.bundle.js`);
+    .js([`resources/assets/${demo}/js/scripts.js`, 'resources/assets/extended/button-ajax.js'], `public/${demo}/js/scripts.bundle.js`)
+    .js(`resources/assets/${demo}/js/app.js`, `public/${demo}/js/app.js`);
 
 
 // Dark skin mode css files

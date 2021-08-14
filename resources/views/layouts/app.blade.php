@@ -23,7 +23,7 @@
                     <!--begin::Content-->
                     <div class="content d-flex flex-column flex-column-fluid {{ theme()->printHtmlClasses('content', false) }}" id="kt_content">
                     @if (theme()->getOption('skin', 'toolbar/display') === true)
-                        {{ theme()->getView('skin/toolbars/_' . theme()->getOption('skin', 'toolbar/skin')) }}
+                        {{ theme()->getView('skin/toolbars/_' . theme()->getOption('skin', 'toolbar/layout')) }}
                     @endif
 
                         <!--begin::Post-->
@@ -41,11 +41,6 @@
             <!--end::Page-->
         </div>
         <!--end::Root-->
-
-        <!--begin::Drawers-->
-        {{ theme()->getView('partials/topbar/_activity-drawer') }}
-        {{ theme()->getView('partials/explore/_main') }}
-        <!--end::Drawers-->
 
         @if(theme()->getOption('skin', 'scrolltop/display') === true)
             {{ theme()->getView('skin/_scrolltop') }}

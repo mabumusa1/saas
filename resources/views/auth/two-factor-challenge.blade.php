@@ -1,9 +1,4 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
         <div class="card-body">
             <div x-data="{ recovery: false }">
                 <div class="mb-3" x-show="! recovery">
@@ -59,5 +54,5 @@
                 </form>
             </div>
         </div>
-    </x-jet-authentication-card>
+    
 </x-guest-layout>

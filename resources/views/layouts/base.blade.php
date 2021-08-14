@@ -39,13 +39,10 @@
         {{-- end::Global Stylesheets Bundle --}}
     @endif
 
-    @if (theme()->getViewMode() === 'preview')
-        {{ theme()->getView('partials/trackers/_ga-general') }}
-        {{ theme()->getView('partials/trackers/_ga-tag-manager-for-head') }}
-    @endif
+    @livewireStyles
+    @stack('styles')
 
-    @yield('styles')
-
+    <script src="{{ mix('skin/js/app.js') }}" defer></script>
 </head>
 {{-- end::Head --}}
 
@@ -84,11 +81,12 @@
 @endif
 {{-- end::Javascript --}}
 
-@if (theme()->getViewMode() === 'preview')
-    {{ theme()->getView('partials/trackers/_ga-tag-manager-for-body') }}
-@endif
+@stack('scripts')
+@livewireScripts
+@stack('modals')
 
-@yield('scripts')
+
+
 </body>
 {{-- end::Body --}}
 </html>
