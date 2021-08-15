@@ -20,5 +20,7 @@ parameters:
         - app/Http/Middleware/Authenticate.php
         - app/Nova/Actions/FlushUserSessionAction.php
         - app/Nova/Actions/PermitIpAction.php
+        - app/Core
+        - app/Helpers/ThemeHelper.php
 
     checkMissingIterableValueType: false

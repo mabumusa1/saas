@@ -5,7 +5,7 @@
     @csrf
 
     <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->theme()->getPageUrl('token') }}">
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
         <!--begin::Heading-->
         <div class="text-center mb-10">

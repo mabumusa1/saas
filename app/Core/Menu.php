@@ -4,7 +4,8 @@ namespace App\Core;
 
 use App\Core\Adapters\Theme;
 
-class Menu {
+class Menu
+{
     // Menu config
     public $items;
 
@@ -24,7 +25,7 @@ class Menu {
     private $hideRootLevelIcons = false;
 
     // Menu registered callbacks
-    private $callbacks = array();
+    private $callbacks = [];
 
     // Default item link class
     private $itemLinkClass = '';
@@ -34,14 +35,14 @@ class Menu {
 
     /**
      * Private Methods.
-     *
-    */
-    private function _generateItem($item, $level = 0) {
-        $classes = array('menu-item');
-        $attributes = array();
+     */
+    private function _generateItem($item, $level = 0)
+    {
+        $classes = ['menu-item'];
+        $attributes = [];
 
         // Overcome recursive infinite loop
-        if ( $level > 10000 ) {
+        if ($level > 10000) {
             return;
         }
 
@@ -58,51 +59,52 @@ class Menu {
             }
         }
 
-        if ( isset($item['sub']) && ($this->_matchParentItemByPath($item) === true)) {
+        if (isset($item['sub']) && ($this->_matchParentItemByPath($item) === true)) {
             $classes[] = 'here show';
         }
 
-        if ( isset($item['attributes']) && isset($item['attributes']['item']) ) {
+        if (isset($item['attributes']) && isset($item['attributes']['item'])) {
             $attributes = $item['attributes']['item'];
-        } elseif ( isset($item['attributes']) && isset($item['attributes']['link']) === false ) {
+        } elseif (isset($item['attributes']) && isset($item['attributes']['link']) === false) {
             $attributes = $item['attributes'];
         }
 
-        if ( isset($item['classes']) && isset($item['classes']['item']) ) {
+        if (isset($item['classes']) && isset($item['classes']['item'])) {
             $classes[] = $item['classes']['item'];
         }
 
-        echo '<' . $this->itemTag . ' ' . Util::getHtmlAttributes($attributes) . Util::getHtmlClass($classes) . '>';
+        echo '<'.$this->itemTag.' '.Util::getHtmlAttributes($attributes).Util::getHtmlClass($classes).'>';
 
-        if ( isset($item['custom']) ) {
+        if (isset($item['custom'])) {
             $this->_generateItemCustom($item);
         }
 
-        if ( isset($item['content']) ) {
+        if (isset($item['content'])) {
             $this->_generateItemContent($item);
         }
 
-        if ( isset($item['title']) || isset($item['breadcrumb-title']) ) {
+        if (isset($item['title']) || isset($item['breadcrumb-title'])) {
             $this->_generateItemLink($item);
         }
 
-        if ( isset($item['heading']) ) {
+        if (isset($item['heading'])) {
             $this->_generateItemHeading($item);
         }
 
-        if ( isset($item['sub']) ) {
+        if (isset($item['sub'])) {
             $this->_generateItemSub($item['sub'], $level++);
         }
 
-        echo '</' . $this->itemTag . '>';
+        echo '</'.$this->itemTag.'>';
     }
 
-    private function _generateItemLink($item) {
-        $classes = array('menu-link');
-        $attributes = array();
+    private function _generateItemLink($item)
+    {
+        $classes = ['menu-link'];
+        $attributes = [];
         $tag = 'a';
         // Construct li ks attributes
-        if ( isset($item['path']) ) {
+        if (isset($item['path'])) {
             // Assign the page URL
             $attributes['href'] = Theme::getPageUrl($item['path']);
 
@@ -119,23 +121,23 @@ class Menu {
             $tag = 'span';
         }
 
-        if ( isset($item['attributes']) && isset($item['attributes']['link']) ) {
+        if (isset($item['attributes']) && isset($item['attributes']['link'])) {
             $attributes = array_merge($attributes, $item['attributes']['link']);
         }
 
-        if ( $this->_matchItemByPath($item) === true ) {
+        if ($this->_matchItemByPath($item) === true) {
             $classes[] = 'active';
         }
 
-        if (!empty($this->itemLinkClass)) {
+        if (! empty($this->itemLinkClass)) {
             $classes[] = $this->itemLinkClass;
         }
 
-        if ( isset($item['classes']) && isset($item['classes']['link']) ) {
+        if (isset($item['classes']) && isset($item['classes']['link'])) {
             $classes[] = $item['classes']['link'];
         }
 
-        echo '<' . $tag . Util::getHtmlClass($classes) .  Util::getHtmlAttributes($attributes) . '>';
+        echo '<'.$tag.Util::getHtmlClass($classes).Util::getHtmlAttributes($attributes).'>';
 
         if ($this->displayIcons !== false) {
             $this->_generateItemLinkIcon($item);
@@ -143,33 +145,34 @@ class Menu {
 
         $this->_generateItemLinkBullet($item);
 
-        if ( isset($item['title']) ) {
+        if (isset($item['title'])) {
             $this->_generateItemLinkTitle($item);
         }
 
         $this->_generateItemLinkBadge($item);
 
-        if ( isset($item['sub']) && @$item['arrow'] !== false ) {
+        if (isset($item['sub']) && @$item['arrow'] !== false) {
             $this->_generateItemLinkArrow($item);
         }
 
-        echo '</' . $tag . '>';
+        echo '</'.$tag.'>';
     }
 
-    private function _generateItemLinkTitle($item) {
-        $classes = array('menu-title');
+    private function _generateItemLinkTitle($item)
+    {
+        $classes = ['menu-title'];
 
-        if ( isset($item['classes']) && isset($item['classes']['title']) ) {
+        if (isset($item['classes']) && isset($item['classes']['title'])) {
             $classes[] = $item['classes']['title'];
         }
 
-        if (!is_string($item['title']) && is_callable($item['title'])) {
+        if (! is_string($item['title']) && is_callable($item['title'])) {
             $item['title'] = call_user_func($item['title'], $item);
         }
 
-        echo '<span ' . Util::getHtmlClass($classes) . '>';
+        echo '<span '.Util::getHtmlClass($classes).'>';
 
-        if ( isset($this->callbacks['title']) && is_callable($this->callbacks['title']) ) {
+        if (isset($this->callbacks['title']) && is_callable($this->callbacks['title'])) {
             echo call_user_func($this->callbacks['title'], $item, $item['title']);
         } else {
             echo $item['title'];
@@ -179,25 +182,26 @@ class Menu {
             }
 
             // Append pro badge
-			if (Theme::isFreeVersion()) {
-				if ((isset($item['path']) && Theme::isProPage($item['path']) === true) || (isset($item['pro']) && $item['pro'] === true)) {
-					echo '<span class="badge badge-pro badge-light-danger fw-bold fs-9 px-2 py-1 ms-1">Pro</span>';
-				}
-			}
+            if (Theme::isFreeVersion()) {
+                if ((isset($item['path']) && Theme::isProPage($item['path']) === true) || (isset($item['pro']) && $item['pro'] === true)) {
+                    echo '<span class="badge badge-pro badge-light-danger fw-bold fs-9 px-2 py-1 ms-1">Pro</span>';
+                }
+            }
         }
 
         echo '</span>';
     }
 
-    private function _generateItemLinkIcon($item) {
-        $classes = array('menu-icon');
+    private function _generateItemLinkIcon($item)
+    {
+        $classes = ['menu-icon'];
 
-        if ( isset($item['classes']) && isset($item['classes']['icon']) ) {
+        if (isset($item['classes']) && isset($item['classes']['icon'])) {
             $classes[] = $item['classes']['icon'];
         }
 
-        if ( isset($item['icon']) ) {
-            echo '<span ' . Util::getHtmlClass($classes) . '>';
+        if (isset($item['icon'])) {
+            echo '<span '.Util::getHtmlClass($classes).'>';
 
             if (is_array($item['icon'])) {
                 echo $item['icon'][$this->iconType];
@@ -209,21 +213,22 @@ class Menu {
         }
     }
 
-    private function _generateItemLinkBullet($item) {
+    private function _generateItemLinkBullet($item)
+    {
         if (isset($item['icon']) === true && $this->displayIcons !== false) {
             return;
         }
 
-        $classes = array('menu-bullet');
+        $classes = ['menu-bullet'];
 
-        if ( isset($item['classes']) && isset($item['classes']['bullet']) ) {
+        if (isset($item['classes']) && isset($item['classes']['bullet'])) {
             $classes[] = $item['classes']['bullet'];
         }
 
-        if ( isset($item['bullet']) ) {
-            echo '<span ' . Util::getHtmlClass($classes) . '>';
+        if (isset($item['bullet'])) {
+            echo '<span '.Util::getHtmlClass($classes).'>';
 
-            if ( isset($item['bullet'])) {
+            if (isset($item['bullet'])) {
                 echo $item['bullet'];
             }
 
@@ -231,39 +236,42 @@ class Menu {
         }
     }
 
-    private function _generateItemLinkBadge($item) {
-        $classes = array('menu-badge');
+    private function _generateItemLinkBadge($item)
+    {
+        $classes = ['menu-badge'];
 
-        if ( isset($item['classes']) && isset($item['classes']['badge']) ) {
+        if (isset($item['classes']) && isset($item['classes']['badge'])) {
             $classes[] = $item['classes']['badge'];
         }
 
-        if ( isset($item['badge']) ) {
-            echo '<span ' . Util::getHtmlClass($classes) . '>';
+        if (isset($item['badge'])) {
+            echo '<span '.Util::getHtmlClass($classes).'>';
             echo $item['badge'];
             echo '</span>';
         }
     }
 
-    private function _generateItemLinkArrow($item) {
-        $classes = array('menu-arrow');
+    private function _generateItemLinkArrow($item)
+    {
+        $classes = ['menu-arrow'];
 
-        if ( isset($item['classes']['arrow']) ) {
+        if (isset($item['classes']['arrow'])) {
             $classes[] = $item['classes']['arrow'];
         }
 
-        echo '<span ' . Util::getHtmlClass($classes) . '>';
+        echo '<span '.Util::getHtmlClass($classes).'>';
         echo '</span>';
     }
 
-    private function _generateItemSub($sub, $level) {
-        $classes = array('menu-sub');
+    private function _generateItemSub($sub, $level)
+    {
+        $classes = ['menu-sub'];
 
-        if ( isset($sub['class']) ) {
+        if (isset($sub['class'])) {
             $classes[] = $sub['class'];
         }
 
-        echo '<' . $this->parentTag . ' ' . Util::getHtmlClass($classes) . '>';
+        echo '<'.$this->parentTag.' '.Util::getHtmlClass($classes).'>';
 
         if (isset($sub['view'])) {
             Theme::getView($sub['view']);
@@ -273,54 +281,58 @@ class Menu {
             }
         }
 
-        echo '</' . $this->parentTag . '>';
+        echo '</'.$this->parentTag.'>';
     }
 
-    private function _generateItemHeading($item) {
-        $classes = array('menu-content');
+    private function _generateItemHeading($item)
+    {
+        $classes = ['menu-content'];
 
-        if ( isset($item['heading']) ) {
-            if ( isset($this->callbacks['heading']) && is_callable($this->callbacks['heading']) ) {
+        if (isset($item['heading'])) {
+            if (isset($this->callbacks['heading']) && is_callable($this->callbacks['heading'])) {
                 echo call_user_func($this->callbacks['heading'], $item['heading']);
             } else {
-                echo '<h3 ' . Util::getHtmlClass($classes) . '>';
+                echo '<h3 '.Util::getHtmlClass($classes).'>';
                 echo $item['heading'];
                 echo '</h3>';
             }
         }
     }
 
-    private function _generateItemContent($item) {
-        $classes = array('menu-content');
+    private function _generateItemContent($item)
+    {
+        $classes = ['menu-content'];
 
-        if ( isset($item['classes']) && isset($item['classes']['content']) ) {
+        if (isset($item['classes']) && isset($item['classes']['content'])) {
             $classes[] = $item['classes']['content'];
         }
 
-        if ( isset($item['content']) ) {
-            echo '<div ' . Util::getHtmlClass($classes) . '>';
+        if (isset($item['content'])) {
+            echo '<div '.Util::getHtmlClass($classes).'>';
             echo $item['content'];
             echo '</div>';
         }
     }
 
-    private function _generateItemCustom($item) {
-        if ( isset($item['custom']) ) {
+    private function _generateItemCustom($item)
+    {
+        if (isset($item['custom'])) {
             echo $item['custom'];
         }
     }
 
-    private function _matchParentItemByPath($item, $level = 0) {
-        if ( $level > 1000 ) {
+    private function _matchParentItemByPath($item, $level = 0)
+    {
+        if ($level > 1000) {
             return false;
         }
 
-        if ( $this->_matchItemByPath($item) === true ) {
+        if ($this->_matchItemByPath($item) === true) {
             return true;
         } else {
-            if ( isset($item['sub']) && isset($item['sub']['items']) ) {
-                foreach ( $item['sub']['items'] as $currentItem) {
-                    if ( $this->_matchParentItemByPath($currentItem, $level++) === true) {
+            if (isset($item['sub']) && isset($item['sub']['items'])) {
+                foreach ($item['sub']['items'] as $currentItem) {
+                    if ($this->_matchParentItemByPath($currentItem, $level++) === true) {
                         return true;
                     }
                 }
@@ -330,52 +342,53 @@ class Menu {
         }
     }
 
-    private function _matchItemByPath($item) {
-        if ( isset($item['path']) && ($this->path === $item['path'] || $this->path === $item['path'] . '/index') ) {
+    private function _matchItemByPath($item)
+    {
+        if (isset($item['path']) && ($this->path === $item['path'] || $this->path === $item['path'].'/index')) {
             return true;
         } else {
             return false;
         }
     }
 
-    private function _buildBreadcrumb($items, &$breadcrumb, $options, $level = 0) {
-        if ( $level > 10000 ) {
+    private function _buildBreadcrumb($items, &$breadcrumb, $options, $level = 0)
+    {
+        if ($level > 10000) {
             return false;
         }
 
-        foreach ( $items as $item ) {
+        foreach ($items as $item) {
             $title = '';
 
             if (isset($item['breadcrumb-title'])) {
                 $title = $item['breadcrumb-title'];
-            } else if (isset($item['title'])) {
-                if (!is_string($item['title']) && is_callable($item['title'])) {
+            } elseif (isset($item['title'])) {
+                if (! is_string($item['title']) && is_callable($item['title'])) {
                     $title = call_user_func($item['title'], $item);
                 } else {
                     $title = $item['title'];
                 }
-            } else if (isset($item['heading'])) {
+            } elseif (isset($item['heading'])) {
                 $title = $item['heading'];
             }
 
-            if ( isset($item['path']) && ($item['path'] === $this->path || $item['path'] . '/index' === $this->path)) {
+            if (isset($item['path']) && ($item['path'] === $this->path || $item['path'].'/index' === $this->path)) {
                 if (@$options['skip-active'] !== true) {
-                    $breadcrumb[] = array(
+                    $breadcrumb[] = [
                         'title' => $title,
                         'path' => isset($item['path']) ? $item['path'] : '',
-                        'active' => true
-                    );
+                        'active' => true,
+                    ];
                 }
 
                 return true;
-
-            } else if ( isset($item['sub']) && isset($item['sub']['items']) ) {
-                if ( $this->_buildBreadcrumb($item['sub']['items'], $breadcrumb, $options, $level++) === true) {
-                    $breadcrumb[] = array(
+            } elseif (isset($item['sub']) && isset($item['sub']['items'])) {
+                if ($this->_buildBreadcrumb($item['sub']['items'], $breadcrumb, $options, $level++) === true) {
+                    $breadcrumb[] = [
                         'title' => $title,
-                        'path' => isset($item['path']) ? $item['path'] : ( isset($item['alt-path']) ? $item['alt-path'] : ''),
-                        'active' => false
-                    );
+                        'path' => isset($item['path']) ? $item['path'] : (isset($item['alt-path']) ? $item['alt-path'] : ''),
+                        'active' => false,
+                    ];
 
                     return true;
                 }
@@ -387,9 +400,9 @@ class Menu {
 
     /**
      * Public Methods.
-     *
-    */
-    public function __construct($items, $path = '') {
+     */
+    public function __construct($items, $path = '')
+    {
         $this->items = $items;
         $this->path = $path;
 
@@ -397,11 +410,11 @@ class Menu {
     }
 
     /**
-     * options: array('includeHomeLink' => boolean, 'homeLink' => array(), 'skipCurrentPage' => boolean)
-     *
+     * options: array('includeHomeLink' => boolean, 'homeLink' => array(), 'skipCurrentPage' => boolean).
      */
-    public function getBreadcrumb($options = array()) {
-        $breadcrumb = array();
+    public function getBreadcrumb($options = [])
+    {
+        $breadcrumb = [];
 
         //$includeHomeLink = true, $homeLink = null
 
@@ -409,52 +422,60 @@ class Menu {
 
         $breadcrumb = array_reverse($breadcrumb, true);
 
-        if ( !empty($breadcrumb)) {
-            if ( isset($options['home']) ) {
+        if (! empty($breadcrumb)) {
+            if (isset($options['home'])) {
                 array_unshift($breadcrumb, $options['home']);
             } else {
-                array_unshift($breadcrumb, array(
+                array_unshift($breadcrumb, [
                     'title' => 'Home',
                     'path' => 'index',
-                    'active' => false
-                ));
+                    'active' => false,
+                ]);
             }
         }
 
-		return $breadcrumb;
+        return $breadcrumb;
     }
 
-    public function setPath($path) {
+    public function setPath($path)
+    {
         $this->path = $path;
     }
 
-    public function displayIcons($flag) {
+    public function displayIcons($flag)
+    {
         $this->displayIcons = $flag;
     }
 
-    public function hideRootLevelIcons($flag) {
+    public function hideRootLevelIcons($flag)
+    {
         $this->hideRootLevelIcons = $flag;
     }
 
-    public function setItemTag($tagName) {
+    public function setItemTag($tagName)
+    {
         $this->itemTag = $tagName;
     }
 
-    public function setIconType($type) {
+    public function setIconType($type)
+    {
         $this->iconType = $type;
     }
 
-    public function setItemLinkClass($class) {
+    public function setItemLinkClass($class)
+    {
         $this->itemLinkClass = $class;
     }
 
-    public function addCallback($target, $callback) {
-        if ( !is_string($callback) && is_callable($callback) ) {
+    public function addCallback($target, $callback)
+    {
+        if (! is_string($callback) && is_callable($callback)) {
             $this->callbacks[$target] = $callback;
         }
     }
 
-    public function build() {
+    public function build()
+    {
         foreach ($this->items as $item) {
             $this->_generateItem($item);
         }

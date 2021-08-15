@@ -1,11 +1,11 @@
 <?php
 
-if (!function_exists('get_svg_icon')) {
+if (! function_exists('get_svg_icon')) {
     function get_svg_icon($path, $class = null, $svgClass = null)
     {
         $file_path = public_path(theme()->getMediaUrlPath().$path);
 
-        if (!file_exists($file_path)) {
+        if (! file_exists($file_path)) {
             return '';
         }
 
@@ -21,7 +21,7 @@ if (!function_exists('get_svg_icon')) {
         }
 
         // add class to svg
-        if (!empty($svgClass)) {
+        if (! empty($svgClass)) {
             foreach ($dom->getElementsByTagName('svg') as $element) {
                 $element->setAttribute('class', $svgClass);
             }
@@ -80,9 +80,9 @@ if (!function_exists('get_svg_icon')) {
         // remove empty lines
         $string = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
 
-        $cls = array('svg-icon');
+        $cls = ['svg-icon'];
 
-        if (!empty($class)) {
+        if (! empty($class)) {
             $cls = array_merge($cls, explode(' ', $class));
         }
 
@@ -99,9 +99,9 @@ if (!function_exists('get_svg_icon')) {
     }
 }
 
-if (!function_exists('theme')) {
+if (! function_exists('theme')) {
     /**
-     * Get the instance of Theme class core
+     * Get the instance of Theme class core.
      *
      * @return \App\Core\Adapters\Theme|\Illuminate\Contracts\Foundation\Application|mixed
      */
@@ -111,9 +111,9 @@ if (!function_exists('theme')) {
     }
 }
 
-if (!function_exists('util')) {
+if (! function_exists('util')) {
     /**
-     * Get the instance of Util class core
+     * Get the instance of Util class core.
      *
      * @return \App\Core\Adapters\Util|\Illuminate\Contracts\Foundation\Application|mixed
      */
@@ -123,27 +123,27 @@ if (!function_exists('util')) {
     }
 }
 
-if (!function_exists('bootstrap')) {
+if (! function_exists('bootstrap')) {
     /**
-     * Get the instance of Util class core
+     * Get the instance of Util class core.
      *
      * @return \App\Core\Adapters\Util|\Illuminate\Contracts\Foundation\Application|mixed
      * @throws Throwable
      */
     function bootstrap()
     {
-        $demo      = ucwords(theme()->getDemo());
+        $demo = ucwords(theme()->getDemo());
         $bootstrap = "\App\Core\Bootstraps\Bootstrap$demo";
 
-        throw_if(!class_exists($bootstrap), 'Demo has not been set or '.$bootstrap.' file is not found.');
+        throw_if(! class_exists($bootstrap), 'Demo has not been set or '.$bootstrap.' file is not found.');
 
         return app($bootstrap);
     }
 }
 
-if (!function_exists('assetCustom')) {
+if (! function_exists('assetCustom')) {
     /**
-     * Get the asset path of RTL if this is an RTL request
+     * Get the asset path of RTL if this is an RTL request.
      *
      * @param $path
      * @param  null  $secure
@@ -170,9 +170,9 @@ if (!function_exists('assetCustom')) {
     }
 }
 
-if (!function_exists('isRTL')) {
+if (! function_exists('isRTL')) {
     /**
-     * Check if the request has RTL param
+     * Check if the request has RTL param.
      *
      * @return bool
      */

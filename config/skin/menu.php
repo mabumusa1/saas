@@ -4,12 +4,12 @@ use App\Core\Adapters\Theme;
 
 Theme::$demo = 'skin';
 
-return array(
+return [
     // Refer to config/global/menu.php
 
     // Main menu
-    'main'          => array(),
+    'main'          => [],
 
     // Horizontal menu
-    'horizontal'    => array(),    
-);
+    'horizontal'    => [],
+];

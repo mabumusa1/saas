@@ -7,11 +7,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 /**
- * Adapter class to make the Metronic core lib compatible with the Laravel functions
+ * Adapter class to make the Metronic core lib compatible with the Laravel functions.
  *
  * Class Theme
- *
- * @package App\Core\Adapters
  */
 class Theme extends \App\Core\Theme
 {
@@ -20,17 +18,17 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Set demo to initialize
+     * Set demo to initialize.
      *
      * @param  string  $demo
      */
     public static function setDemo($demo = 'demo1')
     {
-        Theme::$demo = $demo;
+        self::$demo = $demo;
     }
 
     /**
-     * Get current demo
+     * Get current demo.
      *
      * @return string
      */
@@ -44,7 +42,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Print HTML classes in the HTML class attribute
+     * Print HTML classes in the HTML class attribute.
      *
      * @param $scope
      * @param  bool  $full
@@ -63,7 +61,7 @@ class Theme extends \App\Core\Theme
 
     /**
      * Print the SVG icon content as HTML
-     * Use {!! getSvgIcon !!} in blade template file
+     * Use {!! getSvgIcon !!} in blade template file.
      *
      * @param $path
      * @param  string  $class
@@ -78,7 +76,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get the route or URL
+     * Get the route or URL.
      *
      * @param $path
      * @param  string  $demo
@@ -103,7 +101,7 @@ class Theme extends \App\Core\Theme
             $params['mode'] = $_REQUEST['mode'];
         }
 
-        if (!empty($demo)) {
+        if (! empty($demo)) {
             $params['demo'] = $demo;
         }
 
@@ -123,7 +121,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Print HTML attributes
+     * Print HTML attributes.
      *
      * @param $scope
      *
@@ -140,7 +138,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Print CSS variables
+     * Print CSS variables.
      *
      * @param $scope
      *
@@ -158,14 +156,14 @@ class Theme extends \App\Core\Theme
 
     /**
      * This function is wrapper function of Laravel view()
-     * All view files under "layout" has a demo, this helps to append the demo name into the path
+     * All view files under "layout" has a demo, this helps to append the demo name into the path.
      *
      * @param $path
      * @param  array  $params
      *
      * @return View
      */
-    public static function getView($path, $params = array())
+    public static function getView($path, $params = [])
     {
         // Check if the layout file exist
         if (view()->exists($path)) {
@@ -188,7 +186,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Print fonts in the HTML head
+     * Print fonts in the HTML head.
      *
      * @param  string  $value
      */
@@ -202,7 +200,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Check if the option has a value
+     * Check if the option has a value.
      *
      * @param $scope
      * @param  false  $path
@@ -215,7 +213,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get the option's value from config
+     * Get the option's value from config.
      *
      * @param $scope
      * @param  false  $path
@@ -231,16 +229,16 @@ class Theme extends \App\Core\Theme
         }
 
         if (in_array($scope, ['page', 'pages'])) {
-            $scope    = 'pages';
+            $scope = 'pages';
             $segments = request()->segments();
-            if (!empty($segments)) {
+            if (! empty($segments)) {
                 $scope .= '.'.implode('.', $segments);
             }
         }
 
         // Get current page path
         $deepPath = '';
-        if (!empty($path)) {
+        if (! empty($path)) {
             $deepPath = '.'.str_replace('/', '.', $path);
         }
 
@@ -248,7 +246,7 @@ class Theme extends \App\Core\Theme
         $demoConfig = config(self::$demo.'.'.$scope.$deepPath, $default);
 
         // check if it is a callback
-        if (is_callable($demoConfig) && !is_string($demoConfig)) {
+        if (is_callable($demoConfig) && ! is_string($demoConfig)) {
             $demoConfig = $demoConfig();
         }
 
@@ -256,7 +254,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get the product name string wrapped with the <strong> tag
+     * Get the product name string wrapped with the <strong> tag.
      *
      * @return string
      */
@@ -266,7 +264,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get plain product name text
+     * Get plain product name text.
      *
      * @return mixed|string
      */
@@ -276,7 +274,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get the version number string from config file
+     * Get the version number string from config file.
      *
      * @return mixed
      */
@@ -291,7 +289,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get the current page title from config page.php
+     * Get the current page title from config page.php.
      */
     public static function getPageTitle()
     {
@@ -299,7 +297,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get current route name and replace with a new route name
+     * Get current route name and replace with a new route name.
      *
      * @param $name
      *
@@ -316,7 +314,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get media path
+     * Get media path.
      *
      * @return string
      */
@@ -326,35 +324,35 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Rebuild config and merge with main and page config level in boot
+     * Rebuild config and merge with main and page config level in boot.
      */
     public function initConfig()
     {
-        $mainConfig   = collect(config('global'));
-        $demoConfig   = config(Theme::$demo);
+        $mainConfig = collect(config('global'));
+        $demoConfig = config(self::$demo);
         $mergedConfig = $mainConfig->replaceRecursive($demoConfig);
-        config([Theme::$demo => $mergedConfig->all()]);
+        config([self::$demo => $mergedConfig->all()]);
 
         self::$config = $mergedConfig->all();
 
         // Get config by url path
-        $configPath = Theme::$demo.'.pages.'.str_replace('/', '.', Theme::getPagePath());
+        $configPath = self::$demo.'.pages.'.str_replace('/', '.', self::getPagePath());
         $pageConfig = collect(config($configPath));
 
         // Merge group config with child config
-        $pageGroupOptions = Theme::getPageGroupOptions(config(Theme::$demo.'.pages'), Theme::getPagePath());
+        $pageGroupOptions = self::getPageGroupOptions(config(self::$demo.'.pages'), self::getPagePath());
         if ($pageGroupOptions) {
             $overridenConfig = $pageConfig->replaceRecursive($pageGroupOptions);
             config([$configPath => $overridenConfig->all()]);
         }
 
-        $generalConfig = collect(config(Theme::$demo.'.general'));
+        $generalConfig = collect(config(self::$demo.'.general'));
         // Merge general config with page level config
-        config([Theme::$demo.'.general' => $generalConfig->replaceRecursive(config($configPath))->all()]);
+        config([self::$demo.'.general' => $generalConfig->replaceRecursive(config($configPath))->all()]);
     }
 
     /**
-     * Get current page path
+     * Get current page path.
      *
      * @return mixed
      */
@@ -362,7 +360,7 @@ class Theme extends \App\Core\Theme
     {
         // Override page path
         $segments = request()->segments();
-        if (!empty($segments)) {
+        if (! empty($segments)) {
             \App\Core\Theme::$page = implode('/', $segments);
         }
 
@@ -370,7 +368,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get menu array from config
+     * Get menu array from config.
      *
      * @return array
      */
@@ -390,7 +388,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Iterate menu array for self::getMenu() function
+     * Iterate menu array for self::getMenu() function.
      *
      * @param $menus
      * @param $output
@@ -408,7 +406,7 @@ class Theme extends \App\Core\Theme
         }
     }
 
-    public static function putProVersionTooltip($attr = array())
+    public static function putProVersionTooltip($attr = [])
     {
         ob_start();
 
@@ -419,7 +417,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Check if current theme has dark mode
+     * Check if current theme has dark mode.
      *
      * @return bool
      */
@@ -429,7 +427,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Get current skin
+     * Get current skin.
      *
      * @return mixed|string
      */
@@ -443,7 +441,7 @@ class Theme extends \App\Core\Theme
     }
 
     /**
-     * Check dark mode
+     * Check dark mode.
      *
      * @return mixed|string
      */
@@ -451,5 +449,4 @@ class Theme extends \App\Core\Theme
     {
         return self::getCurrentMode() === 'dark';
     }
-
 }

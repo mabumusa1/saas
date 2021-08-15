@@ -3,10 +3,9 @@
 namespace App\Providers;
 
 use App\Core\Adapters\Theme;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         // Share theme adapter class
         View::share('theme', $theme);
         $theme->setDemo('skin');
-        
+
         $theme->initConfig();
 
         bootstrap()->run();
@@ -41,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             Theme::addHtmlAttribute('html', 'dir', 'rtl');
             Theme::addHtmlAttribute('html', 'direction', 'rtl');
             Theme::addHtmlAttribute('html', 'style', 'direction:rtl;');
-        }        
+        }
 
         Paginator::useBootstrap();
     }

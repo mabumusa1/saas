@@ -2,18 +2,15 @@
 
 namespace App\Core\Adapters;
 
-
 /**
- * Adapter class to make the Metronic core lib compatible with the Laravel functions
+ * Adapter class to make the Metronic core lib compatible with the Laravel functions.
  *
  * Class Util
- *
- * @package App\Core\Adapters
  */
 class Util extends \App\Core\Util
 {
     /**
-     * Print the value if the condition met
+     * Print the value if the condition met.
      *
      * @param $cond
      * @param $value
@@ -32,7 +29,7 @@ class Util extends \App\Core\Util
     }
 
     /**
-     * Print the notice
+     * Print the notice.
      *
      * @param $text
      * @param  string  $state
@@ -47,7 +44,7 @@ class Util extends \App\Core\Util
         if ($icon) {
             $html .= '  <!--begin::Icon-->';
             $html .= '  <div class="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative ms-5 me-8">';
-            $html .= '      '.Theme::getSvgIcon("icons/duotone/Layout/Layout-polygon.svg", "svg-icon-' . $state . ' position-absolute opacity-10", "w-80px h-80px");
+            $html .= '      '.Theme::getSvgIcon('icons/duotone/Layout/Layout-polygon.svg', "svg-icon-' . $state . ' position-absolute opacity-10", 'w-80px h-80px');
             $html .= '	    '.Theme::getSvgIcon($icon, 'svg-icon-3x svg-icon-'.$state.' position-absolute');
             $html .= '  </div>';
             $html .= '  <!--end::Icon-->';
