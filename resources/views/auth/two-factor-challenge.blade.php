@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="button" class="btn btn-outline-secondary"
+                        <button type="button" class="btn btn-secondary"
                                 x-show="! recovery"
                                 x-on:click="
                                             recovery = true;

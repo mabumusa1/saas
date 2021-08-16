@@ -24,21 +24,6 @@
         </div>
         <!--end::Heading-->
 
-        <!--begin::Action-->
-        <button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-            <img alt="Logo" src="{{ asset('media/svg/brand-logos/google-icon.svg') }}" class="h-20px me-3"/>
-            {{ __('Sign in with Google') }}
-        </button>
-        <!--end::Action-->
-
-        <!--begin::Separator-->
-        <div class="d-flex align-items-center mb-10">
-            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-            <span class="fw-bold text-gray-400 fs-7 mx-2">{{ __('OR') }}</span>
-            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-        </div>
-        <!--end::Separator-->
-
         <!--begin::Input group-->
         <div class="row fv-row mb-7">
             <!--begin::Col-->
@@ -116,7 +101,7 @@
             <label class="form-check form-check-custom form-check-solid form-check-inline">
                 <input class="form-check-input" type="checkbox" name="toc" value="1"/>
                 <span class="form-check-label fw-bold text-gray-700 fs-6">
-                {{ __('I Agree &') }} <a href="#" class="ms-1 link-primary">{{ __('Terms and conditions') }}</a>.
+                {{ __('I have read and agree to the ') }} <a href="{{ $theme->getOption("general", "terms") }}" class="ms-1 link-primary">{{ __('Terms of Service') }}</a> {{__('and')}} <a href="{{ $theme->getOption("general", "privacy") }}" class="ms-1 link-primary">{{__('Privacy Policy')}}</a>.
             </span>
             </label>
         </div>

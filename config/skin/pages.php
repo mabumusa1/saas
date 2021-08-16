@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'user' => [
+        'profile' => [
+            'title' => 'User Profile',
+        ],
+    ],
     'index' => [
         'title'       => 'Dashboard',
         'description' => '',

@@ -7,12 +7,6 @@
 
 {{--begin::Toolbar wrapper--}}
 <div class="d-flex align-items-stretch flex-shrink-0">
-    {{--begin::Search--}}
-    <div class="d-flex align-items-stretch {{ $toolbarButtonMarginClass  }}">
-        {{ theme()->getView('partials/search/_base') }}
-    </div>
-    {{--end::Search--}}
-
     {{--begin::User--}}
     @if(Auth::check())
         <div class="d-flex align-items-center {{ $toolbarButtonMarginClass }}" id="kt_header_user_menu_toggle">

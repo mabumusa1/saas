@@ -54,61 +54,7 @@ var KTSigninGeneral = function () {
             // Validate form
             validator.validate().then(function (status) {
                 if (status === 'Valid') {
-                    // Show loading indication
-                    submitButton.setAttribute('data-kt-indicator', 'on');
-
-                    // Disable button to avoid multiple click
-                    submitButton.disabled = true;
-
-                    // Simulate ajax request
-                    axios.post(submitButton.closest('form').getAttribute('action'), new FormData(form))
-                        .then(function (response) {
-                            // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                            Swal.fire({
-                                text: "You have successfully logged in!",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            }).then(function (result) {
-                                if (result.isConfirmed) {
-                                    form.querySelector('[name="email"]').value = "";
-                                    form.querySelector('[name="password"]').value = "";
-                                    window.location.reload();
-                                }
-                            });
-                        })
-                        .catch(function (error) {
-                            let dataMessage = error.response.data.message;
-                            let dataErrors = error.response.data.errors;
-
-                            for (const errorsKey in dataErrors) {
-                                if (!dataErrors.hasOwnProperty(errorsKey)) continue;
-                                dataMessage += "\r\n" + dataErrors[errorsKey];
-                            }
-
-                            if (error.response) {
-                                Swal.fire({
-                                    text: dataMessage,
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
-                            }
-                        })
-                        .then(function () {
-                            // always executed
-                            // Hide loading indication
-                            submitButton.removeAttribute('data-kt-indicator');
-
-                            // Enable button
-                            submitButton.disabled = false;
-                        });
+                    form.submit();
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                     Swal.fire({

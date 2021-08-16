@@ -3,40 +3,14 @@
 return [
     // Meta
     'meta'    => [
-        'title'       => 'Metronic Bootstrap 5 Theme',
-        'description' => 'Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets.',
-        'keywords'    => 'Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard',
-        'canonical'   => 'https://preview.keenthemes.com/metronic8',
+        'description' => 'Steer Campaign provides managed Mautic hosting for agencies, marketers, and corporate. Mautic support, security and performance.',
+        'keywords'    => 'Mautic support, Mautic Hosting, Marketing Automation, Open Source, manged mautic hosting',
+        'canonical'   => 'https://steercampaign.com',
     ],
     // General
     'general' => [
-        'website'             => 'https://keenthemes.com',
-        'about'               => 'https://keenthemes.com',
-        'contact'             => 'mailto:support@keenthemes.com',
-        'support'             => 'https://keenthemes.com/support',
-        'bootstrap-docs-link' => 'https://getbootstrap.com/docs/5.0',
-        'licenses'            => 'https://keenthemes.com/licensing',
-        'social-accounts'     => [
-            [
-                'name' => 'Youtube', 'url' => 'https://www.youtube.com/c/KeenThemesTuts/videos', 'logo' => 'svg/social-logos/youtube.svg', 'class' => 'h-20px',
-            ],
-            [
-                'name' => 'Github', 'url' => 'https://github.com/KeenthemesHub', 'logo' => 'svg/social-logos/github.svg', 'class' => 'h-20px',
-            ],
-            [
-                'name' => 'Twitter', 'url' => 'https://twitter.com/keenthemes', 'logo' => 'svg/social-logos/twitter.svg', 'class' => 'h-20px',
-            ],
-            [
-                'name' => 'Instagram', 'url' => 'https://www.instagram.com/keenthemes', 'logo' => 'svg/social-logos/instagram.svg', 'class' => 'h-20px',
-            ],
-
-            [
-                'name' => 'Facebook', 'url' => 'https://www.facebook.com/keenthemes', 'logo' => 'svg/social-logos/facebook.svg', 'class' => 'h-20px',
-            ],
-            [
-                'name' => 'Dribbble', 'url' => 'https://dribbble.com/keenthemes', 'logo' => 'svg/social-logos/dribbble.svg', 'class' => 'h-20px',
-            ],
-        ],
+        'terms' => 'https://steercampaign.com/terms-of-service',
+        'privacy' => 'https://steercampaign.com/privacy',
     ],
 
     // Assets
@@ -44,7 +18,7 @@ return [
         'favicon' => 'media/logos/favicon.ico',
         'fonts'   => [
             'google' => [
-                'Poppins:300,400,500,600,700',
+                'Varela:300,400,500,600,700',
             ],
         ],
         'css'     => [
@@ -87,7 +61,7 @@ return [
         'header'     => [
             'display'   => true, // Display header
             'width'     => 'fluid', // Set header width(fixed|fluid)
-            'left'      => 'menu', // Set left part content(menu|page-title)
+            'left'      => 'page-title', // Set left part content(menu|page-title)
             'fixed'     => [
                 'desktop'           => true,  // Set fixed header for desktop
                 'tablet-and-mobile' => true, // Set fixed header for talet & mobile
@@ -114,10 +88,10 @@ return [
 
         // Page title
         'page-title' => [
-            'display'               => true, // Display page title
-            'breadcrumb'            => true, // Display breadcrumb
+            'display'               => false, // Display page title
+            'breadcrumb'            => false, // Display breadcrumb
             'description'           => false, // Display description
-            'skin'                => 'default', // Set layout(default|select)
+            'layout'                => 'select', // Set layout(default|select)
             'direction'             => 'row', // Flex direction(column|row))
             'responsive'            => true, // Move page title to cotnent on mobile mode
             'responsive-breakpoint' => 'lg', // Responsive breakpoint value(e.g: md, lg, or 300px)
@@ -132,7 +106,7 @@ return [
             'fixed'     => true,  // Enable aside fixed mode
             'minimized' => false, // Set aside minimized by default
             'minimize'  => false, // Allow aside minimize toggle
-            'hoverable' => true, // Allow aside hovering when minimized
+            'hoverable' => false, // Allow aside hovering when minimized
             'menu-icon' => 'svg', // Menu icon type(svg|font)
         ],
 
