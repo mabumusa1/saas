@@ -22,7 +22,7 @@ class Theme extends \App\Core\Theme
      *
      * @param  string  $demo
      */
-    public static function setDemo($demo = 'demo1')
+    public static function setDemo($demo = 'skin')
     {
         self::$demo = $demo;
     }
@@ -241,10 +241,16 @@ class Theme extends \App\Core\Theme
         if (! empty($path)) {
             $deepPath = '.'.str_replace('/', '.', $path);
         }
-
         // Demo config
         $demoConfig = config(self::$demo.'.'.$scope.$deepPath, $default);
 
+        if(empty($demoConfig)){
+            if(Str::startsWith($scope, 'pages.')){
+                $result = Str::of($scope)->match('(\d+)');
+                $scope = rtrim($scope, $result);
+                $demoConfig = config(self::$demo.'.'.$scope.'(\d+)'.$deepPath, $default);
+            }
+        }
         // check if it is a callback
         if (is_callable($demoConfig) && ! is_string($demoConfig)) {
             $demoConfig = $demoConfig();

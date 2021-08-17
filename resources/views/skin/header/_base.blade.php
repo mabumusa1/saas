@@ -15,16 +15,16 @@
 		@if (theme()->getOption('skin', 'aside/display') === false)
 			<!--begin::Logo-->
 			<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
-				<a href="{{ theme()->getPageUrl('index') }}">
-					<img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/logo-2-dark.svg') }}" class="h-35px"/>
+				<a href="{{ theme()->getPageUrl('dashboard') }}">
+					<img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/logo-dark.svg') }}" class="h-35px"/>
 				</a>
 			</div>
 			<!--end::Logo-->
 		@else
 			<!--begin::Mobile logo-->
 			<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-				<a href="{{ theme()->getPageUrl('index') }}" class="d-lg-none">
-					<img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/logo-1-dark.svg') }}" class="h-15px"/>
+				<a href="{{ theme()->getPageUrl('dashboard') }}" class="d-lg-none">
+					<img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/logo-dark.svg') }}" class="h-15px"/>
 				</a>
 			</div>
 			<!--end::Mobile logo-->

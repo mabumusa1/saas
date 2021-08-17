@@ -1,11 +1,6 @@
 <?php
 
 return [
-    'user' => [
-        'profile' => [
-            'title' => 'User Profile',
-        ],
-    ],
     'index' => [
         'title'       => 'Dashboard',
         'description' => '',
@@ -56,6 +51,25 @@ return [
         ],
     ],
 
+    // User Pages
+    'user' => [
+        'profile' => [
+            'title' => 'User Profile',
+        ],
+    ],
+
+    'teams' => [
+        'create' => [
+            'title'=> 'Create Team'
+        ],
+        '(\d+)' => [
+            'title' => 'Team Settings',
+        ]
+
+        
+    ],
+
+
     'log' => [
         'audit'  => [
             'title'  => 'Audit Log',
@@ -79,34 +93,6 @@ return [
                     ],
                     'js'  => [
                         'plugins/custom/datatables/datatables.bundle.js',
-                    ],
-                ],
-            ],
-        ],
-    ],
-
-    'account'       => [
-        'overview' => [
-            'title'  => 'Account Overview',
-            'view'   => 'account/overview/overview',
-            'assets' => [
-                'custom' => [
-                    'js' => [
-                        'js/custom/widgets.js',
-                    ],
-                ],
-            ],
-        ],
-
-        'settings' => [
-            'title'  => 'Account Settings',
-            'view'   => 'account/settings/settings',
-            'assets' => [
-                'custom' => [
-                    'js' => [
-                        'js/custom/account/settings/profile-details.js',
-                        'js/custom/account/settings/signin-methods.js',
-                        'js/custom/modals/two-factor-authentication.js',
                     ],
                 ],
             ],

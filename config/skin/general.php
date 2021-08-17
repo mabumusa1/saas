@@ -101,7 +101,7 @@ return [
         // Aside
         'aside'      => [
             'display'   => true, // Display aside
-            'theme'     => 'light', // Set aside theme(dark|light)
+            'theme'     => 'dark', // Set aside theme(dark|light)
             'menu'      => 'main', // Set aside menu(main|documentation)
             'fixed'     => true,  // Enable aside fixed mode
             'minimized' => false, // Set aside minimized by default

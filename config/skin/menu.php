@@ -12,17 +12,17 @@ return [
         //// Dashboard
         array(
             'title' => 'Sites',
-            'path'  => 'index',
+            'path'  => 'sites',
             'icon'  => theme()->getSvgIcon("icons/duotone/Design/PenAndRuller.svg", "svg-icon-2"),
         ),
         array(
             'title' => 'Users',
-            'path'  => 'index',
+            'path'  => 'users',
             'icon'  => theme()->getSvgIcon("icons/duotone/Design/PenAndRuller.svg", "svg-icon-2"),
         ),
         array(
             'title' => 'Billing',
-            'path'  => 'index',
+            'path'  => 'billing',
             'icon'  => theme()->getSvgIcon("icons/duotone/Design/PenAndRuller.svg", "svg-icon-2"),
         ),
 
