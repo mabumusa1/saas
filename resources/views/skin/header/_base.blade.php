@@ -31,6 +31,14 @@
 		@endif
 
 		<!--begin::Wrapper-->
+        <div class="wrap">
+            <div class="search">
+               <input type="text" class="searchTerm" placeholder="What are you looking for?">
+               <button type="submit" class="searchButton">
+                 <i class="fa fa-search"></i>
+              </button>
+            </div>
+         </div>
 		<div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
 			<!--begin::Navbar-->
 			@if(theme()->getOption('skin', 'header/left') === 'menu')

@@ -18,22 +18,22 @@
     <div class="menu-sub menu-sub-accordion menu-active-bg">
         <span class="menu-link">
             <span class="menu-title text-muted">{{ __('Manage Team') }}</span>
-        </span>        
+        </span>
         <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
             {{ __('Team Settings') }}
-        </x-jet-dropdown-link>        
+        </x-jet-dropdown-link>
 
         @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
         <x-jet-dropdown-link href="{{ route('teams.create') }}">
             {{ __('Create New Team') }}
         </x-jet-dropdown-link>
-        @endcan        
+        @endcan
 
         <div class="separator"></div>
 
         <span class="menu-link">
             <span class="menu-title text-muted">{{ __('Switch Team') }}</span>
-        </span>        
+        </span>
         @foreach (Auth::user()->allTeams() as $team)
             <x-jet-switchable-team :team="$team" />
         @endforeach
