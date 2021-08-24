@@ -2,7 +2,14 @@ name: Test Laravel
 
 on:
   push:
+    branches:
+      - base
+      - dev
   pull_request:
+    branches: 
+      - base
+      - staging
+      - prod
 
 jobs:
   phpunit:
@@ -242,4 +249,42 @@ jobs:
     - name: Get report
       run: |    
         ./vendor/php-coveralls/php-coveralls/bin/php-coveralls --coverage_clover=build/logs/clover.xml
-        
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.0']
+
+    name: Deploy on Heroku
+    needs: ['Coverage']
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      - name: Push to Heroku
+        run: git push -f heroku main
+      - name: Re-Migrate the database
+        run: |
+          heroku run php artisan db:wipe
+          heroku run php artisan migrate
+          heroku run php artisan db:seed
