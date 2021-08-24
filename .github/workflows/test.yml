@@ -2,7 +2,14 @@ name: Test Laravel
 
 on:
   push:
+    branches:
+      - base
+      - dev
   pull_request:
+    branches: 
+      - base
+      - staging
+      - prod
 
 jobs:
   phpunit:
