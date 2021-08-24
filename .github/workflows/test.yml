@@ -259,6 +259,7 @@ jobs:
 
     name: Deploy on Heroku
     needs: ['Coverage']
+    if: github.ref == 'refs/heads/staging'
     steps:
       - uses: actions/checkout@v2
         with:
@@ -281,7 +282,7 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: git push heroku main
+        run: git push -f heroku main
       - name: Re-Migrate the database
         run: |
           heroku run php artisan db:wipe
