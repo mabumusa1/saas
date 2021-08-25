@@ -286,6 +286,10 @@ jobs:
           npm install
           npm run dev
 
+      - name: Remove Generated Assets from gitignore
+        run: |
+          sed -i '/\/public\/skin/d' .gitignore
+
       - name: Heroku login credentials
         run: |
           cat > ~/.netrc <<EOF
