@@ -269,7 +269,7 @@ jobs:
 
     name: Deploy on Heroku
     needs: ['Coverage']
-    if: github.ref == 'refs/heads/staging'
+    if: ${{ github.ref == 'refs/heads/staging'}}
     steps:
       - uses: actions/checkout@v2
         with:
