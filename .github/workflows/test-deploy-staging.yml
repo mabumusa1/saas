@@ -1,15 +1,9 @@
-name: Test Laravel
+name: test-deploy-staging
 
 on:
   push:
     branches:
-      - base
-      - dev
-  pull_request:
-    branches: 
-      - base
       - staging
-      - prod
 
 jobs:
   phpunit:
@@ -269,7 +263,6 @@ jobs:
 
     name: Deploy on Heroku
     needs: ['Coverage']
-    if: ${{ github.ref == 'refs/heads/staging'}}
     steps:
       - uses: actions/checkout@v2
         with:
