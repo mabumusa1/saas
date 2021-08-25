@@ -300,6 +300,10 @@ jobs:
         run: heroku git:remote --app $HEROKU_APP_NAME
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+
+      - name: Pull Heroku remote
+        run: git pull heroku main
+
       - name: Push to Heroku
         run: git push -f heroku main
       - name: Re-Migrate the database
