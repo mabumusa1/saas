@@ -1,68 +1,39 @@
-![Tests](https://github.com/mabumusa1/improved-pancake/actions/workflows/test.yml/badge.svg)
+## Getting Started
+We want to build a simple SaaS application to control a backend API server, as a developer we recommend that you have the folloiwng tools installed on your machine before you start writing code for the system: 
+ 1. Ubuntu as the OS, you can use Windows or MacOS but we recommend Ubuntu
+ 2. Use DDEV as a development environment
+ 3. Use Visual Studio code as IDE
+ 4. We use Laravel Mix to generate assets so you should have basic knowldge of NPM and Laravel Mix
+ 5. We use Metronic theme to add a theme and style to the system, you may use all the compments of Metoric theme
 
-[![Coverage Status](https://coveralls.io/repos/github/mabumusa1/improved-pancake/badge.svg?branch=main)](https://coveralls.io/github/mabumusa1/improved-pancake?branch=main)
+## How to prepare your development environment?
 
-![Deploy](https://github.com/mabumusa1/improved-pancake/actions/workflows/deploy.yml/badge.svg)
+In order to make sure that all developers are using the same enviroment for development, please follow these steps to prepeare your development enviroment
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+1. Install DDEV as mentioned on [this page](https://ddev.readthedocs.io/en/stable/)
+2. Fork the repo on Github
+3. After the installation clone the repo using
+ `git clone git@github.com:USERNAME/saas.git`
+4. Checkout the `dev` branch
+5. Run ddev using `ddev start`, this will install composer packags and run Laravel Mix package.json packages and generate assets, **also it will delete the existing database,** migrate the database,  and seed it. 
+6. Once running `ddev` will show your the url of the project that is running on your localhost where you can start using the system
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Writing code for the front end
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+  We use Metronic theme which has two components: 
+  1. PHP config files under `config` folder
+  2. Assets under `resources` folder
+  3. While you are developing front end changes like style changes or JavaScript changes you can use `npm run watch` which will reflect the changes directly so you can see them
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Code Quality
 
-## Learning Laravel
+We implement three methods to control the quality of the code: 
+1. CS Fixer: to style the code and make it easy to read
+2. PHP Unit: we run tests on the code using unit tests
+3. PHPStan: to check if you are using reduant code or unsed variables
+4. Code Coverage: to verify that tests are covering all the aspects of the code 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Each code you push to Github or PR you start will be evaluated using these scripts on Github
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

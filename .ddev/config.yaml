@@ -19,5 +19,8 @@ hooks:
   post-start:
     - exec: "cat .env.example | sed  -E 's/DB_(HOST|DATABASE|USERNAME|PASSWORD)=(.*)/DB_\\1=db/g' > .env"
     - exec: "php artisan key:generate"
+    - exec: "php artisan db:wipe"
     - exec: "php artisan migrate"
     - exec: "php artisan db:seed"
+    - exec: "npm i"
+    - exec: "npm run dev"
