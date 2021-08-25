@@ -157,6 +157,7 @@ jobs:
       with:
         node-version: '14'
         cache: 'npm'
+    - name: Complile Assets
       run: |
        npm install
        npm run dev
@@ -274,11 +275,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build NPM Assets
+      - name: Install NPM
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'npm'
+
+      - name: Complile Assets
         run: |
           npm install
           npm run dev
