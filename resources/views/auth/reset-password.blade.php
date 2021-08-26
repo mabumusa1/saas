@@ -90,7 +90,7 @@
     <!--end::Reset Password Form-->
 
     @section('scripts')
-        <script src="{{ asset('js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
+        <script src="{{ secure_asset('js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
     @endsection
 
 </x-auth-layout>

@@ -8,7 +8,7 @@
     <meta name="keywords" content="{{ theme()->getOption('meta', 'keywords') }}"/>
     <link rel="canonical" href="{{ ucfirst(theme()->getOption('meta', 'canonical')) }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" href="{{ asset(theme()->getDemo() . '/' .theme()->getOption('assets', 'favicon')) }}"/>
+    <link rel="shortcut icon" href="{{ secure_asset(theme()->getDemo() . '/' .theme()->getOption('assets', 'favicon')) }}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- begin::Fonts --}}
@@ -59,7 +59,7 @@
 @if (theme()->hasOption('assets', 'js'))
     {{-- begin::Global Javascript Bundle(used by all pages) --}}
     @foreach (theme()->getOption('assets', 'js') as $file)
-        <script src="{{ asset(theme()->getDemo() . '/' .$file) }}"></script>
+        <script src="{{ secure_asset(theme()->getDemo() . '/' .$file) }}"></script>
     @endforeach
     {{-- end::Global Javascript Bundle --}}
 @endif
@@ -67,7 +67,7 @@
 @if (theme()->hasOption('page', 'assets/vendors/js'))
     {{-- begin::Page Vendors Javascript(used by this page) --}}
     @foreach (theme()->getOption('page', 'assets/vendors/js') as $file)
-        <script src="{{ asset(theme()->getDemo() . '/' .$file) }}"></script>
+        <script src="{{ secure_asset(theme()->getDemo() . '/' .$file) }}"></script>
     @endforeach
     {{-- end::Page Vendors Javascript --}}
 @endif
@@ -75,7 +75,7 @@
 @if (theme()->hasOption('page', 'assets/custom/js'))
     {{-- begin::Page Custom Javascript(used by this page) --}}
     @foreach (theme()->getOption('page', 'assets/custom/js') as $file)
-        <script src="{{ asset(theme()->getDemo() . '/' .$file) }}"></script>
+        <script src="{{ secure_asset(theme()->getDemo() . '/' .$file) }}"></script>
     @endforeach
     {{-- end::Page Custom Javascript --}}
 @endif
