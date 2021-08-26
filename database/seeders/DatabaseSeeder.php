@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\User::factory(1)->withPersonalTeam()->create([
+            'email' => 'email@domain.com',
+        ]);
         \App\Models\User::factory(10)->withPersonalTeam()->create();
     }
 }
