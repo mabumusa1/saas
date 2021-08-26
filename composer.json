@@ -59,8 +59,7 @@
     
         ],
         "post-install-cmd": [
-            "@auto-scripts",
-            "npm run dev"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
             "@auto-scripts"
