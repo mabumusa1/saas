@@ -9,8 +9,7 @@
         "prod": "npm run production",
         "production": "mix --production",
         "heroku-prebuild": "npm install -f",
-        "heroku-postbuild": "npm run dev",
-        "postinstall": "npm run dev"
+        "heroku-postbuild": "npm run dev"
     },
     "dependencies": {
         "@amcharts/amcharts4": "^4.10.20",
