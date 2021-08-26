@@ -13,11 +13,11 @@
         "laravel/jetstream": "^2.3",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.0"
+        "livewire/livewire": "^2.0",
+        "fakerphp/faker": "^1.9.1",
     },
     "require-dev": {
         "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
