@@ -229,7 +229,6 @@ class Theme
     {
         // force preview mode on server
         self::$viewMode = 'release';
-        
     }
 
     public static function getViewMode()

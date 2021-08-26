@@ -60,15 +60,13 @@ return [
 
     'teams' => [
         'create' => [
-            'title'=> 'Create Team'
+            'title'=> 'Create Team',
         ],
         '(\d+)' => [
             'title' => 'Team Settings',
-        ]
+        ],
 
-        
     ],
-
 
     'log' => [
         'audit'  => [

@@ -244,8 +244,8 @@ class Theme extends \App\Core\Theme
         // Demo config
         $demoConfig = config(self::$demo.'.'.$scope.$deepPath, $default);
 
-        if(empty($demoConfig)){
-            if(Str::startsWith($scope, 'pages.')){
+        if (empty($demoConfig)) {
+            if (Str::startsWith($scope, 'pages.')) {
                 $result = Str::of($scope)->match('(\d+)');
                 $scope = rtrim($scope, $result);
                 $demoConfig = config(self::$demo.'.'.$scope.'(\d+)'.$deepPath, $default);
