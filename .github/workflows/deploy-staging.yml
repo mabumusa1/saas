@@ -42,7 +42,7 @@ jobs:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
 
       - name: Push to Heroku
-        run: git push -f heroku main
+        run: git push -f heroku staging:main
       - name: Re-Migrate the database
         run: |
           heroku run php artisan db:wipe

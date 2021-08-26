@@ -59,12 +59,12 @@
     
         ],
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "npm run dev"
         ],
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "postinstall": "npm run dev",
         "test": "vendor/bin/phpunit --coverage-clover build/logs/clover.xml",
         "checkcs": "./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --show-progress=dots --diff $cs_fix_files",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
