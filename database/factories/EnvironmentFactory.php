@@ -24,8 +24,12 @@ class EnvironmentFactory extends Factory
     {
         return [
             'site_id' => Site::factory(),
-            'name' => $this->faker->unique()->company(),
+            'name' => $this->faker->unique()->word(),
             'type' => $this->faker->randomElement(['prd', 'stg', 'dev']),
+            'php' => $this->faker->randomElement(['7.2', '7.3', '7.4']),
+            'storage' => $this->faker->randomElement(['100', '150', '300']),
+            'bandwidth' => $this->faker->randomElement(['100', '500', '600']),
+            'visits' => $this->faker->randomElement(['1000', '2000', '3000']),
         ];
     }
 }

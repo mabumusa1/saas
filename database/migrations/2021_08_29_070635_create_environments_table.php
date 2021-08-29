@@ -19,6 +19,10 @@ class CreateEnvironmentsTable extends Migration
             $table->foreignId('site_id');
             $table->string('name')->unique();
             $table->enum('type', ['prd', 'stg', 'dev']);
+            $table->string('php');
+            $table->integer('storage');
+            $table->integer('bandwidth');
+            $table->integer('visits');
             $table->softDeletes();
             $table->timestamps();
         });

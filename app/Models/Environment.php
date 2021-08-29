@@ -6,6 +6,7 @@ use App\Models\Site;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Environment extends Model
 {
@@ -19,5 +20,16 @@ class Environment extends Model
     public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class);
+    }
+
+    /**
+     * Get the Environment type.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getTypeAttribute($value)
+    {
+        return  Str::upper($value);
     }
 }

@@ -19,6 +19,9 @@ return [
             ],
         ],
     ],
+    'sites' => [
+        'title' => 'Sites',
+    ],
 
     'login'           => [
         'title'  => 'Login',
