@@ -2,20 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Group;
 use App\Models\Site;
 use App\Models\Team;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TeamFactory extends Factory
+class SiteFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Team::class;
+    protected $model = Site::class;
 
     /**
      * Define the model's default state.
@@ -26,8 +24,7 @@ class TeamFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->company(),
-            'user_id' => User::factory(),
-            'personal_team' => true,
+            'team_id' => Team::factory(),
         ];
     }
 }
