@@ -11,7 +11,20 @@
                 </span>
             </div>
             <!--begin::Menu-->
-            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 w-225px" data-kt-menu="true">
+                <span class="menu-link mx-auto">
+                    <h3 class="menu-title text-muted">{{ __('Manage Team') }}</h3>
+                </span>
+                <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                    {{ __('Team Settings') }}
+                </x-jet-dropdown-link>
+        
+                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                <x-jet-dropdown-link href="{{ route('teams.create') }}">
+                    {{ __('Create New Team') }}
+                </x-jet-dropdown-link>
+                @endcan
+                <div class="mx-auto my-2 separator w-175px"></div>
                 <!--begin::Menu item-->
                     @foreach (Auth::user()->allTeams() as $team)
                         <x-jet-switchable-team class="menu-item px-5" :team="$team" />
