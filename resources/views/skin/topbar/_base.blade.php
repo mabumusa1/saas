@@ -17,7 +17,9 @@
             </div>
             @else
             <div class="cursor-pointer symbol {{ $toolbarUserAvatarHeightClass }}" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                {{ Auth::user()->name }}
+                <div class="symbol symbol-50px symbol-circle">
+                    <div class="symbol-label fs-2 fw-bold text-success">{{ substr(Auth::user()->name , 0, 1) }}</div>
+                </div>
             </div>
             @endif
             {{ theme()->getView('partials/topbar/_user-menu') }}

@@ -21,3 +21,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('sites', SiteController::class);
     Route::resource('groups', GroupController::class);
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
