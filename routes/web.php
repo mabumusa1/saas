@@ -17,10 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/sites', function () {
-    return view('sites');
-})->name('sites');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('sites', SiteController::class);
+    Route::resource('groups', GroupController::class);
+});
