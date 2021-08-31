@@ -18,6 +18,7 @@
             @else
             <div class="cursor-pointer symbol {{ $toolbarUserAvatarHeightClass }}" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                 {{ Auth::user()->name }}
+                {!! theme()->getSvgIcon("icons/duotone/Arrow/Arrow-down.svg", " svg-icon-hx") !!}
             </div>
             @endif
             {{ theme()->getView('partials/topbar/_user-menu') }}

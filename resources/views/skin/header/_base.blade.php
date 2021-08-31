@@ -24,20 +24,23 @@
 			<!--begin::Mobile logo-->
 			<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
 				<a href="{{ theme()->getPageUrl('dashboard') }}" class="d-lg-none">
-					<img alt="Logo" src="{{ secure_asset(theme()->getMediaUrlPath() . 'logos/logo-dark.svg') }}" class="h-15px"/>
+					<img alt="Logo" src="{{ secure_asset(theme()->getMediaUrlPath() . 'logos/logo-dark.svg') }}" class="h-30px"/>
 				</a>
 			</div>
 			<!--end::Mobile logo-->
 		@endif
 
 		<!--begin::Wrapper-->
-        <div class="wrap">
-            <div class="search">
-               <input type="text" class="searchTerm" placeholder="What are you looking for?">
-               <button type="submit" class="searchButton">
-                 <i class="fa fa-search"></i>
-              </button>
-            </div>
+        <div class="wrap mt-3">
+    		<div class="position-relative w-md-400px me-md-2">
+				<!--begin::Svg Icon-->
+				<input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="What are you looking for?">
+				<!--end::Svg Icon | path: icons/duotune/general/gen021.svg-->
+				{!! theme()->getSvgIcon("icons/duotone/General/Search.svg", "svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6") !!}
+				<!--begin::Main wrapper-->
+				
+				
+			</div>
          </div>
 		<div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
 			<!--begin::Navbar-->
@@ -55,11 +58,10 @@
 			<!--begin::Topbar-->
 	        <div class="d-flex align-items-stretch flex-shrink-0">
                 {{ theme()->getView('skin/topbar/_base') }}
-			</div>
 			<!--end::Topbar-->
-		</div>
-		<!--end::Wrapper-->
-	</div>
+			</div>
 	<!--end::Container-->
+		</div>
+	</div>
 </div>
 <!--end::Header-->

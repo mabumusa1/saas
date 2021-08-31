@@ -2,7 +2,7 @@
     $logoFileName = 'logo.svg';
 
     if (theme()->getOption('skin', 'aside/theme') === 'light') {
-        $logoFileName = 'logo-dark.svg';
+        $logoFileName = 'k.svg';
     }
 @endphp
 
@@ -23,7 +23,7 @@
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         {{--begin::Logo--}}
         <a href="{{ theme()->getPageUrl('dashboard') }}">
-            <img alt="Logo" src="{{ secure_asset(theme()->getMediaUrlPath() . 'logos/' . $logoFileName) }}" class="h-40px logo"/>
+            <img alt="Logo" src="{{ secure_asset(theme()->getMediaUrlPath() . 'logos/' . $logoFileName) }}" class="h-60px logo" style="margin-left:-30px"/>
         </a>
         {{--end::Logo--}}
 
