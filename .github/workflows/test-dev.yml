@@ -20,15 +20,21 @@ jobs:
 
     name: PHPUnit (PHP ${{ matrix.php-versions }})
     env:
-      DB_DATABASE: laravel
-      DB_USERNAME: root
-      DB_PASSWORD: password
-      BROADCAST_DRIVER: log
-      CACHE_DRIVER: redis
+      APP_NAME: testing
+      APP_ENV: testing
+      APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
+      DB_CONNECTION: mysql
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_DATABASE: db
+      DB_USERNAME: db
+      DB_PASSWORD: db
+      BCRYPT_ROUNDS: 4
+      CACHE_DRIVER: array
+      MAIL_MAILER: array
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
-      
-
+      TELESCOPE_ENABLED: false      
     services:
       mysql:
         image: mysql:5.7
@@ -77,8 +83,7 @@ jobs:
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
     - name: Prepare the application
-      run: |
-        php -r "file_exists('.env') || copy('.env.testing', '.env');"
+      run: |        
         chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
@@ -201,13 +206,21 @@ jobs:
     name: Coverage
     needs: ['phpunit', 'misc']
     env:
-      DB_DATABASE: laravel
-      DB_USERNAME: root
-      DB_PASSWORD: password
-      BROADCAST_DRIVER: log
-      CACHE_DRIVER: redis
+      APP_NAME: testing
+      APP_ENV: testing
+      APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
+      DB_CONNECTION: mysql
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_DATABASE: db
+      DB_USERNAME: db
+      DB_PASSWORD: db
+      BCRYPT_ROUNDS: 4
+      CACHE_DRIVER: array
+      MAIL_MAILER: array
       QUEUE_CONNECTION: redis
-      SESSION_DRIVER: redis      
+      SESSION_DRIVER: redis
+      TELESCOPE_ENABLED: false      
       COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - name: Checkout
