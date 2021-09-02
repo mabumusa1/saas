@@ -64,6 +64,15 @@
     {{-- end::Global Javascript Bundle --}}
 @endif
 
+{{-- begin::Javascript --}}
+@if (theme()->hasOption('assets', 'custom-js'))
+    {{-- begin::Global Javascript Bundle(used by all pages) --}}
+    @foreach (theme()->getOption('assets', 'custom-js') as $file)
+        <script src="{{ secure_asset(theme()->getDemo() . '/' .$file) }}"></script>
+    @endforeach
+    {{-- end::Global Javascript Bundle --}}
+@endif
+
 @if (theme()->hasOption('page', 'assets/vendors/js'))
     {{-- begin::Page Vendors Javascript(used by this page) --}}
     @foreach (theme()->getOption('page', 'assets/vendors/js') as $file)
