@@ -40,13 +40,13 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
+          MYSQL_DATABASE: db
           MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: db
           MYSQL_USER: db
           MYSQL_PASSWORD: db
           MYSQL_ROOT_PASSWORD: db
         ports:
-          - 3306/tcp
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       redis:
         image: redis
@@ -212,7 +212,7 @@ jobs:
       APP_ENV: testing
       APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
       DB_CONNECTION: mysql
-      DB_HOST: localhost
+      DB_HOST: 127.0.0.1
       DB_PORT: 3306
       DB_DATABASE: db
       DB_USERNAME: db
