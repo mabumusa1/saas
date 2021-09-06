@@ -96,7 +96,7 @@ jobs:
 
     - name: Test with phpunit
       run: |
-        composer test
+        php artisan test --coverage-clover build/logs/clover.xml
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
@@ -112,19 +112,27 @@ jobs:
   misc:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         php-versions: ['8.0']
         commands: ['PHPSTAN', 'CS Fixer']
     name: ${{ matrix.commands }}
     env:
-      DB_DATABASE: laravel
-      DB_USERNAME: root
-      DB_PASSWORD: password
-      BROADCAST_DRIVER: log
-      CACHE_DRIVER: redis
+      APP_NAME: testing
+      APP_ENV: testing
+      APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: db
+      DB_USERNAME: db
+      DB_PASSWORD: db
+      BCRYPT_ROUNDS: 4
+      CACHE_DRIVER: array
+      MAIL_MAILER: array
       QUEUE_CONNECTION: redis
-      SESSION_DRIVER: redis      
+      SESSION_DRIVER: redis
+      TELESCOPE_ENABLED: false      
 
     steps:
     - name: Checkout
@@ -171,7 +179,6 @@ jobs:
 
     - name: Prepare the application
       run: |
-        php -r "file_exists('.env') || copy('.env.testing', '.env');"
         chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
@@ -198,7 +205,7 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         php-versions: ['8.0']
 
@@ -256,7 +263,6 @@ jobs:
 
     - name: Prepare the application
       run: |
-        php -r "file_exists('.env') || copy('.env.testing', '.env');"
         chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
