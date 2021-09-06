@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1630924959">
-  <project timestamp="1630924959">
+<coverage generated="1630925949">
+  <project timestamp="1630925949">
     <file name="/var/www/html/app/Actions/Fortify/CreateNewUser.php">
       <class name="App\Actions\Fortify\CreateNewUser" namespace="global">
         <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="18" elements="20" coveredelements="20"/>
