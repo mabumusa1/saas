@@ -94,7 +94,7 @@ jobs:
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }} 
 
     - name: Test with phpunit
-      run: php artisan test --no-interaction --coverage-clover build/logs/clover.xml
+      run: php artisan test
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
