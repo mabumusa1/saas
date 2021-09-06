@@ -82,8 +82,7 @@ jobs:
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
     - name: Prepare the application
-      run: |        
-        chmod -R 777 storage bootstrap/cache
+      run: chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
       run: php artisan config:clear
@@ -95,8 +94,7 @@ jobs:
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }} 
 
     - name: Test with phpunit
-      run: |
-        php artisan test --coverage-clover build/logs/clover.xml
+      run: php artisan test --env=testing --coverage-clover build/logs/clover.xml        
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
@@ -159,8 +157,6 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        # Use composer.json for key, if composer.lock is not committed.
-        # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
@@ -178,8 +174,7 @@ jobs:
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
     - name: Prepare the application
-      run: |
-        chmod -R 777 storage bootstrap/cache
+      run: chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
       run: php artisan config:clear
@@ -253,8 +248,6 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        # Use composer.json for key, if composer.lock is not committed.
-        # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
@@ -262,8 +255,7 @@ jobs:
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
     - name: Prepare the application
-      run: |
-        chmod -R 777 storage bootstrap/cache
+      run: chmod -R 777 storage bootstrap/cache
  
     - name: Clear Config
       run: php artisan config:clear
@@ -275,5 +267,4 @@ jobs:
         path: build/logs/
 
     - name: Get report
-      run: |    
-        ./vendor/php-coveralls/php-coveralls/bin/php-coveralls --coverage_clover=build/logs/clover.xml
+      run: ./vendor/php-coveralls/php-coveralls/bin/php-coveralls --coverage_clover=build/logs/clover.xml
