@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use Auth;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -57,9 +58,11 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(Group $group)
+    public function edit(int $id)
     {
-        //
+        $group = Group::findOrFail($id);
+
+        return view('groups.edit', compact('group'));
     }
 
     /**
@@ -71,7 +74,37 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $ungrouped = [];
+        $grouped = [];
+        // dd($request->ungrouped_sites != null);
+        if ($request->ungrouped_sites != null) {
+            for ($i = 1; $i <= 10; $i++) {
+                if (array_key_exists('ungrouped_sites_'.$i, array_flip($request->ungrouped_sites))) {
+                    $ungrouped['ungrouped_sites_'.$i] = true;
+                } else {
+                    $ungrouped['ungrouped_sites_'.$i] = false;
+                }
+            }
+        }
+
+        if ($request->grouped_sites != null) {
+            for ($i = 1; $i <= 3; $i++) {
+                if (array_key_exists('grouped_sites_'.$i, array_flip($request->grouped_sites))) {
+                    $grouped['grouped_sites_'.$i] = true;
+                } else {
+                    $grouped['grouped_sites_'.$i] = false;
+                }
+            }
+        }
+
+        $group->update([
+            'name' => $request->name,
+            'notes' => $request->notes,
+            'ungrouped_sites' => $ungrouped,
+            'grouped_sites' => $grouped,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -82,6 +115,8 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        //redirect should be updated to groups once we have that page this is temporary
+        return redirect()->route('sites.index');
     }
 }

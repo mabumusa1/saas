@@ -18,7 +18,16 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'notes', 'ungrouped_sites', 'grouped_sites',
+    ];
+
+    /**
+     * Casting Eloquent Attributes to Value Objects.
+     * @var array
+     */
+    protected $casts = [
+        'ungrouped_sites' => 'json',
+        'grouped_sites' => 'json',
     ];
 
     /**

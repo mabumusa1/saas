@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\Site;
 use Auth;
 use Illuminate\Http\Request;
@@ -17,7 +18,10 @@ class SiteController extends Controller
     {
         $sites = Site::where('team_id', Auth::user()->currentTeam->id)->get();
 
-        return view('sites.index', ['sites' => $sites]);
+        // this only for testing should be removed if the creation and the index are dynamic
+        $group = Group::first();
+
+        return view('sites.index', compact('sites', 'group'));
     }
 
     /**
@@ -58,9 +62,13 @@ class SiteController extends Controller
      * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\Response
      */
-    public function edit(Site $site)
+    // public function edit(Site $site)
+    public function edit($id)
     {
-        return view('sites.edit');
+        // this is temp because we don't have yet the list of groups
+        $group = Group::findOrFail($id);
+
+        return view('groups.edit', compact('group'));
     }
 
     /**

@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Models\Group;
 use App\Models\Site;
 use App\Models\Team;
+use DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Seeder;
+use Str;
 
 class GroupSiteSeeder extends Seeder
 {
@@ -24,7 +26,9 @@ class GroupSiteSeeder extends Seeder
 
         foreach ($teams as $team) {
             if ($team->groups->count() == 0) {
-                Group::factory()->count(3)->create(['team_id' => $team->id]);
+                Group::factory()->count(3)->create([
+                    'team_id' => $team->id,
+                ]);
             }
             if ($team->sites->count() == 0) {
                 Site::factory()->count(3)->create(['team_id' => $team->id]);
