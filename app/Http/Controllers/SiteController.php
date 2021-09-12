@@ -63,11 +63,8 @@ class SiteController extends Controller
      * @return \Illuminate\Http\Response
      */
     // public function edit(Site $site)
-    public function edit($id)
+    public function edit(Group $group) // temporary
     {
-        // this is temp because we don't have yet the list of groups
-        $group = Group::findOrFail($id);
-
         return view('groups.edit', compact('group'));
     }
 
