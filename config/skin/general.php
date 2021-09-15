@@ -24,13 +24,11 @@ return [
         'css'     => [
             'plugins/global/plugins.bundle.css',
             'plugins/global/plugins-custom.bundle.css',
-            'plugins/custom/datatables/datatables.bundle.css',
             'css/style.bundle.css',
         ],
         'js'      => [
             'plugins/global/plugins.bundle.js',
             'js/scripts.bundle.js',
-            'plugins/custom/datatables/datatables.bundle.js',
         ],
     ],
 

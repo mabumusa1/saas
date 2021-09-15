@@ -16,6 +16,20 @@ class Site extends Model
     use HasFactory, SoftDeletes;
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['environments', 'groups'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\Scopes\SitesTeam;
+use App\DataTables\SitesDataTable;
 use App\Models\Site;
 use Auth;
 use Illuminate\Http\Request;
@@ -13,11 +15,13 @@ class SiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SitesDataTable $dataTable)
     {
-        $sites = Site::where('team_id', Auth::user()->currentTeam->id)->get();
+        return $dataTable->addScope(new SitesTeam)->render('sites.index');
 
-        return view('sites.index', ['sites' => $sites]);
+        /*        $sites = Site::where('team_id', Auth::user()->currentTeam->id)->get();
+
+                return view('sites.index', ['sites' => $sites]);*/
     }
 
     /**
