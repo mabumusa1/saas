@@ -1,4 +1,5 @@
 {
+    "/skin/js/vue.bundle.js": "/skin/js/vue.bundle.js",
     "/skin/plugins/global/plugins.bundle.js": "/skin/plugins/global/plugins.bundle.js",
     "/skin/js/scripts.bundle.js": "/skin/js/scripts.bundle.js",
     "/skin/js/app.js": "/skin/js/app.js",
@@ -21,8 +22,8 @@
     "/skin/plugins/global/plugins.bundle.css": "/skin/plugins/global/plugins.bundle.css",
     "/skin/plugins/custom/datatables/datatables.bundle.css": "/skin/plugins/custom/datatables/datatables.bundle.css",
     "/skin/plugins/custom/leaflet/leaflet.bundle.css": "/skin/plugins/custom/leaflet/leaflet.bundle.css",
-    "/skin/plugins/custom/fullcalendar/fullcalendar.bundle.css": "/skin/plugins/custom/fullcalendar/fullcalendar.bundle.css",
     "/skin/plugins/custom/prismjs/prismjs.bundle.css": "/skin/plugins/custom/prismjs/prismjs.bundle.css",
+    "/skin/plugins/custom/fullcalendar/fullcalendar.bundle.css": "/skin/plugins/custom/fullcalendar/fullcalendar.bundle.css",
     "/skin/css/style.bundle.css": "/skin/css/style.bundle.css",
     "/skin/plugins/global/plugins-custom.bundle.css": "/skin/plugins/global/plugins-custom.bundle.css",
     "/skin/plugins/global/fonts/@fortawesome/fa-brands-400.eot": "/skin/plugins/global/fonts/@fortawesome/fa-brands-400.eot",

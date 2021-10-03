@@ -14,7 +14,7 @@ class SiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $sites = Site::where('team_id', Auth::user()->currentTeam->id)->get();
 

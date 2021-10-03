@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Environment;
 use App\Models\Group;
+use App\Scopes\SiteScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -23,6 +24,27 @@ class Site extends Model
     protected $fillable = [
         'name', 'team_id',
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['environments', 'groups'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['storage', 'bandwidth', 'visits'];
 
     /**
      * Get the team that the invitation belongs to.
@@ -100,5 +122,15 @@ class Site extends Model
         }
 
         return $visit;
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new SiteScope);
     }
 }

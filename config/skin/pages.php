@@ -21,6 +21,13 @@ return [
     ],
     'sites' => [
         'title' => 'Sites',
+        'assets'      => [
+            'custom' => [
+                'js' => [
+                    'js/vue.bundle.js',
+                ],
+            ],
+        ],
     ],
 
     'login'           => [
