@@ -1,4 +1,5 @@
 <x-app-layout>
+<<<<<<< HEAD
 <div class="bg-white p-3">
 
     <!--begin::Wrapper-->
@@ -44,3 +45,9 @@
         </div>
     </div>    
 </x-app-layout>
+=======
+    <div id="sitesApp">
+        <sites :sites='@json($sites)' create-site-route="{{route('sites.create')}}"></sites>
+    </div>
+</x-app-layout>
+>>>>>>> vuejs work
