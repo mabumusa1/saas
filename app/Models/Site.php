@@ -21,7 +21,7 @@ class Site extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'team_id',
     ];
 
     /**
