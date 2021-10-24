@@ -32,11 +32,11 @@
                         <!--begin:Action-->
                         <div class="d-flex align-items-center">
                             <button type="submit" class="btn btn-primary me-5">Search</button>
-                            <a class="btn btn-light"><i class="fas fa-filter"></i></a>
+                            <a @click="showFilters = !showFilters" class="btn btn-light"><i class="fas fa-filter"></i></a>
                         </div>
                         <!--end:Action-->
                     </div>
-					<div class="collapse show">
+					<div class="collapse" :class="showFiltersClass">
 						<div class="separator separator-dashed mt-9 mb-6"></div>
 						<div class="row g-8 mb-8">
 							<div class="col-xxl-4">
@@ -71,24 +71,14 @@
 								<!-- Groups -->
 								<div class="rounded border p-10">
 									<label class="fs-6 form-label fw-bolder text-dark mb-10">Groups</label>
-									<div class="mb-10">
-										<div class="form-check form-check-custom form-check-solid">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
-										</div>
-									</div>
-									<div class="mb-10">
-										<div class="form-check form-check-custom form-check-solid">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
-										</div>
-									</div>									
-									<div class="mb-10">
-										<div class="form-check form-check-custom form-check-solid">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
-										</div>
-									</div>									
+                                    <template v-for="group in groups">
+                                        <div class="mb-10" :key="group.id">
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox" :value="group.id" v-model="groupsFilter" :id="'group-'+group.id">
+                                                <label class="form-check-label" :for="'group-'+group.id">{{group.name}}</label>
+                                            </div>
+                                        </div>
+                                    </template>
 								</div>								
 							</div>
 						</div>
@@ -172,18 +162,30 @@
 <script>
 const default_layout = "default";
 export default {
-  props: ['sites', 'createSiteRoute'],
+  props: ['sites', 'groups', 'createSiteRoute'],
   computed: {
       hasSites() {
           return (this.sites.length > 0)
       },
+      showFiltersClass() {
+          return {
+              'show': this.showFilters === true,
+              'hide': this.showFilters === false
+          }
+      },
 	  filteredSites() {
-          if(this.environmentsFilter.length === 0){
-              return this.sites;
-          }else if(this.environmentsFilter.length > 0){
-                let filteredSites = [];
-                let tempSites = this.sites;
-                tempSites.forEach(site => {
+          return this.sites;
+          /***
+           * This function needs to be restructured
+           */
+          if(this.environmentsFilter.length === 0 && this.groupsFilter.length === 0)
+            return this.sites
+
+        // make temp copy of the sites
+          var sitesCopy = this.sites.slice();
+          var filteredSites = []
+          if(this.environmentsFilter.length > 0){
+                sitesCopy.forEach(site => {
                     let filteredEnvs = [];
                     site.environments.forEach(environment => {
                         if(this.environmentsFilter.includes(environment.type)){
@@ -191,18 +193,36 @@ export default {
                         }
 
                     })
-                    site.environments = filteredEnvs;
-                    filteredSites.push(site)
+                    var siteCopy = Object.assign({}, site);
+                    siteCopy.environments = filteredEnvs;
+                    filteredSites.push(siteCopy)
                 });                
-              return filteredSites;
+          }else{
+              //if this filter is not active, restore the original state
+              filteredSites = this.sites.slice();
           }
+
+            var tempList = [];
+
+          if(this.groupsFilter.length > 0){
+              filteredSites.filter(site => {
+                  site.groups.some()
+              })
+              /*tempList.push(filteredSites.filter(site => {
+                  site.groups.some(group => this.groupsFilter.includes(group.id))
+              }))*/
+          }
+            console.log(tempList)
+          return filteredSites
 	  }
   },
   data() {
 	  return {
 		  search: '', 
           showEnvironments: true,
-          environmentsFilter: []
+          environmentsFilter: [],
+          groupsFilter: [],
+          showFilters: false
 	  }
   },
   methods: {

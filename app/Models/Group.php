@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Site;
+use App\Scopes\GroupScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -55,5 +56,15 @@ class Group extends Model
     public function sites(): BelongsToMany
     {
         return $this->belongsToMany(Site::class);
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new GroupScope);
     }
 }

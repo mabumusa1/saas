@@ -25,8 +25,9 @@ class SiteController extends Controller
         return view('sites.index', compact('sites', 'group'));
 =======
         $sites = Site::all();
+        $groups = Group::all();
 
-        return view('sites.index', ['sites' => $sites]);
+        return view('sites.index', ['sites' => $sites, 'groups' => $groups]);
     }
 
     /**
