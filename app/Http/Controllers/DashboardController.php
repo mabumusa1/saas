@@ -9,7 +9,7 @@ class DashboardController extends Controller
     /**
      * Display a listing of the dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {

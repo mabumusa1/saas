@@ -80,9 +80,9 @@ class Site extends Model
      * Get total Bandwidth.
      *
      * @param  string  $value
-     * @return string
+     * @return int
      */
-    public function getBandwidthAttribute($value)
+    public function getBandwidthAttribute($value) : int
     {
         $bandwidth = 0;
         foreach ($this->environments as $environment) {
@@ -96,9 +96,9 @@ class Site extends Model
      * Get total Storage.
      *
      * @param  string  $value
-     * @return string
+     * @return int
      */
-    public function getStorageAttribute($value)
+    public function getStorageAttribute($value) : int
     {
         $storage = 0;
         foreach ($this->environments as $environment) {
@@ -112,9 +112,9 @@ class Site extends Model
      * Get total Visits.
      *
      * @param  string  $value
-     * @return string
+     * @return int
      */
-    public function getVisitsAttribute($value)
+    public function getVisitsAttribute($value) : int
     {
         $visit = 0;
         foreach ($this->environments as $environment) {

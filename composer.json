@@ -17,6 +17,7 @@
         "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.5",
         "friendsofphp/php-cs-fixer": "^3.0",
         "laravel/sail": "^1.0.1",
@@ -62,7 +63,9 @@
             "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ],        
         "checkcs": "./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --show-progress=dots --diff $cs_fix_files",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
@@ -70,7 +73,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-ide-helper"
+            ]
         }
     },
     "config": {

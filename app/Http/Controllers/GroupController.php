@@ -11,19 +11,19 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $groups = Group::where('team_id', Auth::user()->currentTeam->id)->get();
+        $groups = Group::all();
 
-        return view('groups.index');
+        return view('groups.index', ['groups' => $groups]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -34,18 +34,18 @@ class GroupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('groups.index', []);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show(Group $group)
     {
@@ -56,7 +56,7 @@ class GroupController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Group $group)
     {
@@ -68,13 +68,13 @@ class GroupController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Group $group)
     {
         $ungrouped = [];
         $grouped = [];
-        // dd($request->ungrouped_sites != null);
+
         if ($request->ungrouped_sites != null) {
             for ($i = 1; $i <= 10; $i++) {
                 if (array_key_exists('ungrouped_sites_'.$i, array_flip($request->ungrouped_sites))) {
@@ -109,7 +109,7 @@ class GroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Group $group)
     {
