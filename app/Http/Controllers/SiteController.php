@@ -14,14 +14,31 @@ class SiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+<<<<<<< HEAD
         $sites = Site::where('team_id', Auth::user()->currentTeam->id)->get();
 
         // this only for testing should be removed if the creation and the index are dynamic
         $group = Group::first();
 
         return view('sites.index', compact('sites', 'group'));
+=======
+        $sites = Site::all();
+        $groups = Group::all();
+
+        return view('sites.index', ['sites' => $sites, 'groups' => $groups]);
+    }
+
+    /**
+     * Send Sites as JSON.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all(Request $request)
+    {
+        return response()->json($sites);
+>>>>>>> vuejs work
     }
 
     /**

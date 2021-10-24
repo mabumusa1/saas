@@ -34,6 +34,8 @@ mix.autoload({
 // Remove existing generated assets from public folder
 del.sync(['public/css/*', 'public/js/*', 'public/media/*', 'public/plugins/*',]);
 
+mix.js('resources/vue/*/app.js', `public/${demo}/js/vue.bundle.js`).vue()
+
 // Build 3rd party plugins css/js
 mix.sass(`resources/assets/core/plugins/plugins.scss`, `public/${demo}/plugins/global/plugins.bundle.css`).then(() => {
     // remove unused preprocessed fonts folder
