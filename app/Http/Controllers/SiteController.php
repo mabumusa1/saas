@@ -2,90 +2,89 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
+use App\Http\Requests\SiteStoreRequest;
+use App\Http\Requests\SiteUpdateRequest;
 use App\Models\Site;
-use Auth;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $sites = Site::all();
-        $groups = Group::all();
 
-        return view('sites.index', ['sites' => $sites, 'groups' => $groups]);
+        return view('site.index', compact('sites'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('sites.create');
+        return view('site.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \App\Http\Requests\SiteStoreRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SiteStoreRequest $request)
     {
-        return redirect()->route('site.show', []);
+        $site = Site::create($request->validated());
+
+        $request->session()->flash('site.id', $site->id);
+
+        return redirect()->route('site.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Site $site
+     * @return \Illuminate\Http\Response
      */
-    public function show(Site $site)
+    public function show(Request $request, Site $site)
     {
-        return view('sites.show');
+        return view('site.show', compact('site'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Site $site
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Site $site)
-//    public function edit(Group $group) // temporary
+    public function edit(Request $request, Site $site)
     {
-        return view('groups.edit', compact('site'));
+        return view('site.edit', compact('site'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \App\Http\Requests\SiteUpdateRequest $request
+     * @param \App\Models\Site $site
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Site $site)
+    public function update(SiteUpdateRequest $request, Site $site)
     {
-        return redirect()->back();
+        $site->update($request->validated());
+
+        $request->session()->flash('site.id', $site->id);
+
+        return redirect()->route('site.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Site $site
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Site $site)
+    public function destroy(Request $request, Site $site)
     {
-        return redirect()->back();
+        $site->delete();
+
+        return redirect()->route('site.index');
     }
 }

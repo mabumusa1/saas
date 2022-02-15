@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
+use App\Models\Datacenter;
 use App\Models\Site;
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class SiteFactory extends Factory
 {
@@ -23,8 +25,9 @@ class SiteFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->company(),
-            'team_id' => Team::factory(),
+            'account_id' => Account::factory(),
+            'datacenter_id' => Datacenter::factory(),
+            'name' => $this->faker->name,
         ];
     }
 }

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Site extends Model
+class Account extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -15,8 +16,6 @@ class Site extends Model
      * @var array
      */
     protected $fillable = [
-        'account_id',
-        'datacenter_id',
         'name',
     ];
 
@@ -27,22 +26,10 @@ class Site extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'account_id' => 'integer',
-        'datacenter_id' => 'integer',
     ];
 
-    public function account()
+    public function dataCenter()
     {
-        return $this->belongsTo(Account::class);
-    }
-
-    public function datacenter()
-    {
-        return $this->belongsTo(Datacenter::class);
-    }
-
-    public function groups()
-    {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsTo(DataCenter::class);
     }
 }

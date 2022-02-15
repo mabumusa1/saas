@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class DataCenter extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,8 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'note',
+        'label',
+        'region',
     ];
 
     /**
@@ -27,14 +27,4 @@ class Group extends Model
     protected $casts = [
         'id' => 'integer',
     ];
-
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
-    }
-
-    public function sites()
-    {
-        return $this->hasMany(Site::class);
-    }
 }

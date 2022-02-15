@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Site extends Model
+class Domain extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,7 @@ class Site extends Model
      * @var array
      */
     protected $fillable = [
-        'account_id',
-        'datacenter_id',
+        'install_id',
         'name',
     ];
 
@@ -27,22 +26,16 @@ class Site extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'account_id' => 'integer',
-        'datacenter_id' => 'integer',
+        'install_id' => 'integer',
     ];
 
-    public function account()
+    public function install()
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(Install::class);
     }
 
-    public function datacenter()
+    public function install()
     {
-        return $this->belongsTo(Datacenter::class);
-    }
-
-    public function groups()
-    {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsTo(Install::class);
     }
 }

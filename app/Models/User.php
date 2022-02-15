@@ -26,11 +26,22 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'account_id',
+        'first_name',
+        'last_name',
+        'phone',
+        'email',
+        'password',
+        'profile_photo_path',
+        'job_title',
+        'employer',
+        'experince',
+        'company_name',
+        'role',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for serialization.
      *
      * @var array
      */
@@ -58,4 +69,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

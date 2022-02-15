@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Group;
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class GroupFactory extends Factory
+class AccountFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Group::class;
+    protected $model = Account::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +24,7 @@ class GroupFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'note' => $this->faker->word,
+            'softdeletes' => $this->faker->word,
         ];
     }
 }

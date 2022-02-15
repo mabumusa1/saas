@@ -14,11 +14,8 @@ class CreateGroupSiteTable extends Migration
     public function up()
     {
         Schema::create('group_site', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('group_id');
             $table->foreignId('site_id');
-            $table->timestamps();
-            $table->unique(['group_id', 'site_id']);
         });
     }
 
@@ -29,6 +26,6 @@ class CreateGroupSiteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups_sites');
+        Schema::dropIfExists('group_site');
     }
 }

@@ -2,119 +2,89 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GroupStoreRequest;
+use App\Http\Requests\GroupUpdateRequest;
 use App\Models\Group;
-use Auth;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $groups = Group::all();
 
-        return view('groups.index', ['groups' => $groups]);
+        return view('group.index', compact('groups'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('groups.create');
+        return view('group.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \App\Http\Requests\GroupStoreRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GroupStoreRequest $request)
     {
-        return redirect()->route('groups.index', []);
+        $group = Group::create($request->validated());
+
+        $request->session()->flash('group.id', $group->id);
+
+        return redirect()->route('group.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Group $group
+     * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show(Request $request, Group $group)
     {
-        return view('groups.show');
+        return view('group.show', compact('group'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\View\View
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Group $group
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Group $group)
+    public function edit(Request $request, Group $group)
     {
-        return view('groups.edit', compact('group'));
+        return view('group.edit', compact('group'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \App\Http\Requests\GroupUpdateRequest $request
+     * @param \App\Models\Group $group
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Group $group)
+    public function update(GroupUpdateRequest $request, Group $group)
     {
-        $ungrouped = [];
-        $grouped = [];
+        $group->update($request->validated());
 
-        if ($request->ungrouped_sites != null) {
-            for ($i = 1; $i <= 10; $i++) {
-                if (array_key_exists('ungrouped_sites_'.$i, array_flip($request->ungrouped_sites))) {
-                    $ungrouped['ungrouped_sites_'.$i] = true;
-                } else {
-                    $ungrouped['ungrouped_sites_'.$i] = false;
-                }
-            }
-        }
+        $request->session()->flash('group.id', $group->id);
 
-        if ($request->grouped_sites != null) {
-            for ($i = 1; $i <= 3; $i++) {
-                if (array_key_exists('grouped_sites_'.$i, array_flip($request->grouped_sites))) {
-                    $grouped['grouped_sites_'.$i] = true;
-                } else {
-                    $grouped['grouped_sites_'.$i] = false;
-                }
-            }
-        }
-
-        $group->update([
-            'name' => $request->name,
-            'notes' => $request->notes,
-            'ungrouped_sites' => $ungrouped,
-            'grouped_sites' => $grouped,
-        ]);
-
-        return redirect()->back();
+        return redirect()->route('group.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Group $group
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Group $group)
+    public function destroy(Request $request, Group $group)
     {
         $group->delete();
-        //redirect should be updated to groups once we have that page this is temporary
-        return redirect()->route('sites.index');
+
+        return redirect()->route('group.index');
     }
 }

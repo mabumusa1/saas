@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Group;
+use App\Models\DataCenter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class GroupFactory extends Factory
+class DataCenterFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Group::class;
+    protected $model = DataCenter::class;
 
     /**
      * Define the model's default state.
@@ -23,8 +23,8 @@ class GroupFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'note' => $this->faker->word,
+            'label' => $this->faker->word,
+            'region' => $this->faker->word,
         ];
     }
 }

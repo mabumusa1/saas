@@ -25,3 +25,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::resource('data-center', App\Http\Controllers\DataCenterController::class)->only('index', 'create', 'store');
+
+Route::resource('site', App\Http\Controllers\SiteController::class);
+
+Route::resource('install', App\Http\Controllers\InstallController::class);
+
+Route::resource('domain', App\Http\Controllers\DomainController::class)->only('create', 'store', 'destroy');
+
+Route::resource('group', App\Http\Controllers\GroupController::class);
+
+Route::resource('account', App\Http\Controllers\AccountController::class)->only('index', 'show');
