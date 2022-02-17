@@ -13,7 +13,7 @@ class StoreSiteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreSiteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'sitename' => 'required|min:1|max:40',
+            'environmentname' => 'required|regex:/^[a-bA-B0-9 ]+$/|min:3|max:14'
         ];
     }
 }

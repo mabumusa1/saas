@@ -9,6 +9,12 @@ use App\Models\Site;
 
 class SiteController extends Controller
 {
+
+    public function formValidation(StoreSiteRequest $request)
+    {
+        // Setup the validator
+        $validatedData = $request->validated();
+    }
     /**
      * Display a listing of the resource.
      *
