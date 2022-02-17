@@ -3,7 +3,7 @@
 //
 
 // Base
-.toast {
+.toastr {
     transition: $transition-base;
     background-position: 1.5rem center #{'/*rtl:calc(100% - 1.5rem) center*/'} !important;
     box-shadow: $dropdown-box-shadow !important;
@@ -19,7 +19,7 @@
         opacity: 1 !important;
     }
 
-	.toast-close-button {
+	.toastr-close-button {
    		outline: none !important;
         font-size: 0;
         width: 0.85rem;
@@ -27,54 +27,54 @@
 	}
 
 	// Title
-	.toast-title {
+	.toastr-title {
 		font-size: 1.15rem;
 		font-weight: $font-weight-bold;
         
-        & + .toast-message {
+        & + .toastr-message {
             margin-top: 0.25rem;
         }
 	}
 
 	// Message
-	.toast-message {
+	.toastr-message {
         font-size: 1rem;
         font-weight: $font-weight-normal;
 	}
 
     // States
-    &.toast-success {
+    &.toastr-success {
         background-color: $success;
         color: $success-inverse;
 
-        .toast-close-button {
+        .toastr-close-button {
             @include svg-bg-icon(close, $success-inverse);
         }    
     }
 
-    &.toast-info {
+    &.toastr-info {
         background-color: $info;
         color: $info-inverse;
 
-        .toast-close-button {
+        .toastr-close-button {
             @include svg-bg-icon(close, $info-inverse);
         } 
     }
 
-    &.toast-warning {
+    &.toastr-warning {
         background-color: $warning;
         color: $warning-inverse;
 
-        .toast-close-button {
+        .toastr-close-button {
             @include svg-bg-icon(close, $warning-inverse);
         } 
     }
 
-    &.toast-error {
+    &.toastr-error {
         background-color: $danger;
         color: $danger-inverse;
 
-        .toast-close-button {
+        .toastr-close-button {
             @include svg-bg-icon(close, $danger-inverse);
         } 
     }
@@ -82,10 +82,10 @@
 
 
 // Placements
-.toast-top-center {
+.toastr-top-center {
     top: 12px;
 }
 
-.toast-bottom-center {
+.toastr-bottom-center {
     bottom: 12px;
 }

@@ -14,9 +14,7 @@ define(["require", "exports"], function (require, exports) {
         }
         var sum = 0;
         for (var i = 0; i < 6; i++) {
-            sum +=
-                (7 - i) *
-                    (parseInt(value.charAt(i), 10) + parseInt(value.charAt(i + 6), 10));
+            sum += (7 - i) * (parseInt(value.charAt(i), 10) + parseInt(value.charAt(i + 6), 10));
         }
         sum = 11 - (sum % 11);
         if (sum === 10 || sum === 11) {

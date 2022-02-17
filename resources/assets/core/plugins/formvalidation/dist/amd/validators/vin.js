@@ -46,9 +46,7 @@ define(["require", "exports"], function (require, exports) {
                     8: 8,
                     9: 9,
                 };
-                var weights = [
-                    8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2,
-                ];
+                var weights = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2];
                 var length = v.length;
                 var sum = 0;
                 for (var i = 0; i < length; i++) {

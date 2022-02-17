@@ -3,13 +3,21 @@
 if (! function_exists('get_svg_icon')) {
     function get_svg_icon($path, $class = null, $svgClass = null)
     {
-        $file_path = public_path(theme()->getMediaUrlPath().$path);
+        if (strpos($path, 'media') === false) {
+            $path = theme()->getMediaUrlPath().$path;
+        }
+
+        $file_path = public_path($path);
 
         if (! file_exists($file_path)) {
             return '';
         }
 
         $svg_content = file_get_contents($file_path);
+
+        if (empty($svg_content)) {
+            return '';
+        }
 
         $dom = new DOMDocument();
         $dom->loadXML($svg_content);
@@ -135,7 +143,9 @@ if (! function_exists('bootstrap')) {
         $demo = ucwords(theme()->getDemo());
         $bootstrap = "\App\Core\Bootstraps\Bootstrap$demo";
 
-        throw_if(! class_exists($bootstrap), 'Demo has not been set or '.$bootstrap.' file is not found.');
+        if (! class_exists($bootstrap)) {
+            abort(404, 'Demo has not been set or '.$bootstrap.' file is not found.');
+        }
 
         return app($bootstrap);
     }
@@ -179,5 +189,17 @@ if (! function_exists('isRTL')) {
     function isRTL()
     {
         return (bool) request()->input('rtl');
+    }
+}
+
+if (! function_exists('preloadCss')) {
+    /**
+     * Preload CSS file.
+     *
+     * @return bool
+     */
+    function preloadCss($url)
+    {
+        return '<link rel="preload" href="'.$url.'" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" type="text/css"><noscript><link rel="stylesheet" href="'.$url.'"></noscript>';
     }
 }

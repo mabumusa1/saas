@@ -1,11 +1,11 @@
-<x-guest-layout>
+<x-auth-layout>
 
     <!--begin::Reset Password Form-->
     <form method="POST" action="{{ theme()->getPageUrl('password.update') }}" class="form w-100" novalidate="novalidate" id="kt_new_password_form">
-    @csrf
+        @csrf
 
-    <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+        <!-- Password Reset Token -->
+        <input type="hidden" name="token" value="{{ $token }}">
 
         <!--begin::Heading-->
         <div class="text-center mb-10">
@@ -90,7 +90,7 @@
     <!--end::Reset Password Form-->
 
     @section('scripts')
-        <script src="{{ secure_asset('js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
+        <script src="{{ asset($request->input('demo', 'demo1') . '/js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
     @endsection
 
 </x-auth-layout>

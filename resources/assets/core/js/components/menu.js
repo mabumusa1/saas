@@ -62,11 +62,11 @@ var KTMenu = function(element, options) {
 
         var item = _getItemElement(element);
 
-        if ( _getItemOption(item, 'trigger') !== 'click' ) {
+        if ( _getOptionFromElementAttribute(item, 'trigger') !== 'click' ) {
             return;
         }
 
-        if ( _getItemOption(item, 'toggle') === false ) {
+        if ( _getOptionFromElementAttribute(item, 'toggle') === false ) {
             _show(item);
         } else {
             _toggle(item);
@@ -90,13 +90,12 @@ var KTMenu = function(element, options) {
         var item = _getItemElement(element);
         var items = _getItemChildElements(item);
 
-        //if ( item !== null && _getItemOption(item, 'trigger') === 'click' &&  _getItemSubType(item) === 'dropdown' ) {
         if ( item !== null && _getItemSubType(item) === 'dropdown') {
             _hide(item); // hide items dropdown
             // Hide all child elements as well
+            
             if ( items.length > 0 ) {
                 for (var i = 0, len = items.length; i < len; i++) {
-                    //if ( _getItemOption(item, 'trigger') === 'click' &&  _getItemSubType(item) === 'dropdown' ) {
                     if ( items[i] !== null &&  _getItemSubType(items[i]) === 'dropdown') {
                         _hide(tems[i]);
                     }
@@ -113,7 +112,7 @@ var KTMenu = function(element, options) {
             return;
         }
 
-        if ( _getItemOption(item, 'trigger') !== 'hover' ) {
+        if ( _getOptionFromElementAttribute(item, 'trigger') !== 'hover' ) {
             return;
         }
 
@@ -134,7 +133,7 @@ var KTMenu = function(element, options) {
             return;
         }
 
-        if ( _getItemOption(item, 'trigger') !== 'hover' ) {
+        if ( _getOptionFromElementAttribute(item, 'trigger') !== 'hover' ) {
             return;
         }
 
@@ -150,8 +149,8 @@ var KTMenu = function(element, options) {
 
     // Toggle item sub
     var _toggle = function(item) {
-        if ( item === null ) {
-            return;
+        if ( !item ) {
+            item = the.triggerElement;
         }
 
         if ( _isItemSubShown(item) === true ) {
@@ -163,8 +162,8 @@ var KTMenu = function(element, options) {
 
     // Show item sub
     var _show = function(item) {
-        if ( item === null ) {
-            return;
+        if ( !item ) {
+            item = the.triggerElement;
         }
 
         if ( _isItemSubShown(item) === true ) {
@@ -183,8 +182,8 @@ var KTMenu = function(element, options) {
 
     // Hide item sub
     var _hide = function(item) {
-        if ( item === null ) {
-            return;
+        if ( !item ) {
+            item = the.triggerElement;
         }
 
         if ( _isItemSubShown(item) === false ) {
@@ -199,7 +198,7 @@ var KTMenu = function(element, options) {
     }
 
     // Reset item state classes if item sub type changed
-    var _reset = function(item) {
+    var _reset = function(item) {        
         if ( _hasItemSub(item) === false ) {
             return;
         }
@@ -268,7 +267,7 @@ var KTMenu = function(element, options) {
 
     // Test if item dropdown is permanent
     var _isItemDropdownPermanent = function(item) {
-        return _getItemOption(item, 'permanent') === true ? true : false;
+        return _getOptionFromElementAttribute(item, 'permanent') === true ? true : false;
     }
 
     // Test if item's parent is shown
@@ -452,8 +451,8 @@ var KTMenu = function(element, options) {
         var toggle = _isTriggerElement(item) ? item : _getItemLinkElement(item);
         var sub = _getItemSubElement(item);
 
-        var width = _getItemOption(item, 'width');
-        var height = _getItemOption(item, 'height');
+        var width = _getOptionFromElementAttribute(item, 'width');
+        var height = _getOptionFromElementAttribute(item, 'height');
 
         var zindex = the.options.dropdown.zindex; // update
         var parentZindex = KTUtil.getHighestZindex(item); // update
@@ -486,7 +485,7 @@ var KTMenu = function(element, options) {
         KTUtil.addClass(sub, 'show');
 
         // Append the sub the the root of the menu
-        if ( _getItemOption(item, 'overflow') === true ) {
+        if ( _getOptionFromElementAttribute(item, 'overflow') === true ) {
             document.body.appendChild(sub);
             KTUtil.data(item).set('sub', sub);
             KTUtil.data(sub).set('item', item);
@@ -517,7 +516,7 @@ var KTMenu = function(element, options) {
         KTUtil.removeClass(sub, 'show');
 
         // Append the sub back to it's parent
-        if ( _getItemOption(item, 'overflow') === true ) {
+        if ( _getOptionFromElementAttribute(item, 'overflow') === true ) {
             if (item.classList.contains('menu-item')) {
                 item.appendChild(sub);
             } else {
@@ -540,7 +539,7 @@ var KTMenu = function(element, options) {
     var _initDropdownPopper = function(item, sub) {
         // Setup popper instance
         var reference;
-        var attach = _getItemOption(item, 'attach');
+        var attach = _getOptionFromElementAttribute(item, 'attach');
 
         if ( attach ) {
             if ( attach === 'parent') {
@@ -567,21 +566,19 @@ var KTMenu = function(element, options) {
     // Prepare popper config for dropdown(see: https://popper.js.org/docs/v2/)
     var _getDropdownPopperConfig = function(item) {
         // Placement
-        var placement = _getItemOption(item, 'placement');
+        var placement = _getOptionFromElementAttribute(item, 'placement');
         if (!placement) {
             placement = 'right';
         }
 
-        // Flip
-        var flipValue = _getItemOption(item, 'flip');
-        var flip = flipValue ? flipValue.split(",") : [];
-
         // Offset
-        var offsetValue = _getItemOption(item, 'offset');
+        var offsetValue = _getOptionFromElementAttribute(item, 'offset');
         var offset = offsetValue ? offsetValue.split(",") : [];
 
         // Strategy
-        var strategy = _getItemOption(item, 'overflow') === true ? 'absolute' : 'fixed';
+        var strategy = _getOptionFromElementAttribute(item, 'overflow') === true ? 'absolute' : 'fixed';
+
+        var altAxis = _getOptionFromElementAttribute(item, 'flip') !== false ? true : false;
 
         var popperConfig = {
             placement: placement,
@@ -594,15 +591,12 @@ var KTMenu = function(element, options) {
             }, {
                 name: 'preventOverflow',
                 options: {
-                    //altBoundary: true,
-                    //altAxis: true,
-                    rootBoundary: 'clippingParents'
+                    altAxis: altAxis
                 }
             }, {
                 name: 'flip', 
                 options: {
-                    altBoundary: true,
-                    fallbackPlacements: flip
+                    flipVariations: false
                 }
             }]
         };
@@ -616,17 +610,26 @@ var KTMenu = function(element, options) {
             return;
         }
 
-        if ( the.options.accordion.expand === false ) {
-            _hideAccordions(item);
+        var sub = _getItemSubElement(item);
+        var expand = the.options.accordion.expand;
+        
+        if (_getOptionFromElementAttribute(item, 'expand') === true) {
+            expand = true;
+        } else if (_getOptionFromElementAttribute(item, 'expand') === false) {
+            expand = false;
+        } else if (_getOptionFromElementAttribute(the.element, 'expand') === true) {
+            expand = true;
         }
 
-        var sub = _getItemSubElement(item);
+        if ( expand === false ) {
+            _hideAccordions(item);
+        }
 
         if ( KTUtil.data(item).has('popper') === true ) {
             _hideDropdown(item);
         }
 
-        KTUtil.addClass(item, 'hover'); // updateWW
+        KTUtil.addClass(item, 'hover');
 
         KTUtil.addClass(item, 'showing');
 
@@ -677,7 +680,7 @@ var KTMenu = function(element, options) {
     }
 
     // Get item option(through html attributes)
-    var _getItemOption = function(item, name) {
+    var _getOptionFromElementAttribute = function(item, name) {
         var attr;
         var value = null;
 
@@ -693,6 +696,10 @@ var KTMenu = function(element, options) {
         }
 
         return value;
+    }
+
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('menu');
     }
 
     // Construct Class
@@ -725,7 +732,7 @@ var KTMenu = function(element, options) {
 
     // General Methods
     the.getItemTriggerType = function(item) {
-        return _getItemOption(item, 'trigger');
+        return _getOptionFromElementAttribute(item, 'trigger');
     }
 
     the.getItemSubType = function(element) {
@@ -782,6 +789,10 @@ var KTMenu = function(element, options) {
 
     the.isItemDropdownPermanent = function(item) {
         return _isItemDropdownPermanent(item);
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Accordion Mode Methods

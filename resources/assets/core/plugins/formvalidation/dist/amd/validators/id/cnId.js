@@ -717,8 +717,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         var provincial = parseInt(v.substr(0, 2), 10);
         var prefectural = parseInt(v.substr(2, 2), 10);
         var county = parseInt(v.substr(4, 2), 10);
-        if (!adminDivisionCodes[provincial] ||
-            !adminDivisionCodes[provincial][prefectural]) {
+        if (!adminDivisionCodes[provincial] || !adminDivisionCodes[provincial][prefectural]) {
             return {
                 meta: {},
                 valid: false,
@@ -728,9 +727,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         var rangeDef = adminDivisionCodes[provincial][prefectural];
         var i;
         for (i = 0; i < rangeDef.length; i++) {
-            if ((Array.isArray(rangeDef[i]) &&
-                rangeDef[i][0] <= county &&
-                county <= rangeDef[i][1]) ||
+            if ((Array.isArray(rangeDef[i]) && rangeDef[i][0] <= county && county <= rangeDef[i][1]) ||
                 (!Array.isArray(rangeDef[i]) && county === rangeDef[i])) {
                 inRange = true;
                 break;
@@ -752,7 +749,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         var year = parseInt(dob.substr(0, 4), 10);
         var month = parseInt(dob.substr(4, 2), 10);
         var day = parseInt(dob.substr(6, 2), 10);
-        if (!isValidDate_1.default(year, month, day)) {
+        if (!(0, isValidDate_1.default)(year, month, day)) {
             return {
                 meta: {},
                 valid: false,
@@ -765,9 +762,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
                 sum += parseInt(v.charAt(i), 10) * weight[i];
             }
             sum = (12 - (sum % 11)) % 11;
-            var checksum = v.charAt(17).toUpperCase() !== 'X'
-                ? parseInt(v.charAt(17), 10)
-                : 10;
+            var checksum = v.charAt(17).toUpperCase() !== 'X' ? parseInt(v.charAt(17), 10) : 10;
             return {
                 meta: {},
                 valid: checksum === sum,

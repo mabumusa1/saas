@@ -95,7 +95,7 @@ var KTDialer = function(element, options) {
             _decrease();
         });
 
-        KTUtil.addEvent(the.inputElement, 'change', function(e) {
+        KTUtil.addEvent(the.inputElement, 'input', function(e) {
             e.preventDefault();
 
             _setValue();
@@ -120,7 +120,8 @@ var KTDialer = function(element, options) {
         // Trigger "after.dialer" event
         KTEventHandler.trigger(the.element, 'kt.dialer.decrease', the);
 
-        the.inputElement.value = the.value - the.options.step;        
+        the.inputElement.value = the.value - the.options.step;      
+
         _setValue();
 
         // Trigger "before.dialer" event
@@ -130,24 +131,47 @@ var KTDialer = function(element, options) {
     }
 
     // Set Input Value
-    var _setValue = function() {
+    var _setValue = function(value) {
         // Trigger "after.dialer" event
         KTEventHandler.trigger(the.element, 'kt.dialer.change', the);
 
-        the.value = parseFloat(the.inputElement.value.replace(/[^\d.]/g, '')); 
+        if (value !== undefined) {
+            the.value = value;
+        } else {
+            the.value = _parse(the.inputElement.value); 
+        }        
         
-        if (the.value < the.options.min) {
+        if (the.options.min !== null && the.value < the.options.min) {
             the.value = the.options.min;
         }
 
-        if (the.value > the.options.max) {
+        if (the.options.max !== null && the.value > the.options.max) {
             the.value = the.options.max;
         }
 
         the.inputElement.value = _format(the.value);
 
+        // Trigger input change event
+        the.inputElement.dispatchEvent(new Event('change'));
+
         // Trigger "after.dialer" event
         KTEventHandler.trigger(the.element, 'kt.dialer.changed', the);
+    }
+
+    var _parse = function(val) {
+        val = val
+            .replace(/[^0-9.-]/g, '')       // remove chars except number, hyphen, point. 
+            .replace(/(\..*)\./g, '$1')     // remove multiple points.
+            .replace(/(?!^)-/g, '')         // remove middle hyphen.
+            .replace(/^0+(\d)/gm, '$1');    // remove multiple leading zeros. <-- I added this.
+
+        val = parseFloat(val);
+
+        if (isNaN(val)) {
+            val = 0;
+        } 
+
+        return val;
     }
 
     // Format
@@ -167,6 +191,10 @@ var KTDialer = function(element, options) {
         }
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('dialer');
+    }
+
     // Construct class
     _construct();
 
@@ -175,6 +203,26 @@ var KTDialer = function(element, options) {
     ///////////////////////
 
     // Plugin API
+    the.setMinValue = function(value) {
+        the.options.min = value;
+    }
+
+    the.setMaxValue = function(value) {
+        the.options.max = value;
+    }
+
+    the.setValue = function(value) {
+        _setValue(value);
+    }
+
+    the.getValue = function() {
+        return the.inputElement.value;
+    }    
+
+    the.update = function() {
+        _setValue();
+    }
+
     the.increase = function() {
         return _increase();
     }
@@ -185,6 +233,10 @@ var KTDialer = function(element, options) {
 
     the.getElement = function() {
         return the.element;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

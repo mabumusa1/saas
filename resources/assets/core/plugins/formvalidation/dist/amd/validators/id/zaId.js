@@ -13,7 +13,7 @@ define(["require", "exports", "../../algorithms/luhn", "../../utils/isValidDate"
         var month = parseInt(value.substr(2, 2), 10);
         var day = parseInt(value.substr(4, 2), 10);
         year = year >= currentYear ? year + 1900 : year + 2000;
-        if (!isValidDate_1.default(year, month, day)) {
+        if (!(0, isValidDate_1.default)(year, month, day)) {
             return {
                 meta: {},
                 valid: false,
@@ -21,7 +21,7 @@ define(["require", "exports", "../../algorithms/luhn", "../../utils/isValidDate"
         }
         return {
             meta: {},
-            valid: luhn_1.default(value),
+            valid: (0, luhn_1.default)(value),
         };
     }
     exports.default = zaId;

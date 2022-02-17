@@ -1,9 +1,11 @@
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue", "../validators/index"], function (require, exports, emitter_1, filter_1, getFieldValue_1, index_1) {
     "use strict";
@@ -12,8 +14,8 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
     var Core = (function () {
         function Core(form, fields) {
             this.elements = {};
-            this.ee = emitter_1.default();
-            this.filter = filter_1.default();
+            this.ee = (0, emitter_1.default)();
+            this.filter = (0, filter_1.default)();
             this.plugins = {};
             this.results = new Map();
             this.validators = {};
@@ -34,7 +36,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             for (var _i = 1; _i < arguments.length; _i++) {
                 args[_i - 1] = arguments[_i];
             }
-            (_a = this.ee).emit.apply(_a, __spreadArrays([event], args));
+            (_a = this.ee).emit.apply(_a, __spreadArray([event], args, false));
             return this;
         };
         Core.prototype.registerPlugin = function (name, plugin) {
@@ -108,22 +110,26 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
         };
         Core.prototype.validate = function () {
             var _this = this;
-            this.emit('core.form.validating');
-            return this.filter
-                .execute('validate-pre', Promise.resolve(), [])
-                .then(function () {
-                return Promise.all(Object.keys(_this.fields).map(function (field) {
-                    return _this.validateField(field);
-                })).then(function (results) {
+            this.emit('core.form.validating', {
+                formValidation: this,
+            });
+            return this.filter.execute('validate-pre', Promise.resolve(), []).then(function () {
+                return Promise.all(Object.keys(_this.fields).map(function (field) { return _this.validateField(field); })).then(function (results) {
                     switch (true) {
                         case results.indexOf('Invalid') !== -1:
-                            _this.emit('core.form.invalid');
+                            _this.emit('core.form.invalid', {
+                                formValidation: _this,
+                            });
                             return Promise.resolve('Invalid');
                         case results.indexOf('NotValidated') !== -1:
-                            _this.emit('core.form.notvalidated');
+                            _this.emit('core.form.notvalidated', {
+                                formValidation: _this,
+                            });
                             return Promise.resolve('NotValidated');
                         default:
-                            _this.emit('core.form.valid');
+                            _this.emit('core.form.valid', {
+                                formValidation: _this,
+                            });
                             return Promise.resolve('Valid');
                     }
                 });
@@ -168,11 +174,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             var _this = this;
             this.results.delete(field);
             var elements = this.elements[field];
-            var ignored = this.filter.execute('element-ignored', false, [
-                field,
-                ele,
-                elements,
-            ]);
+            var ignored = this.filter.execute('element-ignored', false, [field, ele, elements]);
             if (ignored) {
                 this.emit('core.element.ignored', {
                     element: ele,
@@ -200,9 +202,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
                     valid: isValid,
                 });
                 var type = ele.getAttribute('type');
-                if ('radio' === type ||
-                    'checkbox' === type ||
-                    elements.length === 1) {
+                if ('radio' === type || 'checkbox' === type || elements.length === 1) {
                     _this.emit(isValid ? 'core.field.valid' : 'core.field.invalid', field);
                 }
                 return Promise.resolve(isValid ? 'Valid' : 'Invalid');
@@ -220,11 +220,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             var _this = this;
             var elements = this.elements[field];
             var name = this.filter.execute('validator-name', v, [v, field]);
-            opts.message = this.filter.execute('validator-message', opts.message, [
-                this.locale,
-                field,
-                name,
-            ]);
+            opts.message = this.filter.execute('validator-message', opts.message, [this.locale, field, name]);
             if (!this.validators[name] || opts.enabled === false) {
                 this.emit('core.validator.validated', {
                     element: ele,
@@ -288,13 +284,8 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             }
         };
         Core.prototype.getElementValue = function (field, ele, validator) {
-            var defaultValue = getFieldValue_1.default(this.form, field, ele, this.elements[field]);
-            return this.filter.execute('field-value', defaultValue, [
-                defaultValue,
-                field,
-                ele,
-                validator,
-            ]);
+            var defaultValue = (0, getFieldValue_1.default)(this.form, field, ele, this.elements[field]);
+            return this.filter.execute('field-value', defaultValue, [defaultValue, field, ele, validator]);
         };
         Core.prototype.getElements = function (field) {
             return this.elements[field];
@@ -316,9 +307,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             var elements = this.elements[field];
             var type = elements[0].getAttribute('type');
             var list = 'radio' === type || 'checkbox' === type ? [elements[0]] : elements;
-            list.forEach(function (ele) {
-                return _this.updateElementStatus(field, ele, status, validator);
-            });
+            list.forEach(function (ele) { return _this.updateElementStatus(field, ele, status, validator); });
             if (!validator) {
                 switch (status) {
                     case 'NotValidated':
@@ -345,9 +334,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             var _this = this;
             var elements = this.elements[field];
             var fieldValidators = this.fields[field].validators;
-            var validatorArr = validator
-                ? [validator]
-                : Object.keys(fieldValidators);
+            var validatorArr = validator ? [validator] : Object.keys(fieldValidators);
             switch (status) {
                 case 'NotValidated':
                     validatorArr.forEach(function (v) {
@@ -383,6 +370,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
                     validatorArr.forEach(function (v) {
                         return _this.emit('core.validator.validated', {
                             element: ele,
+                            elements: elements,
                             field: field,
                             result: {
                                 message: fieldValidators[v].message,
@@ -402,6 +390,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
                     validatorArr.forEach(function (v) {
                         return _this.emit('core.validator.validated', {
                             element: ele,
+                            elements: elements,
                             field: field,
                             result: {
                                 message: fieldValidators[v].message,
@@ -422,10 +411,9 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
         };
         Core.prototype.resetForm = function (reset) {
             var _this = this;
-            Object.keys(this.fields).forEach(function (field) {
-                return _this.resetField(field, reset);
-            });
+            Object.keys(this.fields).forEach(function (field) { return _this.resetField(field, reset); });
             this.emit('core.form.reset', {
+                formValidation: this,
                 reset: reset,
             });
             return this;
@@ -442,8 +430,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
                     }
                     else {
                         ele.setAttribute('value', '');
-                        if (ele instanceof HTMLInputElement ||
-                            ele instanceof HTMLTextAreaElement) {
+                        if (ele instanceof HTMLInputElement || ele instanceof HTMLTextAreaElement) {
                             ele.value = '';
                         }
                     }
@@ -467,9 +454,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             return this.toggleValidator(true, field, validator);
         };
         Core.prototype.updateValidatorOption = function (field, validator, name, value) {
-            if (this.fields[field] &&
-                this.fields[field].validators &&
-                this.fields[field].validators[validator]) {
+            if (this.fields[field] && this.fields[field].validators && this.fields[field].validators[validator]) {
                 this.fields[field].validators[validator][name] = value;
             }
             return this;
@@ -516,9 +501,7 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             return Object.assign({}, result, {
                 message: result.message ||
                     (opts ? opts.message : '') ||
-                    (this.localization &&
-                        this.localization[validator] &&
-                        this.localization[validator].default
+                    (this.localization && this.localization[validator] && this.localization[validator].default
                         ? this.localization[validator].default
                         : '') ||
                     "The field " + field + " is not valid",
@@ -543,18 +526,14 @@ define(["require", "exports", "./emitter", "./filter", "../filters/getFieldValue
             fields: {},
             locale: 'en_US',
             plugins: {},
+            init: function (_) { },
         }, options);
         var core = new Core(form, opts.fields);
         core.setLocale(opts.locale, opts.localization);
-        Object.keys(opts.plugins).forEach(function (name) {
-            return core.registerPlugin(name, opts.plugins[name]);
-        });
-        Object.keys(index_1.default).forEach(function (name) {
-            return core.registerValidator(name, index_1.default[name]);
-        });
-        Object.keys(opts.fields).forEach(function (field) {
-            return core.addField(field, opts.fields[field]);
-        });
+        Object.keys(opts.plugins).forEach(function (name) { return core.registerPlugin(name, opts.plugins[name]); });
+        Object.keys(index_1.default).forEach(function (name) { return core.registerValidator(name, index_1.default[name]); });
+        opts.init(core);
+        Object.keys(opts.fields).forEach(function (field) { return core.addField(field, opts.fields[field]); });
         return core;
     }
     exports.default = formValidation;

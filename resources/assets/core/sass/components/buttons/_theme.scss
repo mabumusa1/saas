@@ -216,10 +216,28 @@
 	}
 }
 
-// Outline dashed style
+// Outline dashed basic style
+.btn.btn-outline.btn-outline-dashed {
+	border-width: 1px;
+	border-style: dashed;	
+	
+	$color: null;
+	$icon-color: null;
+	$border-color: null;
+	$bg-color: null;;
+
+	$color-active: null;
+	$icon-color-active: null;
+	$border-color-active: $primary;
+	$bg-color-active: null;
+
+	@include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+}
+
+// Outline dashed default style
 .btn.btn-outline.btn-outline-dashed.btn-outline-default {
 	border-width: 1px;
-	border-style: dashed;
+	border-style: dashed;	
 	
 	$color: $light-inverse;
 	$icon-color: $light-inverse;

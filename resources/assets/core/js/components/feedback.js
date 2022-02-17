@@ -108,6 +108,10 @@ var KTFeedback = function(options) {
         the.element.remove();
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('feedback');
+    }
+
     // Construct class
     _construct();
 
@@ -130,6 +134,10 @@ var KTFeedback = function(options) {
 
     the.getElement = function() {
         return the.element;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -40,7 +42,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
         Framework.prototype.install = function () {
             var _a;
             var _this = this;
-            classSet_1.default(this.core.getFormElement(), (_a = {},
+            (0, classSet_1.default)(this.core.getFormElement(), (_a = {},
                 _a[this.opts.formClass] = true,
                 _a['fv-plugins-framework'] = true,
                 _a));
@@ -59,7 +61,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
                         var selector = 'string' === typeof _this.opts.rowSelector
                             ? _this.opts.rowSelector
                             : _this.opts.rowSelector(field, element);
-                        var groupEle = closest_1.default(element, selector);
+                        var groupEle = (0, closest_1.default)(element, selector);
                         return Message_1.default.getClosestContainer(element, groupEle, _this.opts.rowPattern);
                     },
                 }));
@@ -70,7 +72,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
             var _a;
             this.results.clear();
             this.containers.clear();
-            classSet_1.default(this.core.getFormElement(), (_a = {},
+            (0, classSet_1.default)(this.core.getFormElement(), (_a = {},
                 _a[this.opts.formClass] = false,
                 _a['fv-plugins-framework'] = false,
                 _a));
@@ -96,7 +98,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
                     var _a;
                     var groupEle = _this.containers.get(ele);
                     if (groupEle) {
-                        classSet_1.default(groupEle, (_a = {},
+                        (0, classSet_1.default)(groupEle, (_a = {},
                             _a[_this.opts.rowInvalidClass] = false,
                             _a[_this.opts.rowValidatingClass] = false,
                             _a[_this.opts.rowValidClass] = false,
@@ -114,7 +116,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
                 var _a;
                 var groupEle = _this.containers.get(ele);
                 if (groupEle) {
-                    classSet_1.default(groupEle, (_a = {},
+                    (0, classSet_1.default)(groupEle, (_a = {},
                         _a[_this.opts.rowInvalidClass] = false,
                         _a[_this.opts.rowValidatingClass] = false,
                         _a[_this.opts.rowValidClass] = false,
@@ -130,20 +132,16 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
                     this.prepareElementContainer(field, elements[0]);
                 }
                 else {
-                    elements.forEach(function (ele) {
-                        return _this.prepareElementContainer(field, ele);
-                    });
+                    elements.forEach(function (ele) { return _this.prepareElementContainer(field, ele); });
                 }
             }
         };
         Framework.prototype.prepareElementContainer = function (field, element) {
             var _a;
-            var selector = 'string' === typeof this.opts.rowSelector
-                ? this.opts.rowSelector
-                : this.opts.rowSelector(field, element);
-            var groupEle = closest_1.default(element, selector);
+            var selector = 'string' === typeof this.opts.rowSelector ? this.opts.rowSelector : this.opts.rowSelector(field, element);
+            var groupEle = (0, closest_1.default)(element, selector);
             if (groupEle !== element) {
-                classSet_1.default(groupEle, (_a = {},
+                (0, classSet_1.default)(groupEle, (_a = {},
                     _a[this.opts.rowClasses] = true,
                     _a['fv-plugins-icon-container'] = true,
                     _a));
@@ -157,7 +155,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
             var element = 'radio' === type || 'checkbox' === type ? elements[0] : e.element;
             var groupEle = this.containers.get(element);
             if (groupEle) {
-                classSet_1.default(groupEle, (_a = {},
+                (0, classSet_1.default)(groupEle, (_a = {},
                     _a[this.opts.rowInvalidClass] = false,
                     _a[this.opts.rowValidatingClass] = true,
                     _a[this.opts.rowValidClass] = false,
@@ -171,20 +169,24 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
             this.removeClasses(e.element, e.elements);
         };
         Framework.prototype.removeClasses = function (element, elements) {
-            var _a, _b;
+            var _a;
+            var _this = this;
             var type = element.getAttribute('type');
             var ele = 'radio' === type || 'checkbox' === type ? elements[0] : element;
-            classSet_1.default(ele, (_a = {},
-                _a[this.opts.eleValidClass] = false,
-                _a[this.opts.eleInvalidClass] = false,
-                _a));
+            elements.forEach(function (ele) {
+                var _a;
+                (0, classSet_1.default)(ele, (_a = {},
+                    _a[_this.opts.eleValidClass] = false,
+                    _a[_this.opts.eleInvalidClass] = false,
+                    _a));
+            });
             var groupEle = this.containers.get(ele);
             if (groupEle) {
-                classSet_1.default(groupEle, (_b = {},
-                    _b[this.opts.rowInvalidClass] = false,
-                    _b[this.opts.rowValidatingClass] = false,
-                    _b[this.opts.rowValidClass] = false,
-                    _b));
+                (0, classSet_1.default)(groupEle, (_a = {},
+                    _a[this.opts.rowInvalidClass] = false,
+                    _a[this.opts.rowValidatingClass] = false,
+                    _a[this.opts.rowValidClass] = false,
+                    _a));
             }
         };
         Framework.prototype.onElementValidated = function (e) {
@@ -195,7 +197,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
             var element = 'radio' === type || 'checkbox' === type ? elements[0] : e.element;
             elements.forEach(function (ele) {
                 var _a;
-                classSet_1.default(ele, (_a = {},
+                (0, classSet_1.default)(ele, (_a = {},
                     _a[_this.opts.eleValidClass] = e.valid,
                     _a[_this.opts.eleInvalidClass] = !e.valid,
                     _a));
@@ -204,7 +206,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
             if (groupEle) {
                 if (!e.valid) {
                     this.results.set(element, false);
-                    classSet_1.default(groupEle, (_a = {},
+                    (0, classSet_1.default)(groupEle, (_a = {},
                         _a[this.opts.rowInvalidClass] = true,
                         _a[this.opts.rowValidatingClass] = false,
                         _a[this.opts.rowValidClass] = false,
@@ -219,7 +221,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet", "../utils/c
                         }
                     });
                     if (isValid_1) {
-                        classSet_1.default(groupEle, (_b = {},
+                        (0, classSet_1.default)(groupEle, (_b = {},
                             _b[this.opts.rowInvalidClass] = false,
                             _b[this.opts.rowValidatingClass] = false,
                             _b[this.opts.rowValidClass] = true,

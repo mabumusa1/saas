@@ -14,12 +14,8 @@ define(["require", "exports"], function (require, exports) {
                 }
                 var opts = Object.assign({}, DEFAULT_OPTIONS, input.options);
                 var allowLocal = opts.allowLocal === true || "" + opts.allowLocal === 'true';
-                var allowEmptyProtocol = opts.allowEmptyProtocol === true ||
-                    "" + opts.allowEmptyProtocol === 'true';
-                var protocol = opts.protocol
-                    .split(',')
-                    .join('|')
-                    .replace(/\s/g, '');
+                var allowEmptyProtocol = opts.allowEmptyProtocol === true || "" + opts.allowEmptyProtocol === 'true';
+                var protocol = opts.protocol.split(',').join('|').replace(/\s/g, '');
                 var urlExp = new RegExp('^' +
                     '(?:(?:' +
                     protocol +

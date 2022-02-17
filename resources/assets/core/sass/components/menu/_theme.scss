@@ -47,6 +47,12 @@
     }
 }
 
+.menu-here-bg {
+    .menu-item {
+        @include menu-link-here-state( null, null, null, null, get($menu, link, self, bg-color, here) );
+    }
+}
+
 .menu-show-bg {
     .menu-item {
         @include menu-link-show-state( null, null, null, null, get($menu, link, self, bg-color, show) );
@@ -62,6 +68,7 @@
 .menu-state-bg {
     .menu-item {
         @include menu-link-hover-state( null, null, null, null, get($menu, link, self, bg-color, hover) );
+        @include menu-link-here-state( null, null, null, null, get($menu, link, self, bg-color, here) );
         @include menu-link-show-state( null, null, null, null, get($menu, link, self, bg-color, show) );
         @include menu-link-active-state( null, null, null, null, get($menu, link, self, bg-color, active) );
     }
@@ -80,6 +87,12 @@
     }
 }
 
+.menu-here-primary {
+    .menu-item {
+        @include menu-link-here-state( $primary, $primary, $primary, $primary, null );
+    }
+}
+
 .menu-active-primary {
     .menu-item {
         @include menu-link-active-state( $primary, $primary, $primary, $primary, null );
@@ -90,6 +103,7 @@
     .menu-item {
         @include menu-link-hover-state( $primary, $primary, $primary, $primary, null );
         @include menu-link-show-state( $primary, $primary, $primary, $primary, null );
+        @include menu-link-here-state( $primary, $primary, $primary, $primary, null );
         @include menu-link-active-state( $primary, $primary, $primary, $primary, null );
     }
 }
@@ -107,6 +121,12 @@
     }
 }
 
+.menu-here-bg-primary {
+    .menu-item {
+        @include menu-link-here-state( $primary-inverse, $primary-inverse, $primary-inverse, $primary-inverse, $primary );
+    }
+}
+
 .menu-active-bg-primary {
     .menu-item {
         @include menu-link-active-state( $primary-inverse, $primary-inverse, $primary-inverse, $primary-inverse, $primary );
@@ -117,6 +137,7 @@
     .menu-item {
         @include menu-link-hover-state( $primary-inverse, $primary-inverse, $primary-inverse, $primary-inverse, $primary );
         @include menu-link-show-state( $primary-inverse, $primary-inverse, $primary-inverse, $primary-inverse, $primary );
+        @include menu-link-here-state( $primary-inverse, $primary-inverse, $primary-inverse, $primary-inverse, $primary );
         @include menu-link-active-state( $primary-inverse, $primary-inverse, $primary-inverse, $primary-inverse, $primary );
     }
 }
@@ -125,6 +146,12 @@
 .menu-show-bg-light-primary {
     .menu-item {
         @include menu-link-show-state( $primary, $primary, $primary, $primary, $primary-light );
+    }
+}
+
+.menu-here-bg-light-primary {
+    .menu-item {
+        @include menu-link-here-state( $primary, $primary, $primary, $primary, $primary-light );
     }
 }
 
@@ -143,6 +170,7 @@
 .menu-state-bg-light-primary {
     .menu-item {
         @include menu-link-show-state( $primary, $primary, $primary, $primary, $primary-light );
+        @include menu-link-here-state( $primary, $primary, $primary, $primary, $primary-light );
         @include menu-link-hover-state( $primary, $primary, $primary, $primary, $primary-light );
         @include menu-link-active-state( $primary, $primary, $primary, $primary, $primary-light );
     }
@@ -152,6 +180,12 @@
 .menu-hover-title-primary {
     .menu-item {
         @include menu-link-hover-state( $primary, null, null, null, null );
+    }
+}
+
+.menu-here-title-primary {
+    .menu-item {
+        @include menu-link-here-state( $primary, null, null, null, null );
     }
 }
 
@@ -180,6 +214,13 @@
     .menu-item {
         //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
         @include menu-link-hover-state( null, $primary, null, null, null );
+    }
+}
+
+.menu-here-icon-primary {
+    .menu-item {
+        //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+        @include menu-link-here-state( null, $primary, null, null, null );
     }
 }
 
@@ -221,6 +262,13 @@
     }
 }
 
+.menu-here-bullet-primary {
+    .menu-item {
+        //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+        @include menu-link-here-state( null, null, $primary, null, null );
+    }
+}
+
 .menu-active-bullet-primary {
     .menu-item {
         //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
@@ -242,6 +290,13 @@
     .menu-item {
         //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
         @include menu-link-hover-state( null, null, null, $primary, null );
+    }
+}
+
+.menu-here-arrow-primary {
+    .menu-item {
+        //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+        @include menu-link-here-state( null, null, null, $primary, null );
     }
 }
 

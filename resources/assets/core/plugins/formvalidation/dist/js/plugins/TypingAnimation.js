@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.TypingAnimation = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.TypingAnimation = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -69,7 +69,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -87,6 +87,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -153,15 +155,15 @@
           return Promise.resolve(e);
         }
 
-        var t = this.fields[e];
-        var s = this.core.getElements(t)[0];
+        var _t = this.fields[e];
+        var s = this.core.getElements(_t)[0];
         var i = s.getAttribute("type");
-        var r = this.opts.data[t];
+        var r = this.opts.data[_t];
 
         if ("checkbox" === i || "radio" === i) {
           s.checked = true;
           s.setAttribute("checked", "true");
-          return this.core.revalidateField(t).then(function (t) {
+          return this.core.revalidateField(_t).then(function (_t2) {
             return _this2.animate(e + 1);
           });
         } else if (!r) {
@@ -178,7 +180,7 @@
               onStringTyped: function onStringTyped(e, i) {
                 s.value = r[e];
 
-                _this2.core.revalidateField(t);
+                _this2.core.revalidateField(_t);
               },
               strings: r,
               typeSpeed: 100
@@ -195,4 +197,4 @@
 
   return t;
 
-})));
+}));

@@ -68,6 +68,13 @@
 	}
 }
 
+// Background gray colors
+@each $color, $value in $grays {
+    .bg-gray-#{$color} {
+		background-color: $value !important;
+	}
+}
+
 // Opacity
 @each $name, $value in $opacity-values {
 	.bg-opacity-#{$name} {
@@ -98,6 +105,7 @@
 // Background body color
 .bg-body {
 	--bg-color: #{red($body-bg)}, #{green($body-bg)}, #{blue($body-bg)};
+	background-color: $body-bg !important;
 }
 
 // Lighten bg states

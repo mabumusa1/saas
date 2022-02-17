@@ -180,14 +180,14 @@
 
 // Set menu link hover state
 @mixin menu-link-hover-state($title-color, $icon-color, $bullet-color, $arrow-color, $bg-color: null, $all-links: true) {
-	$sel: '';
+	$sel: '&:not(.here) ';
 
 	@if ($all-links == false) {
-		$sel: '& > ';
+		$sel: '&:not(.here) > ';
 	}
 
-	&.hover > .menu-link:not(.disabled):not(.active),
-	#{$sel}.menu-link:hover:not(.disabled):not(.active) {
+	&.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here),
+	#{$sel}.menu-link:hover:not(.disabled):not(.active):not(.here) {
 		transition: $transition-link;
 
 		@include menu-link-theme($title-color, $icon-color, $bullet-color, $arrow-color, $bg-color);
@@ -211,7 +211,7 @@
 
 // Set menu link show state
 @mixin menu-link-show-state($title-color, $icon-color, $bullet-color, $arrow-color, $bg-color: null, $all-links: true) {
-	&.here > .menu-link,
+	//&.here > .menu-link,
 	&.show > .menu-link {
 		transition: $transition-link;
 

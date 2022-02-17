@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.it_IT = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.it_IT = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Italian language package
@@ -15,8 +15,7 @@
         },
         between: {
             default: 'Si prega di inserire un valore tra %s e %s',
-            notInclusive:
-                'Si prega di scegliere rigorosamente un valore tra %s e %s',
+            notInclusive: 'Si prega di scegliere rigorosamente un valore tra %s e %s',
         },
         bic: {
             default: 'Si prega di inserire un numero BIC valido',
@@ -192,8 +191,7 @@
                 TR: 'Turchia',
                 ZA: 'Sudafrica',
             },
-            country:
-                'Si prega di inserire un numero di identificazione valido per %s',
+            country: 'Si prega di inserire un numero di identificazione valido per %s',
             default: 'Si prega di inserire un numero di identificazione valido',
         },
         identical: {
@@ -296,8 +294,7 @@
             upper: 'Si prega di inserire solo caratteri maiuscoli',
         },
         stringLength: {
-            between:
-                'Si prega di inserire un numero di caratteri compreso tra  %s e %s',
+            between: 'Si prega di inserire un numero di caratteri compreso tra  %s e %s',
             default: 'Si prega di inserire un valore con lunghezza valida',
             less: 'Si prega di inserire meno di %s caratteri',
             more: 'Si prega di inserire piu di %s caratteri',
@@ -389,4 +386,4 @@
 
     return it_IT;
 
-})));
+}));

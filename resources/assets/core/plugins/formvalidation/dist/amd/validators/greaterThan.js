@@ -11,16 +11,11 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 var minValue = parseFloat(("" + opts.min).replace(',', '.'));
                 return opts.inclusive
                     ? {
-                        message: format_1.default(input.l10n
-                            ? opts.message || input.l10n.greaterThan.default
-                            : opts.message, "" + minValue),
+                        message: (0, format_1.default)(input.l10n ? opts.message || input.l10n.greaterThan.default : opts.message, "" + minValue),
                         valid: parseFloat(input.value) >= minValue,
                     }
                     : {
-                        message: format_1.default(input.l10n
-                            ? opts.message ||
-                                input.l10n.greaterThan.notInclusive
-                            : opts.message, "" + minValue),
+                        message: (0, format_1.default)(input.l10n ? opts.message || input.l10n.greaterThan.notInclusive : opts.message, "" + minValue),
                         valid: parseFloat(input.value) > minValue,
                     };
             },

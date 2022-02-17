@@ -52,9 +52,10 @@
 		color: $gray-800;
 
 		.apexcharts-tooltip-title {
-			background: $gray-100 !important;
+			background: $body-bg !important;
+			font-weight: $font-weight-bold;
 			color: $gray-800;
-			border: 0 !important;
+			border-bottom: 1px solid $gray-100 !important;
 		}
 	}
 

@@ -376,7 +376,7 @@ var KTUtil = function() {
                 el = el.parentNode;
             }
 
-            return null;
+            return 1;
         },
 
         /**
@@ -1556,6 +1556,10 @@ var KTUtil = function() {
             } catch (e) {
                 return true;
             }
+        },
+
+        isHexColor(code) {
+            return /^#[0-9A-F]{6}$/i.test(code);
         }
     }
 }();

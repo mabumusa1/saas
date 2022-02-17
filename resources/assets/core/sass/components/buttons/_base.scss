@@ -41,6 +41,11 @@
 		border: 1px dashed $border-dashed-color;
 	}
 
+	// Outline default
+	&.btn-outline-default {
+		border: 1px solid $input-border-color;
+	}
+
 	// Flush
 	&.btn-flush {
 		@include button-reset();
@@ -89,6 +94,7 @@
 		&.btn-sm {
 			height: $input-height-sm;
 			width: $input-height-sm;
+			 
 		}
 
 		&.btn-lg {
@@ -106,5 +112,42 @@
 			margin: 0;
 			line-height: 1;
 		}
+	}
+}
+
+// Hover effects
+.btn.btn-hover-rise {
+	transition: transform 0.3s ease;
+
+	&:hover {
+		transform: translateY(-10%);
+		transition: transform 0.3s ease;
+	}
+}
+
+.btn.btn-hover-scale {
+	transition: transform 0.3s ease;
+
+	&:hover {
+		transform: scale(1.1);
+		transition: transform 0.3s ease;
+	}
+}
+
+.btn.btn-hover-rotate-end {
+	transition: transform 0.3s ease;
+
+	&:hover {
+		transform: rotate(4deg);
+		transition: transform 0.3s ease;
+	}
+}
+
+.btn.btn-hover-rotate-start {
+	transition: transform 0.3s ease;
+
+	&:hover {
+		transform: rotate(-4deg);
+		transition: transform 0.3s ease;
 	}
 }

@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.ca_ES = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.ca_ES = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Catalan language package
@@ -294,8 +294,7 @@
             upper: 'Si us plau introdueix només caràcters en majúscula',
         },
         stringLength: {
-            between:
-                'Si us plau introdueix un valor amb una longitud compresa entre %s i %s caràcters',
+            between: 'Si us plau introdueix un valor amb una longitud compresa entre %s i %s caràcters',
             default: 'Si us plau introdueix un valor amb una longitud vàlida',
             less: 'Si us plau introdueix menys de %s caràcters',
             more: 'Si us plau introdueix més de %s caràcters',
@@ -387,4 +386,4 @@
 
     return ca_ES;
 
-})));
+}));

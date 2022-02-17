@@ -19,17 +19,13 @@ class Account extends Model
         'name',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-    ];
-
     public function dataCenter()
     {
         return $this->belongsTo(DataCenter::class);
+    }
+
+    public function Users()
+    {
+        return $this->hasMany(User::class);
     }
 }

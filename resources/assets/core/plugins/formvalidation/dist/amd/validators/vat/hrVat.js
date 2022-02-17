@@ -14,7 +14,7 @@ define(["require", "exports", "../../algorithms/mod11And10"], function (require,
         }
         return {
             meta: {},
-            valid: mod11And10_1.default(v),
+            valid: (0, mod11And10_1.default)(v),
         };
     }
     exports.default = hrVat;

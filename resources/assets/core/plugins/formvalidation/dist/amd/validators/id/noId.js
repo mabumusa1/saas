@@ -26,8 +26,7 @@ define(["require", "exports"], function (require, exports) {
         };
         return {
             meta: {},
-            valid: "" + firstCd(value) === value.substr(-2, 1) &&
-                "" + secondCd(value) === value.substr(-1),
+            valid: "" + firstCd(value) === value.substr(-2, 1) && "" + secondCd(value) === value.substr(-1),
         };
     }
     exports.default = noId;

@@ -61,23 +61,34 @@ $kanban-spacer-x: 1.25rem;
 				background: $body-bg;
 
 				@each $name, $color in $theme-colors {
-					&[data-class="#{$name}"]{
-						background-color: $color; 	
+					&[data-class="#{$name}"] {
+						background-color: $color;
 						color: theme-inverse-color($name);
 						box-shadow: none;
-			        }
+					}
 
-					&[data-class="light-#{$name}"]{
+					&[data-class="light-#{$name}"] {
 						background-color: rgba($color, 0.1);
 						color: $color;
 						box-shadow: none;
-			        }
-			    }
+					}
+				}
 			}
 		}
 
 		footer {
+		}
+	}
+}
 
+// Fixed height
+.kanban-fixed-height {
+	.kanban-container {
+		.kanban-board {
+			.kanban-drag {
+				position: relative;
+				overflow-y: auto;
+			}
 		}
 	}
 }

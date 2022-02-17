@@ -3,9 +3,14 @@
 //
 
 // Base
-.card {
-    box-shadow: $card-box-shadow;
-    border: 0;
+.card {    
+    @if ($card-border-enabled)  {
+        border: $card-border-width $card-border-style $card-border-color;
+    } @else {
+        border: 0;
+    }  
+    
+    box-shadow: $card-box-shadow;  
 
     // Header
     .card-header {
@@ -16,6 +21,7 @@
         min-height: $card-header-height;
         padding: 0 $card-px;
         background-color: transparent;
+        border-bottom: $card-border-width $card-border-style $card-border-color;
 
         // Title
         .card-title {
@@ -92,6 +98,7 @@
     .card-footer {
         padding: $card-py $card-px;
         background-color: transparent;
+        border-top: $card-border-width $card-border-style $card-border-color;
     }
 
     // Scroll
@@ -110,10 +117,27 @@
         }
     }
 
+    &.card-py-0 {
+        .card-header,
+        .card-body,
+        .card-footer {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &.card-p-0 {
+        .card-header,
+        .card-body,
+        .card-footer {
+            padding: 0;
+        }
+    }
+
     // Dashed style
     &.card-dashed {
         box-shadow: none;
-        border: 1px dashed $card-border-dashed-color;
+        border: $card-border-width dashed $card-border-dashed-color;
 
         > .card-header {
             border-bottom: 1px dashed $card-border-dashed-color;
@@ -127,10 +151,10 @@
     // Bordered style
     &.card-bordered {
         box-shadow: none;
-        border: 1px solid $card-border-color;
+        border: $card-border-width $card-border-style $card-border-color;
     }
 
-    // Flush borders
+    // Flush header and footer borders
     &.card-flush {
         > .card-header {
             border-bottom: 0;
@@ -140,7 +164,7 @@
             border-top: 0;
         }
     }
-
+    
     &.card-shadow {
         box-shadow: $card-box-shadow;
         border: 0;
@@ -201,6 +225,10 @@
 .card-px {
     padding-left: $card-px !important;
     padding-right: $card-px !important;
+}
+
+.card-shadow {
+    box-shadow: $card-box-shadow;
 }
 
 .card-py {

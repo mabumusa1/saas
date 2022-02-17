@@ -121,6 +121,10 @@ var KTToggle = function(element, options) {
         return (String(the.target.getAttribute(the.attribute)).toLowerCase() === 'on');
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('toggle');
+    }
+
     // Construct class
     _construct();
 
@@ -147,6 +151,10 @@ var KTToggle = function(element, options) {
 
     the.goElement = function() {
         return the.element;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

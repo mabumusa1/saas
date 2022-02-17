@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -32,9 +34,7 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
                 .on('core.field.reset', this.fieldResetHandler)
                 .on('plugins.icon.placed', this.iconPlacedHandler)
                 .registerFilter('validate-pre', this.preValidateFilter);
-            var loadPrevCaptcha = typeof window[Recaptcha.LOADED_CALLBACK] === 'undefined'
-                ? function () { }
-                : window[Recaptcha.LOADED_CALLBACK];
+            var loadPrevCaptcha = typeof window[Recaptcha.LOADED_CALLBACK] === 'undefined' ? function () { } : window[Recaptcha.LOADED_CALLBACK];
             window[Recaptcha.LOADED_CALLBACK] = function () {
                 loadPrevCaptcha();
                 var captchaOptions = {
@@ -85,7 +85,7 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
                                     });
                                 }
                                 else {
-                                    return fetch_1.default(_this.opts.backendVerificationUrl, {
+                                    return (0, fetch_1.default)(_this.opts.backendVerificationUrl, {
                                         method: 'POST',
                                         params: (_a = {},
                                             _a[Recaptcha.CAPTCHA_FIELD] = value,
@@ -93,9 +93,7 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
                                     })
                                         .then(function (response) {
                                         var isValid = "" + response['success'] === 'true';
-                                        _this.captchaStatus = isValid
-                                            ? 'Valid'
-                                            : 'Invalid';
+                                        _this.captchaStatus = isValid ? 'Valid' : 'Invalid';
                                         return Promise.resolve({
                                             meta: response,
                                             valid: isValid,
@@ -143,8 +141,7 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
         };
         Recaptcha.prototype.preValidate = function () {
             var _this = this;
-            if (this.opts.size === 'invisible' &&
-                this.widgetIds.has(this.opts.element)) {
+            if (this.opts.size === 'invisible' && this.widgetIds.has(this.opts.element)) {
                 var widgetId_1 = this.widgetIds.get(this.opts.element);
                 return this.captchaStatus === 'Valid'
                     ? Promise.resolve()
@@ -162,8 +159,7 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
             }
         };
         Recaptcha.prototype.onResetField = function (e) {
-            if (e.field === Recaptcha.CAPTCHA_FIELD &&
-                this.widgetIds.has(this.opts.element)) {
+            if (e.field === Recaptcha.CAPTCHA_FIELD && this.widgetIds.has(this.opts.element)) {
                 var widgetId = this.widgetIds.get(this.opts.element);
                 window['grecaptcha'].reset(widgetId);
             }

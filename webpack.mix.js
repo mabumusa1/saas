@@ -28,13 +28,16 @@ let demo = getDemos(path.resolve(__dirname, 'resources/assets'))[0];
 mix.autoload({
     'jquery': ['$', 'jQuery'],
     Popper: ['popper.js', 'default'],
-    
+});
+
+mix.options({
+    cssNano: {
+        discardComments: false,
+    }
 });
 
 // Remove existing generated assets from public folder
 del.sync(['public/css/*', 'public/js/*', 'public/media/*', 'public/plugins/*',]);
-
-mix.js('resources/vue/*/app.js', `public/${demo}/js/vue.bundle.js`).vue()
 
 // Build 3rd party plugins css/js
 mix.sass(`resources/assets/core/plugins/plugins.scss`, `public/${demo}/plugins/global/plugins.bundle.css`).then(() => {
@@ -45,7 +48,8 @@ mix.sass(`resources/assets/core/plugins/plugins.scss`, `public/${demo}/plugins/g
     });
 }).sourceMaps(!mix.inProduction())
     // .setResourceRoot('./')
-    .options({processCssUrls: false}).js([`resources/assets/core/plugins/plugins.js`], `public/${demo}/plugins/global/plugins.bundle.js`);
+    .options({processCssUrls: false})
+    .scripts(require('./resources/assets/core/plugins/plugins.js'), `public/${demo}/plugins/global/plugins.bundle.js`);
 
 // Build extended plugin styles
 mix.sass(`resources/assets/${demo}/sass/plugins.scss`, `public/${demo}/plugins/global/plugins-custom.bundle.css`);
@@ -53,8 +57,7 @@ mix.sass(`resources/assets/${demo}/sass/plugins.scss`, `public/${demo}/plugins/g
 // Build Metronic css/js
 mix.sass(`resources/assets/${demo}/sass/style.scss`, `public/${demo}/css/style.bundle.css`, {sassOptions: {includePaths: ['node_modules']}})
     // .options({processCssUrls: false})
-    .js([`resources/assets/${demo}/js/scripts.js`, 'resources/assets/extended/button-ajax.js'], `public/${demo}/js/scripts.bundle.js`)
-    .js(`resources/assets/${demo}/js/app.js`, `public/${demo}/js/app.js`);
+    .scripts(require(`./resources/assets/${demo}/js/scripts.js`), `public/${demo}/js/scripts.bundle.js`);
 
 
 // Dark skin mode css files
@@ -111,59 +114,63 @@ mix.copyDirectory(`resources/assets/${demo}/media`, `public/${demo}/media`);
     mix.sass(file, file.replace(`resources/assets/${demo}/sass`, `public/${demo}/css`).replace(/\.scss$/, '.css'));
 });
 
+let plugins = [
+    new ReplaceInFileWebpackPlugin([
+        {
+            // rewrite font paths
+            dir: path.resolve(`public/${demo}/plugins/global`),
+            test: /\.css$/,
+            rules: [
+                {
+                    // fontawesome
+                    search: /url\((\.\.\/)?webfonts\/(fa-.*?)"?\)/g,
+                    replace: 'url(./fonts/@fortawesome/$2)',
+                },
+                {
+                    // flaticon
+                    search: /url\(("?\.\/)?font\/(Flaticon\..*?)"?\)/g,
+                    replace: 'url(./fonts/flaticon/$2)',
+                },
+                {
+                    // flaticon2
+                    search: /url\(("?\.\/)?font\/(Flaticon2\..*?)"?\)/g,
+                    replace: 'url(./fonts/flaticon2/$2)',
+                },
+                {
+                    // keenthemes fonts
+                    search: /url\(("?\.\/)?(Ki\..*?)"?\)/g,
+                    replace: 'url(./fonts/keenthemes-icons/$2)',
+                },
+                {
+                    // lineawesome fonts
+                    search: /url\(("?\.\.\/)?fonts\/(la-.*?)"?\)/g,
+                    replace: 'url(./fonts/line-awesome/$2)',
+                },
+                {
+                    // socicons
+                    search: /url\(("?\.\.\/)?font\/(socicon\..*?)"?\)/g,
+                    replace: 'url(./fonts/socicon/$2)',
+                },
+                {
+                    // bootstrap-icons
+                    search: /url\(.*?(bootstrap-icons\..*?)"?\)/g,
+                    replace: 'url(./fonts/bootstrap-icons/$1)',
+                },
+            ],
+        },
+    ]),
+];
+if (args.indexOf('rtl') !== -1) {
+    plugins.push(new WebpackRTLPlugin({
+        filename: '[name].rtl.css',
+        options: {},
+        plugins: [],
+        minify: false,
+    }));
+}
+
 mix.webpackConfig({
-    plugins: [
-        new ReplaceInFileWebpackPlugin([
-            {
-                // rewrite font paths
-                dir: path.resolve(`public/${demo}/plugins/global`),
-                test: /\.css$/,
-                rules: [
-                    {
-                        // fontawesome
-                        search: /url\((\.\.\/)?webfonts\/(fa-.*?)"?\)/g,
-                        replace: 'url(./fonts/@fortawesome/$2)',
-                    },
-                    {
-                        // flaticon
-                        search: /url\(("?\.\/)?font\/(Flaticon\..*?)"?\)/g,
-                        replace: 'url(./fonts/flaticon/$2)',
-                    },
-                    {
-                        // flaticon2
-                        search: /url\(("?\.\/)?font\/(Flaticon2\..*?)"?\)/g,
-                        replace: 'url(./fonts/flaticon2/$2)',
-                    },
-                    {
-                        // keenthemes fonts
-                        search: /url\(("?\.\/)?(Ki\..*?)"?\)/g,
-                        replace: 'url(./fonts/keenthemes-icons/$2)',
-                    },
-                    {
-                        // lineawesome fonts
-                        search: /url\(("?\.\.\/)?fonts\/(la-.*?)"?\)/g,
-                        replace: 'url(./fonts/line-awesome/$2)',
-                    },
-                    {
-                        // socicons
-                        search: /url\(("?\.\.\/)?font\/(socicon\..*?)"?\)/g,
-                        replace: 'url(./fonts/socicon/$2)',
-                    },
-                    {
-                        // bootstrap-icons
-                        search: /url\(.*?(bootstrap-icons\..*?)"?\)/g,
-                        replace: 'url(./fonts/bootstrap-icons/$1)',
-                    },
-                ],
-            },
-        ]),
-        // Uncomment this part for RTL version
-        /*new WebpackRTLPlugin({
-            filename: '[name].rtl.css',
-            options: {},
-            plugins: [],
-        })*/
-    ],
+    plugins: plugins,
     ignoreWarnings: [{
         module: /esri-leaflet/,
         message: /version/,
@@ -204,7 +211,7 @@ function getDemos(pathDemos) {
 
 function getParameters() {
     var possibleArgs = [
-        'dark_mode'
+        'dark_mode', 'rtl'
     ];
     for (var i = 0; i <= 13; i++) {
         possibleArgs.push('demo' + i);

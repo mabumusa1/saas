@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -25,9 +27,7 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
         Recaptcha3.prototype.install = function () {
             var _this = this;
             this.core.on('plugins.icon.placed', this.iconPlacedHandler);
-            var loadPrevCaptcha = typeof window[Recaptcha3.LOADED_CALLBACK] === 'undefined'
-                ? function () { }
-                : window[Recaptcha3.LOADED_CALLBACK];
+            var loadPrevCaptcha = typeof window[Recaptcha3.LOADED_CALLBACK] === 'undefined' ? function () { } : window[Recaptcha3.LOADED_CALLBACK];
             window[Recaptcha3.LOADED_CALLBACK] = function () {
                 loadPrevCaptcha();
                 var tokenField = document.createElement('input');
@@ -46,21 +46,17 @@ define(["require", "exports", "../core/Plugin", "../utils/fetch"], function (req
                                     })
                                         .then(function (token) {
                                         var _a;
-                                        fetch_1.default(_this.opts.backendVerificationUrl, {
+                                        (0, fetch_1.default)(_this.opts.backendVerificationUrl, {
                                             method: 'POST',
                                             params: (_a = {},
                                                 _a[Recaptcha3.CAPTCHA_FIELD] = token,
                                                 _a),
                                         })
                                             .then(function (response) {
-                                            var isValid = "" + response.success ===
-                                                'true' &&
-                                                response.score >=
-                                                    _this.opts
-                                                        .minimumScore;
+                                            var isValid = "" + response.success === 'true' &&
+                                                response.score >= _this.opts.minimumScore;
                                             resolve({
-                                                message: response.message ||
-                                                    _this.opts.message,
+                                                message: response.message || _this.opts.message,
                                                 meta: response,
                                                 valid: isValid,
                                             });

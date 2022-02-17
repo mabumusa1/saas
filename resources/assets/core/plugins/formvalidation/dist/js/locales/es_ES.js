@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.es_ES = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.es_ES = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Spanish language package
@@ -294,8 +294,7 @@
             upper: 'Por favor introduce sólo caracteres en mayúscula',
         },
         stringLength: {
-            between:
-                'Por favor introduce un valor con una longitud entre %s y %s caracteres',
+            between: 'Por favor introduce un valor con una longitud entre %s y %s caracteres',
             default: 'Por favor introduce un valor con una longitud válida',
             less: 'Por favor introduce menos de %s caracteres',
             more: 'Por favor introduce más de %s caracteres',
@@ -387,4 +386,4 @@
 
     return es_ES;
 
-})));
+}));

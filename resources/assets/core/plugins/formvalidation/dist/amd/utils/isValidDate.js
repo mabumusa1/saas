@@ -32,9 +32,7 @@ define(["require", "exports"], function (require, exports) {
             var currentDay = currentDate.getDate();
             return (year < currentYear ||
                 (year === currentYear && month - 1 < currentMonth) ||
-                (year === currentYear &&
-                    month - 1 === currentMonth &&
-                    day < currentDay));
+                (year === currentYear && month - 1 === currentMonth && day < currentDay));
         }
         return true;
     }

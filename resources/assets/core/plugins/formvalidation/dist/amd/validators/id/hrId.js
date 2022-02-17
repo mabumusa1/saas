@@ -4,7 +4,7 @@ define(["require", "exports", "../../algorithms/mod11And10"], function (require,
     function hrId(value) {
         return {
             meta: {},
-            valid: /^[0-9]{11}$/.test(value) && mod11And10_1.default(value),
+            valid: /^[0-9]{11}$/.test(value) && (0, mod11And10_1.default)(value),
         };
     }
     exports.default = hrId;

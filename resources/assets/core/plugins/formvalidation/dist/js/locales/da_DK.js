@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.da_DK = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.da_DK = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Danish language package
@@ -63,8 +63,7 @@
             default: 'Vælg venligst en gyldig fil',
         },
         greaterThan: {
-            default:
-                'Udfyld venligst dette felt med en værdi større eller lig med %s',
+            default: 'Udfyld venligst dette felt med en værdi større eller lig med %s',
             notInclusive: 'Udfyld venligst dette felt med en værdi større end %s',
         },
         grid: {
@@ -192,10 +191,8 @@
                 TR: 'Tyrkiet',
                 ZA: 'Sydafrika',
             },
-            country:
-                'Udfyld venligst dette felt med et gyldigt identifikations-nummer i %s',
-            default:
-                'Udfyld venligst dette felt med et gyldigt identifikations-nummer',
+            country: 'Udfyld venligst dette felt med et gyldigt identifikations-nummer i %s',
+            default: 'Udfyld venligst dette felt med et gyldigt identifikations-nummer',
         },
         identical: {
             default: 'Udfyld venligst dette felt med den samme værdi',
@@ -227,8 +224,7 @@
             default: 'Udfyld venligst dette felt med et gyldigt ISSN-nummer',
         },
         lessThan: {
-            default:
-                'Udfyld venligst dette felt med en værdi mindre eller lig med %s',
+            default: 'Udfyld venligst dette felt med en værdi mindre eller lig med %s',
             notInclusive: 'Udfyld venligst dette felt med en værdi mindre end %s',
         },
         mac: {
@@ -241,8 +237,7 @@
             default: 'Udfyld venligst dette felt',
         },
         numeric: {
-            default:
-                'Udfyld venligst dette felt med et gyldigt flydende decimaltal',
+            default: 'Udfyld venligst dette felt med et gyldigt flydende decimaltal',
         },
         phone: {
             countries: {
@@ -274,8 +269,7 @@
             default: 'Udfyld venligst dette felt med en gyldig værdi',
         },
         regexp: {
-            default:
-                'Udfyld venligst dette felt med en værdi der matcher mønsteret',
+            default: 'Udfyld venligst dette felt med en værdi der matcher mønsteret',
         },
         remote: {
             default: 'Udfyld venligst dette felt med en gyldig værdi',
@@ -310,8 +304,7 @@
         },
         uuid: {
             default: 'Udfyld venligst dette felt med et gyldigt UUID-nummer',
-            version:
-                'Udfyld venligst dette felt med en gyldig UUID version %s-nummer',
+            version: 'Udfyld venligst dette felt med en gyldig UUID version %s-nummer',
         },
         vat: {
             countries: {
@@ -393,4 +386,4 @@
 
     return da_DK;
 
-})));
+}));

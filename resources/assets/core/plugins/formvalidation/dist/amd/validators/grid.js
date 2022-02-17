@@ -15,7 +15,7 @@ define(["require", "exports", "../algorithms/mod37And36"], function (require, ex
                 if ('GRID:' === v.substr(0, 5)) {
                     v = v.substr(5);
                 }
-                return { valid: mod37And36_1.default(v) };
+                return { valid: (0, mod37And36_1.default)(v) };
             },
         };
     }

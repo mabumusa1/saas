@@ -218,6 +218,10 @@ var KTDrawer = function(element, options) {
         return width;
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('drawer');
+    }
+
     // Construct class
     _construct();
 
@@ -250,6 +254,10 @@ var KTDrawer = function(element, options) {
         return the.element;
     }
 
+    the.destroy = function() {
+        return _destroy();
+    }
+
     // Event API
     the.on = function(name, handler) {
         return KTEventHandler.on(the.element, name, handler);
@@ -274,6 +282,46 @@ KTDrawer.getInstance = function(element) {
         return KTUtil.data(element).get('drawer');
     } else {
         return null;
+    }
+}
+
+// Hide all drawers and skip one if provided
+KTDrawer.hideAll = function(skip = null, selector = '[data-kt-drawer="true"]') {
+    var items = document.querySelectorAll(selector);
+
+    if (items && items.length > 0) {
+        for (var i = 0, len = items.length; i < len; i++) {
+            var item = items[i];
+            var drawer = KTDrawer.getInstance(item);
+
+            if (!drawer) {
+                continue;
+            }
+
+            if ( skip ) {
+                if ( item !== skip ) {
+                    drawer.hide();
+                }
+            } else {
+                drawer.hide();
+            }
+        }
+    }
+}
+
+// Update all drawers
+KTDrawer.updateAll = function(selector = '[data-kt-drawer="true"]') {
+    var items = document.querySelectorAll(selector);
+
+    if (items && items.length > 0) {
+        for (var i = 0, len = items.length; i < len; i++) {
+            var item = items[i];
+            var drawer = KTDrawer.getInstance(item);
+
+            if (drawer) {
+                drawer.update();;
+            }
+        }
     }
 }
 

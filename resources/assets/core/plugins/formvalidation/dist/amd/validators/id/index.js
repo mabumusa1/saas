@@ -68,137 +68,135 @@ define(["require", "exports", "../../utils/format", "./arId", "./baId", "./bgId"
                 };
                 switch (country.toLowerCase()) {
                     case 'ar':
-                        result = arId_1.default(input.value);
+                        result = (0, arId_1.default)(input.value);
                         break;
                     case 'ba':
-                        result = baId_1.default(input.value);
+                        result = (0, baId_1.default)(input.value);
                         break;
                     case 'bg':
-                        result = bgId_1.default(input.value);
+                        result = (0, bgId_1.default)(input.value);
                         break;
                     case 'br':
-                        result = brId_1.default(input.value);
+                        result = (0, brId_1.default)(input.value);
                         break;
                     case 'ch':
-                        result = chId_1.default(input.value);
+                        result = (0, chId_1.default)(input.value);
                         break;
                     case 'cl':
-                        result = clId_1.default(input.value);
+                        result = (0, clId_1.default)(input.value);
                         break;
                     case 'cn':
-                        result = cnId_1.default(input.value);
+                        result = (0, cnId_1.default)(input.value);
                         break;
                     case 'co':
-                        result = coId_1.default(input.value);
+                        result = (0, coId_1.default)(input.value);
                         break;
                     case 'cz':
-                        result = czId_1.default(input.value);
+                        result = (0, czId_1.default)(input.value);
                         break;
                     case 'dk':
-                        result = dkId_1.default(input.value);
+                        result = (0, dkId_1.default)(input.value);
                         break;
                     case 'ee':
-                        result = ltId_1.default(input.value);
+                        result = (0, ltId_1.default)(input.value);
                         break;
                     case 'es':
-                        result = esId_1.default(input.value);
+                        result = (0, esId_1.default)(input.value);
                         break;
                     case 'fi':
-                        result = fiId_1.default(input.value);
+                        result = (0, fiId_1.default)(input.value);
                         break;
                     case 'fr':
-                        result = frId_1.default(input.value);
+                        result = (0, frId_1.default)(input.value);
                         break;
                     case 'hk':
-                        result = hkId_1.default(input.value);
+                        result = (0, hkId_1.default)(input.value);
                         break;
                     case 'hr':
-                        result = hrId_1.default(input.value);
+                        result = (0, hrId_1.default)(input.value);
                         break;
                     case 'id':
-                        result = idId_1.default(input.value);
+                        result = (0, idId_1.default)(input.value);
                         break;
                     case 'ie':
-                        result = ieId_1.default(input.value);
+                        result = (0, ieId_1.default)(input.value);
                         break;
                     case 'il':
-                        result = ilId_1.default(input.value);
+                        result = (0, ilId_1.default)(input.value);
                         break;
                     case 'is':
-                        result = isId_1.default(input.value);
+                        result = (0, isId_1.default)(input.value);
                         break;
                     case 'kr':
-                        result = krId_1.default(input.value);
+                        result = (0, krId_1.default)(input.value);
                         break;
                     case 'lt':
-                        result = ltId_1.default(input.value);
+                        result = (0, ltId_1.default)(input.value);
                         break;
                     case 'lv':
-                        result = lvId_1.default(input.value);
+                        result = (0, lvId_1.default)(input.value);
                         break;
                     case 'me':
-                        result = meId_1.default(input.value);
+                        result = (0, meId_1.default)(input.value);
                         break;
                     case 'mk':
-                        result = mkId_1.default(input.value);
+                        result = (0, mkId_1.default)(input.value);
                         break;
                     case 'mx':
-                        result = mxId_1.default(input.value);
+                        result = (0, mxId_1.default)(input.value);
                         break;
                     case 'my':
-                        result = myId_1.default(input.value);
+                        result = (0, myId_1.default)(input.value);
                         break;
                     case 'nl':
-                        result = nlId_1.default(input.value);
+                        result = (0, nlId_1.default)(input.value);
                         break;
                     case 'no':
-                        result = noId_1.default(input.value);
+                        result = (0, noId_1.default)(input.value);
                         break;
                     case 'pe':
-                        result = peId_1.default(input.value);
+                        result = (0, peId_1.default)(input.value);
                         break;
                     case 'pl':
-                        result = plId_1.default(input.value);
+                        result = (0, plId_1.default)(input.value);
                         break;
                     case 'ro':
-                        result = roId_1.default(input.value);
+                        result = (0, roId_1.default)(input.value);
                         break;
                     case 'rs':
-                        result = rsId_1.default(input.value);
+                        result = (0, rsId_1.default)(input.value);
                         break;
                     case 'se':
-                        result = seId_1.default(input.value);
+                        result = (0, seId_1.default)(input.value);
                         break;
                     case 'si':
-                        result = siId_1.default(input.value);
+                        result = (0, siId_1.default)(input.value);
                         break;
                     case 'sk':
-                        result = czId_1.default(input.value);
+                        result = (0, czId_1.default)(input.value);
                         break;
                     case 'sm':
-                        result = smId_1.default(input.value);
+                        result = (0, smId_1.default)(input.value);
                         break;
                     case 'th':
-                        result = thId_1.default(input.value);
+                        result = (0, thId_1.default)(input.value);
                         break;
                     case 'tr':
-                        result = trId_1.default(input.value);
+                        result = (0, trId_1.default)(input.value);
                         break;
                     case 'tw':
-                        result = twId_1.default(input.value);
+                        result = (0, twId_1.default)(input.value);
                         break;
                     case 'uy':
-                        result = uyId_1.default(input.value);
+                        result = (0, uyId_1.default)(input.value);
                         break;
                     case 'za':
-                        result = zaId_1.default(input.value);
+                        result = (0, zaId_1.default)(input.value);
                         break;
                     default:
                         break;
                 }
-                var message = format_1.default(input.l10n
-                    ? opts.message || input.l10n.id.country
-                    : opts.message, input.l10n
+                var message = (0, format_1.default)(input.l10n && input.l10n.id ? opts.message || input.l10n.id.country : opts.message, input.l10n && input.l10n.id && input.l10n.id.countries
                     ? input.l10n.id.countries[country.toUpperCase()]
                     : country.toUpperCase());
                 return Object.assign({}, { message: message }, result);

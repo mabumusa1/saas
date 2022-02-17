@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.ro_RO = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.ro_RO = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Romanian language package
@@ -294,8 +294,7 @@
             upper: 'Te rog sa introduci doar litere mari',
         },
         stringLength: {
-            between:
-                'Te rog sa introduci o valoare cu lungimea intre %s si %s caractere',
+            between: 'Te rog sa introduci o valoare cu lungimea intre %s si %s caractere',
             default: 'Te rog sa introduci o valoare cu lungimea valida',
             less: 'Te rog sa introduci mai putin de %s caractere',
             more: 'Te rog sa introduci mai mult de %s caractere',
@@ -387,4 +386,4 @@
 
     return ro_RO;
 
-})));
+}));

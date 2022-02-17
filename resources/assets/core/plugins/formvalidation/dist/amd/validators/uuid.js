@@ -17,15 +17,11 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 var version = opts.version ? "" + opts.version : 'all';
                 return {
                     message: opts.version
-                        ? format_1.default(input.l10n
-                            ? opts.message || input.l10n.uuid.version
-                            : opts.message, opts.version)
+                        ? (0, format_1.default)(input.l10n ? opts.message || input.l10n.uuid.version : opts.message, opts.version)
                         : input.l10n
                             ? input.l10n.uuid.default
                             : opts.message,
-                    valid: null === patterns[version]
-                        ? true
-                        : patterns[version].test(input.value),
+                    valid: null === patterns[version] ? true : patterns[version].test(input.value),
                 };
             },
         };

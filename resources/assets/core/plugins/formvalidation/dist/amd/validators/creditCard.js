@@ -93,20 +93,7 @@ define(["require", "exports", "../algorithms/luhn"], function (require, exports,
         },
         MAESTRO: {
             length: [12, 13, 14, 15, 16, 17, 18, 19],
-            prefix: [
-                '5018',
-                '5020',
-                '5038',
-                '5868',
-                '6304',
-                '6759',
-                '6761',
-                '6762',
-                '6763',
-                '6764',
-                '6765',
-                '6766',
-            ],
+            prefix: ['5018', '5020', '5038', '5868', '6304', '6759', '6761', '6762', '6763', '6764', '6765', '6766'],
         },
         MASTERCARD: {
             length: [16],
@@ -177,7 +164,7 @@ define(["require", "exports", "../algorithms/luhn"], function (require, exports,
                     };
                 }
                 var v = input.value.replace(/\D/g, '');
-                if (!luhn_1.default(v)) {
+                if (!(0, luhn_1.default)(v)) {
                     return {
                         meta: {
                             type: null,
@@ -188,7 +175,8 @@ define(["require", "exports", "../algorithms/luhn"], function (require, exports,
                 for (var _i = 0, _a = Object.keys(CREDIT_CARD_TYPES); _i < _a.length; _i++) {
                     var tpe = _a[_i];
                     for (var i in CREDIT_CARD_TYPES[tpe].prefix) {
-                        if (input.value.substr(0, CREDIT_CARD_TYPES[tpe].prefix[i].length) === CREDIT_CARD_TYPES[tpe].prefix[i] &&
+                        if (input.value.substr(0, CREDIT_CARD_TYPES[tpe].prefix[i].length) ===
+                            CREDIT_CARD_TYPES[tpe].prefix[i] &&
                             CREDIT_CARD_TYPES[tpe].length.indexOf(v.length) !== -1) {
                             return {
                                 meta: {

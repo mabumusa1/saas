@@ -177,7 +177,7 @@ var KTScroll = function(element, options) {
         }
 
         // Custom offset
-        if ( offset !== null ) {
+        if ( offset !== null && typeof offset !== 'object') {
             height = height - parseInt(offset);
         }
 
@@ -231,6 +231,10 @@ var KTScroll = function(element, options) {
         }
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('scroll');
+    }
+
     // Construct Class
     _construct();
 
@@ -248,6 +252,10 @@ var KTScroll = function(element, options) {
 
     the.getElement = function() {
         return the.element;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 };
 

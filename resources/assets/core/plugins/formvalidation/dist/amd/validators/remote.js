@@ -28,7 +28,7 @@ define(["require", "exports", "../utils/fetch"], function (require, exports, fet
                 var url = 'function' === typeof opts.url
                     ? opts.url.call(this, input)
                     : opts.url;
-                return fetch_1.default(url, {
+                return (0, fetch_1.default)(url, {
                     crossDomain: opts.crossDomain,
                     headers: opts.headers,
                     method: opts.method,

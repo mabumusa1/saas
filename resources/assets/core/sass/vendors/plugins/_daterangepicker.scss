@@ -13,7 +13,7 @@
     box-shadow: $dropdown-box-shadow;
     font-family: $font-family-sans-serif;
     z-index: $zindex-dropdown;
-    @include border-radius($border-radius);
+    @include border-radius($dropdown-border-radius);
 
     &:after,
     &:before {
@@ -39,7 +39,7 @@
     }
 
     .ranges {
-        @include border-top-start-radius($border-radius);
+        @include border-radius($dropdown-border-radius);
         background-color: $body-bg;
 
         ul {
@@ -70,6 +70,8 @@
 
     &.show-calendar {
         .ranges {            
+            @include border-radius(0);
+            @include border-top-start-radius($dropdown-border-radius);
             margin-top: 0;
             height: 297px;
         }

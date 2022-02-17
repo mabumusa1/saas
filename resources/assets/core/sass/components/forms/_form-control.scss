@@ -39,18 +39,18 @@
 		}
 	}
 
-	// White style
-	&.form-control-white {
-		background-color: $body-bg;
-		border-color: $body-bg;
+	// Transparent style
+	&.form-control-transparent {
+		background-color: transparent;
+		border-color: transparent;
 
 		.dropdown.show > &,
 		&:active,
 		&.active,
 		&:focus,
 		&.focus {
-			background-color: $body-bg;
-			border-color: $body-bg;
+			background-color: transparent;
+			border-color: transparent;
 		}
 	}
 

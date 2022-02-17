@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.fr_FR = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.fr_FR = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * French language package
@@ -15,8 +15,7 @@
         },
         between: {
             default: 'Veuillez fournir une valeur comprise entre %s et %s',
-            notInclusive:
-                'Veuillez fournir une valeur strictement comprise entre %s et %s',
+            notInclusive: 'Veuillez fournir une valeur strictement comprise entre %s et %s',
         },
         bic: {
             default: 'Veuillez fournir un code-barre BIC valide',
@@ -387,4 +386,4 @@
 
     return fr_FR;
 
-})));
+}));

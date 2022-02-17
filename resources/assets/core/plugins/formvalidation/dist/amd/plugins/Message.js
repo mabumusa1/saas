@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -21,16 +23,13 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             _this.messages = new Map();
             _this.defaultContainer = document.createElement('div');
             _this.opts = Object.assign({}, {
-                container: function (_field, _element) {
-                    return _this.defaultContainer;
-                },
+                container: function (_field, _element) { return _this.defaultContainer; },
             }, opts);
             _this.elementIgnoredHandler = _this.onElementIgnored.bind(_this);
             _this.fieldAddedHandler = _this.onFieldAdded.bind(_this);
             _this.fieldRemovedHandler = _this.onFieldRemoved.bind(_this);
             _this.validatorValidatedHandler = _this.onValidatorValidated.bind(_this);
-            _this.validatorNotValidatedHandler =
-                _this.onValidatorNotValidated.bind(_this);
+            _this.validatorNotValidatedHandler = _this.onValidatorNotValidated.bind(_this);
             return _this;
         }
         Message.getClosestContainer = function (element, upper, pattern) {
@@ -57,9 +56,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
         };
         Message.prototype.uninstall = function () {
             this.core.getFormElement().removeChild(this.defaultContainer);
-            this.messages.forEach(function (message) {
-                return message.parentNode.removeChild(message);
-            });
+            this.messages.forEach(function (message) { return message.parentNode.removeChild(message); });
             this.messages.clear();
             this.core
                 .off('core.element.ignored', this.elementIgnoredHandler)
@@ -88,9 +85,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
                 return;
             }
             var type = e.elements[0].getAttribute('type');
-            var elements = 'radio' === type || 'checkbox' === type
-                ? [e.elements[0]]
-                : e.elements;
+            var elements = 'radio' === type || 'checkbox' === type ? [e.elements[0]] : e.elements;
             elements.forEach(function (ele) {
                 if (_this.messages.has(ele)) {
                     var container = _this.messages.get(ele);
@@ -107,9 +102,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
                     this.prepareElementContainer(field, elements[0], elements);
                 }
                 else {
-                    elements.forEach(function (ele) {
-                        return _this.prepareElementContainer(field, ele, elements);
-                    });
+                    elements.forEach(function (ele) { return _this.prepareElementContainer(field, ele, elements); });
                 }
             }
         };
@@ -119,16 +112,14 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
                 var selector = '#' === this.opts.container.charAt(0)
                     ? "[id=\"" + this.opts.container.substring(1) + "\"]"
                     : this.opts.container;
-                container = this.core
-                    .getFormElement()
-                    .querySelector(selector);
+                container = this.core.getFormElement().querySelector(selector);
             }
             else {
                 container = this.opts.container(field, element);
             }
             var message = document.createElement('div');
             container.appendChild(message);
-            classSet_1.default(message, {
+            (0, classSet_1.default)(message, {
                 'fv-plugins-message-container': true,
             });
             this.core.emit('plugins.message.placed', {
@@ -140,15 +131,13 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             this.messages.set(element, message);
         };
         Message.prototype.getMessage = function (result) {
-            return typeof result.message === 'string'
-                ? result.message
-                : result.message[this.core.getLocale()];
+            return typeof result.message === 'string' ? result.message : result.message[this.core.getLocale()];
         };
         Message.prototype.onValidatorValidated = function (e) {
             var _a;
             var elements = e.elements;
             var type = e.element.getAttribute('type');
-            var element = 'radio' === type || 'checkbox' === type ? elements[0] : e.element;
+            var element = ('radio' === type || 'checkbox' === type) && elements.length > 0 ? elements[0] : e.element;
             if (this.messages.has(element)) {
                 var container = this.messages.get(element);
                 var messageEle = container.querySelector("[data-field=\"" + e.field + "\"][data-validator=\"" + e.validator + "\"]");
@@ -158,7 +147,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
                     ele.setAttribute('data-field', e.field);
                     ele.setAttribute('data-validator', e.validator);
                     if (this.opts.clazz) {
-                        classSet_1.default(ele, (_a = {},
+                        (0, classSet_1.default)(ele, (_a = {},
                             _a[this.opts.clazz] = true,
                             _a));
                     }

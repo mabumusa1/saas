@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     <!--begin::Confirm Password Form-->
     <form method="POST" action="{{ theme()->getPageUrl('password.confirm') }}" class="form w-100" novalidate="novalidate">
     @csrf

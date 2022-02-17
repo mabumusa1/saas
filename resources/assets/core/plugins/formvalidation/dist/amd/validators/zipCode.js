@@ -55,7 +55,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
         };
         return {
             validate: function (input) {
-                var opts = Object.assign({}, input.options);
+                var opts = Object.assign({}, { message: '' }, input.options);
                 if (input.value === '' || !opts.country) {
                     return { valid: true };
                 }
@@ -66,8 +66,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 else {
                     country = opts.country;
                 }
-                if (!country ||
-                    COUNTRY_CODES.indexOf(country.toUpperCase()) === -1) {
+                if (!country || COUNTRY_CODES.indexOf(country.toUpperCase()) === -1) {
                     return { valid: true };
                 }
                 var isValid = false;
@@ -111,8 +110,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                         isValid = /^\d{3}\s?\d{3}$/.test(input.value);
                         break;
                     case 'IE':
-                        isValid =
-                            /^(D6W|[ACDEFHKNPRTVWXY]\d{2})\s[0-9ACDEFHKNPRTVWXY]{4}$/.test(input.value);
+                        isValid = /^(D6W|[ACDEFHKNPRTVWXY]\d{2})\s[0-9ACDEFHKNPRTVWXY]{4}$/.test(input.value);
                         break;
                     case 'IT':
                         isValid = /^(I-|IT-)?\d{5}$/i.test(input.value);
@@ -139,8 +137,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                         isValid = /^(S-)?\d{3}\s?\d{2}$/i.test(input.value);
                         break;
                     case 'SG':
-                        isValid =
-                            /^([0][1-9]|[1-6][0-9]|[7]([0-3]|[5-9])|[8][0-2])(\d{4})$/i.test(input.value);
+                        isValid = /^([0][1-9]|[1-6][0-9]|[7]([0-3]|[5-9])|[8][0-2])(\d{4})$/i.test(input.value);
                         break;
                     case 'SK':
                         isValid = /^(\d{3})([ ]?)(\d{2})$/.test(input.value);
@@ -151,9 +148,9 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                         break;
                 }
                 return {
-                    message: format_1.default(input.l10n
-                        ? opts.message || input.l10n.zipCode.country
-                        : opts.message, input.l10n ? input.l10n.zipCode.countries[country] : country),
+                    message: (0, format_1.default)(input.l10n && input.l10n.zipCode ? opts.message || input.l10n.zipCode.country : opts.message, input.l10n && input.l10n.zipCode && input.l10n.zipCode.countries
+                        ? input.l10n.zipCode.countries[country]
+                        : country),
                     valid: isValid,
                 };
             },

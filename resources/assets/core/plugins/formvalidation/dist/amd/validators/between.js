@@ -16,18 +16,18 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 var maxValue = formatValue(opts.max);
                 return opts.inclusive
                     ? {
-                        message: format_1.default(input.l10n
-                            ? opts.message || input.l10n.between.default
-                            : opts.message, ["" + minValue, "" + maxValue]),
-                        valid: parseFloat(value) >= minValue &&
-                            parseFloat(value) <= maxValue,
+                        message: (0, format_1.default)(input.l10n ? opts.message || input.l10n.between.default : opts.message, [
+                            "" + minValue,
+                            "" + maxValue,
+                        ]),
+                        valid: parseFloat(value) >= minValue && parseFloat(value) <= maxValue,
                     }
                     : {
-                        message: format_1.default(input.l10n
-                            ? opts.message || input.l10n.between.notInclusive
-                            : opts.message, ["" + minValue, "" + maxValue]),
-                        valid: parseFloat(value) > minValue &&
-                            parseFloat(value) < maxValue,
+                        message: (0, format_1.default)(input.l10n ? opts.message || input.l10n.between.notInclusive : opts.message, [
+                            "" + minValue,
+                            "" + maxValue,
+                        ]),
+                        valid: parseFloat(value) > minValue && parseFloat(value) < maxValue,
                     };
             },
         };

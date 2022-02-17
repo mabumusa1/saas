@@ -45,7 +45,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
                     year -= 100;
                     month -= 20;
                 }
-                if (!isValidDate_1.default(year, month, day)) {
+                if (!(0, isValidDate_1.default)(year, month, day)) {
                     return false;
                 }
                 var weight = [2, 4, 8, 5, 10, 9, 7, 3, 6];

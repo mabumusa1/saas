@@ -4,7 +4,7 @@ define(["require", "exports", "../utils/call"], function (require, exports, call
     function callback() {
         return {
             validate: function (input) {
-                var response = call_1.default(input.options.callback, [input]);
+                var response = (0, call_1.default)(input.options.callback, [input]);
                 return 'boolean' === typeof response
                     ? { valid: response }
                     : response;

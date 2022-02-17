@@ -14,7 +14,7 @@ define(["require", "exports"], function (require, exports) {
         }
         var dni = function (input) {
             var check = parseInt(input.substr(0, 8), 10);
-            return ("" + 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23] === input.substr(8, 1));
+            return "" + 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23] === input.substr(8, 1);
         };
         var nie = function (input) {
             var check = ['XYZ'.indexOf(input.charAt(0)), input.substr(1)].join('');
@@ -44,8 +44,7 @@ define(["require", "exports"], function (require, exports) {
                 if (sum === 10) {
                     sum = 0;
                 }
-                return ("" + sum === input.substr(8, 1) ||
-                    'JABCDEFGHI'[sum] === input.substr(8, 1));
+                return "" + sum === input.substr(8, 1) || 'JABCDEFGHI'[sum] === input.substr(8, 1);
             }
             return false;
         };

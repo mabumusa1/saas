@@ -28,15 +28,13 @@ define(["require", "exports"], function (require, exports) {
         if (/^[0-9]+$/.test(v.substr(0, 7))) {
             return {
                 meta: {},
-                valid: v.charAt(7) ===
-                    getCheckDigit("" + v.substr(0, 7) + v.substr(8)),
+                valid: v.charAt(7) === getCheckDigit("" + v.substr(0, 7) + v.substr(8)),
             };
         }
         else if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ+*'.indexOf(v.charAt(1)) !== -1) {
             return {
                 meta: {},
-                valid: v.charAt(7) ===
-                    getCheckDigit("" + v.substr(2, 5) + v.substr(0, 1)),
+                valid: v.charAt(7) === getCheckDigit("" + v.substr(2, 5) + v.substr(0, 1)),
             };
         }
         return {

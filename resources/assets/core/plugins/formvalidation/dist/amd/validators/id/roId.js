@@ -34,7 +34,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         }
         if (gender !== 9) {
             year = centuries[gender + ''] + year;
-            if (!isValidDate_1.default(year, month, day)) {
+            if (!(0, isValidDate_1.default)(year, month, day)) {
                 return {
                     meta: {},
                     valid: false,

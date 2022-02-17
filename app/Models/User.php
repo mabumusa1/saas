@@ -7,16 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
-    use HasProfilePhoto;
-    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
@@ -26,18 +22,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'account_id',
         'first_name',
         'last_name',
         'phone',
         'email',
         'password',
-        'profile_photo_path',
         'job_title',
         'employer',
         'experince',
         'company_name',
-        'role',
+
     ];
 
     /**
@@ -46,10 +40,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
+        'account_id',
         'password',
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'role',
     ];
 
     /**
@@ -61,22 +57,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
-
     public function accounts()
     {
         return $this->belongsToMany(Account::class);
-    }
-
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
     }
 }

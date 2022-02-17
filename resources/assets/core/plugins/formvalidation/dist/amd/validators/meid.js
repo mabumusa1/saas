@@ -15,7 +15,7 @@ define(["require", "exports", "../algorithms/luhn"], function (require, exports,
                     var cd = v.charAt(v.length - 1).toUpperCase();
                     v = v.replace(/[- ]/g, '');
                     if (v.match(/^\d*$/i)) {
-                        return { valid: luhn_1.default(v) };
+                        return { valid: (0, luhn_1.default)(v) };
                     }
                     v = v.slice(0, -1);
                     var checkDigit = '';
@@ -31,10 +31,7 @@ define(["require", "exports", "../algorithms/luhn"], function (require, exports,
                         valid: sum % 10 === 0
                             ? cd === '0'
                             :
-                                cd ===
-                                    ((Math.floor((sum + 10) / 10) * 10 - sum) * 2)
-                                        .toString(16)
-                                        .toUpperCase(),
+                                cd === ((Math.floor((sum + 10) / 10) * 10 - sum) * 2).toString(16).toUpperCase(),
                     };
                 }
                 if (/^[0-9A-F]{14}$/i.test(v) ||

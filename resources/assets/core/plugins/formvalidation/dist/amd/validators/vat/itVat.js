@@ -19,8 +19,7 @@ define(["require", "exports", "../../algorithms/luhn"], function (require, expor
             };
         }
         var lastThree = parseInt(v.substr(7, 3), 10);
-        if (lastThree < 1 ||
-            (lastThree > 201 && lastThree !== 999 && lastThree !== 888)) {
+        if (lastThree < 1 || (lastThree > 201 && lastThree !== 999 && lastThree !== 888)) {
             return {
                 meta: {},
                 valid: false,
@@ -28,7 +27,7 @@ define(["require", "exports", "../../algorithms/luhn"], function (require, expor
         }
         return {
             meta: {},
-            valid: luhn_1.default(v),
+            valid: (0, luhn_1.default)(v),
         };
     }
     exports.default = itVat;

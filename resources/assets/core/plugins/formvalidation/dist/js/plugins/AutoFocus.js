@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.AutoFocus = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.AutoFocus = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -69,7 +69,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -87,6 +87,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -111,9 +113,9 @@
     };
   }
 
-  var t = FormValidation.Plugin;
+  var t$1 = FormValidation.Plugin;
 
-  var t$1 = /*#__PURE__*/function (_e) {
+  var t = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -206,7 +208,7 @@
     }]);
 
     return t;
-  }(t);
+  }(t$1);
 
   var s = /*#__PURE__*/function (_t) {
     _inherits(s, _t);
@@ -230,7 +232,7 @@
     _createClass(s, [{
       key: "install",
       value: function install() {
-        this.core.on("core.form.invalid", this.invalidFormHandler).registerPlugin(this.fieldStatusPluginName, new t$1());
+        this.core.on("core.form.invalid", this.invalidFormHandler).registerPlugin(this.fieldStatusPluginName, new t());
       }
     }, {
       key: "uninstall",
@@ -242,33 +244,34 @@
       value: function onFormInvalid() {
         var t = this.core.getPlugin(this.fieldStatusPluginName);
         var i = t.getStatuses();
-        var s = Object.keys(this.core.getFields()).filter(function (t) {
+
+        var _s = Object.keys(this.core.getFields()).filter(function (t) {
           return i.get(t) === "Invalid";
         });
 
-        if (s.length > 0) {
-          var _t2 = s[0];
+        if (_s.length > 0) {
+          var _t2 = _s[0];
 
           var _i = this.core.getElements(_t2);
 
           if (_i.length > 0) {
-            var _s = _i[0];
+            var _s3 = _i[0];
             var e = {
-              firstElement: _s,
+              firstElement: _s3,
               field: _t2
             };
             this.core.emit("plugins.autofocus.prefocus", e);
             this.opts.onPrefocus(e);
 
-            _s.focus();
+            _s3.focus();
           }
         }
       }
     }]);
 
     return s;
-  }(t);
+  }(t$1);
 
   return s;
 
-})));
+}));

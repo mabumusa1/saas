@@ -1,5 +1,5 @@
-<x-guest-layout>
-    
+<x-auth-layout>
+
     <!--begin::Signin Form-->
     <form method="POST" action="{{ theme()->getPageUrl('login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
     @csrf
@@ -8,7 +8,7 @@
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">
-                {{ __('Sign In to Steer Campaign') }}
+                {{ __('Sign In to Metronic') }}
             </h1>
             <!--end::Title-->
 
@@ -21,15 +21,10 @@
                 </a>
             </div>
             <!--end::Link-->
-            <x-jet-validation-errors class="mb-4" />
-
-            @if (session('status'))
-                <div class="mb-4 font-medium text-sm text-green-600">
-                    {{ session('status') }}
-                </div>
-            @endif
         </div>
         <!--begin::Heading-->
+
+        <div class="mb-10 bg-light-info p-8 rounded"><div class="text-info"> Use account <strong>admin@demo.com</strong> and password <strong>demo</strong> to continue. </div></div>
 
         <!--begin::Input group-->
         <div class="fv-row mb-10">
@@ -38,7 +33,7 @@
             <!--end::Label-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" value="{{ old('email', '') }}" required autofocus/>
+            <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" value="{{ old('email', 'demo@demo.com') }}" required autofocus/>
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -62,7 +57,7 @@
             <!--end::Wrapper-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" value="" required/>
+            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" value="demo" required/>
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -84,6 +79,24 @@
                 @include('partials.general._button-indicator', ['label' => __('Continue')])
             </button>
             <!--end::Submit button-->
+
+            <!--begin::Separator-->
+            <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
+            <!--end::Separator-->
+
+            <!--begin::Google link-->
+            <a href="{{ url('/auth/redirect/google') }}?redirect_uri={{ url()->previous() }}" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
+                <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'svg/brand-logos/google-icon.svg') }}" class="h-20px me-3"/>
+                {{ __('Continue with Google') }}
+            </a>
+            <!--end::Google link-->
+
+            <!--begin::Facebook link-->
+            <a href="{{ url('/auth/redirect/facebook') }}?redirect_uri={{ url()->previous() }}" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
+                <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'svg/brand-logos/facebook-4.svg') }}" class="h-20px me-3"/>
+                {{ __('Continue with Facebook') }}
+            </a>
+            <!--end::Facebook link-->
         </div>
         <!--end::Actions-->
     </form>

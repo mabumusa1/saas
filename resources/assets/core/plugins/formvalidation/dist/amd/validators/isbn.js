@@ -15,17 +15,13 @@ define(["require", "exports"], function (require, exports) {
                 var tpe;
                 switch (true) {
                     case /^\d{9}[\dX]$/.test(input.value):
-                    case input.value.length === 13 &&
-                        /^(\d+)-(\d+)-(\d+)-([\dX])$/.test(input.value):
-                    case input.value.length === 13 &&
-                        /^(\d+)\s(\d+)\s(\d+)\s([\dX])$/.test(input.value):
+                    case input.value.length === 13 && /^(\d+)-(\d+)-(\d+)-([\dX])$/.test(input.value):
+                    case input.value.length === 13 && /^(\d+)\s(\d+)\s(\d+)\s([\dX])$/.test(input.value):
                         tpe = 'ISBN10';
                         break;
                     case /^(978|979)\d{9}[\dX]$/.test(input.value):
-                    case input.value.length === 17 &&
-                        /^(978|979)-(\d+)-(\d+)-(\d+)-([\dX])$/.test(input.value):
-                    case input.value.length === 17 &&
-                        /^(978|979)\s(\d+)\s(\d+)\s(\d+)\s([\dX])$/.test(input.value):
+                    case input.value.length === 17 && /^(978|979)-(\d+)-(\d+)-(\d+)-([\dX])$/.test(input.value):
+                    case input.value.length === 17 && /^(978|979)\s(\d+)\s(\d+)\s(\d+)\s([\dX])$/.test(input.value):
                         tpe = 'ISBN13';
                         break;
                     default:
@@ -63,10 +59,7 @@ define(["require", "exports"], function (require, exports) {
                     case 'ISBN13':
                         sum = 0;
                         for (i = 0; i < length - 1; i++) {
-                            sum +=
-                                i % 2 === 0
-                                    ? parseInt(chars[i], 10)
-                                    : parseInt(chars[i], 10) * 3;
+                            sum += i % 2 === 0 ? parseInt(chars[i], 10) : parseInt(chars[i], 10) * 3;
                         }
                         checksum = 10 - (sum % 10);
                         if (checksum === 10) {

@@ -1,56 +1,36 @@
 <?php
 
 return [
-    // Meta
-    'meta'    => [
-        'description' => 'Steer Campaign provides managed Mautic hosting for agencies, marketers, and corporate. Mautic support, security and performance.',
-        'keywords'    => 'Mautic support, Mautic Hosting, Marketing Automation, Open Source, manged mautic hosting',
-        'canonical'   => 'https://steercampaign.com',
-    ],
-    // General
-    'general' => [
-        'terms' => 'https://steercampaign.com/terms-of-service',
-        'privacy' => 'https://steercampaign.com/privacy',
-    ],
+    // Refer to config/global/general.php
 
     // Assets
     'assets' => [
         'favicon' => 'media/logos/favicon.ico',
         'fonts'   => [
             'google' => [
-                'Varela:300,400,500,600,700',
+                'Poppins:300,400,500,600,700',
             ],
         ],
         'css'     => [
             'plugins/global/plugins.bundle.css',
             'plugins/global/plugins-custom.bundle.css',
-            'plugins/custom/datatables/datatables.bundle.css',
             'css/style.bundle.css',
         ],
         'js'      => [
             'plugins/global/plugins.bundle.js',
             'js/scripts.bundle.js',
-            'plugins/custom/datatables/datatables.bundle.js',
+            'js/custom/widgets.js',
         ],
     ],
 
     // Layout
-    'skin' => [
+    'layout' => [
         // Main
         'main'       => [
             'base'              => 'default', // Set base layout: default|docs
             'type'              => 'default', // Set layout type: default|blank|none
-            'dark-mode-enabled' => true, // Enable optioanl dark mode mode
-            'primary-color'     => '#009EF7',
-        ],
-
-        // Docs
-        'docs'       => [
-            'logo-path'  => [
-                'default' => 'logos/logo-1-dark.svg',
-                'dark'    => 'logos/logo-1.svg',
-            ],
-            'logo-class' => 'h-15px',
+            'dark-mode-enabled' => true, // Enable optional dark mode mode
+            'primary-color'     => '#009EF7',  // Primary color used in email templates
         ],
 
         // Loader
@@ -61,9 +41,9 @@ return [
 
         // Header
         'header'     => [
-            'display'   => true, // Display header
+            'display'   => false, // Display header
             'width'     => 'fluid', // Set header width(fixed|fluid)
-            'left'      => 'page-title', // Set left part content(menu|page-title)
+            'left'      => 'menu', // Set left part content(menu|page-title)
             'fixed'     => [
                 'desktop'           => true,  // Set fixed header for desktop
                 'tablet-and-mobile' => true, // Set fixed header for talet & mobile
@@ -85,15 +65,31 @@ return [
                     'height'                   => '55px',
                     'height-tablet-and-mobile' => '55px',
                 ],
+                'toolbar-2' => [
+                    'height'                   => '75px',
+                    'height-tablet-and-mobile' => '65px',
+                ],
+                'toolbar-3' => [
+                    'height'                   => '55px',
+                    'height-tablet-and-mobile' => '55px',
+                ],
+                'toolbar-4' => [
+                    'height'                   => '65px',
+                    'height-tablet-and-mobile' => '65px',
+                ],
+                'toolbar-5' => [
+                    'height'                   => '75px',
+                    'height-tablet-and-mobile' => '65px',
+                ],
             ],
         ],
 
         // Page title
         'page-title' => [
-            'display'               => false, // Display page title
-            'breadcrumb'            => false, // Display breadcrumb
+            'display'               => true, // Display page title
+            'breadcrumb'            => true, // Display breadcrumb
             'description'           => false, // Display description
-            'layout'                => 'select', // Set layout(default|select)
+            'layout'                => 'default', // Set layout(default|select)
             'direction'             => 'row', // Flex direction(column|row))
             'responsive'            => true, // Move page title to cotnent on mobile mode
             'responsive-breakpoint' => 'lg', // Responsive breakpoint value(e.g: md, lg, or 300px)
@@ -115,7 +111,7 @@ return [
         // Content
         'content'    => [
             'width'  => 'fixed', // Set content width(fixed|fluid)
-            'skin' => 'default',  // Set content layout(default|documentation)
+            'layout' => 'default',  // Set content layout(default|documentation)
         ],
 
         // Footer

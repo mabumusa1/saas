@@ -189,6 +189,10 @@ var KTPasswordMeter = function(element, options) {
        return the.score;
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('password-meter');
+    }
+
     // Construct class
     _construct();
 
@@ -207,6 +211,10 @@ var KTPasswordMeter = function(element, options) {
 
     the.reset = function() {
         return _reset();
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 };
 

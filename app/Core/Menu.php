@@ -33,6 +33,15 @@ class Menu
     // Default icon type in menu config
     private $iconType = 'svg';
 
+    // Default root icon
+    private $iconRoot = '';
+
+    // Hide root arrow
+    private $hideRootArrow = false;
+
+    // Iteration level
+    private $linkLevel = 0;
+
     /**
      * Private Methods.
      */
@@ -41,8 +50,21 @@ class Menu
         $classes = ['menu-item'];
         $attributes = [];
 
+        // Set iteration level
+        $this->linkLevel = $level;
+
         // Overcome recursive infinite loop
         if ($level > 10000) {
+            return;
+        }
+
+        // Process callable item
+        if (is_callable($item)) {
+            $item = call_user_func($item);
+        }
+
+        // Exit if item is null
+        if ($item === null) {
             return;
         }
 
@@ -152,7 +174,9 @@ class Menu
         $this->_generateItemLinkBadge($item);
 
         if (isset($item['sub']) && @$item['arrow'] !== false) {
-            $this->_generateItemLinkArrow($item);
+            if (! ($this->hideRootArrow === true && $this->linkLevel === 0)) {
+                $this->_generateItemLinkArrow($item);
+            }
         }
 
         echo '</'.$tag.'>';
@@ -175,7 +199,7 @@ class Menu
         if (isset($this->callbacks['title']) && is_callable($this->callbacks['title'])) {
             echo call_user_func($this->callbacks['title'], $item, $item['title']);
         } else {
-            echo $item['title'];
+            echo __($item['title']);
             // Append exclusive badge
             if (isset($item['path']) && Theme::isExclusivePage($item['path']) === true) {
                 echo '<span class="badge badge-exclusive badge-light-success fw-bold fs-9 px-2 py-1 ms-1">Exclusive</span>';
@@ -203,13 +227,19 @@ class Menu
         if (isset($item['icon'])) {
             echo '<span '.Util::getHtmlClass($classes).'>';
 
-            if (is_array($item['icon'])) {
-                echo $item['icon'][$this->iconType];
+            if ($this->linkLevel === 0 && ! empty($this->iconRoot)) {
+                echo $this->iconRoot;
             } else {
-                echo $item['icon'];
+                if (is_array($item['icon'])) {
+                    echo $item['icon'][$this->iconType];
+                } else {
+                    echo $item['icon'];
+                }
             }
 
             echo '</span>';
+
+            return;
         }
     }
 
@@ -447,9 +477,9 @@ class Menu
         $this->displayIcons = $flag;
     }
 
-    public function hideRootLevelIcons($flag)
+    public function hideRootArrow($flag)
     {
-        $this->hideRootLevelIcons = $flag;
+        $this->hideRootArrow = $flag;
     }
 
     public function setItemTag($tagName)
@@ -460,6 +490,11 @@ class Menu
     public function setIconType($type)
     {
         $this->iconType = $type;
+    }
+
+    public function setDefaultRootIcon($icon)
+    {
+        $this->iconRoot = $icon;
     }
 
     public function setItemLinkClass($class)

@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Wizard = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Wizard = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -84,7 +84,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -102,6 +102,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -145,6 +147,7 @@
       _this = _super.call(this, t);
       _this.currentStep = 0;
       _this.numSteps = 0;
+      _this.stepIndexes = [];
       _this.opts = Object.assign({}, {
         activeStepClass: "fv-plugins-wizard--active",
         onStepActive: function onStepActive() {},
@@ -163,7 +166,9 @@
       value: function install() {
         var _this2 = this;
 
-        this.core.registerPlugin(i.EXCLUDED_PLUGIN, new s());
+        this.core.registerPlugin(i.EXCLUDED_PLUGIN, this.opts.isFieldExcluded ? new s({
+          excluded: this.opts.isFieldExcluded
+        }) : new s());
         var t = this.core.getFormElement();
         this.steps = [].slice.call(t.querySelectorAll(this.opts.stepSelector));
         this.numSteps = this.steps.length;
@@ -171,6 +176,9 @@
           e(t, _defineProperty({}, _this2.opts.stepClass, true));
         });
         e(this.steps[0], _defineProperty({}, this.opts.activeStepClass, true));
+        this.stepIndexes = Array(this.numSteps).fill(0).map(function (t, e) {
+          return e;
+        });
         this.prevButton = t.querySelector(this.opts.prevButton);
         this.nextButton = t.querySelector(this.opts.nextButton);
         this.prevButton.addEventListener("click", this.prevStepHandler);
@@ -182,6 +190,7 @@
         this.core.deregisterPlugin(i.EXCLUDED_PLUGIN);
         this.prevButton.removeEventListener("click", this.prevStepHandler);
         this.nextButton.removeEventListener("click", this.nextStepHandler);
+        this.stepIndexes.length = 0;
       }
     }, {
       key: "getCurrentStep",
@@ -191,41 +200,67 @@
     }, {
       key: "goToPrevStep",
       value: function goToPrevStep() {
-        if (this.currentStep >= 1) {
-          e(this.steps[this.currentStep], _defineProperty({}, this.opts.activeStepClass, false));
-          this.currentStep--;
-          e(this.steps[this.currentStep], _defineProperty({}, this.opts.activeStepClass, true));
-          this.onStepActive();
+        var _this3 = this;
+
+        var t = this.currentStep - 1;
+
+        if (t < 0) {
+          return;
         }
+
+        var e = this.opts.isStepSkipped ? this.stepIndexes.slice(0, this.currentStep).reverse().find(function (t, e) {
+          return !_this3.opts.isStepSkipped({
+            currentStep: _this3.currentStep,
+            numSteps: _this3.numSteps,
+            targetStep: t
+          });
+        }) : t;
+        this.goToStep(e);
+        this.onStepActive();
       }
     }, {
       key: "goToNextStep",
       value: function goToNextStep() {
-        var _this3 = this;
+        var _this4 = this;
 
         this.core.validate().then(function (t) {
           if (t === "Valid") {
-            var _t2 = _this3.currentStep + 1;
+            var _t2 = _this4.currentStep + 1;
 
-            if (_t2 >= _this3.numSteps) {
-              _this3.currentStep = _this3.numSteps - 1;
+            if (_t2 >= _this4.numSteps) {
+              _this4.currentStep = _this4.numSteps - 1;
             } else {
-              e(_this3.steps[_this3.currentStep], _defineProperty({}, _this3.opts.activeStepClass, false));
-              _this3.currentStep = _t2;
-              e(_this3.steps[_this3.currentStep], _defineProperty({}, _this3.opts.activeStepClass, true));
+              var _e3 = _this4.opts.isStepSkipped ? _this4.stepIndexes.slice(_t2, _this4.numSteps).find(function (t, e) {
+                return !_this4.opts.isStepSkipped({
+                  currentStep: _this4.currentStep,
+                  numSteps: _this4.numSteps,
+                  targetStep: t
+                });
+              }) : _t2;
+
+              _t2 = _e3;
+
+              _this4.goToStep(_t2);
             }
 
-            _this3.onStepActive();
+            _this4.onStepActive();
 
-            _this3.onStepValid();
+            _this4.onStepValid();
 
-            if (_t2 === _this3.numSteps) {
-              _this3.onValid();
+            if (_t2 === _this4.numSteps) {
+              _this4.onValid();
             }
           } else if (t === "Invalid") {
-            _this3.onStepInvalid();
+            _this4.onStepInvalid();
           }
         });
+      }
+    }, {
+      key: "goToStep",
+      value: function goToStep(t) {
+        e(this.steps[this.currentStep], _defineProperty({}, this.opts.activeStepClass, false));
+        e(this.steps[t], _defineProperty({}, this.opts.activeStepClass, true));
+        this.currentStep = t;
       }
     }, {
       key: "onClickPrev",
@@ -284,4 +319,4 @@
 
   return i;
 
-})));
+}));

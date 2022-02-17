@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.StartEndDate = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.StartEndDate = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -69,7 +69,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -87,6 +87,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -137,13 +139,16 @@
         var t = this.core.getFields();
         this.startDateFieldOptions = t[this.opts.startDate.field];
         this.endDateFieldOptions = t[this.opts.endDate.field];
-        var e = this.core.getFormElement();
+
+        var _e = this.core.getFormElement();
+
         this.core.on("core.field.valid", this.fieldValidHandler).on("core.field.invalid", this.fieldInvalidHandler).addField(this.opts.startDate.field, {
           validators: {
             date: {
               format: this.opts.format,
               max: function max() {
-                var t = e.querySelector("[name=\"".concat(_this2.opts.endDate.field, "\"]"));
+                var t = _e.querySelector("[name=\"".concat(_this2.opts.endDate.field, "\"]"));
+
                 return t.value;
               },
               message: this.opts.startDate.message
@@ -155,7 +160,8 @@
               format: this.opts.format,
               message: this.opts.endDate.message,
               min: function min() {
-                var t = e.querySelector("[name=\"".concat(_this2.opts.startDate.field, "\"]"));
+                var t = _e.querySelector("[name=\"".concat(_this2.opts.startDate.field, "\"]"));
+
                 return t.value;
               }
             }
@@ -222,4 +228,4 @@
 
   return e;
 
-})));
+}));

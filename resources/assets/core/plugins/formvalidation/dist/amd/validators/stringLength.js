@@ -25,9 +25,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                     trim: false,
                     utf8Bytes: false,
                 }, input.options);
-                var v = opts.trim === true || "" + opts.trim === 'true'
-                    ? input.value.trim()
-                    : input.value;
+                var v = opts.trim === true || "" + opts.trim === 'true' ? input.value.trim() : input.value;
                 if (v === '') {
                     return { valid: true };
                 }
@@ -35,28 +33,22 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 var max = opts.max ? "" + opts.max : '';
                 var length = opts.utf8Bytes ? utf8Length(v) : v.length;
                 var isValid = true;
-                var msg = input.l10n
-                    ? opts.message || input.l10n.stringLength.default
-                    : opts.message;
-                if ((min && length < parseInt(min, 10)) ||
-                    (max && length > parseInt(max, 10))) {
+                var msg = input.l10n ? opts.message || input.l10n.stringLength.default : opts.message;
+                if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                     isValid = false;
                 }
                 switch (true) {
                     case !!min && !!max:
-                        msg = format_1.default(input.l10n
-                            ? opts.message || input.l10n.stringLength.between
-                            : opts.message, [min, max]);
+                        msg = (0, format_1.default)(input.l10n ? opts.message || input.l10n.stringLength.between : opts.message, [
+                            min,
+                            max,
+                        ]);
                         break;
                     case !!min:
-                        msg = format_1.default(input.l10n
-                            ? opts.message || input.l10n.stringLength.more
-                            : opts.message, "" + parseInt(min, 10));
+                        msg = (0, format_1.default)(input.l10n ? opts.message || input.l10n.stringLength.more : opts.message, "" + parseInt(min, 10));
                         break;
                     case !!max:
-                        msg = format_1.default(input.l10n
-                            ? opts.message || input.l10n.stringLength.less
-                            : opts.message, "" + parseInt(max, 10));
+                        msg = (0, format_1.default)(input.l10n ? opts.message || input.l10n.stringLength.less : opts.message, "" + parseInt(max, 10));
                         break;
                     default:
                         break;

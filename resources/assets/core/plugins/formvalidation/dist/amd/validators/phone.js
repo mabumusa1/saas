@@ -40,8 +40,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 else {
                     country = opts.country;
                 }
-                if (!country ||
-                    COUNTRY_CODES.indexOf(country.toUpperCase()) === -1) {
+                if (!country || COUNTRY_CODES.indexOf(country.toUpperCase()) === -1) {
                     return {
                         valid: true,
                     };
@@ -65,8 +64,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                             /^((00|\+)?(86(?:-| )))?((\d{11})|(\d{3}[- ]{1}\d{4}[- ]{1}\d{4})|((\d{2,4}[- ]){1}(\d{7,8}|(\d{3,4}[- ]{1}\d{4}))([- ]{1}\d{1,4})?))$/.test(v);
                         break;
                     case 'CZ':
-                        isValid =
-                            /^(((00)([- ]?)|\+)(420)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(v);
+                        isValid = /^(((00)([- ]?)|\+)(420)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(v);
                         break;
                     case 'DE':
                         isValid =
@@ -76,20 +74,17 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                         isValid = /^(\+45|0045|\(45\))?\s?[2-9](\s?\d){7}$/.test(v);
                         break;
                     case 'ES':
-                        isValid =
-                            /^(?:(?:(?:\+|00)34\D?))?(?:5|6|7|8|9)(?:\d\D?){8}$/.test(v);
+                        isValid = /^(?:(?:(?:\+|00)34\D?))?(?:5|6|7|8|9)(?:\d\D?){8}$/.test(v);
                         break;
                     case 'FR':
-                        isValid =
-                            /^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/.test(v);
+                        isValid = /^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/.test(v);
                         break;
                     case 'GB':
                         isValid =
                             /^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|#)\d+)?)$/.test(v);
                         break;
                     case 'IN':
-                        isValid =
-                            /((\+?)((0[ -]+)*|(91 )*)(\d{12}|\d{10}))|\d{5}([- ]*)\d{6}/.test(v);
+                        isValid = /((\+?)((0[ -]+)*|(91 )*)(\d{12}|\d{10}))|\d{5}([- ]*)\d{6}/.test(v);
                         break;
                     case 'MA':
                         isValid =
@@ -107,12 +102,10 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                             /^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|-)?([0-9]{3}(\s|\.|-|)){2}$/g.test(v);
                         break;
                     case 'RU':
-                        isValid =
-                            /^((8|\+7|007)[-./ ]?)?([(/.]?\d{3}[)/.]?[-./ ]?)?[\d\-./ ]{7,10}$/g.test(v);
+                        isValid = /^((8|\+7|007)[-./ ]?)?([(/.]?\d{3}[)/.]?[-./ ]?)?[\d\-./ ]{7,10}$/g.test(v);
                         break;
                     case 'SK':
-                        isValid =
-                            /^(((00)([- ]?)|\+)(421)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(v);
+                        isValid = /^(((00)([- ]?)|\+)(421)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(v);
                         break;
                     case 'TH':
                         isValid = /^0\(?([6|8-9]{2})*-([0-9]{3})*-([0-9]{4})$/.test(v);
@@ -123,14 +116,13 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                         break;
                     case 'US':
                     default:
-                        isValid =
-                            /^(?:(1-?)|(\+1 ?))?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/.test(v);
+                        isValid = /^(?:(1-?)|(\+1 ?))?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/.test(v);
                         break;
                 }
                 return {
-                    message: format_1.default(input.l10n
-                        ? opts.message || input.l10n.phone.country
-                        : opts.message, input.l10n ? input.l10n.phone.countries[country] : country),
+                    message: (0, format_1.default)(input.l10n && input.l10n.phone ? opts.message || input.l10n.phone.country : opts.message, input.l10n && input.l10n.phone && input.l10n.phone.countries
+                        ? input.l10n.phone.countries[country]
+                        : country),
                     valid: isValid,
                 };
             },

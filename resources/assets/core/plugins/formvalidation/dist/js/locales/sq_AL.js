@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.sq_AL = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.sq_AL = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Albanian language package
@@ -63,8 +63,7 @@
             default: 'Ju lutem përzgjidhni një skedar të vlefshëm',
         },
         greaterThan: {
-            default:
-                'Ju lutem vendosni një vlerë më të madhe ose të barabartë me %s',
+            default: 'Ju lutem vendosni një vlerë më të madhe ose të barabartë me %s',
             notInclusive: 'Ju lutem vendosni një vlerë më të madhe se %s',
         },
         grid: {
@@ -225,8 +224,7 @@
             default: 'Ju lutem vendosni një numër ISSN të vlefshëm',
         },
         lessThan: {
-            default:
-                'Ju lutem vendosni një vlerë më të madhe ose të barabartë me %s',
+            default: 'Ju lutem vendosni një vlerë më të madhe ose të barabartë me %s',
             notInclusive: 'Ju lutem vendosni një vlerë më të vogël se %s',
         },
         mac: {
@@ -296,8 +294,7 @@
             upper: 'Ju lutem përdorni vetëm shenja të mëdha të shtypit',
         },
         stringLength: {
-            between:
-                'Ju lutem vendosni një vlerë me gjatësi midis %s dhe %s simbole',
+            between: 'Ju lutem vendosni një vlerë me gjatësi midis %s dhe %s simbole',
             default: 'Ju lutem vendosni një vlerë me gjatësinë e duhur',
             less: 'Ju lutem vendosni më pak se %s simbole',
             more: 'Ju lutem vendosni më shumë se %s simbole',
@@ -389,4 +386,4 @@
 
     return sq_AL;
 
-})));
+}));

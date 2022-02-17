@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-base-layout>
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
             {{ __('Profile') }}
@@ -32,4 +32,4 @@
             @livewire('profile.delete-user-form')
         @endif
     </div>
-</x-app-layout>
+</x-base-layout>

@@ -7,10 +7,7 @@ define(["require", "exports"], function (require, exports) {
         var modulus = alphabet.length;
         var check = Math.floor(modulus / 2);
         for (var i = 0; i < length; i++) {
-            check =
-                ((((check || modulus) * 2) % (modulus + 1)) +
-                    alphabet.indexOf(value.charAt(i))) %
-                    modulus;
+            check = ((((check || modulus) * 2) % (modulus + 1)) + alphabet.indexOf(value.charAt(i))) % modulus;
         }
         return check === 1;
     }

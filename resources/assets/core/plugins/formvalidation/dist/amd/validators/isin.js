@@ -31,8 +31,7 @@ define(["require", "exports"], function (require, exports) {
                 var n = converted.length;
                 var group = n % 2 !== 0 ? 0 : 1;
                 for (i = 0; i < n; i++) {
-                    digits +=
-                        parseInt(converted[i], 10) * (i % 2 === group ? 2 : 1) + '';
+                    digits += parseInt(converted[i], 10) * (i % 2 === group ? 2 : 1) + '';
                 }
                 var sum = 0;
                 for (i = 0; i < digits.length; i++) {

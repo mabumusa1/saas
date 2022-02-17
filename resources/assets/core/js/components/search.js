@@ -194,7 +194,7 @@ var KTSearch = function(element, options) {
             }
 
             // Hide search toolbar
-            if (the.toolbarElement) {
+            if (the.toolbarElement && the.formElement.contains(the.toolbarElement)) {
                 the.toolbarElement.classList.add("d-none");
             }
 
@@ -245,7 +245,7 @@ var KTSearch = function(element, options) {
         }
 
         // Show search toolbar
-        if (the.toolbarElement) {
+        if (the.toolbarElement && the.formElement.contains(the.toolbarElement)) {
             the.toolbarElement.classList.remove("d-none");
         }
 
@@ -341,7 +341,10 @@ var KTSearch = function(element, options) {
             return "off";
         }
     }
-    
+
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('search');
+    }    
 
     // Construct class
     _construct();
@@ -380,7 +383,7 @@ var KTSearch = function(element, options) {
     }
 
     the.getQuery = function() {
-        return the.inputElement.value();
+        return the.inputElement.value;
     }    
 
     the.getMenu = function() {
@@ -401,6 +404,10 @@ var KTSearch = function(element, options) {
 
     the.getElement = function() {
         return the.element;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

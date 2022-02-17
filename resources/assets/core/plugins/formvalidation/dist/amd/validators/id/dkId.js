@@ -26,7 +26,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         }
         return {
             meta: {},
-            valid: isValidDate_1.default(year, month, day),
+            valid: (0, isValidDate_1.default)(year, month, day),
         };
     }
     exports.default = dkId;

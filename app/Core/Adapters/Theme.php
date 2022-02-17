@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
  */
 class Theme extends \App\Core\Theme
 {
+    public static $page = '';
+
     public function __construct()
     {
     }
@@ -25,20 +27,6 @@ class Theme extends \App\Core\Theme
     public static function setDemo($demo = 'skin')
     {
         self::$demo = $demo;
-    }
-
-    /**
-     * Get current demo.
-     *
-     * @return string
-     */
-    public static function getDemo()
-    {
-        if (class_exists('request')) {
-            return request()->input('demo', self::$demo);
-        }
-
-        return self::$demo;
     }
 
     /**
@@ -106,7 +94,7 @@ class Theme extends \App\Core\Theme
         }
 
         $a = '';
-        if (count($params)) {
+        if (count($params) && $path !== '#') {
             $a = '?'.http_build_query($params);
         }
 
@@ -163,7 +151,7 @@ class Theme extends \App\Core\Theme
      *
      * @return View
      */
-    public static function getView($path, $params = [])
+    public static function getView($path, $params = [], $once = false)
     {
         // Check if the layout file exist
         if (view()->exists($path)) {
@@ -171,8 +159,8 @@ class Theme extends \App\Core\Theme
         }
 
         // Append demo folder for layout view
-        if (Str::startsWith($path, 'skin')) {
-            $path = str_replace('skin', 'layout/'.self::$demo, $path);
+        if (Str::startsWith($path, 'layout')) {
+            $path = str_replace('layout', 'layout/'.self::$demo, $path);
         }
 
         $view = view($path, $params);
@@ -223,17 +211,17 @@ class Theme extends \App\Core\Theme
      */
     public static function getOption($scope, $path = false, $default = null)
     {
+        $demo = self::getDemo() ?? 'demo1';
+
         // Map the config path
-        if (array_key_exists($scope, config(self::$demo.'.general'))) {
+        if (array_key_exists($scope, config($demo.'.general', []))) {
             $scope = 'general.'.$scope;
         }
 
         if (in_array($scope, ['page', 'pages'])) {
             $scope = 'pages';
             $segments = request()->segments();
-            if (! empty($segments)) {
-                $scope .= '.'.implode('.', $segments);
-            }
+            $scope .= '.'.implode('.', $segments);
         }
 
         // Get current page path
@@ -241,22 +229,30 @@ class Theme extends \App\Core\Theme
         if (! empty($path)) {
             $deepPath = '.'.str_replace('/', '.', $path);
         }
-        // Demo config
-        $demoConfig = config(self::$demo.'.'.$scope.$deepPath, $default);
 
-        if (empty($demoConfig)) {
-            if (Str::startsWith($scope, 'pages.')) {
-                $result = Str::of($scope)->match('(\d+)');
-                $scope = rtrim($scope, $result);
-                $demoConfig = config(self::$demo.'.'.$scope.'(\d+)'.$deepPath, $default);
-            }
-        }
+        // Demo config
+        $demoConfig = config($demo.'.'.$scope.$deepPath, $default);
+
         // check if it is a callback
         if (is_callable($demoConfig) && ! is_string($demoConfig)) {
             $demoConfig = $demoConfig();
         }
 
         return $demoConfig;
+    }
+
+    /**
+     * Get current demo.
+     *
+     * @return string
+     */
+    public static function getDemo()
+    {
+        if (class_exists('request')) {
+            return request()->input('demo', self::$demo);
+        }
+
+        return self::$demo;
     }
 
     /**
@@ -286,7 +282,7 @@ class Theme extends \App\Core\Theme
      */
     public static function getVersion()
     {
-        $versions = array_keys(config('changelog'));
+        $versions = array_keys(config('changelog', []));
         if (isset($versions[0])) {
             return str_replace('v', '', $versions[0]);
         }
@@ -319,6 +315,65 @@ class Theme extends \App\Core\Theme
         return $parent.'.'.$name;
     }
 
+    public static function putProVersionTooltip($attr = [])
+    {
+        ob_start();
+
+        // Call the function from core Theme
+        parent::putProVersionTooltip($attr);
+
+        return ob_get_clean();
+    }
+
+    public static function getIllustrationUrl($file, $dark = true)
+    {
+        if ($dark === true) {
+            if (self::isDarkMode()) {
+                $file = str_replace('.svg', '-dark.svg', $file);
+                $file = str_replace('.png', '-dark.png', $file);
+                $file = str_replace('.jpg', '-dark.jpg', $file);
+            }
+        }
+
+        $folder = 'illustrations/'.self::getOption('layout', 'illustrations/set');
+
+        return self::getMediaUrlPath().$folder.'/'.$file;
+    }
+
+    /**
+     * Check dark mode.
+     *
+     * @return mixed|string
+     */
+    public static function isDarkMode()
+    {
+        return self::getCurrentMode() === 'dark';
+    }
+
+    /**
+     * Get current skin.
+     *
+     * @return mixed|string
+     */
+    public static function getCurrentMode()
+    {
+        if (self::isDarkModeEnabled() && isset($_REQUEST['mode']) && $_REQUEST['mode']) {
+            return $_REQUEST['mode'];
+        }
+
+        return 'default';
+    }
+
+    /**
+     * Check if current theme has dark mode.
+     *
+     * @return bool
+     */
+    public static function isDarkModeEnabled()
+    {
+        return (bool) self::getOption('layout', 'main/dark-mode-enabled');
+    }
+
     /**
      * Get media path.
      *
@@ -327,6 +382,19 @@ class Theme extends \App\Core\Theme
     public static function getMediaUrlPath()
     {
         return theme()->getDemo().'/media/';
+    }
+
+    public static function getImageUrl($folder, $file, $dark = true)
+    {
+        if ($dark) {
+            if (self::isDarkMode()) {
+                $file = str_replace('.svg', '-dark.svg', $file);
+                $file = str_replace('.png', '-dark.png', $file);
+                $file = str_replace('.jpg', '-dark.jpg', $file);
+            }
+        }
+
+        return self::getMediaUrlPath().$folder.'/'.$file;
     }
 
     /**
@@ -401,6 +469,10 @@ class Theme extends \App\Core\Theme
      */
     private function iterateMenu($menus, &$output)
     {
+        if (! is_array($menus)) {
+            return;
+        }
+
         if (isset($menus['path'])) {
             $output[] = $menus;
         }
@@ -412,47 +484,16 @@ class Theme extends \App\Core\Theme
         }
     }
 
-    public static function putProVersionTooltip($attr = [])
+    public static function getDemosTotal()
     {
-        ob_start();
+        $total = 0;
 
-        // Call the function from core Theme
-        parent::putProVersionTooltip($attr);
-
-        return ob_get_clean();
-    }
-
-    /**
-     * Check if current theme has dark mode.
-     *
-     * @return bool
-     */
-    public static function isDarkModeEnabled()
-    {
-        return (bool) self::getOption('skin', 'main/dark-mode-enabled');
-    }
-
-    /**
-     * Get current skin.
-     *
-     * @return mixed|string
-     */
-    public static function getCurrentMode()
-    {
-        if (self::isDarkModeEnabled() && isset($_REQUEST['mode']) && $_REQUEST['mode']) {
-            return $_REQUEST['mode'];
+        foreach (self::getOption('product', 'demos') as $id => $demo) {
+            if ($demo['published'] === true) {
+                $total++;
+            }
         }
 
-        return 'default';
-    }
-
-    /**
-     * Check dark mode.
-     *
-     * @return mixed|string
-     */
-    public static function isDarkMode()
-    {
-        return self::getCurrentMode() === 'dark';
+        return $total;
     }
 }

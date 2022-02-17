@@ -5,8 +5,7 @@ define(["require", "exports", "../algorithms/luhn"], function (require, exports,
         return {
             validate: function (input) {
                 return {
-                    valid: input.value === '' ||
-                        (/^\d{9}$/.test(input.value) && luhn_1.default(input.value)),
+                    valid: input.value === '' || (/^\d{9}$/.test(input.value) && (0, luhn_1.default)(input.value)),
                 };
             },
         };

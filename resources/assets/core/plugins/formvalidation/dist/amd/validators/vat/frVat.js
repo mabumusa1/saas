@@ -15,7 +15,7 @@ define(["require", "exports", "../../algorithms/luhn"], function (require, expor
         if (v.substr(2, 4) !== '000') {
             return {
                 meta: {},
-                valid: luhn_1.default(v.substr(2)),
+                valid: (0, luhn_1.default)(v.substr(2)),
             };
         }
         if (/^[0-9]{2}$/.test(v.substr(0, 2))) {
@@ -28,22 +28,14 @@ define(["require", "exports", "../../algorithms/luhn"], function (require, expor
             var alphabet = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
             var check = void 0;
             if (/^[0-9]$/.test(v.charAt(0))) {
-                check =
-                    alphabet.indexOf(v.charAt(0)) * 24 +
-                        alphabet.indexOf(v.charAt(1)) -
-                        10;
+                check = alphabet.indexOf(v.charAt(0)) * 24 + alphabet.indexOf(v.charAt(1)) - 10;
             }
             else {
-                check =
-                    alphabet.indexOf(v.charAt(0)) * 34 +
-                        alphabet.indexOf(v.charAt(1)) -
-                        100;
+                check = alphabet.indexOf(v.charAt(0)) * 34 + alphabet.indexOf(v.charAt(1)) - 100;
             }
             return {
                 meta: {},
-                valid: (parseInt(v.substr(2), 10) + 1 + Math.floor(check / 11)) %
-                    11 ===
-                    check % 11,
+                valid: (parseInt(v.substr(2), 10) + 1 + Math.floor(check / 11)) % 11 === check % 11,
             };
         }
     }

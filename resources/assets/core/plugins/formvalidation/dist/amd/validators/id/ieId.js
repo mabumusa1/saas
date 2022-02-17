@@ -21,10 +21,8 @@ define(["require", "exports"], function (require, exports) {
             sum += 9 * alphabet.indexOf(input.substr(7));
             return alphabet[sum % 23];
         };
-        var isValid = value.length === 9 &&
-            ('A' === value.charAt(8) || 'H' === value.charAt(8))
-            ? value.charAt(7) ===
-                getCheckDigit(value.substr(0, 7) + value.substr(8) + '')
+        var isValid = value.length === 9 && ('A' === value.charAt(8) || 'H' === value.charAt(8))
+            ? value.charAt(7) === getCheckDigit(value.substr(0, 7) + value.substr(8) + '')
             :
                 value.charAt(7) === getCheckDigit(value.substr(0, 7));
         return {

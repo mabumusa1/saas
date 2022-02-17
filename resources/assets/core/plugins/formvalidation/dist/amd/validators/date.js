@@ -63,9 +63,7 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                 yyyy: "" + yyyy,
             };
             return dateFormat.replace(/d{1,4}|m{1,4}|yy(?:yy)?|([HhMs])\1?|"[^"]*"|'[^']*'/g, function (match) {
-                return replacer[match]
-                    ? replacer[match]
-                    : match.slice(1, match.length - 1);
+                return replacer[match] ? replacer[match] : match.slice(1, match.length - 1);
             });
         };
         return {
@@ -79,10 +77,7 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                     };
                 }
                 var opts = Object.assign({}, {
-                    format: input.element &&
-                        input.element.getAttribute('type') === 'date'
-                        ? 'YYYY-MM-DD'
-                        : 'MM/DD/YYYY',
+                    format: input.element && input.element.getAttribute('type') === 'date' ? 'YYYY-MM-DD' : 'MM/DD/YYYY',
                     message: '',
                 }, input.options);
                 var message = input.l10n ? input.l10n.date.default : opts.message;
@@ -132,7 +127,7 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                 var year = parseInt(yearStr, 10);
                 var month = parseInt(monthStr, 10);
                 var day = parseInt(dayStr, 10);
-                if (!isValidDate_1.default(year, month, day)) {
+                if (!(0, isValidDate_1.default)(year, month, day)) {
                     return invalidResult;
                 }
                 var d = new Date(year, month - 1, day);
@@ -141,21 +136,9 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                     if (timeFormat.split(':').length !== hms.length) {
                         return invalidResult;
                     }
-                    var h = hms.length > 0
-                        ? hms[0].length <= 2 && /^\d+$/.test(hms[0])
-                            ? parseInt(hms[0], 10)
-                            : -1
-                        : 0;
-                    var m = hms.length > 1
-                        ? hms[1].length <= 2 && /^\d+$/.test(hms[1])
-                            ? parseInt(hms[1], 10)
-                            : -1
-                        : 0;
-                    var s = hms.length > 2
-                        ? hms[2].length <= 2 && /^\d+$/.test(hms[2])
-                            ? parseInt(hms[2], 10)
-                            : -1
-                        : 0;
+                    var h = hms.length > 0 ? (hms[0].length <= 2 && /^\d+$/.test(hms[0]) ? parseInt(hms[0], 10) : -1) : 0;
+                    var m = hms.length > 1 ? (hms[1].length <= 2 && /^\d+$/.test(hms[1]) ? parseInt(hms[1], 10) : -1) : 0;
+                    var s = hms.length > 2 ? (hms[2].length <= 2 && /^\d+$/.test(hms[2]) ? parseInt(hms[2], 10) : -1) : 0;
                     if (h === -1 || m === -1 || s === -1) {
                         return invalidResult;
                     }
@@ -184,16 +167,12 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                     : maxOption
                         ? parseDate(maxOption, dateFormat, separator)
                         : d;
-                var minOptionStr = minOption instanceof Date
-                    ? formatDate(min, opts.format)
-                    : minOption;
-                var maxOptionStr = maxOption instanceof Date
-                    ? formatDate(max, opts.format)
-                    : maxOption;
+                var minOptionStr = minOption instanceof Date ? formatDate(min, opts.format) : minOption;
+                var maxOptionStr = maxOption instanceof Date ? formatDate(max, opts.format) : maxOption;
                 switch (true) {
                     case !!minOptionStr && !maxOptionStr:
                         return {
-                            message: format_1.default(input.l10n ? input.l10n.date.min : message, minOptionStr),
+                            message: (0, format_1.default)(input.l10n ? input.l10n.date.min : message, minOptionStr),
                             meta: {
                                 date: d,
                             },
@@ -201,7 +180,7 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                         };
                     case !!maxOptionStr && !minOptionStr:
                         return {
-                            message: format_1.default(input.l10n ? input.l10n.date.max : message, maxOptionStr),
+                            message: (0, format_1.default)(input.l10n ? input.l10n.date.max : message, maxOptionStr),
                             meta: {
                                 date: d,
                             },
@@ -209,12 +188,11 @@ define(["require", "exports", "../utils/format", "../utils/isValidDate"], functi
                         };
                     case !!maxOptionStr && !!minOptionStr:
                         return {
-                            message: format_1.default(input.l10n ? input.l10n.date.range : message, [minOptionStr, maxOptionStr]),
+                            message: (0, format_1.default)(input.l10n ? input.l10n.date.range : message, [minOptionStr, maxOptionStr]),
                             meta: {
                                 date: d,
                             },
-                            valid: d.getTime() <= max.getTime() &&
-                                d.getTime() >= min.getTime(),
+                            valid: d.getTime() <= max.getTime() && d.getTime() >= min.getTime(),
                         };
                     default:
                         return {

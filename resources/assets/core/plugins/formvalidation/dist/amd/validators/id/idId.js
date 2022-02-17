@@ -11,7 +11,7 @@ define(["require", "exports", "../../algorithms/verhoeff"], function (require, e
         var converted = value.split('').map(function (item) { return parseInt(item, 10); });
         return {
             meta: {},
-            valid: verhoeff_1.default(converted),
+            valid: (0, verhoeff_1.default)(converted),
         };
     }
     exports.default = idId;

@@ -9,26 +9,17 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                     : input.elements.filter(function (ele) { return ele.checked; }).length;
                 var min = input.options.min ? "" + input.options.min : '';
                 var max = input.options.max ? "" + input.options.max : '';
-                var msg = input.l10n
-                    ? input.options.message || input.l10n.choice.default
-                    : input.options.message;
-                var isValid = !((min && numChoices < parseInt(min, 10)) ||
-                    (max && numChoices > parseInt(max, 10)));
+                var msg = input.l10n ? input.options.message || input.l10n.choice.default : input.options.message;
+                var isValid = !((min && numChoices < parseInt(min, 10)) || (max && numChoices > parseInt(max, 10)));
                 switch (true) {
                     case !!min && !!max:
-                        msg = format_1.default(input.l10n
-                            ? input.l10n.choice.between
-                            : input.options.message, [min, max]);
+                        msg = (0, format_1.default)(input.l10n ? input.l10n.choice.between : input.options.message, [min, max]);
                         break;
                     case !!min:
-                        msg = format_1.default(input.l10n
-                            ? input.l10n.choice.more
-                            : input.options.message, min);
+                        msg = (0, format_1.default)(input.l10n ? input.l10n.choice.more : input.options.message, min);
                         break;
                     case !!max:
-                        msg = format_1.default(input.l10n
-                            ? input.l10n.choice.less
-                            : input.options.message, max);
+                        msg = (0, format_1.default)(input.l10n ? input.l10n.choice.less : input.options.message, max);
                         break;
                     default:
                         break;

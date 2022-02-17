@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Bootstrap5 = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Bootstrap5 = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -69,7 +69,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -87,6 +87,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -187,13 +189,13 @@
     }, {
       key: "handleElementValidated",
       value: function handleElementValidated(n) {
-        var l = n.element.getAttribute("type");
+        var _l = n.element.getAttribute("type");
 
-        if (("checkbox" === l || "radio" === l) && n.elements.length > 1 && t(n.element, "form-check-input")) {
-          var _l = n.element.parentElement;
+        if (("checkbox" === _l || "radio" === _l) && n.elements.length > 1 && t(n.element, "form-check-input")) {
+          var _l5 = n.element.parentElement;
 
-          if (t(_l, "form-check")) {
-            e(_l, {
+          if (t(_l5, "form-check") && t(_l5, "form-check-inline")) {
+            e(_l5, {
               "is-invalid": !n.valid,
               "is-valid": n.valid
             });
@@ -206,10 +208,10 @@
         e(n.element, {
           "fv-plugins-icon-input": true
         });
-        var l = n.element.parentElement;
+        var _l3 = n.element.parentElement;
 
-        if (t(l, "input-group")) {
-          l.parentElement.insertBefore(n.iconElement, l.nextSibling);
+        if (t(_l3, "input-group")) {
+          _l3.parentElement.insertBefore(n.iconElement, _l3.nextSibling);
 
           if (n.element.nextElementSibling && t(n.element.nextElementSibling, "input-group-text")) {
             e(n.iconElement, {
@@ -221,14 +223,15 @@
         var i = n.element.getAttribute("type");
 
         if ("checkbox" === i || "radio" === i) {
-          var _i = l.parentElement;
+          var _i = _l3.parentElement;
 
-          if (t(l, "form-check")) {
+          if (t(_l3, "form-check")) {
             e(n.iconElement, {
               "fv-plugins-icon-check": true
             });
-            l.parentElement.insertBefore(n.iconElement, l.nextSibling);
-          } else if (t(l.parentElement, "form-check")) {
+
+            _l3.parentElement.insertBefore(n.iconElement, _l3.nextSibling);
+          } else if (t(_l3.parentElement, "form-check")) {
             e(n.iconElement, {
               "fv-plugins-icon-check": true
             });
@@ -241,11 +244,12 @@
       key: "onMessagePlaced",
       value: function onMessagePlaced(n) {
         n.messageElement.classList.add("invalid-feedback");
-        var l = n.element.parentElement;
+        var _l4 = n.element.parentElement;
 
-        if (t(l, "input-group")) {
-          l.appendChild(n.messageElement);
-          e(l, {
+        if (t(_l4, "input-group")) {
+          _l4.appendChild(n.messageElement);
+
+          e(_l4, {
             "has-validation": true
           });
           return;
@@ -253,7 +257,7 @@
 
         var i = n.element.getAttribute("type");
 
-        if (("checkbox" === i || "radio" === i) && t(n.element, "form-check-input") && !t(l, "form-check")) {
+        if (("checkbox" === i || "radio" === i) && t(n.element, "form-check-input") && !t(_l4, "form-check")) {
           n.elements[n.elements.length - 1].parentElement.appendChild(n.messageElement);
         }
       }
@@ -264,4 +268,4 @@
 
   return l;
 
-})));
+}));

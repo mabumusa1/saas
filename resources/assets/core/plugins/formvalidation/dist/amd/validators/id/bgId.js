@@ -20,7 +20,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
             year -= 100;
             month -= 20;
         }
-        if (!isValidDate_1.default(year, month, day)) {
+        if (!(0, isValidDate_1.default)(year, month, day)) {
             return {
                 meta: {},
                 valid: false,

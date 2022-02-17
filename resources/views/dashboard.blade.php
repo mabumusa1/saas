@@ -1,9 +1,78 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 font-weight-bold">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<x-base-layout>
 
-    <x-jet-welcome />
-</x-app-layout>
+    <!--begin::Row-->
+    <div class="row gy-5 g-xl-8">
+        <!--begin::Col-->
+        <div class="col-xxl-4">
+            dashboard   
+        </div>
+        <!--end::Col-->
+
+        <!--begin::Col-->
+        <div class="col-xxl-4">
+
+        </div>
+        <!--end::Col-->
+
+        <!--begin::Col-->
+        <div class="col-xxl-4">
+        </div>
+        <!--end::Col-->
+    </div>
+    <!--end::Row-->
+
+    <!--begin::Row-->
+    <div class="row gy-5 gx-xl-8">
+        <!--begin::Col-->
+        <div class="col-xxl-4">
+
+        </div>
+        <!--end::Col-->
+
+        <!--begin::Col-->
+        <div class="col-xl-8">
+
+        </div>
+        <!--end::Col-->
+    </div>
+    <!--end::Row-->
+
+    <!--begin::Row-->
+    <div class="row gy-5 g-xl-8">
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            
+        </div>
+        <!--end::Col-->
+
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            
+        </div>
+        <!--end::Col-->
+
+        <!--begin::Col-->
+        <div class="col-xl-4">
+            
+        </div>
+        <!--end::Col-->
+    </div>
+    <!--end::Row-->
+
+    <!--begin::Row-->
+    <div class="row g-5 gx-xxl-8">
+        <!--begin::Col-->
+        <div class="col-xxl-4">
+            
+        </div>
+        <!--end::Col-->
+
+        <!--begin::Col-->
+        <div class="col-xxl-8">
+            
+        </div>
+        <!--end::Col-->
+    </div>
+    <!--end::Row-->
+
+</x-base-layout>

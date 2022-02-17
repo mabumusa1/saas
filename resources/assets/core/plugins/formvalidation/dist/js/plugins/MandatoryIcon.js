@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.MandatoryIcon = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.MandatoryIcon = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -84,7 +84,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -102,6 +102,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -144,9 +146,9 @@
   }
 
   function _createForOfIteratorHelper(o, allowArrayLike) {
-    var it;
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
 
-    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (!it) {
       if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
         if (it) o = it;
         var i = 0;
@@ -179,7 +181,7 @@
         err;
     return {
       s: function () {
-        it = o[Symbol.iterator]();
+        it = it.call(o);
       },
       n: function () {
         var step = it.next();
@@ -246,15 +248,15 @@
       value: function onIconPlaced(e) {
         var _this2 = this;
 
-        var i = this.core.getFields()[e.field].validators;
+        var _i = this.core.getFields()[e.field].validators;
         var s = this.core.getElements(e.field);
 
-        if (i && i["notEmpty"] && i["notEmpty"].enabled !== false && s.length) {
+        if (_i && _i["notEmpty"] && _i["notEmpty"].enabled !== false && s.length) {
           this.icons.set(e.element, e.iconElement);
 
-          var _i = s[0].getAttribute("type");
+          var _i7 = s[0].getAttribute("type");
 
-          var _n = !_i ? "" : _i.toLowerCase();
+          var _n = !_i7 ? "" : _i7.toLowerCase();
 
           var _l = "checkbox" === _n || "radio" === _n ? [s[0]] : s;
 
@@ -263,9 +265,9 @@
 
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var _i2 = _step.value;
+              var _i8 = _step.value;
 
-              if (this.core.getElementValue(e.field, _i2) === "") {
+              if (this.core.getElementValue(e.field, _i8) === "") {
                 t(e.iconElement, _defineProperty({}, this.opts.icon, true));
               }
             }
@@ -291,10 +293,10 @@
 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-              var _i3 = _step2.value;
+              var _i9 = _step2.value;
 
-              if (l[e].indexOf(_i3) === -1) {
-                t.push(_i3);
+              if (l[e].indexOf(_i9) === -1) {
+                t.push(_i9);
               }
             }
           } catch (err) {
@@ -323,22 +325,22 @@
       }
     }, {
       key: "updateIconClasses",
-      value: function updateIconClasses(e, i) {
+      value: function updateIconClasses(e, _i5) {
         var s = this.icons.get(e);
 
         if (s && this.iconClasses && (this.iconClasses.valid || this.iconClasses.invalid || this.iconClasses.validating)) {
           var _t2;
 
-          t(s, (_t2 = {}, _defineProperty(_t2, this.removedIcons[i], false), _defineProperty(_t2, this.opts.icon, false), _t2));
+          t(s, (_t2 = {}, _defineProperty(_t2, this.removedIcons[_i5], false), _defineProperty(_t2, this.opts.icon, false), _t2));
         }
       }
     }, {
       key: "onIconSet",
       value: function onIconSet(e) {
-        var i = this.icons.get(e.element);
+        var _i6 = this.icons.get(e.element);
 
-        if (i && e.status === "NotValidated" && this.core.getElementValue(e.field, e.element) === "") {
-          t(i, _defineProperty({}, this.opts.icon, true));
+        if (_i6 && e.status === "NotValidated" && this.core.getElementValue(e.field, e.element) === "") {
+          t(_i6, _defineProperty({}, this.opts.icon, true));
         }
       }
     }]);
@@ -348,4 +350,4 @@
 
   return i;
 
-})));
+}));

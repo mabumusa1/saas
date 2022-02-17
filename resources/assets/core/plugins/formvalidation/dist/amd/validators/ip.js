@@ -16,26 +16,19 @@ define(["require", "exports"], function (require, exports) {
                 switch (true) {
                     case opts.ipv4 && !opts.ipv6:
                         return {
-                            message: input.l10n
-                                ? opts.message || input.l10n.ip.ipv4
-                                : opts.message,
+                            message: input.l10n ? opts.message || input.l10n.ip.ipv4 : opts.message,
                             valid: ipv4Regex.test(input.value),
                         };
                     case !opts.ipv4 && opts.ipv6:
                         return {
-                            message: input.l10n
-                                ? opts.message || input.l10n.ip.ipv6
-                                : opts.message,
+                            message: input.l10n ? opts.message || input.l10n.ip.ipv6 : opts.message,
                             valid: ipv6Regex.test(input.value),
                         };
                     case opts.ipv4 && opts.ipv6:
                     default:
                         return {
-                            message: input.l10n
-                                ? opts.message || input.l10n.ip.default
-                                : opts.message,
-                            valid: ipv4Regex.test(input.value) ||
-                                ipv6Regex.test(input.value),
+                            message: input.l10n ? opts.message || input.l10n.ip.default : opts.message,
+                            valid: ipv4Regex.test(input.value) || ipv6Regex.test(input.value),
                         };
                 }
             },

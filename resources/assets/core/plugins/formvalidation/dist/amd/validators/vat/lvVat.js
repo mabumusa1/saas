@@ -34,7 +34,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
             var month = parseInt(v.substr(2, 2), 10);
             var year = parseInt(v.substr(4, 2), 10);
             year = year + 1800 + parseInt(v.charAt(6), 10) * 100;
-            if (!isValidDate_1.default(year, month, day)) {
+            if (!(0, isValidDate_1.default)(year, month, day)) {
                 return {
                     meta: {},
                     valid: false,

@@ -12,9 +12,7 @@ define(["require", "exports"], function (require, exports) {
                     thousandsSeparator: '',
                 }, input.options);
                 var decimalSeparator = opts.decimalSeparator === '.' ? '\\.' : opts.decimalSeparator;
-                var thousandsSeparator = opts.thousandsSeparator === '.'
-                    ? '\\.'
-                    : opts.thousandsSeparator;
+                var thousandsSeparator = opts.thousandsSeparator === '.' ? '\\.' : opts.thousandsSeparator;
                 var testRegexp = new RegExp("^-?[0-9]{1,3}(" + thousandsSeparator + "[0-9]{3})*(" + decimalSeparator + "[0-9]+)?$");
                 var thousandsReplacer = new RegExp(thousandsSeparator, 'g');
                 var v = "" + input.value;

@@ -17,7 +17,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
             A: 2000,
         };
         year = centuries[value.charAt(6)] + year;
-        if (!isValidDate_1.default(year, month, day)) {
+        if (!(0, isValidDate_1.default)(year, month, day)) {
             return {
                 meta: {},
                 valid: false,
@@ -33,8 +33,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         var n = parseInt(value.substr(0, 6) + value.substr(7, 3) + '', 10);
         return {
             meta: {},
-            valid: '0123456789ABCDEFHJKLMNPRSTUVWXY'.charAt(n % 31) ===
-                value.charAt(10),
+            valid: '0123456789ABCDEFHJKLMNPRSTUVWXY'.charAt(n % 31) === value.charAt(10),
         };
     }
     exports.default = fiId;

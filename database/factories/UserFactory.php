@@ -2,20 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Account;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ */
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = User::class;
-
     /**
      * Define the model's default state.
      *
@@ -24,23 +18,31 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'account_id' => Account::factory(),
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'phone' => $this->faker->phoneNumber,
-            'email' => $this->faker->safeEmail,
-            'email_verified_at' => $this->faker->dateTime(),
-            'password' => $this->faker->password,
-            'two_factor_secret' => $this->faker->text,
-            'two_factor_recovery_codes' => $this->faker->text,
-            'remember_token' => $this->faker->regexify('[A-Za-z0-9]{100}'),
-            'current_team_id' => $this->faker->randomNumber(),
-            'profile_photo_path' => $this->faker->regexify('[A-Za-z0-9]{2048}'),
-            'job_title' => $this->faker->word,
-            'employer' => $this->faker->word,
-            'experince' => $this->faker->word,
-            'company_name' => $this->faker->word,
-            'role' => $this->faker->randomElement(['admin', 'staff', 'owner', 'fb', 'fnb', 'pb', 'pnb']),
+            'first_name' =>  $this->faker->firstName(),
+            'last_name' =>  $this->faker->lastName(),
+            'email' =>  $this->faker->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'phone' => $this->faker->phoneNumber(),
+            'job_title' => $this->faker->randomElement(['CTO', 'CEO', 'Marketer']),
+            'employer' => $this->faker->company(),
+            'experince' => $this->faker->randomElement(['Beginner', 'Intermidate', 'Pro']),
+            'role' => $this->faker->randomElement(['owner', 'fb', 'fnb', 'pb', 'pnb']),
         ];
+    }
+
+    /**
+     * Indicate that the user is owner.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function owner()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'owner',
+            ];
+        });
     }
 }

@@ -4,7 +4,7 @@ define(["require", "exports", "./jmbg"], function (require, exports, jmbg_1) {
     function baId(value) {
         return {
             meta: {},
-            valid: jmbg_1.default(value, 'BA'),
+            valid: (0, jmbg_1.default)(value, 'BA'),
         };
     }
     exports.default = baId;

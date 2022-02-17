@@ -107,6 +107,10 @@ var KTScrolltop = function(element, options) {
         }
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('scrolltop');
+    }
+
     // Construct class
     _construct();
 
@@ -121,6 +125,10 @@ var KTScrolltop = function(element, options) {
 
     the.getElement = function() {
         return the.element;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 };
 

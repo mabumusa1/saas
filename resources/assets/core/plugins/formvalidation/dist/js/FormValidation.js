@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,10 +7,10 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.FormValidation = {}));
-}(this, (function (exports) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FormValidation = {}));
+})(this, (function (exports) { 'use strict';
 
-  function t(t) {
+  function t$i(t) {
     var e = t.length;
     var l = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]];
     var n = 0;
@@ -24,7 +24,7 @@
     return r % 10 === 0 && r > 0;
   }
 
-  function t$1(t) {
+  function t$h(t) {
     var e = t.length;
     var n = 5;
 
@@ -35,7 +35,7 @@
     return n === 1;
   }
 
-  function t$2(t) {
+  function t$g(t) {
     var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var n = t.length;
     var o = e.length;
@@ -48,7 +48,7 @@
     return l === 1;
   }
 
-  function t$3(t) {
+  function t$f(t) {
     var e = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]];
     var n = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]];
     var o = t.reverse();
@@ -61,11 +61,11 @@
     return r === 0;
   }
 
-  var index = {
-    luhn: t,
-    mod11And10: t$1,
-    mod37And36: t$2,
-    verhoeff: t$3
+  var index$3 = {
+    luhn: t$i,
+    mod11And10: t$h,
+    mod37And36: t$g,
+    verhoeff: t$f
   };
 
   function _classCallCheck(instance, Constructor) {
@@ -142,7 +142,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -160,6 +160,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -202,9 +204,9 @@
   }
 
   function _createForOfIteratorHelper(o, allowArrayLike) {
-    var it;
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
 
-    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (!it) {
       if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
         if (it) o = it;
         var i = 0;
@@ -237,7 +239,7 @@
         err;
     return {
       s: function () {
-        it = o[Symbol.iterator]();
+        it = it.call(o);
       },
       n: function () {
         var step = it.next();
@@ -258,7 +260,7 @@
     };
   }
 
-  function s() {
+  function s$6() {
     return {
       fns: {},
       clear: function clear() {
@@ -288,7 +290,7 @@
     };
   }
 
-  function t$4() {
+  function t$e() {
     return {
       filters: {},
       add: function add(t, e) {
@@ -322,7 +324,7 @@
     };
   }
 
-  function e(e, t, r, n) {
+  function e$a(e, t, r, n) {
     var o = (r.getAttribute("type") || "").toLowerCase();
     var c = r.tagName.toLowerCase();
 
@@ -350,7 +352,7 @@
     return "";
   }
 
-  function r(r, e) {
+  function r$2(r, e) {
     var t = Array.isArray(e) ? e : [e];
     var a = r;
     t.forEach(function (r) {
@@ -359,7 +361,7 @@
     return a;
   }
 
-  function s$1() {
+  function s$5() {
     var s = function s(e) {
       return parseFloat("".concat(e).replace(",", "."));
     };
@@ -381,17 +383,17 @@
         var l = s(n.min);
         var o = s(n.max);
         return n.inclusive ? {
-          message: r(a.l10n ? n.message || a.l10n.between["default"] : n.message, ["".concat(l), "".concat(o)]),
+          message: r$2(a.l10n ? n.message || a.l10n.between["default"] : n.message, ["".concat(l), "".concat(o)]),
           valid: parseFloat(t) >= l && parseFloat(t) <= o
         } : {
-          message: r(a.l10n ? n.message || a.l10n.between.notInclusive : n.message, ["".concat(l), "".concat(o)]),
+          message: r$2(a.l10n ? n.message || a.l10n.between.notInclusive : n.message, ["".concat(l), "".concat(o)]),
           valid: parseFloat(t) > l && parseFloat(t) < o
         };
       }
     };
   }
 
-  function t$5() {
+  function t$d() {
     return {
       validate: function validate(t) {
         return {
@@ -401,7 +403,7 @@
     };
   }
 
-  function t$6(t, n) {
+  function t$c(t, n) {
     if ("function" === typeof t) {
       return t.apply(this, n);
     } else if ("string" === typeof t) {
@@ -433,10 +435,10 @@
     }
   }
 
-  function o() {
+  function o$3() {
     return {
       validate: function validate(o) {
-        var l = t$6(o.options.callback, [o]);
+        var l = t$c(o.options.callback, [o]);
         return "boolean" === typeof l ? {
           valid: l
         } : l;
@@ -444,7 +446,7 @@
     };
   }
 
-  function t$7() {
+  function t$b() {
     return {
       validate: function validate(t) {
         var o = "select" === t.element.tagName.toLowerCase() ? t.element.querySelectorAll("option:checked").length : t.elements.filter(function (e) {
@@ -457,15 +459,15 @@
 
         switch (true) {
           case !!s && !!n:
-            a = r(t.l10n ? t.l10n.choice.between : t.options.message, [s, n]);
+            a = r$2(t.l10n ? t.l10n.choice.between : t.options.message, [s, n]);
             break;
 
           case !!s:
-            a = r(t.l10n ? t.l10n.choice.more : t.options.message, s);
+            a = r$2(t.l10n ? t.l10n.choice.more : t.options.message, s);
             break;
 
           case !!n:
-            a = r(t.l10n ? t.l10n.choice.less : t.options.message, n);
+            a = r$2(t.l10n ? t.l10n.choice.less : t.options.message, n);
             break;
         }
 
@@ -477,7 +479,7 @@
     };
   }
 
-  var t$8 = {
+  var t$a = {
     AMERICAN_EXPRESS: {
       length: [15],
       prefix: ["34", "37"]
@@ -539,7 +541,7 @@
       prefix: ["4026", "417500", "4405", "4508", "4844", "4913", "4917"]
     }
   };
-  function l() {
+  function l$2() {
     return {
       validate: function validate(l) {
         if (l.value === "") {
@@ -562,7 +564,7 @@
 
         var r = l.value.replace(/\D/g, "");
 
-        if (!t(r)) {
+        if (!t$i(r)) {
           return {
             meta: {
               type: null
@@ -571,11 +573,11 @@
           };
         }
 
-        for (var _i = 0, _Object$keys = Object.keys(t$8); _i < _Object$keys.length; _i++) {
+        for (var _i = 0, _Object$keys = Object.keys(t$a); _i < _Object$keys.length; _i++) {
           var _e = _Object$keys[_i];
 
-          for (var n in t$8[_e].prefix) {
-            if (l.value.substr(0, t$8[_e].prefix[n].length) === t$8[_e].prefix[n] && t$8[_e].length.indexOf(r.length) !== -1) {
+          for (var n in t$a[_e].prefix) {
+            if (l.value.substr(0, t$a[_e].prefix[n].length) === t$a[_e].prefix[n] && t$a[_e].length.indexOf(r.length) !== -1) {
               return {
                 meta: {
                   type: _e
@@ -709,7 +711,7 @@
           message: ""
         }, a.options);
         var o = a.l10n ? a.l10n.date["default"] : l.message;
-        var r$1 = {
+        var r = {
           message: "".concat(o),
           meta: {
             date: null
@@ -724,20 +726,20 @@
         var d = u.length > 1 ? u[1] : null;
 
         if (c.length !== u.length) {
-          return r$1;
+          return r;
         }
 
         var f = l.separator || (m.indexOf("/") !== -1 ? "/" : m.indexOf("-") !== -1 ? "-" : m.indexOf(".") !== -1 ? "." : "/");
 
         if (f === null || m.indexOf(f) === -1) {
-          return r$1;
+          return r;
         }
 
         var p = m.split(f);
         var h = c[0].split(f);
 
         if (p.length !== h.length) {
-          return r$1;
+          return r;
         }
 
         var $ = p[h.indexOf("YYYY")];
@@ -745,7 +747,7 @@
         var Y = p[h.indexOf("DD")];
 
         if (!/^\d+$/.test($) || !/^\d+$/.test(M) || !/^\d+$/.test(Y) || $.length > 4 || M.length > 2 || Y.length > 2) {
-          return r$1;
+          return r;
         }
 
         var D = parseInt($, 10);
@@ -753,7 +755,7 @@
         var y = parseInt(Y, 10);
 
         if (!t$9(D, x, y)) {
-          return r$1;
+          return r;
         }
 
         var I = new Date(D, x - 1, y);
@@ -762,7 +764,7 @@
           var _t2 = d.split(":");
 
           if (i.split(":").length !== _t2.length) {
-            return r$1;
+            return r;
           }
 
           var _e = _t2.length > 0 ? _t2[0].length <= 2 && /^\d+$/.test(_t2[0]) ? parseInt(_t2[0], 10) : -1 : 0;
@@ -772,19 +774,19 @@
           var _s = _t2.length > 2 ? _t2[2].length <= 2 && /^\d+$/.test(_t2[2]) ? parseInt(_t2[2], 10) : -1 : 0;
 
           if (_e === -1 || _n2 === -1 || _s === -1) {
-            return r$1;
+            return r;
           }
 
           if (_s < 0 || _s > 60) {
-            return r$1;
+            return r;
           }
 
           if (_e < 0 || _e >= 24 || g && _e > 12) {
-            return r$1;
+            return r;
           }
 
           if (_n2 < 0 || _n2 > 59) {
-            return r$1;
+            return r;
           }
 
           I.setHours(_e);
@@ -802,7 +804,7 @@
         switch (true) {
           case !!S && !b:
             return {
-              message: r(a.l10n ? a.l10n.date.min : o, S),
+              message: r$2(a.l10n ? a.l10n.date.min : o, S),
               meta: {
                 date: I
               },
@@ -811,7 +813,7 @@
 
           case !!b && !S:
             return {
-              message: r(a.l10n ? a.l10n.date.max : o, b),
+              message: r$2(a.l10n ? a.l10n.date.max : o, b),
               meta: {
                 date: I
               },
@@ -820,7 +822,7 @@
 
           case !!b && !!S:
             return {
-              message: r(a.l10n ? a.l10n.date.range : o, [S, b]),
+              message: r$2(a.l10n ? a.l10n.date.range : o, [S, b]),
               meta: {
                 date: I
               },
@@ -840,7 +842,7 @@
     };
   }
 
-  function o$1() {
+  function o$2() {
     return {
       validate: function validate(o) {
         var t = "function" === typeof o.options.compare ? o.options.compare.call(this) : o.options.compare;
@@ -851,7 +853,7 @@
     };
   }
 
-  function e$1() {
+  function e$9() {
     return {
       validate: function validate(e) {
         return {
@@ -861,7 +863,7 @@
     };
   }
 
-  function t$a() {
+  function t$8() {
     var t = function t(_t3, e) {
       var s = _t3.split(/"/);
 
@@ -940,7 +942,7 @@
     };
   }
 
-  function e$2() {
+  function e$8() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -1066,7 +1068,7 @@
     };
   }
 
-  function a() {
+  function a$4() {
     return {
       validate: function validate(a) {
         if (a.value === "") {
@@ -1081,17 +1083,17 @@
         }, a.options);
         var t = parseFloat("".concat(s.min).replace(",", "."));
         return s.inclusive ? {
-          message: r(a.l10n ? s.message || a.l10n.greaterThan["default"] : s.message, "".concat(t)),
+          message: r$2(a.l10n ? s.message || a.l10n.greaterThan["default"] : s.message, "".concat(t)),
           valid: parseFloat(a.value) >= t
         } : {
-          message: r(a.l10n ? s.message || a.l10n.greaterThan.notInclusive : s.message, "".concat(t)),
+          message: r$2(a.l10n ? s.message || a.l10n.greaterThan.notInclusive : s.message, "".concat(t)),
           valid: parseFloat(a.value) > t
         };
       }
     };
   }
 
-  function o$2() {
+  function o$1() {
     return {
       validate: function validate(o) {
         var t = "function" === typeof o.options.compare ? o.options.compare.call(this) : o.options.compare;
@@ -1102,7 +1104,7 @@
     };
   }
 
-  function a$1() {
+  function a$3() {
     return {
       validate: function validate(a) {
         if (a.value === "") {
@@ -1183,7 +1185,7 @@
     };
   }
 
-  function s$2() {
+  function s$4() {
     return {
       validate: function validate(s) {
         if (s.value === "") {
@@ -1198,17 +1200,17 @@
         }, s.options);
         var l = parseFloat("".concat(a.max).replace(",", "."));
         return a.inclusive ? {
-          message: r(s.l10n ? a.message || s.l10n.lessThan["default"] : a.message, "".concat(l)),
+          message: r$2(s.l10n ? a.message || s.l10n.lessThan["default"] : a.message, "".concat(l)),
           valid: parseFloat(s.value) <= l
         } : {
-          message: r(s.l10n ? a.message || s.l10n.lessThan.notInclusive : a.message, "".concat(l)),
+          message: r$2(s.l10n ? a.message || s.l10n.lessThan.notInclusive : a.message, "".concat(l)),
           valid: parseFloat(s.value) < l
         };
       }
     };
   }
 
-  function t$b() {
+  function t$7() {
     return {
       validate: function validate(t) {
         var n = !!t.options && !!t.options.trim;
@@ -1271,12 +1273,12 @@
   function r$1() {
     return {
       validate: function validate(r) {
-        return t$6(r.options.promise, [r]);
+        return t$c(r.options.promise, [r]);
       }
     };
   }
 
-  function e$3() {
+  function e$7() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -1302,7 +1304,7 @@
     };
   }
 
-  function e$4(e, t) {
+  function e$6(e, t) {
     var n = function n(e) {
       return Object.keys(e).map(function (t) {
         return "".concat(encodeURIComponent(t), "=").concat(encodeURIComponent(e[t]));
@@ -1372,7 +1374,7 @@
     });
   }
 
-  function a$3() {
+  function a$1() {
     var a = {
       crossDomain: false,
       data: {},
@@ -1401,7 +1403,7 @@
 
         r[s.name || t.field] = t.value;
         var o = "function" === typeof s.url ? s.url.call(this, t) : s.url;
-        return e$4(o, {
+        return e$6(o, {
           crossDomain: s.crossDomain,
           headers: s.headers,
           method: s.method,
@@ -1442,7 +1444,7 @@
     };
   }
 
-  function t$c() {
+  function t$6() {
     var t = function t(e) {
       var t = e.length;
 
@@ -1478,27 +1480,27 @@
           };
         }
 
-        var r$1 = n.min ? "".concat(n.min) : "";
+        var r = n.min ? "".concat(n.min) : "";
         var l = n.max ? "".concat(n.max) : "";
         var i = n.utf8Bytes ? t(a) : a.length;
         var g = true;
         var m = s.l10n ? n.message || s.l10n.stringLength["default"] : n.message;
 
-        if (r$1 && i < parseInt(r$1, 10) || l && i > parseInt(l, 10)) {
+        if (r && i < parseInt(r, 10) || l && i > parseInt(l, 10)) {
           g = false;
         }
 
         switch (true) {
-          case !!r$1 && !!l:
-            m = r(s.l10n ? n.message || s.l10n.stringLength.between : n.message, [r$1, l]);
+          case !!r && !!l:
+            m = r$2(s.l10n ? n.message || s.l10n.stringLength.between : n.message, [r, l]);
             break;
 
-          case !!r$1:
-            m = r(s.l10n ? n.message || s.l10n.stringLength.more : n.message, "".concat(parseInt(r$1, 10)));
+          case !!r:
+            m = r$2(s.l10n ? n.message || s.l10n.stringLength.more : n.message, "".concat(parseInt(r, 10)));
             break;
 
           case !!l:
-            m = r(s.l10n ? n.message || s.l10n.stringLength.less : n.message, "".concat(parseInt(l, 10)));
+            m = r$2(s.l10n ? n.message || s.l10n.stringLength.less : n.message, "".concat(parseInt(l, 10)));
             break;
         }
 
@@ -1510,7 +1512,7 @@
     };
   }
 
-  function t$d() {
+  function t$5() {
     var t = {
       allowEmptyProtocol: false,
       allowLocal: false,
@@ -1537,43 +1539,43 @@
   }
 
   var s$3 = {
-    between: s$1,
-    blank: t$5,
-    callback: o,
-    choice: t$7,
-    creditCard: l,
+    between: s$5,
+    blank: t$d,
+    callback: o$3,
+    choice: t$b,
+    creditCard: l$2,
     date: n,
-    different: o$1,
-    digits: e$1,
-    emailAddress: t$a,
-    file: e$2,
-    greaterThan: a,
-    identical: o$2,
-    integer: a$1,
+    different: o$2,
+    digits: e$9,
+    emailAddress: t$8,
+    file: e$8,
+    greaterThan: a$4,
+    identical: o$1,
+    integer: a$3,
     ip: d,
-    lessThan: s$2,
-    notEmpty: t$b,
+    lessThan: s$4,
+    notEmpty: t$7,
     numeric: a$2,
     promise: r$1,
-    regexp: e$3,
-    remote: a$3,
+    regexp: e$7,
+    remote: a$1,
     stringCase: e$5,
-    stringLength: t$c,
-    uri: t$d
+    stringLength: t$6,
+    uri: t$5
   };
 
   var l$1 = /*#__PURE__*/function () {
-    function l(i, s$1) {
+    function l(i, s) {
       _classCallCheck(this, l);
 
       this.elements = {};
-      this.ee = s();
-      this.filter = t$4();
+      this.ee = s$6();
+      this.filter = t$e();
       this.plugins = {};
       this.results = new Map();
       this.validators = {};
       this.form = i;
-      this.fields = s$1;
+      this.fields = s;
     }
 
     _createClass(l, [{
@@ -1694,24 +1696,32 @@
       value: function validate() {
         var _this = this;
 
-        this.emit("core.form.validating");
+        this.emit("core.form.validating", {
+          formValidation: this
+        });
         return this.filter.execute("validate-pre", Promise.resolve(), []).then(function () {
           return Promise.all(Object.keys(_this.fields).map(function (e) {
             return _this.validateField(e);
           })).then(function (e) {
             switch (true) {
               case e.indexOf("Invalid") !== -1:
-                _this.emit("core.form.invalid");
+                _this.emit("core.form.invalid", {
+                  formValidation: _this
+                });
 
                 return Promise.resolve("Invalid");
 
               case e.indexOf("NotValidated") !== -1:
-                _this.emit("core.form.notvalidated");
+                _this.emit("core.form.notvalidated", {
+                  formValidation: _this
+                });
 
                 return Promise.resolve("NotValidated");
 
               default:
-                _this.emit("core.form.valid");
+                _this.emit("core.form.valid", {
+                  formValidation: _this
+                });
 
                 return Promise.resolve("Valid");
             }
@@ -1788,34 +1798,34 @@
           return Promise.resolve("Ignored");
         }
 
-        var l = this.fields[e].validators;
+        var _l = this.fields[e].validators;
         this.emit("core.element.validating", {
           element: t,
           elements: i,
           field: e
         });
-        var r = Object.keys(l).map(function (i) {
+        var r = Object.keys(_l).map(function (i) {
           return function () {
-            return _this3.executeValidator(e, t, i, l[i]);
+            return _this3.executeValidator(e, t, i, _l[i]);
           };
         });
         return this.waterfall(r).then(function (s) {
-          var l = s.indexOf("Invalid") === -1;
+          var _l2 = s.indexOf("Invalid") === -1;
 
           _this3.emit("core.element.validated", {
             element: t,
             elements: i,
             field: e,
-            valid: l
+            valid: _l2
           });
 
           var r = t.getAttribute("type");
 
           if ("radio" === r || "checkbox" === r || i.length === 1) {
-            _this3.emit(l ? "core.field.valid" : "core.field.invalid", e);
+            _this3.emit(_l2 ? "core.field.valid" : "core.field.invalid", e);
           }
 
-          return Promise.resolve(l ? "Valid" : "Invalid");
+          return Promise.resolve(_l2 ? "Valid" : "Invalid");
         })["catch"](function (s) {
           _this3.emit("core.element.notvalidated", {
             element: t,
@@ -1831,14 +1841,14 @@
       value: function executeValidator(e, t, i, s) {
         var _this4 = this;
 
-        var l = this.elements[e];
+        var _l3 = this.elements[e];
         var r = this.filter.execute("validator-name", i, [i, e]);
         s.message = this.filter.execute("validator-message", s.message, [this.locale, e, r]);
 
         if (!this.validators[r] || s.enabled === false) {
           this.emit("core.validator.validated", {
             element: t,
-            elements: l,
+            elements: _l3,
             field: e,
             result: this.normalizeResult(e, r, {
               valid: true
@@ -1855,7 +1865,7 @@
         if (!o) {
           this.emit("core.validator.notvalidated", {
             element: t,
-            elements: l,
+            elements: _l3,
             field: e,
             validator: i
           });
@@ -1864,13 +1874,13 @@
 
         this.emit("core.validator.validating", {
           element: t,
-          elements: l,
+          elements: _l3,
           field: e,
           validator: i
         });
         var n = a().validate({
           element: t,
-          elements: l,
+          elements: _l3,
           field: e,
           l10n: this.localization,
           options: s,
@@ -1884,7 +1894,7 @@
 
             _this4.emit("core.validator.validated", {
               element: t,
-              elements: l,
+              elements: _l3,
               field: e,
               result: r,
               validator: i
@@ -1897,7 +1907,7 @@
 
           this.emit("core.validator.validated", {
             element: t,
-            elements: l,
+            elements: _l3,
             field: e,
             result: _s,
             validator: i
@@ -1907,9 +1917,10 @@
       }
     }, {
       key: "getElementValue",
-      value: function getElementValue(e$1, t, s) {
-        var l = e(this.form, e$1, t, this.elements[e$1]);
-        return this.filter.execute("field-value", l, [l, e$1, t, s]);
+      value: function getElementValue(e, t, s) {
+        var _l4 = e$a(this.form, e, t, this.elements[e]);
+
+        return this.filter.execute("field-value", _l4, [_l4, e, t, s]);
       }
     }, {
       key: "getElements",
@@ -1942,8 +1953,10 @@
         var _this5 = this;
 
         var s = this.elements[e];
-        var l = s[0].getAttribute("type");
-        var r = "radio" === l || "checkbox" === l ? [s[0]] : s;
+
+        var _l5 = s[0].getAttribute("type");
+
+        var r = "radio" === _l5 || "checkbox" === _l5 ? [s[0]] : s;
         r.forEach(function (s) {
           return _this5.updateElementStatus(e, s, t, i);
         });
@@ -1979,7 +1992,7 @@
       value: function updateElementStatus(e, t, i, s) {
         var _this6 = this;
 
-        var l = this.elements[e];
+        var _l6 = this.elements[e];
         var r = this.fields[e].validators;
         var a = s ? [s] : Object.keys(r);
 
@@ -1988,14 +2001,14 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.notvalidated", {
                 element: t,
-                elements: l,
+                elements: _l6,
                 field: e,
                 validator: i
               });
             });
             this.emit("core.element.notvalidated", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e
             });
             break;
@@ -2004,14 +2017,14 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.validating", {
                 element: t,
-                elements: l,
+                elements: _l6,
                 field: e,
                 validator: i
               });
             });
             this.emit("core.element.validating", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e
             });
             break;
@@ -2020,6 +2033,7 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.validated", {
                 element: t,
+                elements: _l6,
                 field: e,
                 result: {
                   message: r[i].message,
@@ -2030,7 +2044,7 @@
             });
             this.emit("core.element.validated", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e,
               valid: true
             });
@@ -2040,6 +2054,7 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.validated", {
                 element: t,
+                elements: _l6,
                 field: e,
                 result: {
                   message: r[i].message,
@@ -2050,7 +2065,7 @@
             });
             this.emit("core.element.validated", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e,
               valid: false
             });
@@ -2068,6 +2083,7 @@
           return _this7.resetField(t, e);
         });
         this.emit("core.form.reset", {
+          formValidation: this,
           reset: e
         });
         return this;
@@ -2202,11 +2218,12 @@
     return l;
   }();
 
-  function r$2(e, t) {
+  function r(e, t) {
     var i = Object.assign({}, {
       fields: {},
       locale: "en_US",
-      plugins: {}
+      plugins: {},
+      init: function init(e) {}
     }, t);
     var r = new l$1(e, i.fields);
     r.setLocale(i.locale, i.localization);
@@ -2216,13 +2233,14 @@
     Object.keys(s$3).forEach(function (e) {
       return r.registerValidator(e, s$3[e]);
     });
+    i.init(r);
     Object.keys(i.fields).forEach(function (e) {
       return r.addField(e, i.fields[e]);
     });
     return r;
   }
 
-  var t$e = /*#__PURE__*/function () {
+  var t$4 = /*#__PURE__*/function () {
     function t(_t) {
       _classCallCheck(this, t);
 
@@ -2231,8 +2249,8 @@
 
     _createClass(t, [{
       key: "setCore",
-      value: function setCore(t) {
-        this.core = t;
+      value: function setCore(_t2) {
+        this.core = _t2;
         return this;
       }
     }, {
@@ -2246,11 +2264,11 @@
     return t;
   }();
 
-  var index$1 = {
-    getFieldValue: e
+  var index$2 = {
+    getFieldValue: e$a
   };
 
-  var e$6 = /*#__PURE__*/function (_t) {
+  var e$4 = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -2278,15 +2296,15 @@
       }
     }, {
       key: "getValidatorName",
-      value: function getValidatorName(t, e) {
+      value: function getValidatorName(t, _e) {
         return this.opts[t] || t;
       }
     }]);
 
     return e;
-  }(t$e);
+  }(t$4);
 
-  var i = /*#__PURE__*/function (_e) {
+  var i$3 = /*#__PURE__*/function (_e) {
     _inherits(i, _e);
 
     var _super = _createSuper(i);
@@ -2325,10 +2343,10 @@
     }, {
       key: "onFieldValid",
       value: function onFieldValid(e) {
-        var i = this.core.getElements(e);
+        var _i = this.core.getElements(e);
 
-        if (i) {
-          i.forEach(function (e) {
+        if (_i) {
+          _i.forEach(function (e) {
             e.setAttribute("aria-invalid", "false");
             e.removeAttribute("aria-describedby");
           });
@@ -2337,10 +2355,10 @@
     }, {
       key: "onFieldInvalid",
       value: function onFieldInvalid(e) {
-        var i = this.core.getElements(e);
+        var _i2 = this.core.getElements(e);
 
-        if (i) {
-          i.forEach(function (e) {
+        if (_i2) {
+          _i2.forEach(function (e) {
             return e.setAttribute("aria-invalid", "true");
           });
         }
@@ -2350,15 +2368,18 @@
       value: function onMessageDisplayed(e) {
         e.messageElement.setAttribute("role", "alert");
         e.messageElement.setAttribute("aria-hidden", "false");
-        var i = this.core.getElements(e.field);
-        var t = i.indexOf(e.element);
+
+        var _i3 = this.core.getElements(e.field);
+
+        var t = _i3.indexOf(e.element);
+
         var l = "js-fv-".concat(e.field, "-").concat(t, "-").concat(Date.now(), "-message");
         e.messageElement.setAttribute("id", l);
         e.element.setAttribute("aria-describedby", l);
         var a = e.element.getAttribute("type");
 
         if ("radio" === a || "checkbox" === a) {
-          i.forEach(function (e) {
+          _i3.forEach(function (e) {
             return e.setAttribute("aria-describedby", l);
           });
         }
@@ -2366,9 +2387,9 @@
     }]);
 
     return i;
-  }(t$e);
+  }(t$4);
 
-  var t$f = /*#__PURE__*/function (_e) {
+  var t$3 = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -2397,12 +2418,12 @@
 
         this.parsePlugins();
         var e = this.parseOptions();
-        Object.keys(e).forEach(function (t) {
-          if (!_this2.addedFields.has(t)) {
-            _this2.addedFields.set(t, true);
+        Object.keys(e).forEach(function (_t) {
+          if (!_this2.addedFields.has(_t)) {
+            _this2.addedFields.set(_t, true);
           }
 
-          _this2.core.addField(t, e[t]);
+          _this2.core.addField(_t, e[_t]);
         });
         this.core.on("core.field.added", this.fieldAddedHandler).on("core.field.removed", this.fieldRemovedHandler);
       }
@@ -2417,23 +2438,24 @@
       value: function onFieldAdded(e) {
         var _this3 = this;
 
-        var t = e.elements;
+        var _t2 = e.elements;
 
-        if (!t || t.length === 0 || this.addedFields.has(e.field)) {
+        if (!_t2 || _t2.length === 0 || this.addedFields.has(e.field)) {
           return;
         }
 
         this.addedFields.set(e.field, true);
-        t.forEach(function (t) {
-          var s = _this3.parseElement(t);
+
+        _t2.forEach(function (_t3) {
+          var s = _this3.parseElement(_t3);
 
           if (!_this3.isEmptyOption(s)) {
-            var _t = {
+            var _t12 = {
               selector: e.options.selector,
               validators: Object.assign({}, e.options.validators || {}, s.validators)
             };
 
-            _this3.core.setFieldOptions(e.field, _t);
+            _this3.core.setFieldOptions(e.field, _t12);
           }
         });
       }
@@ -2450,7 +2472,7 @@
         var _this4 = this;
 
         var e = this.opts.prefix;
-        var t = {};
+        var _t5 = {};
         var s = this.core.getFields();
         var a = this.core.getFormElement();
         var i = [].slice.call(a.querySelectorAll("[name], [".concat(e, "field]")));
@@ -2460,27 +2482,27 @@
           if (!_this4.isEmptyOption(a)) {
             var _i = s.getAttribute("name") || s.getAttribute("".concat(e, "field"));
 
-            t[_i] = Object.assign({}, t[_i], a);
+            _t5[_i] = Object.assign({}, _t5[_i], a);
           }
         });
-        Object.keys(t).forEach(function (e) {
-          Object.keys(t[e].validators).forEach(function (a) {
-            t[e].validators[a].enabled = t[e].validators[a].enabled || false;
+        Object.keys(_t5).forEach(function (e) {
+          Object.keys(_t5[e].validators).forEach(function (a) {
+            _t5[e].validators[a].enabled = _t5[e].validators[a].enabled || false;
 
             if (s[e] && s[e].validators && s[e].validators[a]) {
-              Object.assign(t[e].validators[a], s[e].validators[a]);
+              Object.assign(_t5[e].validators[a], s[e].validators[a]);
             }
           });
         });
-        return Object.assign({}, s, t);
+        return Object.assign({}, s, _t5);
       }
     }, {
       key: "createPluginInstance",
-      value: function createPluginInstance(e, t) {
+      value: function createPluginInstance(e, _t6) {
         var s = e.split(".");
         var a = window || this;
 
-        for (var _e2 = 0, _t2 = s.length; _e2 < _t2; _e2++) {
+        for (var _e2 = 0, _t13 = s.length; _e2 < _t13; _e2++) {
           a = a[s[_e2]];
         }
 
@@ -2488,7 +2510,7 @@
           throw new Error("the plugin ".concat(e, " doesn't exist"));
         }
 
-        return new a(t);
+        return new a(_t6);
       }
     }, {
       key: "parsePlugins",
@@ -2496,14 +2518,17 @@
         var _this5 = this;
 
         var e = this.core.getFormElement();
-        var t = new RegExp("^".concat(this.opts.pluginPrefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+
+        var _t8 = new RegExp("^".concat(this.opts.pluginPrefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+
         var s = e.attributes.length;
         var a = {};
 
         for (var i = 0; i < s; i++) {
           var _s = e.attributes[i].name;
           var n = e.attributes[i].value;
-          var r = t.exec(_s);
+
+          var r = _t8.exec(_s);
 
           if (r && r.length === 4) {
             var _e3 = this.toCamelCase(r[1]);
@@ -2515,15 +2540,15 @@
         }
 
         Object.keys(a).forEach(function (e) {
-          var t = a[e];
-          var s = t["enabled"];
-          var i = t["class"];
+          var _t9 = a[e];
+          var s = _t9["enabled"];
+          var i = _t9["class"];
 
           if (s && i) {
-            delete t["enabled"];
-            delete t["clazz"];
+            delete _t9["enabled"];
+            delete _t9["clazz"];
 
-            var _s2 = _this5.createPluginInstance(i, t);
+            var _s2 = _this5.createPluginInstance(i, _t9);
 
             _this5.core.registerPlugin(e, _s2);
           }
@@ -2532,13 +2557,14 @@
     }, {
       key: "isEmptyOption",
       value: function isEmptyOption(e) {
-        var t = e.validators;
-        return Object.keys(t).length === 0 && t.constructor === Object;
+        var _t10 = e.validators;
+        return Object.keys(_t10).length === 0 && _t10.constructor === Object;
       }
     }, {
       key: "parseElement",
       value: function parseElement(e) {
-        var t = new RegExp("^".concat(this.opts.prefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+        var _t11 = new RegExp("^".concat(this.opts.prefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+
         var s = e.attributes.length;
         var a = {};
         var i = e.getAttribute("type");
@@ -2619,7 +2645,7 @@
             }
           }
 
-          var l = t.exec(_s3);
+          var l = _t11.exec(_s3);
 
           if (l && l.length === 4) {
             var _e4 = this.toCamelCase(l[1]);
@@ -2652,9 +2678,9 @@
     }]);
 
     return t;
-  }(t$e);
+  }(t$4);
 
-  var o$3 = /*#__PURE__*/function (_t) {
+  var o = /*#__PURE__*/function (_t) {
     _inherits(o, _t);
 
     var _super = _createSuper(o);
@@ -2697,9 +2723,9 @@
     }]);
 
     return o;
-  }(t$e);
+  }(t$4);
 
-  var e$7 = /*#__PURE__*/function (_t) {
+  var e$3 = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -2729,19 +2755,19 @@
       key: "onTriggerExecuted",
       value: function onTriggerExecuted(t) {
         if (this.opts[t.field]) {
-          var _e = this.opts[t.field].split(" ");
+          var _e3 = this.opts[t.field].split(" ");
 
-          var _iterator = _createForOfIteratorHelper(_e),
+          var _iterator = _createForOfIteratorHelper(_e3),
               _step;
 
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var _t2 = _step.value;
 
-              var _e2 = _t2.trim();
+              var _e4 = _t2.trim();
 
-              if (this.opts[_e2]) {
-                this.core.revalidateField(_e2);
+              if (this.opts[_e4]) {
+                this.core.revalidateField(_e4);
               }
             }
           } catch (err) {
@@ -2754,9 +2780,9 @@
     }]);
 
     return e;
-  }(t$e);
+  }(t$4);
 
-  var e$8 = /*#__PURE__*/function (_t) {
+  var e$2 = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -2786,22 +2812,24 @@
       }
     }, {
       key: "ignoreValidation",
-      value: function ignoreValidation(t, e, i) {
-        return this.opts.excluded.apply(this, [t, e, i]);
+      value: function ignoreValidation(t, _e2, i) {
+        return this.opts.excluded.apply(this, [t, _e2, i]);
       }
     }], [{
       key: "defaultIgnore",
-      value: function defaultIgnore(t, e, i) {
-        var r = !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
-        var n = e.getAttribute("disabled");
-        return n === "" || n === "disabled" || e.getAttribute("type") === "hidden" || !r;
+      value: function defaultIgnore(t, _e, i) {
+        var r = !!(_e.offsetWidth || _e.offsetHeight || _e.getClientRects().length);
+
+        var n = _e.getAttribute("disabled");
+
+        return n === "" || n === "disabled" || _e.getAttribute("type") === "hidden" || !r;
       }
     }]);
 
     return e;
-  }(t$e);
+  }(t$4);
 
-  var t$g = /*#__PURE__*/function (_e) {
+  var t$2 = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -2894,9 +2922,9 @@
     }]);
 
     return t;
-  }(t$e);
+  }(t$4);
 
-  function s$4(s, a) {
+  function s$2(s, a) {
     a.split(" ").forEach(function (a) {
       if (s.classList) {
         s.classList.add(a);
@@ -2906,7 +2934,7 @@
     });
   }
 
-  function a$4(s, a) {
+  function a(s, a) {
     a.split(" ").forEach(function (a) {
       s.classList ? s.classList.remove(a) : s.className = s.className.replace(a, "");
     });
@@ -2921,14 +2949,14 @@
       }
     });
     f.forEach(function (s) {
-      return a$4(c, s);
+      return a(c, s);
     });
     t.forEach(function (a) {
-      return s$4(c, a);
+      return s$2(c, a);
     });
   }
 
-  function e$9(e, t) {
+  function e$1(e, t) {
     var l = e.matches || e.webkitMatchesSelector || e["mozMatchesSelector"] || e["msMatchesSelector"];
 
     if (l) {
@@ -2939,11 +2967,11 @@
     return c.indexOf(e) >= 0;
   }
 
-  function t$h(t, l) {
+  function t$1(t, l) {
     var c = t;
 
     while (c) {
-      if (e$9(c, l)) {
+      if (e$1(c, l)) {
         break;
       }
 
@@ -2953,7 +2981,7 @@
     return c;
   }
 
-  var s$5 = /*#__PURE__*/function (_e) {
+  var s$1 = /*#__PURE__*/function (_e) {
     _inherits(s, _e);
 
     var _super = _createSuper(s);
@@ -3025,8 +3053,10 @@
         }
 
         var t = e.elements[0].getAttribute("type");
-        var s = "radio" === t || "checkbox" === t ? [e.elements[0]] : e.elements;
-        s.forEach(function (e) {
+
+        var _s2 = "radio" === t || "checkbox" === t ? [e.elements[0]] : e.elements;
+
+        _s2.forEach(function (e) {
           if (_this3.messages.has(e)) {
             var _t = _this3.messages.get(e);
 
@@ -3042,20 +3072,20 @@
         var _this4 = this;
 
         if (t.length) {
-          var _s = t[0].getAttribute("type");
+          var _s12 = t[0].getAttribute("type");
 
-          if ("radio" === _s || "checkbox" === _s) {
+          if ("radio" === _s12 || "checkbox" === _s12) {
             this.prepareElementContainer(e, t[0], t);
           } else {
-            t.forEach(function (s) {
-              return _this4.prepareElementContainer(e, s, t);
+            t.forEach(function (_s4) {
+              return _this4.prepareElementContainer(e, _s4, t);
             });
           }
         }
       }
     }, {
       key: "prepareElementContainer",
-      value: function prepareElementContainer(e, s, i) {
+      value: function prepareElementContainer(e, _s5, i) {
         var a;
 
         if ("string" === typeof this.opts.container) {
@@ -3063,7 +3093,7 @@
 
           a = this.core.getFormElement().querySelector(_e2);
         } else {
-          a = this.opts.container(e, s);
+          a = this.opts.container(e, _s5);
         }
 
         var l = document.createElement("div");
@@ -3072,12 +3102,12 @@
           "fv-plugins-message-container": true
         });
         this.core.emit("plugins.message.placed", {
-          element: s,
+          element: _s5,
           elements: i,
           field: e,
           messageElement: l
         });
-        this.messages.set(s, l);
+        this.messages.set(_s5, l);
       }
     }, {
       key: "getMessage",
@@ -3087,14 +3117,14 @@
     }, {
       key: "onValidatorValidated",
       value: function onValidatorValidated(e) {
-        var s = e.elements;
+        var _s6 = e.elements;
         var i = e.element.getAttribute("type");
-        var a = "radio" === i || "checkbox" === i ? s[0] : e.element;
+        var a = ("radio" === i || "checkbox" === i) && _s6.length > 0 ? _s6[0] : e.element;
 
         if (this.messages.has(a)) {
-          var _s2 = this.messages.get(a);
+          var _s13 = this.messages.get(a);
 
-          var _i = _s2.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
+          var _i = _s13.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
 
           if (!_i && !e.result.valid) {
             var _i2 = document.createElement("div");
@@ -3109,7 +3139,7 @@
               c(_i2, _defineProperty({}, this.opts.clazz, true));
             }
 
-            _s2.appendChild(_i2);
+            _s13.appendChild(_i2);
 
             this.core.emit("plugins.message.displayed", {
               element: e.element,
@@ -3130,7 +3160,7 @@
               validator: e.validator
             });
           } else if (_i && e.result.valid) {
-            _s2.removeChild(_i);
+            _s13.removeChild(_i);
           }
         }
       }
@@ -3138,16 +3168,18 @@
       key: "onValidatorNotValidated",
       value: function onValidatorNotValidated(e) {
         var t = e.elements;
-        var s = e.element.getAttribute("type");
-        var i = "radio" === s || "checkbox" === s ? t[0] : e.element;
+
+        var _s8 = e.element.getAttribute("type");
+
+        var i = "radio" === _s8 || "checkbox" === _s8 ? t[0] : e.element;
 
         if (this.messages.has(i)) {
           var _t3 = this.messages.get(i);
 
-          var _s3 = _t3.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
+          var _s14 = _t3.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
 
-          if (_s3) {
-            _t3.removeChild(_s3);
+          if (_s14) {
+            _t3.removeChild(_s14);
           }
         }
       }
@@ -3155,22 +3187,24 @@
       key: "onElementIgnored",
       value: function onElementIgnored(e) {
         var t = e.elements;
-        var s = e.element.getAttribute("type");
-        var i = "radio" === s || "checkbox" === s ? t[0] : e.element;
+
+        var _s10 = e.element.getAttribute("type");
+
+        var i = "radio" === _s10 || "checkbox" === _s10 ? t[0] : e.element;
 
         if (this.messages.has(i)) {
           var _t4 = this.messages.get(i);
 
-          var _s4 = [].slice.call(_t4.querySelectorAll("[data-field=\"".concat(e.field, "\"]")));
+          var _s15 = [].slice.call(_t4.querySelectorAll("[data-field=\"".concat(e.field, "\"]")));
 
-          _s4.forEach(function (e) {
+          _s15.forEach(function (e) {
             _t4.removeChild(e);
           });
         }
       }
     }], [{
       key: "getClosestContainer",
-      value: function getClosestContainer(e, t, s) {
+      value: function getClosestContainer(e, t, _s) {
         var i = e;
 
         while (i) {
@@ -3180,7 +3214,7 @@
 
           i = i.parentElement;
 
-          if (s.test(i.className)) {
+          if (_s.test(i.className)) {
             break;
           }
         }
@@ -3190,9 +3224,9 @@
     }]);
 
     return s;
-  }(t$e);
+  }(t$4);
 
-  var l$2 = /*#__PURE__*/function (_e) {
+  var l = /*#__PURE__*/function (_e) {
     _inherits(l, _e);
 
     var _super = _createSuper(l);
@@ -3233,12 +3267,13 @@
         this.core.on("core.element.ignored", this.elementIgnoredHandler).on("core.element.validating", this.elementValidatingHandler).on("core.element.validated", this.elementValidatedHandler).on("core.element.notvalidated", this.elementNotValidatedHandler).on("plugins.icon.placed", this.iconPlacedHandler).on("core.field.added", this.fieldAddedHandler).on("core.field.removed", this.fieldRemovedHandler);
 
         if (this.opts.defaultMessageContainer) {
-          this.core.registerPlugin("___frameworkMessage", new s$5({
+          this.core.registerPlugin("___frameworkMessage", new s$1({
             clazz: this.opts.messageClass,
             container: function container(e, t) {
-              var l = "string" === typeof _this2.opts.rowSelector ? _this2.opts.rowSelector : _this2.opts.rowSelector(e, t);
-              var a = t$h(t, l);
-              return s$5.getClosestContainer(t, a, _this2.opts.rowPattern);
+              var _l = "string" === typeof _this2.opts.rowSelector ? _this2.opts.rowSelector : _this2.opts.rowSelector(e, t);
+
+              var a = t$1(t, _l);
+              return s$1.getClosestContainer(t, a, _this2.opts.rowPattern);
             }
           }));
           this.core.on("plugins.message.placed", this.messagePlacedHandler);
@@ -3321,8 +3356,9 @@
     }, {
       key: "prepareElementContainer",
       value: function prepareElementContainer(e, i) {
-        var l = "string" === typeof this.opts.rowSelector ? this.opts.rowSelector : this.opts.rowSelector(e, i);
-        var a = t$h(i, l);
+        var _l2 = "string" === typeof this.opts.rowSelector ? this.opts.rowSelector : this.opts.rowSelector(e, i);
+
+        var a = t$1(i, _l2);
 
         if (a !== i) {
           var _t5;
@@ -3336,8 +3372,10 @@
       value: function onElementValidating(e) {
         var s = e.elements;
         var i = e.element.getAttribute("type");
-        var l = "radio" === i || "checkbox" === i ? s[0] : e.element;
-        var a = this.containers.get(l);
+
+        var _l3 = "radio" === i || "checkbox" === i ? s[0] : e.element;
+
+        var a = this.containers.get(_l3);
 
         if (a) {
           var _t6;
@@ -3358,12 +3396,18 @@
     }, {
       key: "removeClasses",
       value: function removeClasses(e, s) {
-        var _t7;
+        var _this6 = this;
 
         var i = e.getAttribute("type");
-        var l = "radio" === i || "checkbox" === i ? s[0] : e;
-        c(l, (_t7 = {}, _defineProperty(_t7, this.opts.eleValidClass, false), _defineProperty(_t7, this.opts.eleInvalidClass, false), _t7));
-        var a = this.containers.get(l);
+
+        var _l4 = "radio" === i || "checkbox" === i ? s[0] : e;
+
+        s.forEach(function (e) {
+          var _t7;
+
+          c(e, (_t7 = {}, _defineProperty(_t7, _this6.opts.eleValidClass, false), _defineProperty(_t7, _this6.opts.eleInvalidClass, false), _t7));
+        });
+        var a = this.containers.get(_l4);
 
         if (a) {
           var _t8;
@@ -3374,29 +3418,31 @@
     }, {
       key: "onElementValidated",
       value: function onElementValidated(e) {
-        var _this6 = this;
+        var _this7 = this;
 
         var s = e.elements;
         var i = e.element.getAttribute("type");
-        var l = "radio" === i || "checkbox" === i ? s[0] : e.element;
+
+        var _l5 = "radio" === i || "checkbox" === i ? s[0] : e.element;
+
         s.forEach(function (s) {
           var _t9;
 
-          c(s, (_t9 = {}, _defineProperty(_t9, _this6.opts.eleValidClass, e.valid), _defineProperty(_t9, _this6.opts.eleInvalidClass, !e.valid), _t9));
+          c(s, (_t9 = {}, _defineProperty(_t9, _this7.opts.eleValidClass, e.valid), _defineProperty(_t9, _this7.opts.eleInvalidClass, !e.valid), _t9));
         });
-        var a = this.containers.get(l);
+        var a = this.containers.get(_l5);
 
         if (a) {
           if (!e.valid) {
             var _t10;
 
-            this.results.set(l, false);
+            this.results.set(_l5, false);
             c(a, (_t10 = {}, _defineProperty(_t10, this.opts.rowInvalidClass, true), _defineProperty(_t10, this.opts.rowValidatingClass, false), _defineProperty(_t10, this.opts.rowValidClass, false), _t10));
           } else {
-            this.results["delete"](l);
+            this.results["delete"](_l5);
             var _e2 = true;
             this.containers.forEach(function (t, s) {
-              if (t === a && _this6.results.get(s) === false) {
+              if (t === a && _this7.results.get(s) === false) {
                 _e2 = false;
               }
             });
@@ -3412,9 +3458,9 @@
     }]);
 
     return l;
-  }(t$e);
+  }(t$4);
 
-  var i$1 = /*#__PURE__*/function (_e) {
+  var i$2 = /*#__PURE__*/function (_e) {
     _inherits(i, _e);
 
     var _super = _createSuper(i);
@@ -3481,9 +3527,9 @@
         var _this3 = this;
 
         if (t.length) {
-          var _i = t[0].getAttribute("type");
+          var _i8 = t[0].getAttribute("type");
 
-          if ("radio" === _i || "checkbox" === _i) {
+          if ("radio" === _i8 || "checkbox" === _i8) {
             this.prepareElementIcon(e, t[0]);
           } else {
             t.forEach(function (t) {
@@ -3494,10 +3540,12 @@
       }
     }, {
       key: "prepareElementIcon",
-      value: function prepareElementIcon(e, i) {
+      value: function prepareElementIcon(e, _i2) {
         var n = document.createElement("i");
         n.setAttribute("data-field", e);
-        i.parentNode.insertBefore(n, i.nextSibling);
+
+        _i2.parentNode.insertBefore(n, _i2.nextSibling);
+
         c(n, {
           "fv-plugins-icon": true
         });
@@ -3507,13 +3555,13 @@
             valid: this.opts.valid,
             validating: this.opts.validating
           },
-          element: i,
+          element: _i2,
           field: e,
           iconElement: n
         };
         this.core.emit("plugins.icon.placed", l);
         this.opts.onPlaced(l);
-        this.icons.set(i, n);
+        this.icons.set(_i2, n);
       }
     }, {
       key: "onElementValidating",
@@ -3521,14 +3569,14 @@
         var _this$setClasses;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses = {}, _defineProperty(_this$setClasses, this.opts.invalid, false), _defineProperty(_this$setClasses, this.opts.valid, false), _defineProperty(_this$setClasses, this.opts.validating, true), _this$setClasses));
-        var i = {
+        var _i3 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: "Validating"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i3);
+        this.opts.onSet(_i3);
       }
     }, {
       key: "onElementValidated",
@@ -3536,14 +3584,14 @@
         var _this$setClasses2;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses2 = {}, _defineProperty(_this$setClasses2, this.opts.invalid, !e.valid), _defineProperty(_this$setClasses2, this.opts.valid, e.valid), _defineProperty(_this$setClasses2, this.opts.validating, false), _this$setClasses2));
-        var i = {
+        var _i4 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: e.valid ? "Valid" : "Invalid"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i4);
+        this.opts.onSet(_i4);
       }
     }, {
       key: "onElementNotValidated",
@@ -3551,14 +3599,14 @@
         var _this$setClasses3;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses3 = {}, _defineProperty(_this$setClasses3, this.opts.invalid, false), _defineProperty(_this$setClasses3, this.opts.valid, false), _defineProperty(_this$setClasses3, this.opts.validating, false), _this$setClasses3));
-        var i = {
+        var _i5 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: "NotValidated"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i5);
+        this.opts.onSet(_i5);
       }
     }, {
       key: "onElementIgnored",
@@ -3566,20 +3614,21 @@
         var _this$setClasses4;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses4 = {}, _defineProperty(_this$setClasses4, this.opts.invalid, false), _defineProperty(_this$setClasses4, this.opts.valid, false), _defineProperty(_this$setClasses4, this.opts.validating, false), _this$setClasses4));
-        var i = {
+        var _i6 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: "Ignored"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i6);
+        this.opts.onSet(_i6);
       }
     }, {
       key: "setClasses",
-      value: function setClasses(e, i, n, l) {
-        var s = i.getAttribute("type");
-        var d = "radio" === s || "checkbox" === s ? n[0] : i;
+      value: function setClasses(e, _i7, n, l) {
+        var s = _i7.getAttribute("type");
+
+        var d = "radio" === s || "checkbox" === s ? n[0] : _i7;
 
         if (this.icons.has(d)) {
           var _e2 = this.icons.get(d);
@@ -3593,9 +3642,9 @@
     }]);
 
     return i;
-  }(t$e);
+  }(t$4);
 
-  var i$2 = /*#__PURE__*/function (_e) {
+  var i$1 = /*#__PURE__*/function (_e) {
     _inherits(i, _e);
 
     var _super = _createSuper(i);
@@ -3631,23 +3680,24 @@
       }
     }, {
       key: "shouldValidate",
-      value: function shouldValidate(e, i, t, l) {
-        var d = (this.opts.enabled === true || this.opts.enabled[e] === true) && this.invalidFields.has(i) && !!this.invalidFields.get(i).length && this.invalidFields.get(i).indexOf(l) === -1;
+      value: function shouldValidate(e, _i, t, l) {
+        var d = (this.opts.enabled === true || this.opts.enabled[e] === true) && this.invalidFields.has(_i) && !!this.invalidFields.get(_i).length && this.invalidFields.get(_i).indexOf(l) === -1;
         return !d;
       }
     }, {
       key: "onValidatorValidated",
       value: function onValidatorValidated(e) {
-        var i = this.invalidFields.has(e.element) ? this.invalidFields.get(e.element) : [];
-        var t = i.indexOf(e.validator);
+        var _i2 = this.invalidFields.has(e.element) ? this.invalidFields.get(e.element) : [];
+
+        var t = _i2.indexOf(e.validator);
 
         if (e.result.valid && t >= 0) {
-          i.splice(t, 1);
+          _i2.splice(t, 1);
         } else if (!e.result.valid && t === -1) {
-          i.push(e.validator);
+          _i2.push(e.validator);
         }
 
-        this.invalidFields.set(e.element, i);
+        this.invalidFields.set(e.element, _i2);
       }
     }, {
       key: "onFieldAdded",
@@ -3678,9 +3728,9 @@
     }]);
 
     return i;
-  }(t$e);
+  }(t$4);
 
-  var e$a = /*#__PURE__*/function (_t) {
+  var e = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -3747,13 +3797,13 @@
     }, {
       key: "handleClickEvent",
       value: function handleClickEvent(t) {
-        var e = t.currentTarget;
+        var _e = t.currentTarget;
 
-        if (e instanceof HTMLElement) {
+        if (_e instanceof HTMLElement) {
           if (this.opts.aspNetButton && this.isFormValid === true) ; else {
-            var _e = this.core.getFormElement();
+            var _e3 = this.core.getFormElement();
 
-            _e.removeEventListener("submit", this.submitHandler);
+            _e3.removeEventListener("submit", this.submitHandler);
 
             this.clickedButton = t.target;
             var i = this.clickedButton.getAttribute("name");
@@ -3787,9 +3837,9 @@
     }]);
 
     return e;
-  }(t$e);
+  }(t$4);
 
-  var i$3 = /*#__PURE__*/function (_t) {
+  var i = /*#__PURE__*/function (_t) {
     _inherits(i, _t);
 
     var _super = _createSuper(i);
@@ -3870,9 +3920,9 @@
         if (!t.result.valid) {
           var _e2 = t.elements;
 
-          var _i = t.element.getAttribute("type");
+          var _i4 = t.element.getAttribute("type");
 
-          var s = "radio" === _i || "checkbox" === _i ? _e2[0] : t.element;
+          var s = "radio" === _i4 || "checkbox" === _i4 ? _e2[0] : t.element;
           var o = typeof t.result.message === "string" ? t.result.message : t.result.message[this.core.getLocale()];
           this.messages.set(s, o);
         }
@@ -3883,9 +3933,9 @@
         if (t.valid) {
           var _e3 = t.elements;
 
-          var _i2 = t.element.getAttribute("type");
+          var _i5 = t.element.getAttribute("type");
 
-          var s = "radio" === _i2 || "checkbox" === _i2 ? _e3[0] : t.element;
+          var s = "radio" === _i5 || "checkbox" === _i5 ? _e3[0] : t.element;
           this.messages["delete"](s);
         }
       }
@@ -3896,9 +3946,10 @@
       }
     }, {
       key: "show",
-      value: function show(t, i) {
-        i.preventDefault();
-        i.stopPropagation();
+      value: function show(t, _i3) {
+        _i3.preventDefault();
+
+        _i3.stopPropagation();
 
         if (!this.messages.has(t)) {
           return;
@@ -3908,7 +3959,7 @@
           "fv-plugins-tooltip--hide": false
         });
         this.tip.innerHTML = "<div class=\"fv-plugins-tooltip__content\">".concat(this.messages.get(t), "</div>");
-        var s = i.target;
+        var s = _i3.target;
         var o = s.getBoundingClientRect();
 
         var _this$tip$getBounding = this.tip.getBoundingClientRect(),
@@ -3977,9 +4028,9 @@
     }]);
 
     return i;
-  }(t$e);
+  }(t$4);
 
-  var t$i = /*#__PURE__*/function (_e) {
+  var t = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -4026,10 +4077,10 @@
       }
     }, {
       key: "prepareHandler",
-      value: function prepareHandler(e, t) {
+      value: function prepareHandler(e, _t2) {
         var _this2 = this;
 
-        t.forEach(function (t) {
+        _t2.forEach(function (_t3) {
           var i = [];
 
           if (!!_this2.opts.event && _this2.opts.event[e] === false) {
@@ -4039,46 +4090,47 @@
           } else if ("string" === typeof _this2.opts.event && _this2.opts.event !== _this2.defaultEvent) {
             i = _this2.opts.event.split(" ");
           } else {
-            var _e2 = t.getAttribute("type");
+            var _e2 = _t3.getAttribute("type");
 
-            var s = t.tagName.toLowerCase();
-            var n = "radio" === _e2 || "checkbox" === _e2 || "file" === _e2 || "select" === s ? "change" : _this2.ieVersion >= 10 && t.getAttribute("placeholder") ? "keyup" : _this2.defaultEvent;
+            var s = _t3.tagName.toLowerCase();
+
+            var n = "radio" === _e2 || "checkbox" === _e2 || "file" === _e2 || "select" === s ? "change" : _this2.ieVersion >= 10 && _t3.getAttribute("placeholder") ? "keyup" : _this2.defaultEvent;
             i = [n];
           }
 
           i.forEach(function (i) {
             var s = function s(i) {
-              return _this2.handleEvent(i, e, t);
+              return _this2.handleEvent(i, e, _t3);
             };
 
             _this2.handlers.push({
-              element: t,
+              element: _t3,
               event: i,
               field: e,
               handler: s
             });
 
-            t.addEventListener(i, s);
+            _t3.addEventListener(i, s);
           });
         });
       }
     }, {
       key: "handleEvent",
-      value: function handleEvent(e, t, i) {
+      value: function handleEvent(e, _t4, i) {
         var _this3 = this;
 
-        if (this.exceedThreshold(t, i) && this.core.executeFilter("plugins-trigger-should-validate", true, [t, i])) {
+        if (this.exceedThreshold(_t4, i) && this.core.executeFilter("plugins-trigger-should-validate", true, [_t4, i])) {
           var s = function s() {
-            return _this3.core.validateElement(t, i).then(function (s) {
+            return _this3.core.validateElement(_t4, i).then(function (s) {
               _this3.core.emit("plugins.trigger.executed", {
                 element: i,
                 event: e,
-                field: t
+                field: _t4
               });
             });
           };
 
-          var n = this.opts.delay[t] || this.opts.delay;
+          var n = this.opts.delay[_t4] || this.opts.delay;
 
           if (n === 0) {
             s();
@@ -4096,8 +4148,8 @@
     }, {
       key: "onFieldAdded",
       value: function onFieldAdded(e) {
-        this.handlers.filter(function (t) {
-          return t.field === e.field;
+        this.handlers.filter(function (_t5) {
+          return _t5.field === e.field;
         }).forEach(function (e) {
           return e.element.removeEventListener(e.event, e.handler);
         });
@@ -4106,77 +4158,77 @@
     }, {
       key: "onFieldRemoved",
       value: function onFieldRemoved(e) {
-        this.handlers.filter(function (t) {
-          return t.field === e.field && e.elements.indexOf(t.element) >= 0;
+        this.handlers.filter(function (_t6) {
+          return _t6.field === e.field && e.elements.indexOf(_t6.element) >= 0;
         }).forEach(function (e) {
           return e.element.removeEventListener(e.event, e.handler);
         });
       }
     }, {
       key: "exceedThreshold",
-      value: function exceedThreshold(e, t) {
+      value: function exceedThreshold(e, _t7) {
         var i = this.opts.threshold[e] === 0 || this.opts.threshold === 0 ? false : this.opts.threshold[e] || this.opts.threshold;
 
         if (!i) {
           return true;
         }
 
-        var s = t.getAttribute("type");
+        var s = _t7.getAttribute("type");
 
         if (["button", "checkbox", "file", "hidden", "image", "radio", "reset", "submit"].indexOf(s) !== -1) {
           return true;
         }
 
-        var n = this.core.getElementValue(e, t);
+        var n = this.core.getElementValue(e, _t7);
         return n.length >= i;
       }
     }]);
 
     return t;
-  }(t$e);
+  }(t$4);
 
-  var index$2 = {
-    Alias: e$6,
-    Aria: i,
-    Declarative: t$f,
-    DefaultSubmit: o$3,
-    Dependency: e$7,
-    Excluded: e$8,
-    FieldStatus: t$g,
-    Framework: l$2,
-    Icon: i$1,
-    Message: s$5,
-    Sequence: i$2,
-    SubmitButton: e$a,
-    Tooltip: i$3,
-    Trigger: t$i
+  var index$1 = {
+    Alias: e$4,
+    Aria: i$3,
+    Declarative: t$3,
+    DefaultSubmit: o,
+    Dependency: e$3,
+    Excluded: e$2,
+    FieldStatus: t$2,
+    Framework: l,
+    Icon: i$2,
+    Message: s$1,
+    Sequence: i$1,
+    SubmitButton: e,
+    Tooltip: i,
+    Trigger: t
   };
 
-  function s$6(s, t) {
+  function s(s, t) {
     return s.classList ? s.classList.contains(t) : new RegExp("(^| )".concat(t, "( |$)"), "gi").test(s.className);
   }
 
-  var index$3 = {
-    call: t$6,
+  var index = {
+    call: t$c,
     classSet: c,
-    closest: t$h,
-    fetch: e$4,
-    format: r,
-    hasClass: s$6,
+    closest: t$1,
+    fetch: e$6,
+    format: r$2,
+    hasClass: s,
     isValidDate: t$9
   };
 
   var p = {};
 
-  exports.Plugin = t$e;
-  exports.algorithms = index;
-  exports.filters = index$1;
-  exports.formValidation = r$2;
+  exports.Plugin = t$4;
+  exports.algorithms = index$3;
+  exports.filters = index$2;
+  exports.formValidation = r;
   exports.locales = p;
-  exports.plugins = index$2;
-  exports.utils = index$3;
+  exports.plugins = index$1;
+  exports.utils = index;
   exports.validators = s$3;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

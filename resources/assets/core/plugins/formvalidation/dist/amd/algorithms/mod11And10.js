@@ -5,8 +5,7 @@ define(["require", "exports"], function (require, exports) {
         var length = value.length;
         var check = 5;
         for (var i = 0; i < length; i++) {
-            check =
-                ((((check || 10) * 2) % 11) + parseInt(value.charAt(i), 10)) % 10;
+            check = ((((check || 10) * 2) % 11) + parseInt(value.charAt(i), 10)) % 10;
         }
         return check === 1;
     }

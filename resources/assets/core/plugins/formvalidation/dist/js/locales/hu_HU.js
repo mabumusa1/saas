@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.hu_HU = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.hu_HU = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Hungarian language package
@@ -224,8 +224,7 @@
             default: 'Kérlek, hogy érvényes ISSN számot adj meg',
         },
         lessThan: {
-            default:
-                'Kérlek, hogy adj meg egy számot ami kisebb vagy egyenlő mint %s',
+            default: 'Kérlek, hogy adj meg egy számot ami kisebb vagy egyenlő mint %s',
             notInclusive: 'Kérlek, hogy adj meg egy számot ami kisebb mint %s',
         },
         mac: {
@@ -387,4 +386,4 @@
 
     return hu_HU;
 
-})));
+}));

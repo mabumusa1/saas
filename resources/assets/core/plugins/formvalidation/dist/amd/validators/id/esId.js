@@ -60,9 +60,7 @@ define(["require", "exports"], function (require, exports) {
                 isValid = control === '' + lastDigit;
             }
             else {
-                isValid =
-                    control === '' + lastDigit ||
-                        control === 'JABCDEFGHI'[lastDigit];
+                isValid = control === '' + lastDigit || control === 'JABCDEFGHI'[lastDigit];
             }
             return {
                 meta: {

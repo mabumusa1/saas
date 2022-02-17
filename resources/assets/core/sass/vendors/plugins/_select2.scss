@@ -5,6 +5,7 @@
 $select2-dropdown-padding: 1rem 0;
 $select2-dropdown-option-padding: 0.75rem 1.25rem;
 $select2-dropdown-option-margin: 0 0;
+$select2-dropdown-option-check-padding: 1.25rem;
 
 $select2-dropdown-group-padding: 0 1.25rem 0 1.25rem;
 $select2-dropdown-group-margin: 0 0 0.25rem 0;
@@ -36,7 +37,7 @@ $select2-clear-right: $form-select-indicator-padding;  //$form-select-padding-x 
 			background-color: $input-solid-bg-focus;
 		}
 
-		.form-select:not(.form-select-solid):not(.form-select-white) {
+		.form-select:not(.form-select-solid):not(.form-select-transparent) {
 			border-color: $input-focus-border-color;
 		}
 	}
@@ -94,6 +95,19 @@ $select2-clear-right: $form-select-indicator-padding;  //$form-select-padding-x 
 			// Placeholder
 			.select2-selection__placeholder {
 				color: $input-solid-placeholder-color;
+			}
+		}
+
+		// Form select transparent
+		&.form-select-transparent {
+			// Selected
+			.select2-selection__rendered {
+				color: $gray-800;
+			}
+
+			// Placeholder
+			.select2-selection__placeholder {
+				color: $gray-800;
 			}
 		}
 	}
@@ -198,7 +212,7 @@ $select2-clear-right: $form-select-indicator-padding;  //$form-select-padding-x 
 
 		// Options
 		.select2-results__options {
-			max-height: 200px;
+			max-height: 250px;
 			overflow-y: auto;
 		}
 
@@ -210,12 +224,21 @@ $select2-clear-right: $form-select-indicator-padding;  //$form-select-padding-x 
 			margin: $select2-dropdown-option-margin;
 
 			&.select2-results__option--highlighted {
+				background-color: transparent;
+				color: $gray-700;
+			}		
+
+			&:not(.select2-results__option--group):hover {
 				background-color: $component-hover-bg;
 				color: $component-hover-color;
 				transition: $transition-link;
 			}
 
 			&.select2-results__option--selected {
+				@include svg-bg-icon(check, $component-active-color);
+
+				background-size: 0.8rem;
+				background-position: center right $select2-dropdown-option-check-padding;
 				background-color: $component-active-bg;
 				color: $component-active-color;
 				transition: $transition-link;

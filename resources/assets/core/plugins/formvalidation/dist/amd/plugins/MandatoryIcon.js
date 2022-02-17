@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -54,20 +56,15 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             var _this = this;
             var validators = this.core.getFields()[e.field].validators;
             var elements = this.core.getElements(e.field);
-            if (validators &&
-                validators['notEmpty'] &&
-                validators['notEmpty'].enabled !== false &&
-                elements.length) {
+            if (validators && validators['notEmpty'] && validators['notEmpty'].enabled !== false && elements.length) {
                 this.icons.set(e.element, e.iconElement);
                 var eleType = elements[0].getAttribute('type');
                 var type = !eleType ? '' : eleType.toLowerCase();
-                var elementArray = 'checkbox' === type || 'radio' === type
-                    ? [elements[0]]
-                    : elements;
+                var elementArray = 'checkbox' === type || 'radio' === type ? [elements[0]] : elements;
                 for (var _i = 0, elementArray_1 = elementArray; _i < elementArray_1.length; _i++) {
                     var ele = elementArray_1[_i];
                     if (this.core.getElementValue(e.field, ele) === '') {
-                        classSet_1.default(e.iconElement, (_a = {},
+                        (0, classSet_1.default)(e.iconElement, (_a = {},
                             _a[this.opts.icon] = true,
                             _a));
                     }
@@ -76,15 +73,9 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             this.iconClasses = e.classes;
             var icons = this.opts.icon.split(' ');
             var feedbackIcons = {
-                Invalid: this.iconClasses.invalid
-                    ? this.iconClasses.invalid.split(' ')
-                    : [],
-                Valid: this.iconClasses.valid
-                    ? this.iconClasses.valid.split(' ')
-                    : [],
-                Validating: this.iconClasses.validating
-                    ? this.iconClasses.validating.split(' ')
-                    : [],
+                Invalid: this.iconClasses.invalid ? this.iconClasses.invalid.split(' ') : [],
+                Valid: this.iconClasses.valid ? this.iconClasses.valid.split(' ') : [],
+                Validating: this.iconClasses.validating ? this.iconClasses.validating.split(' ') : [],
             };
             Object.keys(feedbackIcons).forEach(function (status) {
                 var classes = [];
@@ -111,10 +102,8 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             var icon = this.icons.get(ele);
             if (icon &&
                 this.iconClasses &&
-                (this.iconClasses.valid ||
-                    this.iconClasses.invalid ||
-                    this.iconClasses.validating)) {
-                classSet_1.default(icon, (_a = {},
+                (this.iconClasses.valid || this.iconClasses.invalid || this.iconClasses.validating)) {
+                (0, classSet_1.default)(icon, (_a = {},
                     _a[this.removedIcons[status]] = false,
                     _a[this.opts.icon] = false,
                     _a));
@@ -123,10 +112,8 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
         MandatoryIcon.prototype.onIconSet = function (e) {
             var _a;
             var icon = this.icons.get(e.element);
-            if (icon &&
-                e.status === 'NotValidated' &&
-                this.core.getElementValue(e.field, e.element) === '') {
-                classSet_1.default(icon, (_a = {},
+            if (icon && e.status === 'NotValidated' && this.core.getElementValue(e.field, e.element) === '') {
+                (0, classSet_1.default)(icon, (_a = {},
                     _a[this.opts.icon] = true,
                     _a));
             }

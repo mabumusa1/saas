@@ -12,9 +12,7 @@ define(["require", "exports"], function (require, exports) {
                 for (var _i = 1; _i < arguments.length; _i++) {
                     args[_i - 1] = arguments[_i];
                 }
-                (this.fns[event] || []).map(function (handler) {
-                    return handler.apply(handler, args);
-                });
+                (this.fns[event] || []).map(function (handler) { return handler.apply(handler, args); });
             },
             off: function (event, func) {
                 if (this.fns[event]) {

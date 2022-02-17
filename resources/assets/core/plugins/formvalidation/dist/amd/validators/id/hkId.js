@@ -29,11 +29,7 @@ define(["require", "exports"], function (require, exports) {
             sum += (7 - i) * parseInt(digitParts.charAt(i), 10);
         }
         var remaining = sum % 11;
-        var checkDigit = remaining === 0
-            ? '0'
-            : 11 - remaining === 10
-                ? 'A'
-                : "" + (11 - remaining);
+        var checkDigit = remaining === 0 ? '0' : 11 - remaining === 10 ? 'A' : "" + (11 - remaining);
         return {
             meta: {},
             valid: checkDigit === digitParts.charAt(length - 1),

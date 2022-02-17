@@ -5,6 +5,7 @@
 
 // Customize native scrollbars only for desktop mode
 @include media-breakpoint-up(lg) {
+    main,
     span,
     ol,
     ul,
@@ -172,4 +173,31 @@
         overflow-y: scroll;
         position: relative;
     }
+}
+
+// Utility classes
+.scroll-ps {
+    padding-left: get($scrollbar, width) !important;
+}
+
+.scroll-ms {
+    margin-left: get($scrollbar, width) !important;
+}
+
+.scroll-pe {
+    padding-right: get($scrollbar, width) !important;
+}
+
+.scroll-me {
+    margin-right: get($scrollbar, width) !important;
+}
+
+.scroll-px {
+    padding-left: get($scrollbar, width) !important;
+    padding-right: get($scrollbar, width) !important;
+}
+
+.scroll-mx {
+    margin-left: get($scrollbar, width) !important;
+    margin-right: get($scrollbar, width) !important;
 }

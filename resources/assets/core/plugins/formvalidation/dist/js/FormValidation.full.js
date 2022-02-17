@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,10 +7,10 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.FormValidation = {}));
-}(this, (function (exports) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FormValidation = {}));
+})(this, (function (exports) { 'use strict';
 
-  function t(t) {
+  function t$14(t) {
     var e = t.length;
     var l = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]];
     var n = 0;
@@ -24,7 +24,7 @@
     return r % 10 === 0 && r > 0;
   }
 
-  function t$1(t) {
+  function t$13(t) {
     var e = t.length;
     var n = 5;
 
@@ -35,7 +35,7 @@
     return n === 1;
   }
 
-  function t$2(t) {
+  function t$12(t) {
     var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var n = t.length;
     var o = e.length;
@@ -48,7 +48,7 @@
     return l === 1;
   }
 
-  function t$3(t) {
+  function t$11(t) {
     var e = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 0, 6, 7, 8, 9, 5], [2, 3, 4, 0, 1, 7, 8, 9, 5, 6], [3, 4, 0, 1, 2, 8, 9, 5, 6, 7], [4, 0, 1, 2, 3, 9, 5, 6, 7, 8], [5, 9, 8, 7, 6, 0, 4, 3, 2, 1], [6, 5, 9, 8, 7, 1, 0, 4, 3, 2], [7, 6, 5, 9, 8, 2, 1, 0, 4, 3], [8, 7, 6, 5, 9, 3, 2, 1, 0, 4], [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]];
     var n = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 5, 7, 6, 2, 8, 3, 0, 9, 4], [5, 8, 0, 3, 7, 9, 6, 1, 4, 2], [8, 9, 1, 6, 0, 4, 3, 5, 2, 7], [9, 4, 5, 3, 1, 2, 6, 8, 7, 0], [4, 2, 8, 6, 5, 7, 3, 9, 0, 1], [2, 7, 9, 3, 8, 0, 6, 4, 1, 5], [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]];
     var o = t.reverse();
@@ -61,11 +61,11 @@
     return r === 0;
   }
 
-  var index = {
-    luhn: t,
-    mod11And10: t$1,
-    mod37And36: t$2,
-    verhoeff: t$3
+  var index$3 = {
+    luhn: t$14,
+    mod11And10: t$13,
+    mod37And36: t$12,
+    verhoeff: t$11
   };
 
   function _classCallCheck(instance, Constructor) {
@@ -142,7 +142,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -160,6 +160,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -202,9 +204,9 @@
   }
 
   function _createForOfIteratorHelper(o, allowArrayLike) {
-    var it;
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
 
-    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (!it) {
       if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
         if (it) o = it;
         var i = 0;
@@ -237,7 +239,7 @@
         err;
     return {
       s: function () {
-        it = o[Symbol.iterator]();
+        it = it.call(o);
       },
       n: function () {
         var step = it.next();
@@ -258,7 +260,7 @@
     };
   }
 
-  function s() {
+  function s$a() {
     return {
       fns: {},
       clear: function clear() {
@@ -288,7 +290,7 @@
     };
   }
 
-  function t$4() {
+  function t$10() {
     return {
       filters: {},
       add: function add(t, e) {
@@ -322,7 +324,7 @@
     };
   }
 
-  function e(e, t, r, n) {
+  function e$H(e, t, r, n) {
     var o = (r.getAttribute("type") || "").toLowerCase();
     var c = r.tagName.toLowerCase();
 
@@ -350,7 +352,7 @@
     return "";
   }
 
-  function r(r, e) {
+  function r$d(r, e) {
     var t = Array.isArray(e) ? e : [e];
     var a = r;
     t.forEach(function (r) {
@@ -359,7 +361,7 @@
     return a;
   }
 
-  function s$1() {
+  function s$9() {
     var s = function s(e) {
       return parseFloat("".concat(e).replace(",", "."));
     };
@@ -381,17 +383,17 @@
         var l = s(n.min);
         var o = s(n.max);
         return n.inclusive ? {
-          message: r(a.l10n ? n.message || a.l10n.between["default"] : n.message, ["".concat(l), "".concat(o)]),
+          message: r$d(a.l10n ? n.message || a.l10n.between["default"] : n.message, ["".concat(l), "".concat(o)]),
           valid: parseFloat(t) >= l && parseFloat(t) <= o
         } : {
-          message: r(a.l10n ? n.message || a.l10n.between.notInclusive : n.message, ["".concat(l), "".concat(o)]),
+          message: r$d(a.l10n ? n.message || a.l10n.between.notInclusive : n.message, ["".concat(l), "".concat(o)]),
           valid: parseFloat(t) > l && parseFloat(t) < o
         };
       }
     };
   }
 
-  function t$5() {
+  function t$$() {
     return {
       validate: function validate(t) {
         return {
@@ -401,7 +403,7 @@
     };
   }
 
-  function t$6(t, n) {
+  function t$_(t, n) {
     if ("function" === typeof t) {
       return t.apply(this, n);
     } else if ("string" === typeof t) {
@@ -433,10 +435,10 @@
     }
   }
 
-  function o() {
+  function o$4() {
     return {
       validate: function validate(o) {
-        var l = t$6(o.options.callback, [o]);
+        var l = t$_(o.options.callback, [o]);
         return "boolean" === typeof l ? {
           valid: l
         } : l;
@@ -444,7 +446,7 @@
     };
   }
 
-  function t$7() {
+  function t$Z() {
     return {
       validate: function validate(t) {
         var o = "select" === t.element.tagName.toLowerCase() ? t.element.querySelectorAll("option:checked").length : t.elements.filter(function (e) {
@@ -457,15 +459,15 @@
 
         switch (true) {
           case !!s && !!n:
-            a = r(t.l10n ? t.l10n.choice.between : t.options.message, [s, n]);
+            a = r$d(t.l10n ? t.l10n.choice.between : t.options.message, [s, n]);
             break;
 
           case !!s:
-            a = r(t.l10n ? t.l10n.choice.more : t.options.message, s);
+            a = r$d(t.l10n ? t.l10n.choice.more : t.options.message, s);
             break;
 
           case !!n:
-            a = r(t.l10n ? t.l10n.choice.less : t.options.message, n);
+            a = r$d(t.l10n ? t.l10n.choice.less : t.options.message, n);
             break;
         }
 
@@ -477,7 +479,7 @@
     };
   }
 
-  var t$8 = {
+  var t$Y = {
     AMERICAN_EXPRESS: {
       length: [15],
       prefix: ["34", "37"]
@@ -539,7 +541,7 @@
       prefix: ["4026", "417500", "4405", "4508", "4844", "4913", "4917"]
     }
   };
-  function l() {
+  function l$2() {
     return {
       validate: function validate(l) {
         if (l.value === "") {
@@ -562,7 +564,7 @@
 
         var r = l.value.replace(/\D/g, "");
 
-        if (!t(r)) {
+        if (!t$14(r)) {
           return {
             meta: {
               type: null
@@ -571,11 +573,11 @@
           };
         }
 
-        for (var _i = 0, _Object$keys = Object.keys(t$8); _i < _Object$keys.length; _i++) {
+        for (var _i = 0, _Object$keys = Object.keys(t$Y); _i < _Object$keys.length; _i++) {
           var _e = _Object$keys[_i];
 
-          for (var n in t$8[_e].prefix) {
-            if (l.value.substr(0, t$8[_e].prefix[n].length) === t$8[_e].prefix[n] && t$8[_e].length.indexOf(r.length) !== -1) {
+          for (var n in t$Y[_e].prefix) {
+            if (l.value.substr(0, t$Y[_e].prefix[n].length) === t$Y[_e].prefix[n] && t$Y[_e].length.indexOf(r.length) !== -1) {
               return {
                 meta: {
                   type: _e
@@ -596,7 +598,7 @@
     };
   }
 
-  function t$9(t, e, n, r) {
+  function t$X(t, e, n, r) {
     if (isNaN(t) || isNaN(e) || isNaN(n)) {
       return false;
     }
@@ -626,7 +628,7 @@
     return true;
   }
 
-  function n() {
+  function n$1() {
     var n = function n(t, e, _n) {
       var s = e.indexOf("YYYY");
       var a = e.indexOf("MM");
@@ -709,7 +711,7 @@
           message: ""
         }, a.options);
         var o = a.l10n ? a.l10n.date["default"] : l.message;
-        var r$1 = {
+        var r = {
           message: "".concat(o),
           meta: {
             date: null
@@ -724,20 +726,20 @@
         var d = u.length > 1 ? u[1] : null;
 
         if (c.length !== u.length) {
-          return r$1;
+          return r;
         }
 
         var f = l.separator || (m.indexOf("/") !== -1 ? "/" : m.indexOf("-") !== -1 ? "-" : m.indexOf(".") !== -1 ? "." : "/");
 
         if (f === null || m.indexOf(f) === -1) {
-          return r$1;
+          return r;
         }
 
         var p = m.split(f);
         var h = c[0].split(f);
 
         if (p.length !== h.length) {
-          return r$1;
+          return r;
         }
 
         var $ = p[h.indexOf("YYYY")];
@@ -745,15 +747,15 @@
         var Y = p[h.indexOf("DD")];
 
         if (!/^\d+$/.test($) || !/^\d+$/.test(M) || !/^\d+$/.test(Y) || $.length > 4 || M.length > 2 || Y.length > 2) {
-          return r$1;
+          return r;
         }
 
         var D = parseInt($, 10);
         var x = parseInt(M, 10);
         var y = parseInt(Y, 10);
 
-        if (!t$9(D, x, y)) {
-          return r$1;
+        if (!t$X(D, x, y)) {
+          return r;
         }
 
         var I = new Date(D, x - 1, y);
@@ -762,7 +764,7 @@
           var _t2 = d.split(":");
 
           if (i.split(":").length !== _t2.length) {
-            return r$1;
+            return r;
           }
 
           var _e = _t2.length > 0 ? _t2[0].length <= 2 && /^\d+$/.test(_t2[0]) ? parseInt(_t2[0], 10) : -1 : 0;
@@ -772,19 +774,19 @@
           var _s = _t2.length > 2 ? _t2[2].length <= 2 && /^\d+$/.test(_t2[2]) ? parseInt(_t2[2], 10) : -1 : 0;
 
           if (_e === -1 || _n2 === -1 || _s === -1) {
-            return r$1;
+            return r;
           }
 
           if (_s < 0 || _s > 60) {
-            return r$1;
+            return r;
           }
 
           if (_e < 0 || _e >= 24 || g && _e > 12) {
-            return r$1;
+            return r;
           }
 
           if (_n2 < 0 || _n2 > 59) {
-            return r$1;
+            return r;
           }
 
           I.setHours(_e);
@@ -802,7 +804,7 @@
         switch (true) {
           case !!S && !b:
             return {
-              message: r(a.l10n ? a.l10n.date.min : o, S),
+              message: r$d(a.l10n ? a.l10n.date.min : o, S),
               meta: {
                 date: I
               },
@@ -811,7 +813,7 @@
 
           case !!b && !S:
             return {
-              message: r(a.l10n ? a.l10n.date.max : o, b),
+              message: r$d(a.l10n ? a.l10n.date.max : o, b),
               meta: {
                 date: I
               },
@@ -820,7 +822,7 @@
 
           case !!b && !!S:
             return {
-              message: r(a.l10n ? a.l10n.date.range : o, [S, b]),
+              message: r$d(a.l10n ? a.l10n.date.range : o, [S, b]),
               meta: {
                 date: I
               },
@@ -840,7 +842,7 @@
     };
   }
 
-  function o$1() {
+  function o$3() {
     return {
       validate: function validate(o) {
         var t = "function" === typeof o.options.compare ? o.options.compare.call(this) : o.options.compare;
@@ -851,7 +853,7 @@
     };
   }
 
-  function e$1() {
+  function e$G() {
     return {
       validate: function validate(e) {
         return {
@@ -861,7 +863,7 @@
     };
   }
 
-  function t$a() {
+  function t$W() {
     var t = function t(_t3, e) {
       var s = _t3.split(/"/);
 
@@ -940,7 +942,7 @@
     };
   }
 
-  function e$2() {
+  function e$F() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -1066,7 +1068,7 @@
     };
   }
 
-  function a() {
+  function a$7() {
     return {
       validate: function validate(a) {
         if (a.value === "") {
@@ -1081,10 +1083,10 @@
         }, a.options);
         var t = parseFloat("".concat(s.min).replace(",", "."));
         return s.inclusive ? {
-          message: r(a.l10n ? s.message || a.l10n.greaterThan["default"] : s.message, "".concat(t)),
+          message: r$d(a.l10n ? s.message || a.l10n.greaterThan["default"] : s.message, "".concat(t)),
           valid: parseFloat(a.value) >= t
         } : {
-          message: r(a.l10n ? s.message || a.l10n.greaterThan.notInclusive : s.message, "".concat(t)),
+          message: r$d(a.l10n ? s.message || a.l10n.greaterThan.notInclusive : s.message, "".concat(t)),
           valid: parseFloat(a.value) > t
         };
       }
@@ -1102,7 +1104,7 @@
     };
   }
 
-  function a$1() {
+  function a$6() {
     return {
       validate: function validate(a) {
         if (a.value === "") {
@@ -1183,7 +1185,7 @@
     };
   }
 
-  function s$2() {
+  function s$8() {
     return {
       validate: function validate(s) {
         if (s.value === "") {
@@ -1198,17 +1200,17 @@
         }, s.options);
         var l = parseFloat("".concat(a.max).replace(",", "."));
         return a.inclusive ? {
-          message: r(s.l10n ? a.message || s.l10n.lessThan["default"] : a.message, "".concat(l)),
+          message: r$d(s.l10n ? a.message || s.l10n.lessThan["default"] : a.message, "".concat(l)),
           valid: parseFloat(s.value) <= l
         } : {
-          message: r(s.l10n ? a.message || s.l10n.lessThan.notInclusive : a.message, "".concat(l)),
+          message: r$d(s.l10n ? a.message || s.l10n.lessThan.notInclusive : a.message, "".concat(l)),
           valid: parseFloat(s.value) < l
         };
       }
     };
   }
 
-  function t$b() {
+  function t$V() {
     return {
       validate: function validate(t) {
         var n = !!t.options && !!t.options.trim;
@@ -1220,7 +1222,7 @@
     };
   }
 
-  function a$2() {
+  function a$5() {
     return {
       validate: function validate(a) {
         if (a.value === "") {
@@ -1268,15 +1270,15 @@
     };
   }
 
-  function r$1() {
+  function r$c() {
     return {
       validate: function validate(r) {
-        return t$6(r.options.promise, [r]);
+        return t$_(r.options.promise, [r]);
       }
     };
   }
 
-  function e$3() {
+  function e$E() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -1302,7 +1304,7 @@
     };
   }
 
-  function e$4(e, t) {
+  function e$D(e, t) {
     var n = function n(e) {
       return Object.keys(e).map(function (t) {
         return "".concat(encodeURIComponent(t), "=").concat(encodeURIComponent(e[t]));
@@ -1372,7 +1374,7 @@
     });
   }
 
-  function a$3() {
+  function a$4() {
     var a = {
       crossDomain: false,
       data: {},
@@ -1401,7 +1403,7 @@
 
         r[s.name || t.field] = t.value;
         var o = "function" === typeof s.url ? s.url.call(this, t) : s.url;
-        return e$4(o, {
+        return e$D(o, {
           crossDomain: s.crossDomain,
           headers: s.headers,
           method: s.method,
@@ -1421,7 +1423,7 @@
     };
   }
 
-  function e$5() {
+  function e$C() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -1442,7 +1444,7 @@
     };
   }
 
-  function t$c() {
+  function t$U() {
     var t = function t(e) {
       var t = e.length;
 
@@ -1478,27 +1480,27 @@
           };
         }
 
-        var r$1 = n.min ? "".concat(n.min) : "";
+        var r = n.min ? "".concat(n.min) : "";
         var l = n.max ? "".concat(n.max) : "";
         var i = n.utf8Bytes ? t(a) : a.length;
         var g = true;
         var m = s.l10n ? n.message || s.l10n.stringLength["default"] : n.message;
 
-        if (r$1 && i < parseInt(r$1, 10) || l && i > parseInt(l, 10)) {
+        if (r && i < parseInt(r, 10) || l && i > parseInt(l, 10)) {
           g = false;
         }
 
         switch (true) {
-          case !!r$1 && !!l:
-            m = r(s.l10n ? n.message || s.l10n.stringLength.between : n.message, [r$1, l]);
+          case !!r && !!l:
+            m = r$d(s.l10n ? n.message || s.l10n.stringLength.between : n.message, [r, l]);
             break;
 
-          case !!r$1:
-            m = r(s.l10n ? n.message || s.l10n.stringLength.more : n.message, "".concat(parseInt(r$1, 10)));
+          case !!r:
+            m = r$d(s.l10n ? n.message || s.l10n.stringLength.more : n.message, "".concat(parseInt(r, 10)));
             break;
 
           case !!l:
-            m = r(s.l10n ? n.message || s.l10n.stringLength.less : n.message, "".concat(parseInt(l, 10)));
+            m = r$d(s.l10n ? n.message || s.l10n.stringLength.less : n.message, "".concat(parseInt(l, 10)));
             break;
         }
 
@@ -1510,7 +1512,7 @@
     };
   }
 
-  function t$d() {
+  function t$T() {
     var t = {
       allowEmptyProtocol: false,
       allowLocal: false,
@@ -1536,7 +1538,7 @@
     };
   }
 
-  function a$4() {
+  function a$3() {
     return {
       validate: function validate(a) {
         return {
@@ -1546,7 +1548,7 @@
     };
   }
 
-  function a$5() {
+  function a$2() {
     return {
       validate: function validate(a) {
         return {
@@ -1556,7 +1558,7 @@
     };
   }
 
-  function e$6() {
+  function e$B() {
     var e = ["hex", "rgb", "rgba", "hsl", "hsla", "keyword"];
     var a = ["aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "grey", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "transparent", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"];
 
@@ -1654,7 +1656,7 @@
     };
   }
 
-  function t$e() {
+  function t$S() {
     return {
       validate: function validate(t) {
         if (t.value === "") {
@@ -1707,7 +1709,7 @@
     };
   }
 
-  function e$7() {
+  function e$A() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -1738,7 +1740,7 @@
     };
   }
 
-  function e$8() {
+  function e$z() {
     var e = {
       ANDOVER: ["10", "12"],
       ATLANTA: ["60", "67"],
@@ -1790,7 +1792,7 @@
     };
   }
 
-  function r$2() {
+  function r$b() {
     return {
       validate: function validate(r) {
         if (r.value === "") {
@@ -1814,13 +1816,13 @@
         }
 
         return {
-          valid: t$2(t)
+          valid: t$12(t)
         };
       }
     };
   }
 
-  function e$9() {
+  function e$y() {
     return {
       validate: function validate(e) {
         return {
@@ -1927,9 +1929,9 @@
           message: ""
         }, s.options);
         var a = s.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
-        var r$1 = t.country || a.substr(0, 2);
+        var r = t.country || a.substr(0, 2);
 
-        if (!Z[r$1]) {
+        if (!Z[r]) {
           return {
             message: t.message,
             valid: false
@@ -1937,7 +1939,7 @@
         }
 
         if (t.sepa !== undefined) {
-          var _A = e.indexOf(r$1) !== -1;
+          var _A = e.indexOf(r) !== -1;
 
           if ((t.sepa === "true" || t.sepa === true) && !_A || (t.sepa === "false" || t.sepa === false) && _A) {
             return {
@@ -1947,9 +1949,9 @@
           }
         }
 
-        var n = r(s.l10n ? t.message || s.l10n.iban.country : t.message, s.l10n ? s.l10n.iban.countries[r$1] : r$1);
+        var n = r$d(s.l10n ? t.message || s.l10n.iban.country : t.message, s.l10n ? s.l10n.iban.countries[r] : r);
 
-        if (!new RegExp("^".concat(Z[r$1], "$")).test(s.value)) {
+        if (!new RegExp("^".concat(Z[r], "$")).test(s.value)) {
           return {
             message: n,
             valid: false
@@ -1976,7 +1978,7 @@
     };
   }
 
-  function t$f(t) {
+  function t$R(t) {
     var e = t.replace(/\./g, "");
     return {
       meta: {},
@@ -1984,7 +1986,7 @@
     };
   }
 
-  function t$g(t, r) {
+  function t$Q(t, r) {
     if (!/^\d{13}$/.test(t)) {
       return false;
     }
@@ -2035,14 +2037,14 @@
     }
   }
 
-  function r$3(r) {
+  function r$a(r) {
     return {
       meta: {},
-      valid: t$g(r, "BA")
+      valid: t$Q(r, "BA")
     };
   }
 
-  function e$a(e) {
+  function e$x(e) {
     if (!/^\d{10}$/.test(e) && !/^\d{6}\s\d{3}\s\d{1}$/.test(e)) {
       return {
         meta: {},
@@ -2063,7 +2065,7 @@
       a -= 20;
     }
 
-    if (!t$9(r, a, l)) {
+    if (!t$X(r, a, l)) {
       return {
         meta: {},
         valid: false
@@ -2084,7 +2086,7 @@
     };
   }
 
-  function t$h(t) {
+  function t$P(t) {
     var e = t.replace(/\D/g, "");
 
     if (!/^\d{11}$/.test(e) || /^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(e)) {
@@ -2132,7 +2134,7 @@
     };
   }
 
-  function t$i(t) {
+  function t$O(t) {
     if (!/^756[.]{0,1}[0-9]{4}[.]{0,1}[0-9]{4}[.]{0,1}[0-9]{2}$/.test(t)) {
       return {
         meta: {},
@@ -2156,7 +2158,7 @@
     };
   }
 
-  function e$b(e) {
+  function e$w(e) {
     if (!/^\d{7,8}[-]{0,1}[0-9K]$/i.test(e)) {
       return {
         meta: {},
@@ -2192,7 +2194,7 @@
     };
   }
 
-  function r$4(r) {
+  function r$9(r) {
     var s = r.trim();
 
     if (!/^\d{15}$/.test(s) && !/^\d{17}[\dXx]{1}$/.test(s)) {
@@ -2704,7 +2706,7 @@
     var p = parseInt(f.substr(4, 2), 10);
     var d = parseInt(f.substr(6, 2), 10);
 
-    if (!t$9(c, p, d)) {
+    if (!t$X(c, p, d)) {
       return {
         meta: {},
         valid: false
@@ -2735,7 +2737,7 @@
     };
   }
 
-  function t$j(t) {
+  function t$N(t) {
     var e = t.replace(/\./g, "").replace("-", "");
 
     if (!/^\d{8,16}$/.test(e)) {
@@ -2765,7 +2767,7 @@
     };
   }
 
-  function e$c(e) {
+  function e$v(e) {
     if (!/^\d{9,10}$/.test(e)) {
       return {
         meta: {},
@@ -2792,7 +2794,7 @@
       r += 100;
     }
 
-    if (!t$9(r, s, a)) {
+    if (!t$X(r, s, a)) {
       return {
         meta: {},
         valid: false
@@ -2818,7 +2820,7 @@
     };
   }
 
-  function e$d(e) {
+  function e$u(e) {
     if (!/^[0-9]{6}[-]{0,1}[0-9]{4}$/.test(e)) {
       return {
         meta: {},
@@ -2848,11 +2850,11 @@
 
     return {
       meta: {},
-      valid: t$9(n, s, r)
+      valid: t$X(n, s, r)
     };
   }
 
-  function t$k(t) {
+  function t$M(t) {
     var e = /^[0-9]{8}[-]{0,1}[A-HJ-NP-TV-Z]$/.test(t);
     var s = /^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[A-HJ-NP-TV-Z]$/.test(t);
     var n = /^[A-HNPQS][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-J]$/.test(t);
@@ -2933,7 +2935,7 @@
     }
   }
 
-  function s$3(s) {
+  function s$7(s) {
     if (!/^[0-9]{6}[-+A][0-9]{3}[0-9ABCDEFHJKLMNPRSTUVWXY]$/.test(s)) {
       return {
         meta: {},
@@ -2951,7 +2953,7 @@
     };
     e = n[s.charAt(6)] + e;
 
-    if (!t$9(e, a, r)) {
+    if (!t$X(e, a, r)) {
       return {
         meta: {},
         valid: false
@@ -2974,7 +2976,7 @@
     };
   }
 
-  function t$l(t) {
+  function t$L(t) {
     var s = t.toUpperCase();
 
     if (!/^(1|2)\d{2}\d{2}(\d{2}|\d[A-Z]|\d{3})\d{2,3}\d{3}\d{2}$/.test(s)) {
@@ -3014,7 +3016,7 @@
     };
   }
 
-  function t$m(t) {
+  function t$K(t) {
     var e = t.toUpperCase();
 
     if (!/^[A-MP-Z]{1,2}[0-9]{6}[0-9A]$/.test(e)) {
@@ -3054,14 +3056,14 @@
     };
   }
 
-  function o$3(o) {
+  function o$1(o) {
     return {
       meta: {},
-      valid: /^[0-9]{11}$/.test(o) && t$1(o)
+      valid: /^[0-9]{11}$/.test(o) && t$13(o)
     };
   }
 
-  function e$e(e) {
+  function e$t(e) {
     if (!/^[2-9]\d{11}$/.test(e)) {
       return {
         meta: {},
@@ -3074,11 +3076,11 @@
     });
     return {
       meta: {},
-      valid: t$3(r)
+      valid: t$11(r)
     };
   }
 
-  function t$n(t) {
+  function t$J(t) {
     if (!/^\d{7}[A-W][AHWTX]?$/.test(t)) {
       return {
         meta: {},
@@ -3111,7 +3113,7 @@
     };
   }
 
-  function e$f(e) {
+  function e$s(e) {
     if (!/^\d{1,9}$/.test(e)) {
       return {
         meta: {},
@@ -3121,11 +3123,11 @@
 
     return {
       meta: {},
-      valid: t(e)
+      valid: t$14(e)
     };
   }
 
-  function e$g(e) {
+  function e$r(e) {
     if (!/^[0-9]{6}[-]{0,1}[0-9]{4}$/.test(e)) {
       return {
         meta: {},
@@ -3140,7 +3142,7 @@
     var l = parseInt(r.charAt(9), 10);
     n = l === 9 ? 1900 + n : (20 + l) * 100 + n;
 
-    if (!t$9(n, a, s, true)) {
+    if (!t$X(n, a, s, true)) {
       return {
         meta: {},
         valid: false
@@ -3161,7 +3163,7 @@
     };
   }
 
-  function e$h(e) {
+  function e$q(e) {
     var a = e.replace("-", "");
 
     if (!/^\d{13}$/.test(a)) {
@@ -3196,7 +3198,7 @@
         break;
     }
 
-    if (!t$9(r, c, n)) {
+    if (!t$X(r, c, n)) {
       return {
         meta: {},
         valid: false
@@ -3218,7 +3220,7 @@
     };
   }
 
-  function r$5(r) {
+  function r$8(r) {
     if (!/^[0-9]{11}$/.test(r)) {
       return {
         meta: {},
@@ -3233,7 +3235,7 @@
     var i = e % 2 === 0 ? 17 + e / 2 : 17 + (e + 1) / 2;
     a = i * 100 + a;
 
-    if (!t$9(a, s, n, true)) {
+    if (!t$X(a, s, n, true)) {
       return {
         meta: {},
         valid: false
@@ -3276,7 +3278,7 @@
     };
   }
 
-  function e$i(e) {
+  function e$p(e) {
     if (!/^[0-9]{6}[-]{0,1}[0-9]{5}$/.test(e)) {
       return {
         meta: {},
@@ -3290,7 +3292,7 @@
     var n = parseInt(r.substr(4, 2), 10);
     n = n + 1800 + parseInt(r.charAt(6), 10) * 100;
 
-    if (!t$9(n, s, a, true)) {
+    if (!t$X(n, s, a, true)) {
       return {
         meta: {},
         valid: false
@@ -3311,17 +3313,17 @@
     };
   }
 
-  function r$6(r) {
-    return {
-      meta: {},
-      valid: t$g(r, "ME")
-    };
-  }
-
   function r$7(r) {
     return {
       meta: {},
-      valid: t$g(r, "MK")
+      valid: t$Q(r, "ME")
+    };
+  }
+
+  function r$6(r) {
+    return {
+      meta: {},
+      valid: t$Q(r, "MK")
     };
   }
 
@@ -3355,7 +3357,7 @@
       s += 2e3;
     }
 
-    if (!t$9(s, r, a)) {
+    if (!t$X(s, r, a)) {
       return {
         meta: {},
         valid: false
@@ -3396,7 +3398,7 @@
     };
   }
 
-  function s$4(s) {
+  function s$6(s) {
     if (!/^\d{12}$/.test(s)) {
       return {
         meta: {},
@@ -3408,7 +3410,7 @@
     var r = parseInt(s.substr(2, 2), 10);
     var a = parseInt(s.substr(4, 2), 10);
 
-    if (!t$9(e + 1900, r, a) && !t$9(e + 2e3, r, a)) {
+    if (!t$X(e + 1900, r, a) && !t$X(e + 2e3, r, a)) {
       return {
         meta: {},
         valid: false
@@ -3423,7 +3425,7 @@
     };
   }
 
-  function e$j(e) {
+  function e$o(e) {
     if (e.length < 8) {
       return {
         meta: {},
@@ -3472,7 +3474,7 @@
     };
   }
 
-  function t$o(t) {
+  function t$I(t) {
     if (!/^\d{11}$/.test(t)) {
       return {
         meta: {},
@@ -3508,7 +3510,7 @@
     };
   }
 
-  function t$p(t) {
+  function t$H(t) {
     if (!/^\d{8}[0-9A-Z]*$/.test(t)) {
       return {
         meta: {},
@@ -3539,7 +3541,7 @@
     };
   }
 
-  function t$q(t) {
+  function t$G(t) {
     if (!/^[0-9]{11}$/.test(t)) {
       return {
         meta: {},
@@ -3568,7 +3570,7 @@
     };
   }
 
-  function e$k(e) {
+  function e$n(e) {
     if (!/^[0-9]{13}$/.test(e)) {
       return {
         meta: {},
@@ -3607,7 +3609,7 @@
     if (a !== 9) {
       r = i[a + ""] + r;
 
-      if (!t$9(r, s, n)) {
+      if (!t$X(r, s, n)) {
         return {
           meta: {},
           valid: false
@@ -3635,14 +3637,14 @@
     };
   }
 
-  function r$8(r) {
+  function r$5(r) {
     return {
       meta: {},
-      valid: t$g(r, "RS")
+      valid: t$Q(r, "RS")
     };
   }
 
-  function r$9(r) {
+  function r$4(r) {
     if (!/^[0-9]{10}$/.test(r) && !/^[0-9]{6}[-|+][0-9]{4}$/.test(r)) {
       return {
         meta: {},
@@ -3655,7 +3657,7 @@
     var n = parseInt(e.substr(2, 2), 10);
     var i = parseInt(e.substr(4, 2), 10);
 
-    if (!t$9(a, n, i)) {
+    if (!t$X(a, n, i)) {
       return {
         meta: {},
         valid: false
@@ -3664,25 +3666,25 @@
 
     return {
       meta: {},
-      valid: t(e)
+      valid: t$14(e)
     };
   }
 
-  function r$a(r) {
+  function r$3(r) {
     return {
       meta: {},
-      valid: t$g(r, "SI")
+      valid: t$Q(r, "SI")
     };
   }
 
-  function t$r(t) {
+  function t$F(t) {
     return {
       meta: {},
       valid: /^\d{5}$/.test(t)
     };
   }
 
-  function t$s(t) {
+  function t$E(t) {
     if (t.length !== 13) {
       return {
         meta: {},
@@ -3702,7 +3704,7 @@
     };
   }
 
-  function t$t(t) {
+  function t$D(t) {
     if (t.length !== 11) {
       return {
         meta: {},
@@ -3722,7 +3724,7 @@
     };
   }
 
-  function t$u(t) {
+  function t$C(t) {
     var e = t.toUpperCase();
 
     if (!/^[A-Z][12][0-9]{8}$/.test(e)) {
@@ -3748,7 +3750,7 @@
     };
   }
 
-  function t$v(t) {
+  function t$B(t) {
     if (!/^\d{8}$/.test(t)) {
       return {
         meta: {},
@@ -3775,7 +3777,7 @@
     };
   }
 
-  function r$b(r) {
+  function r$2(r) {
     if (!/^[0-9]{10}[0|1][8|9][0-9]$/.test(r)) {
       return {
         meta: {},
@@ -3789,7 +3791,7 @@
     var n = parseInt(r.substr(4, 2), 10);
     s = s >= a ? s + 1900 : s + 2e3;
 
-    if (!t$9(s, l, n)) {
+    if (!t$X(s, l, n)) {
       return {
         meta: {},
         valid: false
@@ -3798,7 +3800,7 @@
 
     return {
       meta: {},
-      valid: t(r)
+      valid: t$14(r)
     };
   }
 
@@ -3836,103 +3838,103 @@
 
         switch (Z.toLowerCase()) {
           case "ar":
-            G = t$f(P.value);
+            G = t$R(P.value);
             break;
 
           case "ba":
-            G = r$3(P.value);
+            G = r$a(P.value);
             break;
 
           case "bg":
-            G = e$a(P.value);
+            G = e$x(P.value);
             break;
 
           case "br":
-            G = t$h(P.value);
+            G = t$P(P.value);
             break;
 
           case "ch":
-            G = t$i(P.value);
+            G = t$O(P.value);
             break;
 
           case "cl":
-            G = e$b(P.value);
+            G = e$w(P.value);
             break;
 
           case "cn":
-            G = r$4(P.value);
+            G = r$9(P.value);
             break;
 
           case "co":
-            G = t$j(P.value);
+            G = t$N(P.value);
             break;
 
           case "cz":
-            G = e$c(P.value);
+            G = e$v(P.value);
             break;
 
           case "dk":
-            G = e$d(P.value);
+            G = e$u(P.value);
             break;
 
           case "ee":
-            G = r$5(P.value);
+            G = r$8(P.value);
             break;
 
           case "es":
-            G = t$k(P.value);
+            G = t$M(P.value);
             break;
 
           case "fi":
-            G = s$3(P.value);
+            G = s$7(P.value);
             break;
 
           case "fr":
-            G = t$l(P.value);
+            G = t$L(P.value);
             break;
 
           case "hk":
-            G = t$m(P.value);
+            G = t$K(P.value);
             break;
 
           case "hr":
-            G = o$3(P.value);
+            G = o$1(P.value);
             break;
 
           case "id":
-            G = e$e(P.value);
+            G = e$t(P.value);
             break;
 
           case "ie":
-            G = t$n(P.value);
+            G = t$J(P.value);
             break;
 
           case "il":
-            G = e$f(P.value);
+            G = e$s(P.value);
             break;
 
           case "is":
-            G = e$g(P.value);
+            G = e$r(P.value);
             break;
 
           case "kr":
-            G = e$h(P.value);
+            G = e$q(P.value);
             break;
 
           case "lt":
-            G = r$5(P.value);
+            G = r$8(P.value);
             break;
 
           case "lv":
-            G = e$i(P.value);
+            G = e$p(P.value);
             break;
 
           case "me":
-            G = r$6(P.value);
+            G = r$7(P.value);
             break;
 
           case "mk":
-            G = r$7(P.value);
+            G = r$6(P.value);
             break;
 
           case "mx":
@@ -3940,71 +3942,71 @@
             break;
 
           case "my":
-            G = s$4(P.value);
+            G = s$6(P.value);
             break;
 
           case "nl":
-            G = e$j(P.value);
+            G = e$o(P.value);
             break;
 
           case "no":
-            G = t$o(P.value);
+            G = t$I(P.value);
             break;
 
           case "pe":
-            G = t$p(P.value);
+            G = t$H(P.value);
             break;
 
           case "pl":
-            G = t$q(P.value);
+            G = t$G(P.value);
             break;
 
           case "ro":
-            G = e$k(P.value);
+            G = e$n(P.value);
             break;
 
           case "rs":
-            G = r$8(P.value);
+            G = r$5(P.value);
             break;
 
           case "se":
-            G = r$9(P.value);
+            G = r$4(P.value);
             break;
 
           case "si":
-            G = r$a(P.value);
+            G = r$3(P.value);
             break;
 
           case "sk":
-            G = e$c(P.value);
+            G = e$v(P.value);
             break;
 
           case "sm":
-            G = t$r(P.value);
+            G = t$F(P.value);
             break;
 
           case "th":
-            G = t$s(P.value);
+            G = t$E(P.value);
             break;
 
           case "tr":
-            G = t$t(P.value);
+            G = t$D(P.value);
             break;
 
           case "tw":
-            G = t$u(P.value);
+            G = t$C(P.value);
             break;
 
           case "uy":
-            G = t$v(P.value);
+            G = t$B(P.value);
             break;
 
           case "za":
-            G = r$b(P.value);
+            G = r$2(P.value);
             break;
         }
 
-        var V = r(P.l10n ? Y.message || P.l10n.id.country : Y.message, P.l10n ? P.l10n.id.countries[Z.toUpperCase()] : Z.toUpperCase());
+        var V = r$d(P.l10n && P.l10n.id ? Y.message || P.l10n.id.country : Y.message, P.l10n && P.l10n.id && P.l10n.id.countries ? P.l10n.id.countries[Z.toUpperCase()] : Z.toUpperCase());
         return Object.assign({}, {
           message: V
         }, G);
@@ -4012,27 +4014,27 @@
     };
   }
 
-  function t$w() {
+  function t$A() {
     return {
-      validate: function validate(t$1) {
-        if (t$1.value === "") {
+      validate: function validate(t) {
+        if (t.value === "") {
           return {
             valid: true
           };
         }
 
         switch (true) {
-          case /^\d{15}$/.test(t$1.value):
-          case /^\d{2}-\d{6}-\d{6}-\d{1}$/.test(t$1.value):
-          case /^\d{2}\s\d{6}\s\d{6}\s\d{1}$/.test(t$1.value):
+          case /^\d{15}$/.test(t.value):
+          case /^\d{2}-\d{6}-\d{6}-\d{1}$/.test(t.value):
+          case /^\d{2}\s\d{6}\s\d{6}\s\d{1}$/.test(t.value):
             return {
-              valid: t(t$1.value.replace(/[^0-9]/g, ""))
+              valid: t$14(t.value.replace(/[^0-9]/g, ""))
             };
 
-          case /^\d{14}$/.test(t$1.value):
-          case /^\d{16}$/.test(t$1.value):
-          case /^\d{2}-\d{6}-\d{6}(|-\d{2})$/.test(t$1.value):
-          case /^\d{2}\s\d{6}\s\d{6}(|\s\d{2})$/.test(t$1.value):
+          case /^\d{14}$/.test(t.value):
+          case /^\d{16}$/.test(t.value):
+          case /^\d{2}-\d{6}-\d{6}(|-\d{2})$/.test(t.value):
+          case /^\d{2}\s\d{6}\s\d{6}(|\s\d{2})$/.test(t.value):
             return {
               valid: true
             };
@@ -4046,7 +4048,7 @@
     };
   }
 
-  function e$l() {
+  function e$m() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4075,7 +4077,7 @@
     };
   }
 
-  function e$m() {
+  function e$l() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4215,7 +4217,7 @@
     };
   }
 
-  function e$n() {
+  function e$k() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4273,7 +4275,7 @@
     };
   }
 
-  function e$o() {
+  function e$j() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4307,7 +4309,7 @@
     };
   }
 
-  function a$6() {
+  function a$1() {
     return {
       validate: function validate(a) {
         return {
@@ -4317,7 +4319,7 @@
     };
   }
 
-  function e$p() {
+  function e$i() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4335,7 +4337,7 @@
 
           if (r.match(/^\d*$/i)) {
             return {
-              valid: t(r)
+              valid: t$14(r)
             };
           }
 
@@ -4371,7 +4373,7 @@
     };
   }
 
-  function e$q() {
+  function e$h() {
     var e = ["AE", "BG", "BR", "CN", "CZ", "DE", "DK", "ES", "FR", "GB", "IN", "MA", "NL", "PK", "RO", "RU", "SK", "TH", "US", "VE"];
     return {
       validate: function validate(t) {
@@ -4385,15 +4387,15 @@
           message: ""
         }, t.options);
         var d = t.value.trim();
-        var r$1 = d.substr(0, 2);
+        var r = d.substr(0, 2);
 
         if ("function" === typeof a.country) {
-          r$1 = a.country.call(this);
+          r = a.country.call(this);
         } else {
-          r$1 = a.country;
+          r = a.country;
         }
 
-        if (!r$1 || e.indexOf(r$1.toUpperCase()) === -1) {
+        if (!r || e.indexOf(r.toUpperCase()) === -1) {
           return {
             valid: true
           };
@@ -4401,7 +4403,7 @@
 
         var c = true;
 
-        switch (r$1.toUpperCase()) {
+        switch (r.toUpperCase()) {
           case "AE":
             c = /^(((\+|00)?971[\s.-]?(\(0\)[\s.-]?)?|0)(\(5(0|2|5|6)\)|5(0|2|5|6)|2|3|4|6|7|9)|60)([\s.-]?[0-9]){7}$/.test(d);
             break;
@@ -4485,14 +4487,14 @@
         }
 
         return {
-          message: r(t.l10n ? a.message || t.l10n.phone.country : a.message, t.l10n ? t.l10n.phone.countries[r$1] : r$1),
+          message: r$d(t.l10n && t.l10n.phone ? a.message || t.l10n.phone.country : a.message, t.l10n && t.l10n.phone && t.l10n.phone.countries ? t.l10n.phone.countries[r] : r),
           valid: c
         };
       }
     };
   }
 
-  function e$r() {
+  function e$g() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4520,7 +4522,7 @@
     };
   }
 
-  function t$x() {
+  function t$z() {
     return {
       validate: function validate(t) {
         if (t.value === "") {
@@ -4553,17 +4555,17 @@
     };
   }
 
-  function e$s() {
+  function e$f() {
     return {
       validate: function validate(e) {
         return {
-          valid: e.value === "" || /^\d{9}$/.test(e.value) && t(e.value)
+          valid: e.value === "" || /^\d{9}$/.test(e.value) && t$14(e.value)
         };
       }
     };
   }
 
-  function e$t() {
+  function e$e() {
     return {
       validate: function validate(e) {
         if (e.value === "") {
@@ -4597,7 +4599,7 @@
     };
   }
 
-  function e$u() {
+  function e$d() {
     var e = function e(t, _e) {
       var s = Math.pow(10, _e);
       var a = t * s;
@@ -4653,10 +4655,10 @@
           message: "",
           step: 1
         }, e.options);
-        var r$1 = s(a - n.baseValue, n.step);
+        var r = s(a - n.baseValue, n.step);
         return {
-          message: r(e.l10n ? n.message || e.l10n.step["default"] : n.message, "".concat(n.step)),
-          valid: r$1 === 0 || r$1 === n.step
+          message: r$d(e.l10n ? n.message || e.l10n.step["default"] : n.message, "".concat(n.step)),
+          valid: r === 0 || r === n.step
         };
       }
     };
@@ -4682,7 +4684,7 @@
         };
         var n = A.version ? "".concat(A.version) : "all";
         return {
-          message: A.version ? r(s.l10n ? A.message || s.l10n.uuid.version : A.message, A.version) : s.l10n ? s.l10n.uuid["default"] : A.message,
+          message: A.version ? r$d(s.l10n ? A.message || s.l10n.uuid.version : A.message, A.version) : s.l10n ? s.l10n.uuid["default"] : A.message,
           valid: null === i[n] ? true : i[n].test(s.value)
         };
       }
@@ -4722,7 +4724,7 @@
     };
   }
 
-  function t$z(t) {
+  function t$x(t) {
     var e = t;
 
     if (/^ATU[0-9]{8}$/.test(e)) {
@@ -4763,7 +4765,7 @@
     };
   }
 
-  function t$A(t) {
+  function t$w(t) {
     var e = t;
 
     if (/^BE[0]?[0-9]{9}$/.test(e)) {
@@ -4795,7 +4797,7 @@
     };
   }
 
-  function r$c(r) {
+  function r$1(r) {
     var e = r;
 
     if (/^BG[0-9]{9,10}$/.test(e)) {
@@ -4848,7 +4850,7 @@
           s -= 20;
         }
 
-        if (!t$9(e, s, n)) {
+        if (!t$X(e, s, n)) {
           return false;
         }
 
@@ -4903,7 +4905,7 @@
     }
   }
 
-  function t$B(t) {
+  function t$v(t) {
     if (t === "") {
       return {
         meta: {},
@@ -4971,7 +4973,7 @@
     };
   }
 
-  function t$C(t) {
+  function t$u(t) {
     var e = t;
 
     if (/^CHE[0-9]{9}(MWST|TVA|IVA|TPV)?$/.test(e)) {
@@ -5012,7 +5014,7 @@
     };
   }
 
-  function t$D(t) {
+  function t$t(t) {
     var e = t;
 
     if (/^CY[0-5|9][0-9]{7}[A-Z]$/.test(e)) {
@@ -5063,7 +5065,7 @@
     };
   }
 
-  function e$v(e) {
+  function e$c(e) {
     var r = e;
 
     if (/^CZ[0-9]{8,10}$/.test(r)) {
@@ -5152,7 +5154,7 @@
         _e += 100;
       }
 
-      if (!t$9(_e, _a, _s)) {
+      if (!t$X(_e, _a, _s)) {
         return {
           meta: {},
           valid: false
@@ -5184,7 +5186,7 @@
     };
   }
 
-  function e$w(e) {
+  function e$b(e) {
     var r = e;
 
     if (/^DE[0-9]{9}$/.test(r)) {
@@ -5200,11 +5202,11 @@
 
     return {
       meta: {},
-      valid: t$1(r)
+      valid: t$13(r)
     };
   }
 
-  function t$E(t) {
+  function t$s(t) {
     var e = t;
 
     if (/^DK[0-9]{8}$/.test(e)) {
@@ -5231,7 +5233,7 @@
     };
   }
 
-  function t$F(t) {
+  function t$r(t) {
     var e = t;
 
     if (/^EE[0-9]{9}$/.test(e)) {
@@ -5258,7 +5260,7 @@
     };
   }
 
-  function t$G(t) {
+  function t$q(t) {
     var e = t;
 
     if (/^ES[0-9A-Z][0-9]{7}[0-9A-Z]$/.test(e)) {
@@ -5344,7 +5346,7 @@
     }
   }
 
-  function t$H(t) {
+  function t$p(t) {
     var e = t;
 
     if (/^FI[0-9]{8}$/.test(e)) {
@@ -5371,7 +5373,7 @@
     };
   }
 
-  function e$x(e) {
+  function e$a(e) {
     var r = e;
 
     if (/^FR[0-9A-Z]{2}[0-9]{9}$/.test(r)) {
@@ -5388,7 +5390,7 @@
     if (r.substr(2, 4) !== "000") {
       return {
         meta: {},
-        valid: t(r.substr(2))
+        valid: t$14(r.substr(2))
       };
     }
 
@@ -5415,7 +5417,7 @@
     }
   }
 
-  function t$I(t) {
+  function t$o(t) {
     var s = t;
 
     if (/^GB[0-9]{9}$/.test(s) || /^GB[0-9]{12}$/.test(s) || /^GBGD[0-9]{3}$/.test(s) || /^GBHA[0-9]{3}$/.test(s) || /^GB(GD|HA)8888[0-9]{5}$/.test(s)) {
@@ -5474,7 +5476,7 @@
     };
   }
 
-  function t$J(t) {
+  function t$n(t) {
     var e = t;
 
     if (/^(GR|EL)[0-9]{9}$/.test(e)) {
@@ -5506,7 +5508,7 @@
     };
   }
 
-  function e$y(e) {
+  function e$9(e) {
     var r = e;
 
     if (/^HR[0-9]{11}$/.test(r)) {
@@ -5522,11 +5524,11 @@
 
     return {
       meta: {},
-      valid: t$1(r)
+      valid: t$13(r)
     };
   }
 
-  function t$K(t) {
+  function t$m(t) {
     var e = t;
 
     if (/^HU[0-9]{8}$/.test(e)) {
@@ -5553,7 +5555,7 @@
     };
   }
 
-  function t$L(t) {
+  function t$l(t) {
     var e = t;
 
     if (/^IE[0-9][0-9A-Z*+][0-9]{5}[A-Z]{1,2}$/.test(e)) {
@@ -5603,7 +5605,7 @@
     };
   }
 
-  function t$M(t) {
+  function t$k(t) {
     var e = t;
 
     if (/^IS[0-9]{5,6}$/.test(e)) {
@@ -5616,7 +5618,7 @@
     };
   }
 
-  function e$z(e) {
+  function e$8(e) {
     var r = e;
 
     if (/^IT[0-9]{11}$/.test(r)) {
@@ -5648,11 +5650,11 @@
 
     return {
       meta: {},
-      valid: t(r)
+      valid: t$14(r)
     };
   }
 
-  function t$N(t) {
+  function t$j(t) {
     var e = t;
 
     if (/^LT([0-9]{7}1[0-9]|[0-9]{10}1[0-9])$/.test(e)) {
@@ -5691,7 +5693,7 @@
     };
   }
 
-  function t$O(t) {
+  function t$i(t) {
     var e = t;
 
     if (/^LU[0-9]{8}$/.test(e)) {
@@ -5711,7 +5713,7 @@
     };
   }
 
-  function e$A(e) {
+  function e$7(e) {
     var r = e;
 
     if (/^LV[0-9]{11}$/.test(r)) {
@@ -5752,7 +5754,7 @@
       var f = parseInt(r.substr(4, 2), 10);
       f = f + 1800 + parseInt(r.charAt(6), 10) * 100;
 
-      if (!t$9(f, _s, _e)) {
+      if (!t$X(f, _s, _e)) {
         return {
           meta: {},
           valid: false
@@ -5774,7 +5776,7 @@
     }
   }
 
-  function t$P(t) {
+  function t$h(t) {
     var e = t;
 
     if (/^MT[0-9]{8}$/.test(e)) {
@@ -5801,7 +5803,7 @@
     };
   }
 
-  function t$Q(t) {
+  function t$g(t) {
     return t.split("").map(function (t) {
       var n = t.charCodeAt(0);
       return n >= 65 && n <= 90 ? n - 55 : t;
@@ -5810,8 +5812,8 @@
     });
   }
 
-  function n$1(n) {
-    var e = t$Q(n);
+  function n(n) {
+    var e = t$g(n);
     var r = 0;
     var o = e.length;
 
@@ -5823,7 +5825,7 @@
     return r % 97 === 1;
   }
 
-  function e$B(e) {
+  function e$6(e) {
     var i = e;
 
     if (/^NL[0-9]{9}B[0-9]{2}$/.test(i)) {
@@ -5840,11 +5842,11 @@
     var o = i.substr(0, 9);
     return {
       meta: {},
-      valid: e$j(o).valid || n$1("NL".concat(i))
+      valid: e$o(o).valid || n("NL".concat(i))
     };
   }
 
-  function t$R(t) {
+  function t$f(t) {
     var e = t;
 
     if (/^NO[0-9]{9}$/.test(e)) {
@@ -5877,7 +5879,7 @@
     };
   }
 
-  function t$S(t) {
+  function t$e(t) {
     var e = t;
 
     if (/^PL[0-9]{10}$/.test(e)) {
@@ -5904,7 +5906,7 @@
     };
   }
 
-  function t$T(t) {
+  function t$d(t) {
     var e = t;
 
     if (/^PT[0-9]{9}$/.test(e)) {
@@ -5937,7 +5939,7 @@
     };
   }
 
-  function t$U(t) {
+  function t$c(t) {
     var e = t;
 
     if (/^RO[1-9][0-9]{1,9}$/.test(e)) {
@@ -5966,7 +5968,7 @@
     };
   }
 
-  function t$V(t) {
+  function t$b(t) {
     var e = t;
 
     if (/^RS[0-9]{9}$/.test(e)) {
@@ -5999,7 +6001,7 @@
     };
   }
 
-  function t$W(t) {
+  function t$a(t) {
     var e = t;
 
     if (/^RU([0-9]{10}|[0-9]{12})$/.test(e)) {
@@ -6068,7 +6070,7 @@
     };
   }
 
-  function e$C(e) {
+  function e$5(e) {
     var r = e;
 
     if (/^SE[0-9]{10}01$/.test(r)) {
@@ -6085,11 +6087,11 @@
     r = r.substr(0, 10);
     return {
       meta: {},
-      valid: t(r)
+      valid: t$14(r)
     };
   }
 
-  function t$X(t) {
+  function t$9(t) {
     var e = t.match(/^(SI)?([1-9][0-9]{7})$/);
 
     if (!e) {
@@ -6119,7 +6121,7 @@
     };
   }
 
-  function t$Y(t) {
+  function t$8(t) {
     var e = t;
 
     if (/^SK[1-9][0-9][(2-4)|(6-9)][0-9]{7}$/.test(e)) {
@@ -6139,7 +6141,7 @@
     };
   }
 
-  function t$Z(t) {
+  function t$7(t) {
     var e = t;
 
     if (/^VE[VEJPG][0-9]{9}$/.test(e)) {
@@ -6179,7 +6181,7 @@
     };
   }
 
-  function t$_(t) {
+  function t$6(t) {
     var e = t;
 
     if (/^ZA4[0-9]{9}$/.test(e)) {
@@ -6232,155 +6234,155 @@
             break;
 
           case "at":
-            P = t$z(F);
+            P = t$x(F);
             break;
 
           case "be":
-            P = t$A(F);
+            P = t$w(F);
             break;
 
           case "bg":
-            P = r$c(F);
+            P = r$1(F);
             break;
 
           case "br":
-            P = t$B(F);
+            P = t$v(F);
             break;
 
           case "ch":
-            P = t$C(F);
+            P = t$u(F);
             break;
 
           case "cy":
-            P = t$D(F);
+            P = t$t(F);
             break;
 
           case "cz":
-            P = e$v(F);
+            P = e$c(F);
             break;
 
           case "de":
-            P = e$w(F);
+            P = e$b(F);
             break;
 
           case "dk":
-            P = t$E(F);
+            P = t$s(F);
             break;
 
           case "ee":
-            P = t$F(F);
+            P = t$r(F);
             break;
 
           case "el":
-            P = t$J(F);
+            P = t$n(F);
             break;
 
           case "es":
-            P = t$G(F);
+            P = t$q(F);
             break;
 
           case "fi":
-            P = t$H(F);
+            P = t$p(F);
             break;
 
           case "fr":
-            P = e$x(F);
+            P = e$a(F);
             break;
 
           case "gb":
-            P = t$I(F);
+            P = t$o(F);
             break;
 
           case "gr":
-            P = t$J(F);
+            P = t$n(F);
             break;
 
           case "hr":
-            P = e$y(F);
+            P = e$9(F);
             break;
 
           case "hu":
-            P = t$K(F);
+            P = t$m(F);
             break;
 
           case "ie":
-            P = t$L(F);
+            P = t$l(F);
             break;
 
           case "is":
-            P = t$M(F);
+            P = t$k(F);
             break;
 
           case "it":
-            P = e$z(F);
+            P = e$8(F);
             break;
 
           case "lt":
-            P = t$N(F);
+            P = t$j(F);
             break;
 
           case "lu":
-            P = t$O(F);
+            P = t$i(F);
             break;
 
           case "lv":
-            P = e$A(F);
+            P = e$7(F);
             break;
 
           case "mt":
-            P = t$P(F);
+            P = t$h(F);
             break;
 
           case "nl":
-            P = e$B(F);
+            P = e$6(F);
             break;
 
           case "no":
-            P = t$R(F);
+            P = t$f(F);
             break;
 
           case "pl":
-            P = t$S(F);
+            P = t$e(F);
             break;
 
           case "pt":
-            P = t$T(F);
+            P = t$d(F);
             break;
 
           case "ro":
-            P = t$U(F);
+            P = t$c(F);
             break;
 
           case "rs":
-            P = t$V(F);
+            P = t$b(F);
             break;
 
           case "ru":
-            P = t$W(F);
+            P = t$a(F);
             break;
 
           case "se":
-            P = e$C(F);
+            P = e$5(F);
             break;
 
           case "si":
-            P = t$X(F);
+            P = t$9(F);
             break;
 
           case "sk":
-            P = t$Y(F);
+            P = t$8(F);
             break;
 
           case "ve":
-            P = t$Z(F);
+            P = t$7(F);
             break;
 
           case "za":
-            P = t$_(F);
+            P = t$6(F);
             break;
         }
 
-        var Z = r(D.l10n ? K.message || D.l10n.vat.country : K.message, D.l10n ? D.l10n.vat.countries[N.toUpperCase()] : N.toUpperCase());
+        var Z = r$d(D.l10n && D.l10n.vat ? K.message || D.l10n.vat.country : K.message, D.l10n && D.l10n.vat && D.l10n.vat.countries ? D.l10n.vat.countries[N.toUpperCase()] : N.toUpperCase());
         return Object.assign({}, {
           message: Z
         }, P);
@@ -6388,7 +6390,7 @@
     };
   }
 
-  function t$$() {
+  function t$5() {
     return {
       validate: function validate(t) {
         if (t.value === "") {
@@ -6460,7 +6462,7 @@
     };
   }
 
-  function s$6() {
+  function s$4() {
     var s = ["AT", "BG", "BR", "CA", "CH", "CZ", "DE", "DK", "ES", "FR", "GB", "IE", "IN", "IT", "MA", "NL", "PL", "PT", "RO", "RU", "SE", "SG", "SK", "US"];
 
     var a = function a(e) {
@@ -6484,9 +6486,11 @@
 
     return {
       validate: function validate(t) {
-        var r$1 = Object.assign({}, t.options);
+        var r = Object.assign({}, {
+          message: ""
+        }, t.options);
 
-        if (t.value === "" || !r$1.country) {
+        if (t.value === "" || !r.country) {
           return {
             valid: true
           };
@@ -6494,10 +6498,10 @@
 
         var u = t.value.substr(0, 2);
 
-        if ("function" === typeof r$1.country) {
-          u = r$1.country.call(this);
+        if ("function" === typeof r.country) {
+          u = r.country.call(this);
         } else {
-          u = r$1.country;
+          u = r.country;
         }
 
         if (!u || s.indexOf(u.toUpperCase()) === -1) {
@@ -6609,79 +6613,79 @@
         }
 
         return {
-          message: r(t.l10n ? r$1.message || t.l10n.zipCode.country : r$1.message, t.l10n ? t.l10n.zipCode.countries[u] : u),
+          message: r$d(t.l10n && t.l10n.zipCode ? r.message || t.l10n.zipCode.country : r.message, t.l10n && t.l10n.zipCode && t.l10n.zipCode.countries ? t.l10n.zipCode.countries[u] : u),
           valid: c
         };
       }
     };
   }
 
-  var s$7 = {
-    between: s$1,
-    blank: t$5,
-    callback: o,
-    choice: t$7,
-    creditCard: l,
-    date: n,
-    different: o$1,
-    digits: e$1,
-    emailAddress: t$a,
-    file: e$2,
-    greaterThan: a,
+  var s$3 = {
+    between: s$9,
+    blank: t$$,
+    callback: o$4,
+    choice: t$Z,
+    creditCard: l$2,
+    date: n$1,
+    different: o$3,
+    digits: e$G,
+    emailAddress: t$W,
+    file: e$F,
+    greaterThan: a$7,
     identical: o$2,
-    integer: a$1,
+    integer: a$6,
     ip: d,
-    lessThan: s$2,
-    notEmpty: t$b,
-    numeric: a$2,
-    promise: r$1,
-    regexp: e$3,
-    remote: a$3,
-    stringCase: e$5,
-    stringLength: t$c,
-    uri: t$d,
-    base64: a$4,
-    bic: a$5,
-    color: e$6,
-    cusip: t$e,
-    ean: e$7,
-    ein: e$8,
-    grid: r$2,
-    hex: e$9,
+    lessThan: s$8,
+    notEmpty: t$V,
+    numeric: a$5,
+    promise: r$c,
+    regexp: e$E,
+    remote: a$4,
+    stringCase: e$C,
+    stringLength: t$U,
+    uri: t$T,
+    base64: a$3,
+    bic: a$2,
+    color: e$B,
+    cusip: t$S,
+    ean: e$A,
+    ein: e$z,
+    grid: r$b,
+    hex: e$y,
     iban: Z,
     id: F,
-    imei: t$w,
-    imo: e$l,
-    isbn: e$m,
+    imei: t$A,
+    imo: e$m,
+    isbn: e$l,
     isin: M,
-    ismn: e$n,
-    issn: e$o,
-    mac: a$6,
-    meid: e$p,
-    phone: e$q,
-    rtn: e$r,
-    sedol: t$x,
-    siren: e$s,
-    siret: e$t,
-    step: e$u,
+    ismn: e$k,
+    issn: e$j,
+    mac: a$1,
+    meid: e$i,
+    phone: e$h,
+    rtn: e$g,
+    sedol: t$z,
+    siren: e$f,
+    siret: e$e,
+    step: e$d,
     uuid: s$5,
     vat: x,
-    vin: t$$,
-    zipCode: s$6
+    vin: t$5,
+    zipCode: s$4
   };
 
   var l$1 = /*#__PURE__*/function () {
-    function l(i, s$1) {
+    function l(i, s) {
       _classCallCheck(this, l);
 
       this.elements = {};
-      this.ee = s();
-      this.filter = t$4();
+      this.ee = s$a();
+      this.filter = t$10();
       this.plugins = {};
       this.results = new Map();
       this.validators = {};
       this.form = i;
-      this.fields = s$1;
+      this.fields = s;
     }
 
     _createClass(l, [{
@@ -6802,24 +6806,32 @@
       value: function validate() {
         var _this = this;
 
-        this.emit("core.form.validating");
+        this.emit("core.form.validating", {
+          formValidation: this
+        });
         return this.filter.execute("validate-pre", Promise.resolve(), []).then(function () {
           return Promise.all(Object.keys(_this.fields).map(function (e) {
             return _this.validateField(e);
           })).then(function (e) {
             switch (true) {
               case e.indexOf("Invalid") !== -1:
-                _this.emit("core.form.invalid");
+                _this.emit("core.form.invalid", {
+                  formValidation: _this
+                });
 
                 return Promise.resolve("Invalid");
 
               case e.indexOf("NotValidated") !== -1:
-                _this.emit("core.form.notvalidated");
+                _this.emit("core.form.notvalidated", {
+                  formValidation: _this
+                });
 
                 return Promise.resolve("NotValidated");
 
               default:
-                _this.emit("core.form.valid");
+                _this.emit("core.form.valid", {
+                  formValidation: _this
+                });
 
                 return Promise.resolve("Valid");
             }
@@ -6896,34 +6908,34 @@
           return Promise.resolve("Ignored");
         }
 
-        var l = this.fields[e].validators;
+        var _l = this.fields[e].validators;
         this.emit("core.element.validating", {
           element: t,
           elements: i,
           field: e
         });
-        var r = Object.keys(l).map(function (i) {
+        var r = Object.keys(_l).map(function (i) {
           return function () {
-            return _this3.executeValidator(e, t, i, l[i]);
+            return _this3.executeValidator(e, t, i, _l[i]);
           };
         });
         return this.waterfall(r).then(function (s) {
-          var l = s.indexOf("Invalid") === -1;
+          var _l2 = s.indexOf("Invalid") === -1;
 
           _this3.emit("core.element.validated", {
             element: t,
             elements: i,
             field: e,
-            valid: l
+            valid: _l2
           });
 
           var r = t.getAttribute("type");
 
           if ("radio" === r || "checkbox" === r || i.length === 1) {
-            _this3.emit(l ? "core.field.valid" : "core.field.invalid", e);
+            _this3.emit(_l2 ? "core.field.valid" : "core.field.invalid", e);
           }
 
-          return Promise.resolve(l ? "Valid" : "Invalid");
+          return Promise.resolve(_l2 ? "Valid" : "Invalid");
         })["catch"](function (s) {
           _this3.emit("core.element.notvalidated", {
             element: t,
@@ -6939,14 +6951,14 @@
       value: function executeValidator(e, t, i, s) {
         var _this4 = this;
 
-        var l = this.elements[e];
+        var _l3 = this.elements[e];
         var r = this.filter.execute("validator-name", i, [i, e]);
         s.message = this.filter.execute("validator-message", s.message, [this.locale, e, r]);
 
         if (!this.validators[r] || s.enabled === false) {
           this.emit("core.validator.validated", {
             element: t,
-            elements: l,
+            elements: _l3,
             field: e,
             result: this.normalizeResult(e, r, {
               valid: true
@@ -6963,7 +6975,7 @@
         if (!o) {
           this.emit("core.validator.notvalidated", {
             element: t,
-            elements: l,
+            elements: _l3,
             field: e,
             validator: i
           });
@@ -6972,13 +6984,13 @@
 
         this.emit("core.validator.validating", {
           element: t,
-          elements: l,
+          elements: _l3,
           field: e,
           validator: i
         });
         var n = a().validate({
           element: t,
-          elements: l,
+          elements: _l3,
           field: e,
           l10n: this.localization,
           options: s,
@@ -6992,7 +7004,7 @@
 
             _this4.emit("core.validator.validated", {
               element: t,
-              elements: l,
+              elements: _l3,
               field: e,
               result: r,
               validator: i
@@ -7005,7 +7017,7 @@
 
           this.emit("core.validator.validated", {
             element: t,
-            elements: l,
+            elements: _l3,
             field: e,
             result: _s,
             validator: i
@@ -7015,9 +7027,10 @@
       }
     }, {
       key: "getElementValue",
-      value: function getElementValue(e$1, t, s) {
-        var l = e(this.form, e$1, t, this.elements[e$1]);
-        return this.filter.execute("field-value", l, [l, e$1, t, s]);
+      value: function getElementValue(e, t, s) {
+        var _l4 = e$H(this.form, e, t, this.elements[e]);
+
+        return this.filter.execute("field-value", _l4, [_l4, e, t, s]);
       }
     }, {
       key: "getElements",
@@ -7050,8 +7063,10 @@
         var _this5 = this;
 
         var s = this.elements[e];
-        var l = s[0].getAttribute("type");
-        var r = "radio" === l || "checkbox" === l ? [s[0]] : s;
+
+        var _l5 = s[0].getAttribute("type");
+
+        var r = "radio" === _l5 || "checkbox" === _l5 ? [s[0]] : s;
         r.forEach(function (s) {
           return _this5.updateElementStatus(e, s, t, i);
         });
@@ -7087,7 +7102,7 @@
       value: function updateElementStatus(e, t, i, s) {
         var _this6 = this;
 
-        var l = this.elements[e];
+        var _l6 = this.elements[e];
         var r = this.fields[e].validators;
         var a = s ? [s] : Object.keys(r);
 
@@ -7096,14 +7111,14 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.notvalidated", {
                 element: t,
-                elements: l,
+                elements: _l6,
                 field: e,
                 validator: i
               });
             });
             this.emit("core.element.notvalidated", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e
             });
             break;
@@ -7112,14 +7127,14 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.validating", {
                 element: t,
-                elements: l,
+                elements: _l6,
                 field: e,
                 validator: i
               });
             });
             this.emit("core.element.validating", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e
             });
             break;
@@ -7128,6 +7143,7 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.validated", {
                 element: t,
+                elements: _l6,
                 field: e,
                 result: {
                   message: r[i].message,
@@ -7138,7 +7154,7 @@
             });
             this.emit("core.element.validated", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e,
               valid: true
             });
@@ -7148,6 +7164,7 @@
             a.forEach(function (i) {
               return _this6.emit("core.validator.validated", {
                 element: t,
+                elements: _l6,
                 field: e,
                 result: {
                   message: r[i].message,
@@ -7158,7 +7175,7 @@
             });
             this.emit("core.element.validated", {
               element: t,
-              elements: l,
+              elements: _l6,
               field: e,
               valid: false
             });
@@ -7176,6 +7193,7 @@
           return _this7.resetField(t, e);
         });
         this.emit("core.form.reset", {
+          formValidation: this,
           reset: e
         });
         return this;
@@ -7310,27 +7328,29 @@
     return l;
   }();
 
-  function r$d(e, t) {
+  function r(e, t) {
     var i = Object.assign({}, {
       fields: {},
       locale: "en_US",
-      plugins: {}
+      plugins: {},
+      init: function init(e) {}
     }, t);
     var r = new l$1(e, i.fields);
     r.setLocale(i.locale, i.localization);
     Object.keys(i.plugins).forEach(function (e) {
       return r.registerPlugin(e, i.plugins[e]);
     });
-    Object.keys(s$7).forEach(function (e) {
-      return r.registerValidator(e, s$7[e]);
+    Object.keys(s$3).forEach(function (e) {
+      return r.registerValidator(e, s$3[e]);
     });
+    i.init(r);
     Object.keys(i.fields).forEach(function (e) {
       return r.addField(e, i.fields[e]);
     });
     return r;
   }
 
-  var t$10 = /*#__PURE__*/function () {
+  var t$4 = /*#__PURE__*/function () {
     function t(_t) {
       _classCallCheck(this, t);
 
@@ -7339,8 +7359,8 @@
 
     _createClass(t, [{
       key: "setCore",
-      value: function setCore(t) {
-        this.core = t;
+      value: function setCore(_t2) {
+        this.core = _t2;
         return this;
       }
     }, {
@@ -7354,11 +7374,11 @@
     return t;
   }();
 
-  var index$1 = {
-    getFieldValue: e
+  var index$2 = {
+    getFieldValue: e$H
   };
 
-  var e$D = /*#__PURE__*/function (_t) {
+  var e$4 = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -7386,15 +7406,15 @@
       }
     }, {
       key: "getValidatorName",
-      value: function getValidatorName(t, e) {
+      value: function getValidatorName(t, _e) {
         return this.opts[t] || t;
       }
     }]);
 
     return e;
-  }(t$10);
+  }(t$4);
 
-  var i = /*#__PURE__*/function (_e) {
+  var i$3 = /*#__PURE__*/function (_e) {
     _inherits(i, _e);
 
     var _super = _createSuper(i);
@@ -7433,10 +7453,10 @@
     }, {
       key: "onFieldValid",
       value: function onFieldValid(e) {
-        var i = this.core.getElements(e);
+        var _i = this.core.getElements(e);
 
-        if (i) {
-          i.forEach(function (e) {
+        if (_i) {
+          _i.forEach(function (e) {
             e.setAttribute("aria-invalid", "false");
             e.removeAttribute("aria-describedby");
           });
@@ -7445,10 +7465,10 @@
     }, {
       key: "onFieldInvalid",
       value: function onFieldInvalid(e) {
-        var i = this.core.getElements(e);
+        var _i2 = this.core.getElements(e);
 
-        if (i) {
-          i.forEach(function (e) {
+        if (_i2) {
+          _i2.forEach(function (e) {
             return e.setAttribute("aria-invalid", "true");
           });
         }
@@ -7458,15 +7478,18 @@
       value: function onMessageDisplayed(e) {
         e.messageElement.setAttribute("role", "alert");
         e.messageElement.setAttribute("aria-hidden", "false");
-        var i = this.core.getElements(e.field);
-        var t = i.indexOf(e.element);
+
+        var _i3 = this.core.getElements(e.field);
+
+        var t = _i3.indexOf(e.element);
+
         var l = "js-fv-".concat(e.field, "-").concat(t, "-").concat(Date.now(), "-message");
         e.messageElement.setAttribute("id", l);
         e.element.setAttribute("aria-describedby", l);
         var a = e.element.getAttribute("type");
 
         if ("radio" === a || "checkbox" === a) {
-          i.forEach(function (e) {
+          _i3.forEach(function (e) {
             return e.setAttribute("aria-describedby", l);
           });
         }
@@ -7474,9 +7497,9 @@
     }]);
 
     return i;
-  }(t$10);
+  }(t$4);
 
-  var t$11 = /*#__PURE__*/function (_e) {
+  var t$3 = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -7505,12 +7528,12 @@
 
         this.parsePlugins();
         var e = this.parseOptions();
-        Object.keys(e).forEach(function (t) {
-          if (!_this2.addedFields.has(t)) {
-            _this2.addedFields.set(t, true);
+        Object.keys(e).forEach(function (_t) {
+          if (!_this2.addedFields.has(_t)) {
+            _this2.addedFields.set(_t, true);
           }
 
-          _this2.core.addField(t, e[t]);
+          _this2.core.addField(_t, e[_t]);
         });
         this.core.on("core.field.added", this.fieldAddedHandler).on("core.field.removed", this.fieldRemovedHandler);
       }
@@ -7525,23 +7548,24 @@
       value: function onFieldAdded(e) {
         var _this3 = this;
 
-        var t = e.elements;
+        var _t2 = e.elements;
 
-        if (!t || t.length === 0 || this.addedFields.has(e.field)) {
+        if (!_t2 || _t2.length === 0 || this.addedFields.has(e.field)) {
           return;
         }
 
         this.addedFields.set(e.field, true);
-        t.forEach(function (t) {
-          var s = _this3.parseElement(t);
+
+        _t2.forEach(function (_t3) {
+          var s = _this3.parseElement(_t3);
 
           if (!_this3.isEmptyOption(s)) {
-            var _t = {
+            var _t12 = {
               selector: e.options.selector,
               validators: Object.assign({}, e.options.validators || {}, s.validators)
             };
 
-            _this3.core.setFieldOptions(e.field, _t);
+            _this3.core.setFieldOptions(e.field, _t12);
           }
         });
       }
@@ -7558,7 +7582,7 @@
         var _this4 = this;
 
         var e = this.opts.prefix;
-        var t = {};
+        var _t5 = {};
         var s = this.core.getFields();
         var a = this.core.getFormElement();
         var i = [].slice.call(a.querySelectorAll("[name], [".concat(e, "field]")));
@@ -7568,27 +7592,27 @@
           if (!_this4.isEmptyOption(a)) {
             var _i = s.getAttribute("name") || s.getAttribute("".concat(e, "field"));
 
-            t[_i] = Object.assign({}, t[_i], a);
+            _t5[_i] = Object.assign({}, _t5[_i], a);
           }
         });
-        Object.keys(t).forEach(function (e) {
-          Object.keys(t[e].validators).forEach(function (a) {
-            t[e].validators[a].enabled = t[e].validators[a].enabled || false;
+        Object.keys(_t5).forEach(function (e) {
+          Object.keys(_t5[e].validators).forEach(function (a) {
+            _t5[e].validators[a].enabled = _t5[e].validators[a].enabled || false;
 
             if (s[e] && s[e].validators && s[e].validators[a]) {
-              Object.assign(t[e].validators[a], s[e].validators[a]);
+              Object.assign(_t5[e].validators[a], s[e].validators[a]);
             }
           });
         });
-        return Object.assign({}, s, t);
+        return Object.assign({}, s, _t5);
       }
     }, {
       key: "createPluginInstance",
-      value: function createPluginInstance(e, t) {
+      value: function createPluginInstance(e, _t6) {
         var s = e.split(".");
         var a = window || this;
 
-        for (var _e2 = 0, _t2 = s.length; _e2 < _t2; _e2++) {
+        for (var _e2 = 0, _t13 = s.length; _e2 < _t13; _e2++) {
           a = a[s[_e2]];
         }
 
@@ -7596,7 +7620,7 @@
           throw new Error("the plugin ".concat(e, " doesn't exist"));
         }
 
-        return new a(t);
+        return new a(_t6);
       }
     }, {
       key: "parsePlugins",
@@ -7604,14 +7628,17 @@
         var _this5 = this;
 
         var e = this.core.getFormElement();
-        var t = new RegExp("^".concat(this.opts.pluginPrefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+
+        var _t8 = new RegExp("^".concat(this.opts.pluginPrefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+
         var s = e.attributes.length;
         var a = {};
 
         for (var i = 0; i < s; i++) {
           var _s = e.attributes[i].name;
           var n = e.attributes[i].value;
-          var r = t.exec(_s);
+
+          var r = _t8.exec(_s);
 
           if (r && r.length === 4) {
             var _e3 = this.toCamelCase(r[1]);
@@ -7623,15 +7650,15 @@
         }
 
         Object.keys(a).forEach(function (e) {
-          var t = a[e];
-          var s = t["enabled"];
-          var i = t["class"];
+          var _t9 = a[e];
+          var s = _t9["enabled"];
+          var i = _t9["class"];
 
           if (s && i) {
-            delete t["enabled"];
-            delete t["clazz"];
+            delete _t9["enabled"];
+            delete _t9["clazz"];
 
-            var _s2 = _this5.createPluginInstance(i, t);
+            var _s2 = _this5.createPluginInstance(i, _t9);
 
             _this5.core.registerPlugin(e, _s2);
           }
@@ -7640,13 +7667,14 @@
     }, {
       key: "isEmptyOption",
       value: function isEmptyOption(e) {
-        var t = e.validators;
-        return Object.keys(t).length === 0 && t.constructor === Object;
+        var _t10 = e.validators;
+        return Object.keys(_t10).length === 0 && _t10.constructor === Object;
       }
     }, {
       key: "parseElement",
       value: function parseElement(e) {
-        var t = new RegExp("^".concat(this.opts.prefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+        var _t11 = new RegExp("^".concat(this.opts.prefix, "([a-z0-9-]+)(___)*([a-z0-9-]+)*$"));
+
         var s = e.attributes.length;
         var a = {};
         var i = e.getAttribute("type");
@@ -7727,7 +7755,7 @@
             }
           }
 
-          var l = t.exec(_s3);
+          var l = _t11.exec(_s3);
 
           if (l && l.length === 4) {
             var _e4 = this.toCamelCase(l[1]);
@@ -7760,9 +7788,9 @@
     }]);
 
     return t;
-  }(t$10);
+  }(t$4);
 
-  var o$4 = /*#__PURE__*/function (_t) {
+  var o = /*#__PURE__*/function (_t) {
     _inherits(o, _t);
 
     var _super = _createSuper(o);
@@ -7805,9 +7833,9 @@
     }]);
 
     return o;
-  }(t$10);
+  }(t$4);
 
-  var e$E = /*#__PURE__*/function (_t) {
+  var e$3 = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -7837,19 +7865,19 @@
       key: "onTriggerExecuted",
       value: function onTriggerExecuted(t) {
         if (this.opts[t.field]) {
-          var _e = this.opts[t.field].split(" ");
+          var _e3 = this.opts[t.field].split(" ");
 
-          var _iterator = _createForOfIteratorHelper(_e),
+          var _iterator = _createForOfIteratorHelper(_e3),
               _step;
 
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var _t2 = _step.value;
 
-              var _e2 = _t2.trim();
+              var _e4 = _t2.trim();
 
-              if (this.opts[_e2]) {
-                this.core.revalidateField(_e2);
+              if (this.opts[_e4]) {
+                this.core.revalidateField(_e4);
               }
             }
           } catch (err) {
@@ -7862,9 +7890,9 @@
     }]);
 
     return e;
-  }(t$10);
+  }(t$4);
 
-  var e$F = /*#__PURE__*/function (_t) {
+  var e$2 = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -7894,22 +7922,24 @@
       }
     }, {
       key: "ignoreValidation",
-      value: function ignoreValidation(t, e, i) {
-        return this.opts.excluded.apply(this, [t, e, i]);
+      value: function ignoreValidation(t, _e2, i) {
+        return this.opts.excluded.apply(this, [t, _e2, i]);
       }
     }], [{
       key: "defaultIgnore",
-      value: function defaultIgnore(t, e, i) {
-        var r = !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
-        var n = e.getAttribute("disabled");
-        return n === "" || n === "disabled" || e.getAttribute("type") === "hidden" || !r;
+      value: function defaultIgnore(t, _e, i) {
+        var r = !!(_e.offsetWidth || _e.offsetHeight || _e.getClientRects().length);
+
+        var n = _e.getAttribute("disabled");
+
+        return n === "" || n === "disabled" || _e.getAttribute("type") === "hidden" || !r;
       }
     }]);
 
     return e;
-  }(t$10);
+  }(t$4);
 
-  var t$12 = /*#__PURE__*/function (_e) {
+  var t$2 = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -8002,9 +8032,9 @@
     }]);
 
     return t;
-  }(t$10);
+  }(t$4);
 
-  function s$8(s, a) {
+  function s$2(s, a) {
     a.split(" ").forEach(function (a) {
       if (s.classList) {
         s.classList.add(a);
@@ -8014,7 +8044,7 @@
     });
   }
 
-  function a$7(s, a) {
+  function a(s, a) {
     a.split(" ").forEach(function (a) {
       s.classList ? s.classList.remove(a) : s.className = s.className.replace(a, "");
     });
@@ -8029,14 +8059,14 @@
       }
     });
     f.forEach(function (s) {
-      return a$7(c, s);
+      return a(c, s);
     });
     t.forEach(function (a) {
-      return s$8(c, a);
+      return s$2(c, a);
     });
   }
 
-  function e$G(e, t) {
+  function e$1(e, t) {
     var l = e.matches || e.webkitMatchesSelector || e["mozMatchesSelector"] || e["msMatchesSelector"];
 
     if (l) {
@@ -8047,11 +8077,11 @@
     return c.indexOf(e) >= 0;
   }
 
-  function t$13(t, l) {
+  function t$1(t, l) {
     var c = t;
 
     while (c) {
-      if (e$G(c, l)) {
+      if (e$1(c, l)) {
         break;
       }
 
@@ -8061,7 +8091,7 @@
     return c;
   }
 
-  var s$9 = /*#__PURE__*/function (_e) {
+  var s$1 = /*#__PURE__*/function (_e) {
     _inherits(s, _e);
 
     var _super = _createSuper(s);
@@ -8133,8 +8163,10 @@
         }
 
         var t = e.elements[0].getAttribute("type");
-        var s = "radio" === t || "checkbox" === t ? [e.elements[0]] : e.elements;
-        s.forEach(function (e) {
+
+        var _s2 = "radio" === t || "checkbox" === t ? [e.elements[0]] : e.elements;
+
+        _s2.forEach(function (e) {
           if (_this3.messages.has(e)) {
             var _t = _this3.messages.get(e);
 
@@ -8150,20 +8182,20 @@
         var _this4 = this;
 
         if (t.length) {
-          var _s = t[0].getAttribute("type");
+          var _s12 = t[0].getAttribute("type");
 
-          if ("radio" === _s || "checkbox" === _s) {
+          if ("radio" === _s12 || "checkbox" === _s12) {
             this.prepareElementContainer(e, t[0], t);
           } else {
-            t.forEach(function (s) {
-              return _this4.prepareElementContainer(e, s, t);
+            t.forEach(function (_s4) {
+              return _this4.prepareElementContainer(e, _s4, t);
             });
           }
         }
       }
     }, {
       key: "prepareElementContainer",
-      value: function prepareElementContainer(e, s, i) {
+      value: function prepareElementContainer(e, _s5, i) {
         var a;
 
         if ("string" === typeof this.opts.container) {
@@ -8171,7 +8203,7 @@
 
           a = this.core.getFormElement().querySelector(_e2);
         } else {
-          a = this.opts.container(e, s);
+          a = this.opts.container(e, _s5);
         }
 
         var l = document.createElement("div");
@@ -8180,12 +8212,12 @@
           "fv-plugins-message-container": true
         });
         this.core.emit("plugins.message.placed", {
-          element: s,
+          element: _s5,
           elements: i,
           field: e,
           messageElement: l
         });
-        this.messages.set(s, l);
+        this.messages.set(_s5, l);
       }
     }, {
       key: "getMessage",
@@ -8195,14 +8227,14 @@
     }, {
       key: "onValidatorValidated",
       value: function onValidatorValidated(e) {
-        var s = e.elements;
+        var _s6 = e.elements;
         var i = e.element.getAttribute("type");
-        var a = "radio" === i || "checkbox" === i ? s[0] : e.element;
+        var a = ("radio" === i || "checkbox" === i) && _s6.length > 0 ? _s6[0] : e.element;
 
         if (this.messages.has(a)) {
-          var _s2 = this.messages.get(a);
+          var _s13 = this.messages.get(a);
 
-          var _i = _s2.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
+          var _i = _s13.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
 
           if (!_i && !e.result.valid) {
             var _i2 = document.createElement("div");
@@ -8217,7 +8249,7 @@
               c(_i2, _defineProperty({}, this.opts.clazz, true));
             }
 
-            _s2.appendChild(_i2);
+            _s13.appendChild(_i2);
 
             this.core.emit("plugins.message.displayed", {
               element: e.element,
@@ -8238,7 +8270,7 @@
               validator: e.validator
             });
           } else if (_i && e.result.valid) {
-            _s2.removeChild(_i);
+            _s13.removeChild(_i);
           }
         }
       }
@@ -8246,16 +8278,18 @@
       key: "onValidatorNotValidated",
       value: function onValidatorNotValidated(e) {
         var t = e.elements;
-        var s = e.element.getAttribute("type");
-        var i = "radio" === s || "checkbox" === s ? t[0] : e.element;
+
+        var _s8 = e.element.getAttribute("type");
+
+        var i = "radio" === _s8 || "checkbox" === _s8 ? t[0] : e.element;
 
         if (this.messages.has(i)) {
           var _t3 = this.messages.get(i);
 
-          var _s3 = _t3.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
+          var _s14 = _t3.querySelector("[data-field=\"".concat(e.field, "\"][data-validator=\"").concat(e.validator, "\"]"));
 
-          if (_s3) {
-            _t3.removeChild(_s3);
+          if (_s14) {
+            _t3.removeChild(_s14);
           }
         }
       }
@@ -8263,22 +8297,24 @@
       key: "onElementIgnored",
       value: function onElementIgnored(e) {
         var t = e.elements;
-        var s = e.element.getAttribute("type");
-        var i = "radio" === s || "checkbox" === s ? t[0] : e.element;
+
+        var _s10 = e.element.getAttribute("type");
+
+        var i = "radio" === _s10 || "checkbox" === _s10 ? t[0] : e.element;
 
         if (this.messages.has(i)) {
           var _t4 = this.messages.get(i);
 
-          var _s4 = [].slice.call(_t4.querySelectorAll("[data-field=\"".concat(e.field, "\"]")));
+          var _s15 = [].slice.call(_t4.querySelectorAll("[data-field=\"".concat(e.field, "\"]")));
 
-          _s4.forEach(function (e) {
+          _s15.forEach(function (e) {
             _t4.removeChild(e);
           });
         }
       }
     }], [{
       key: "getClosestContainer",
-      value: function getClosestContainer(e, t, s) {
+      value: function getClosestContainer(e, t, _s) {
         var i = e;
 
         while (i) {
@@ -8288,7 +8324,7 @@
 
           i = i.parentElement;
 
-          if (s.test(i.className)) {
+          if (_s.test(i.className)) {
             break;
           }
         }
@@ -8298,9 +8334,9 @@
     }]);
 
     return s;
-  }(t$10);
+  }(t$4);
 
-  var l$2 = /*#__PURE__*/function (_e) {
+  var l = /*#__PURE__*/function (_e) {
     _inherits(l, _e);
 
     var _super = _createSuper(l);
@@ -8341,12 +8377,13 @@
         this.core.on("core.element.ignored", this.elementIgnoredHandler).on("core.element.validating", this.elementValidatingHandler).on("core.element.validated", this.elementValidatedHandler).on("core.element.notvalidated", this.elementNotValidatedHandler).on("plugins.icon.placed", this.iconPlacedHandler).on("core.field.added", this.fieldAddedHandler).on("core.field.removed", this.fieldRemovedHandler);
 
         if (this.opts.defaultMessageContainer) {
-          this.core.registerPlugin("___frameworkMessage", new s$9({
+          this.core.registerPlugin("___frameworkMessage", new s$1({
             clazz: this.opts.messageClass,
             container: function container(e, t) {
-              var l = "string" === typeof _this2.opts.rowSelector ? _this2.opts.rowSelector : _this2.opts.rowSelector(e, t);
-              var a = t$13(t, l);
-              return s$9.getClosestContainer(t, a, _this2.opts.rowPattern);
+              var _l = "string" === typeof _this2.opts.rowSelector ? _this2.opts.rowSelector : _this2.opts.rowSelector(e, t);
+
+              var a = t$1(t, _l);
+              return s$1.getClosestContainer(t, a, _this2.opts.rowPattern);
             }
           }));
           this.core.on("plugins.message.placed", this.messagePlacedHandler);
@@ -8429,8 +8466,9 @@
     }, {
       key: "prepareElementContainer",
       value: function prepareElementContainer(e, i) {
-        var l = "string" === typeof this.opts.rowSelector ? this.opts.rowSelector : this.opts.rowSelector(e, i);
-        var a = t$13(i, l);
+        var _l2 = "string" === typeof this.opts.rowSelector ? this.opts.rowSelector : this.opts.rowSelector(e, i);
+
+        var a = t$1(i, _l2);
 
         if (a !== i) {
           var _t5;
@@ -8444,8 +8482,10 @@
       value: function onElementValidating(e) {
         var s = e.elements;
         var i = e.element.getAttribute("type");
-        var l = "radio" === i || "checkbox" === i ? s[0] : e.element;
-        var a = this.containers.get(l);
+
+        var _l3 = "radio" === i || "checkbox" === i ? s[0] : e.element;
+
+        var a = this.containers.get(_l3);
 
         if (a) {
           var _t6;
@@ -8466,12 +8506,18 @@
     }, {
       key: "removeClasses",
       value: function removeClasses(e, s) {
-        var _t7;
+        var _this6 = this;
 
         var i = e.getAttribute("type");
-        var l = "radio" === i || "checkbox" === i ? s[0] : e;
-        c(l, (_t7 = {}, _defineProperty(_t7, this.opts.eleValidClass, false), _defineProperty(_t7, this.opts.eleInvalidClass, false), _t7));
-        var a = this.containers.get(l);
+
+        var _l4 = "radio" === i || "checkbox" === i ? s[0] : e;
+
+        s.forEach(function (e) {
+          var _t7;
+
+          c(e, (_t7 = {}, _defineProperty(_t7, _this6.opts.eleValidClass, false), _defineProperty(_t7, _this6.opts.eleInvalidClass, false), _t7));
+        });
+        var a = this.containers.get(_l4);
 
         if (a) {
           var _t8;
@@ -8482,29 +8528,31 @@
     }, {
       key: "onElementValidated",
       value: function onElementValidated(e) {
-        var _this6 = this;
+        var _this7 = this;
 
         var s = e.elements;
         var i = e.element.getAttribute("type");
-        var l = "radio" === i || "checkbox" === i ? s[0] : e.element;
+
+        var _l5 = "radio" === i || "checkbox" === i ? s[0] : e.element;
+
         s.forEach(function (s) {
           var _t9;
 
-          c(s, (_t9 = {}, _defineProperty(_t9, _this6.opts.eleValidClass, e.valid), _defineProperty(_t9, _this6.opts.eleInvalidClass, !e.valid), _t9));
+          c(s, (_t9 = {}, _defineProperty(_t9, _this7.opts.eleValidClass, e.valid), _defineProperty(_t9, _this7.opts.eleInvalidClass, !e.valid), _t9));
         });
-        var a = this.containers.get(l);
+        var a = this.containers.get(_l5);
 
         if (a) {
           if (!e.valid) {
             var _t10;
 
-            this.results.set(l, false);
+            this.results.set(_l5, false);
             c(a, (_t10 = {}, _defineProperty(_t10, this.opts.rowInvalidClass, true), _defineProperty(_t10, this.opts.rowValidatingClass, false), _defineProperty(_t10, this.opts.rowValidClass, false), _t10));
           } else {
-            this.results["delete"](l);
+            this.results["delete"](_l5);
             var _e2 = true;
             this.containers.forEach(function (t, s) {
-              if (t === a && _this6.results.get(s) === false) {
+              if (t === a && _this7.results.get(s) === false) {
                 _e2 = false;
               }
             });
@@ -8520,9 +8568,9 @@
     }]);
 
     return l;
-  }(t$10);
+  }(t$4);
 
-  var i$1 = /*#__PURE__*/function (_e) {
+  var i$2 = /*#__PURE__*/function (_e) {
     _inherits(i, _e);
 
     var _super = _createSuper(i);
@@ -8589,9 +8637,9 @@
         var _this3 = this;
 
         if (t.length) {
-          var _i = t[0].getAttribute("type");
+          var _i8 = t[0].getAttribute("type");
 
-          if ("radio" === _i || "checkbox" === _i) {
+          if ("radio" === _i8 || "checkbox" === _i8) {
             this.prepareElementIcon(e, t[0]);
           } else {
             t.forEach(function (t) {
@@ -8602,10 +8650,12 @@
       }
     }, {
       key: "prepareElementIcon",
-      value: function prepareElementIcon(e, i) {
+      value: function prepareElementIcon(e, _i2) {
         var n = document.createElement("i");
         n.setAttribute("data-field", e);
-        i.parentNode.insertBefore(n, i.nextSibling);
+
+        _i2.parentNode.insertBefore(n, _i2.nextSibling);
+
         c(n, {
           "fv-plugins-icon": true
         });
@@ -8615,13 +8665,13 @@
             valid: this.opts.valid,
             validating: this.opts.validating
           },
-          element: i,
+          element: _i2,
           field: e,
           iconElement: n
         };
         this.core.emit("plugins.icon.placed", l);
         this.opts.onPlaced(l);
-        this.icons.set(i, n);
+        this.icons.set(_i2, n);
       }
     }, {
       key: "onElementValidating",
@@ -8629,14 +8679,14 @@
         var _this$setClasses;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses = {}, _defineProperty(_this$setClasses, this.opts.invalid, false), _defineProperty(_this$setClasses, this.opts.valid, false), _defineProperty(_this$setClasses, this.opts.validating, true), _this$setClasses));
-        var i = {
+        var _i3 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: "Validating"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i3);
+        this.opts.onSet(_i3);
       }
     }, {
       key: "onElementValidated",
@@ -8644,14 +8694,14 @@
         var _this$setClasses2;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses2 = {}, _defineProperty(_this$setClasses2, this.opts.invalid, !e.valid), _defineProperty(_this$setClasses2, this.opts.valid, e.valid), _defineProperty(_this$setClasses2, this.opts.validating, false), _this$setClasses2));
-        var i = {
+        var _i4 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: e.valid ? "Valid" : "Invalid"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i4);
+        this.opts.onSet(_i4);
       }
     }, {
       key: "onElementNotValidated",
@@ -8659,14 +8709,14 @@
         var _this$setClasses3;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses3 = {}, _defineProperty(_this$setClasses3, this.opts.invalid, false), _defineProperty(_this$setClasses3, this.opts.valid, false), _defineProperty(_this$setClasses3, this.opts.validating, false), _this$setClasses3));
-        var i = {
+        var _i5 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: "NotValidated"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i5);
+        this.opts.onSet(_i5);
       }
     }, {
       key: "onElementIgnored",
@@ -8674,20 +8724,21 @@
         var _this$setClasses4;
 
         var t = this.setClasses(e.field, e.element, e.elements, (_this$setClasses4 = {}, _defineProperty(_this$setClasses4, this.opts.invalid, false), _defineProperty(_this$setClasses4, this.opts.valid, false), _defineProperty(_this$setClasses4, this.opts.validating, false), _this$setClasses4));
-        var i = {
+        var _i6 = {
           element: e.element,
           field: e.field,
           iconElement: t,
           status: "Ignored"
         };
-        this.core.emit("plugins.icon.set", i);
-        this.opts.onSet(i);
+        this.core.emit("plugins.icon.set", _i6);
+        this.opts.onSet(_i6);
       }
     }, {
       key: "setClasses",
-      value: function setClasses(e, i, n, l) {
-        var s = i.getAttribute("type");
-        var d = "radio" === s || "checkbox" === s ? n[0] : i;
+      value: function setClasses(e, _i7, n, l) {
+        var s = _i7.getAttribute("type");
+
+        var d = "radio" === s || "checkbox" === s ? n[0] : _i7;
 
         if (this.icons.has(d)) {
           var _e2 = this.icons.get(d);
@@ -8701,9 +8752,9 @@
     }]);
 
     return i;
-  }(t$10);
+  }(t$4);
 
-  var i$2 = /*#__PURE__*/function (_e) {
+  var i$1 = /*#__PURE__*/function (_e) {
     _inherits(i, _e);
 
     var _super = _createSuper(i);
@@ -8739,23 +8790,24 @@
       }
     }, {
       key: "shouldValidate",
-      value: function shouldValidate(e, i, t, l) {
-        var d = (this.opts.enabled === true || this.opts.enabled[e] === true) && this.invalidFields.has(i) && !!this.invalidFields.get(i).length && this.invalidFields.get(i).indexOf(l) === -1;
+      value: function shouldValidate(e, _i, t, l) {
+        var d = (this.opts.enabled === true || this.opts.enabled[e] === true) && this.invalidFields.has(_i) && !!this.invalidFields.get(_i).length && this.invalidFields.get(_i).indexOf(l) === -1;
         return !d;
       }
     }, {
       key: "onValidatorValidated",
       value: function onValidatorValidated(e) {
-        var i = this.invalidFields.has(e.element) ? this.invalidFields.get(e.element) : [];
-        var t = i.indexOf(e.validator);
+        var _i2 = this.invalidFields.has(e.element) ? this.invalidFields.get(e.element) : [];
+
+        var t = _i2.indexOf(e.validator);
 
         if (e.result.valid && t >= 0) {
-          i.splice(t, 1);
+          _i2.splice(t, 1);
         } else if (!e.result.valid && t === -1) {
-          i.push(e.validator);
+          _i2.push(e.validator);
         }
 
-        this.invalidFields.set(e.element, i);
+        this.invalidFields.set(e.element, _i2);
       }
     }, {
       key: "onFieldAdded",
@@ -8786,9 +8838,9 @@
     }]);
 
     return i;
-  }(t$10);
+  }(t$4);
 
-  var e$H = /*#__PURE__*/function (_t) {
+  var e = /*#__PURE__*/function (_t) {
     _inherits(e, _t);
 
     var _super = _createSuper(e);
@@ -8855,13 +8907,13 @@
     }, {
       key: "handleClickEvent",
       value: function handleClickEvent(t) {
-        var e = t.currentTarget;
+        var _e = t.currentTarget;
 
-        if (e instanceof HTMLElement) {
+        if (_e instanceof HTMLElement) {
           if (this.opts.aspNetButton && this.isFormValid === true) ; else {
-            var _e = this.core.getFormElement();
+            var _e3 = this.core.getFormElement();
 
-            _e.removeEventListener("submit", this.submitHandler);
+            _e3.removeEventListener("submit", this.submitHandler);
 
             this.clickedButton = t.target;
             var i = this.clickedButton.getAttribute("name");
@@ -8895,9 +8947,9 @@
     }]);
 
     return e;
-  }(t$10);
+  }(t$4);
 
-  var i$3 = /*#__PURE__*/function (_t) {
+  var i = /*#__PURE__*/function (_t) {
     _inherits(i, _t);
 
     var _super = _createSuper(i);
@@ -8978,9 +9030,9 @@
         if (!t.result.valid) {
           var _e2 = t.elements;
 
-          var _i = t.element.getAttribute("type");
+          var _i4 = t.element.getAttribute("type");
 
-          var s = "radio" === _i || "checkbox" === _i ? _e2[0] : t.element;
+          var s = "radio" === _i4 || "checkbox" === _i4 ? _e2[0] : t.element;
           var o = typeof t.result.message === "string" ? t.result.message : t.result.message[this.core.getLocale()];
           this.messages.set(s, o);
         }
@@ -8991,9 +9043,9 @@
         if (t.valid) {
           var _e3 = t.elements;
 
-          var _i2 = t.element.getAttribute("type");
+          var _i5 = t.element.getAttribute("type");
 
-          var s = "radio" === _i2 || "checkbox" === _i2 ? _e3[0] : t.element;
+          var s = "radio" === _i5 || "checkbox" === _i5 ? _e3[0] : t.element;
           this.messages["delete"](s);
         }
       }
@@ -9004,9 +9056,10 @@
       }
     }, {
       key: "show",
-      value: function show(t, i) {
-        i.preventDefault();
-        i.stopPropagation();
+      value: function show(t, _i3) {
+        _i3.preventDefault();
+
+        _i3.stopPropagation();
 
         if (!this.messages.has(t)) {
           return;
@@ -9016,7 +9069,7 @@
           "fv-plugins-tooltip--hide": false
         });
         this.tip.innerHTML = "<div class=\"fv-plugins-tooltip__content\">".concat(this.messages.get(t), "</div>");
-        var s = i.target;
+        var s = _i3.target;
         var o = s.getBoundingClientRect();
 
         var _this$tip$getBounding = this.tip.getBoundingClientRect(),
@@ -9085,9 +9138,9 @@
     }]);
 
     return i;
-  }(t$10);
+  }(t$4);
 
-  var t$14 = /*#__PURE__*/function (_e) {
+  var t = /*#__PURE__*/function (_e) {
     _inherits(t, _e);
 
     var _super = _createSuper(t);
@@ -9134,10 +9187,10 @@
       }
     }, {
       key: "prepareHandler",
-      value: function prepareHandler(e, t) {
+      value: function prepareHandler(e, _t2) {
         var _this2 = this;
 
-        t.forEach(function (t) {
+        _t2.forEach(function (_t3) {
           var i = [];
 
           if (!!_this2.opts.event && _this2.opts.event[e] === false) {
@@ -9147,46 +9200,47 @@
           } else if ("string" === typeof _this2.opts.event && _this2.opts.event !== _this2.defaultEvent) {
             i = _this2.opts.event.split(" ");
           } else {
-            var _e2 = t.getAttribute("type");
+            var _e2 = _t3.getAttribute("type");
 
-            var s = t.tagName.toLowerCase();
-            var n = "radio" === _e2 || "checkbox" === _e2 || "file" === _e2 || "select" === s ? "change" : _this2.ieVersion >= 10 && t.getAttribute("placeholder") ? "keyup" : _this2.defaultEvent;
+            var s = _t3.tagName.toLowerCase();
+
+            var n = "radio" === _e2 || "checkbox" === _e2 || "file" === _e2 || "select" === s ? "change" : _this2.ieVersion >= 10 && _t3.getAttribute("placeholder") ? "keyup" : _this2.defaultEvent;
             i = [n];
           }
 
           i.forEach(function (i) {
             var s = function s(i) {
-              return _this2.handleEvent(i, e, t);
+              return _this2.handleEvent(i, e, _t3);
             };
 
             _this2.handlers.push({
-              element: t,
+              element: _t3,
               event: i,
               field: e,
               handler: s
             });
 
-            t.addEventListener(i, s);
+            _t3.addEventListener(i, s);
           });
         });
       }
     }, {
       key: "handleEvent",
-      value: function handleEvent(e, t, i) {
+      value: function handleEvent(e, _t4, i) {
         var _this3 = this;
 
-        if (this.exceedThreshold(t, i) && this.core.executeFilter("plugins-trigger-should-validate", true, [t, i])) {
+        if (this.exceedThreshold(_t4, i) && this.core.executeFilter("plugins-trigger-should-validate", true, [_t4, i])) {
           var s = function s() {
-            return _this3.core.validateElement(t, i).then(function (s) {
+            return _this3.core.validateElement(_t4, i).then(function (s) {
               _this3.core.emit("plugins.trigger.executed", {
                 element: i,
                 event: e,
-                field: t
+                field: _t4
               });
             });
           };
 
-          var n = this.opts.delay[t] || this.opts.delay;
+          var n = this.opts.delay[_t4] || this.opts.delay;
 
           if (n === 0) {
             s();
@@ -9204,8 +9258,8 @@
     }, {
       key: "onFieldAdded",
       value: function onFieldAdded(e) {
-        this.handlers.filter(function (t) {
-          return t.field === e.field;
+        this.handlers.filter(function (_t5) {
+          return _t5.field === e.field;
         }).forEach(function (e) {
           return e.element.removeEventListener(e.event, e.handler);
         });
@@ -9214,77 +9268,77 @@
     }, {
       key: "onFieldRemoved",
       value: function onFieldRemoved(e) {
-        this.handlers.filter(function (t) {
-          return t.field === e.field && e.elements.indexOf(t.element) >= 0;
+        this.handlers.filter(function (_t6) {
+          return _t6.field === e.field && e.elements.indexOf(_t6.element) >= 0;
         }).forEach(function (e) {
           return e.element.removeEventListener(e.event, e.handler);
         });
       }
     }, {
       key: "exceedThreshold",
-      value: function exceedThreshold(e, t) {
+      value: function exceedThreshold(e, _t7) {
         var i = this.opts.threshold[e] === 0 || this.opts.threshold === 0 ? false : this.opts.threshold[e] || this.opts.threshold;
 
         if (!i) {
           return true;
         }
 
-        var s = t.getAttribute("type");
+        var s = _t7.getAttribute("type");
 
         if (["button", "checkbox", "file", "hidden", "image", "radio", "reset", "submit"].indexOf(s) !== -1) {
           return true;
         }
 
-        var n = this.core.getElementValue(e, t);
+        var n = this.core.getElementValue(e, _t7);
         return n.length >= i;
       }
     }]);
 
     return t;
-  }(t$10);
+  }(t$4);
 
-  var index$2 = {
-    Alias: e$D,
-    Aria: i,
-    Declarative: t$11,
-    DefaultSubmit: o$4,
-    Dependency: e$E,
-    Excluded: e$F,
-    FieldStatus: t$12,
-    Framework: l$2,
-    Icon: i$1,
-    Message: s$9,
-    Sequence: i$2,
-    SubmitButton: e$H,
-    Tooltip: i$3,
-    Trigger: t$14
+  var index$1 = {
+    Alias: e$4,
+    Aria: i$3,
+    Declarative: t$3,
+    DefaultSubmit: o,
+    Dependency: e$3,
+    Excluded: e$2,
+    FieldStatus: t$2,
+    Framework: l,
+    Icon: i$2,
+    Message: s$1,
+    Sequence: i$1,
+    SubmitButton: e,
+    Tooltip: i,
+    Trigger: t
   };
 
-  function s$a(s, t) {
+  function s(s, t) {
     return s.classList ? s.classList.contains(t) : new RegExp("(^| )".concat(t, "( |$)"), "gi").test(s.className);
   }
 
-  var index$3 = {
-    call: t$6,
+  var index = {
+    call: t$_,
     classSet: c,
-    closest: t$13,
-    fetch: e$4,
-    format: r,
-    hasClass: s$a,
-    isValidDate: t$9
+    closest: t$1,
+    fetch: e$D,
+    format: r$d,
+    hasClass: s,
+    isValidDate: t$X
   };
 
   var p = {};
 
-  exports.Plugin = t$10;
-  exports.algorithms = index;
-  exports.filters = index$1;
-  exports.formValidation = r$d;
+  exports.Plugin = t$4;
+  exports.algorithms = index$3;
+  exports.filters = index$2;
+  exports.formValidation = r;
   exports.locales = p;
-  exports.plugins = index$2;
-  exports.utils = index$3;
-  exports.validators = s$7;
+  exports.plugins = index$1;
+  exports.utils = index;
+  exports.validators = s$3;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

@@ -26,12 +26,10 @@ define(["require", "exports"], function (require, exports) {
             var lastThree = parseInt(v.substr(2), 10);
             return {
                 meta: {},
-                valid: ('GD' === firstTwo && lastThree < 500) ||
-                    ('HA' === firstTwo && lastThree >= 500),
+                valid: ('GD' === firstTwo && lastThree < 500) || ('HA' === firstTwo && lastThree >= 500),
             };
         }
-        else if (length === 11 &&
-            ('GD8888' === v.substr(0, 6) || 'HA8888' === v.substr(0, 6))) {
+        else if (length === 11 && ('GD8888' === v.substr(0, 6) || 'HA8888' === v.substr(0, 6))) {
             if (('GD' === v.substr(0, 2) && parseInt(v.substr(6, 3), 10) >= 500) ||
                 ('HA' === v.substr(0, 2) && parseInt(v.substr(6, 3), 10) < 500)) {
                 return {
@@ -41,8 +39,7 @@ define(["require", "exports"], function (require, exports) {
             }
             return {
                 meta: {},
-                valid: parseInt(v.substr(6, 3), 10) % 97 ===
-                    parseInt(v.substr(9, 2), 10),
+                valid: parseInt(v.substr(6, 3), 10) % 97 === parseInt(v.substr(9, 2), 10),
             };
         }
         else if (length === 9 || length === 12) {
@@ -52,9 +49,7 @@ define(["require", "exports"], function (require, exports) {
                 sum += parseInt(v.charAt(i), 10) * weight[i];
             }
             sum = sum % 97;
-            var isValid = parseInt(v.substr(0, 3), 10) >= 100
-                ? sum === 0 || sum === 42 || sum === 55
-                : sum === 0;
+            var isValid = parseInt(v.substr(0, 3), 10) >= 100 ? sum === 0 || sum === 42 || sum === 55 : sum === 0;
             return {
                 meta: {},
                 valid: isValid,

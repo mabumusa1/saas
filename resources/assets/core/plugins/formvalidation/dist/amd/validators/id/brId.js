@@ -3,8 +3,7 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function brId(value) {
         var v = value.replace(/\D/g, '');
-        if (!/^\d{11}$/.test(v) ||
-            /^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(v)) {
+        if (!/^\d{11}$/.test(v) || /^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(v)) {
             return {
                 meta: {},
                 valid: false,

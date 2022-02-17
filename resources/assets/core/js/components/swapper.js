@@ -81,6 +81,10 @@ var KTSwapper = function(element, options) {
         }
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('swapper');
+    }
+
     // Construct Class
     _construct();
 
@@ -91,6 +95,10 @@ var KTSwapper = function(element, options) {
     // Methods
     the.update = function() {
         _update();
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

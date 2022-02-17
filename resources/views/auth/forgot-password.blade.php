@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     <!--begin::Forgot Password Form-->
     <form method="POST" action="{{ theme()->getPageUrl('password.email') }}" class="form w-100" novalidate="novalidate" id="kt_password_reset_form">
     @csrf

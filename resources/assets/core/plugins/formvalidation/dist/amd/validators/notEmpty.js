@@ -7,8 +7,7 @@ define(["require", "exports"], function (require, exports) {
                 var trim = !!input.options && !!input.options.trim;
                 var value = input.value;
                 return {
-                    valid: (!trim && value !== '') ||
-                        (trim && value !== '' && value.trim() !== ''),
+                    valid: (!trim && value !== '') || (trim && value !== '' && value.trim() !== ''),
                 };
             },
         };

@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Foundation = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Foundation = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -69,7 +69,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -87,6 +87,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -134,15 +136,15 @@
     _createClass(o, [{
       key: "onIconPlaced",
       value: function onIconPlaced(e) {
-        var o = e.element.getAttribute("type");
+        var _o = e.element.getAttribute("type");
 
-        if ("checkbox" === o || "radio" === o) {
-          var _o = e.iconElement.nextSibling;
+        if ("checkbox" === _o || "radio" === _o) {
+          var _o3 = e.iconElement.nextSibling;
 
-          if ("LABEL" === _o.nodeName) {
-            _o.parentNode.insertBefore(e.iconElement, _o.nextSibling);
-          } else if ("#text" === _o.nodeName) {
-            var n = _o.nextSibling;
+          if ("LABEL" === _o3.nodeName) {
+            _o3.parentNode.insertBefore(e.iconElement, _o3.nextSibling);
+          } else if ("#text" === _o3.nodeName) {
+            var n = _o3.nextSibling;
 
             if (n && "LABEL" === n.nodeName) {
               n.parentNode.insertBefore(e.iconElement, n.nextSibling);
@@ -157,4 +159,4 @@
 
   return o;
 
-})));
+}));

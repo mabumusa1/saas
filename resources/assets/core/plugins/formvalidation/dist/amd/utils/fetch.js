@@ -15,14 +15,10 @@ define(["require", "exports"], function (require, exports) {
                 params: {},
             }, options);
             var params = Object.keys(opts.params)
-                .map(function (k) {
-                return encodeURIComponent(k) + "=" + encodeURIComponent(opts.params[k]);
-            })
+                .map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(opts.params[k]); })
                 .join('&');
             var hasQuery = url.indexOf('?');
-            var requestUrl = 'GET' === opts.method
-                ? "" + url + (hasQuery ? '?' : '&') + params
-                : url;
+            var requestUrl = 'GET' === opts.method ? "" + url + (hasQuery ? '?' : '&') + params : url;
             if (opts.crossDomain) {
                 var script_1 = document.createElement('script');
                 var callback_1 = "___fetch" + Date.now() + "___";
@@ -45,9 +41,7 @@ define(["require", "exports"], function (require, exports) {
                 if ('POST' === opts.method) {
                     request_1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 }
-                Object.keys(opts.headers).forEach(function (k) {
-                    return request_1.setRequestHeader(k, opts.headers[k]);
-                });
+                Object.keys(opts.headers).forEach(function (k) { return request_1.setRequestHeader(k, opts.headers[k]); });
                 request_1.addEventListener('load', function () {
                     resolve(JSON.parse(this.responseText));
                 });

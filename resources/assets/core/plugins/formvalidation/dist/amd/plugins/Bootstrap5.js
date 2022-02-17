@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -41,11 +43,10 @@ define(["require", "exports", "../utils/classSet", "../utils/hasClass", "./Frame
             var type = e.element.getAttribute('type');
             if (('checkbox' === type || 'radio' === type) &&
                 e.elements.length > 1 &&
-                hasClass_1.default(e.element, 'form-check-input')) {
+                (0, hasClass_1.default)(e.element, 'form-check-input')) {
                 var inputParent = e.element.parentElement;
-                if (hasClass_1.default(inputParent, 'form-check') &&
-                    hasClass_1.default(inputParent, 'form-check-inline')) {
-                    classSet_1.default(inputParent, {
+                if ((0, hasClass_1.default)(inputParent, 'form-check') && (0, hasClass_1.default)(inputParent, 'form-check-inline')) {
+                    (0, classSet_1.default)(inputParent, {
                         'is-invalid': !e.valid,
                         'is-valid': e.valid,
                     });
@@ -53,15 +54,14 @@ define(["require", "exports", "../utils/classSet", "../utils/hasClass", "./Frame
             }
         };
         Bootstrap5.prototype.onIconPlaced = function (e) {
-            classSet_1.default(e.element, {
+            (0, classSet_1.default)(e.element, {
                 'fv-plugins-icon-input': true,
             });
             var parent = e.element.parentElement;
-            if (hasClass_1.default(parent, 'input-group')) {
+            if ((0, hasClass_1.default)(parent, 'input-group')) {
                 parent.parentElement.insertBefore(e.iconElement, parent.nextSibling);
-                if (e.element.nextElementSibling &&
-                    hasClass_1.default(e.element.nextElementSibling, 'input-group-text')) {
-                    classSet_1.default(e.iconElement, {
+                if (e.element.nextElementSibling && (0, hasClass_1.default)(e.element.nextElementSibling, 'input-group-text')) {
+                    (0, classSet_1.default)(e.iconElement, {
                         'fv-plugins-icon-input-group': true,
                     });
                 }
@@ -69,14 +69,14 @@ define(["require", "exports", "../utils/classSet", "../utils/hasClass", "./Frame
             var type = e.element.getAttribute('type');
             if ('checkbox' === type || 'radio' === type) {
                 var grandParent = parent.parentElement;
-                if (hasClass_1.default(parent, 'form-check')) {
-                    classSet_1.default(e.iconElement, {
+                if ((0, hasClass_1.default)(parent, 'form-check')) {
+                    (0, classSet_1.default)(e.iconElement, {
                         'fv-plugins-icon-check': true,
                     });
                     parent.parentElement.insertBefore(e.iconElement, parent.nextSibling);
                 }
-                else if (hasClass_1.default(parent.parentElement, 'form-check')) {
-                    classSet_1.default(e.iconElement, {
+                else if ((0, hasClass_1.default)(parent.parentElement, 'form-check')) {
+                    (0, classSet_1.default)(e.iconElement, {
                         'fv-plugins-icon-check': true,
                     });
                     grandParent.parentElement.insertBefore(e.iconElement, grandParent.nextSibling);
@@ -86,18 +86,18 @@ define(["require", "exports", "../utils/classSet", "../utils/hasClass", "./Frame
         Bootstrap5.prototype.onMessagePlaced = function (e) {
             e.messageElement.classList.add('invalid-feedback');
             var inputParent = e.element.parentElement;
-            if (hasClass_1.default(inputParent, 'input-group')) {
+            if ((0, hasClass_1.default)(inputParent, 'input-group')) {
                 inputParent.appendChild(e.messageElement);
-                classSet_1.default(inputParent, {
+                (0, classSet_1.default)(inputParent, {
                     'has-validation': true,
                 });
                 return;
             }
             var type = e.element.getAttribute('type');
             if (('checkbox' === type || 'radio' === type) &&
-                hasClass_1.default(e.element, 'form-check-input') &&
-                hasClass_1.default(inputParent, 'form-check') &&
-                !hasClass_1.default(inputParent, 'form-check-inline')) {
+                (0, hasClass_1.default)(e.element, 'form-check-input') &&
+                (0, hasClass_1.default)(inputParent, 'form-check') &&
+                !(0, hasClass_1.default)(inputParent, 'form-check-inline')) {
                 e.elements[e.elements.length - 1].parentElement.appendChild(e.messageElement);
             }
         };

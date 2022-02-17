@@ -30,6 +30,11 @@
     }   
 }
 
+// Hover transparent
+.border-hover-transparent:hover {
+    border-color: transparent !important;
+}
+
 // Dashed style
 .border-dashed {
     border-style: dashed !important;
@@ -76,6 +81,11 @@
 // Border transparent
 .border-transparent {
     border-color: transparent !important;
+}
+
+// Border body
+.border-body {
+    border-color: $body-bg !important;
 }
 
 // Border radiuses

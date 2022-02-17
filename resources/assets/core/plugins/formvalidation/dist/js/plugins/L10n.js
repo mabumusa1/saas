@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.L10n = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.L10n = factory()));
+})(this, (function () { 'use strict';
 
   function _typeof(obj) {
     "@babel/helpers - typeof";
@@ -85,7 +85,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -103,6 +103,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -156,16 +158,16 @@
       }
     }, {
       key: "getMessage",
-      value: function getMessage(t, e, s) {
-        if (this.opts[e] && this.opts[e][s]) {
-          var i = this.opts[e][s];
+      value: function getMessage(t, _e, s) {
+        if (this.opts[_e] && this.opts[_e][s]) {
+          var i = this.opts[_e][s];
 
           var r = _typeof(i);
 
           if ("object" === r && i[t]) {
             return i[t];
           } else if ("function" === r) {
-            var _r = i.apply(this, [e, s]);
+            var _r = i.apply(this, [_e, s]);
 
             return _r && _r[t] ? _r[t] : "";
           }
@@ -180,4 +182,4 @@
 
   return e;
 
-})));
+}));

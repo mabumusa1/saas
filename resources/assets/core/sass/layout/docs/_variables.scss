@@ -3,7 +3,7 @@
 //
 
 // Content background Color
-$docs-page-bg-color:  $gray-100 !default;
+$docs-page-bg-color:  if(isDarkMode(), #151521, $gray-100) !default;
 
 // Content Spacing
 $docs-content-spacing: (

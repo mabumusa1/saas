@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.fi_FI = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.fi_FI = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Finnish language package
@@ -224,8 +224,7 @@
             default: 'Ole hyvä anna kelvollinen ISSN numero',
         },
         lessThan: {
-            default:
-                'Ole hyvä anna arvo joka on vähemmän kuin tai yhtä suuri kuin %s',
+            default: 'Ole hyvä anna arvo joka on vähemmän kuin tai yhtä suuri kuin %s',
             notInclusive: 'Ole hyvä anna arvo joka on vähemmän kuin %s',
         },
         mac: {
@@ -295,8 +294,7 @@
             upper: 'Ole hyvä anna pelkästään isoja kirjaimia',
         },
         stringLength: {
-            between:
-                'Ole hyvä anna arvo joka on vähintään %s ja enintään %s merkkiä pitkä',
+            between: 'Ole hyvä anna arvo joka on vähintään %s ja enintään %s merkkiä pitkä',
             default: 'Ole hyvä anna kelvollisen mittainen merkkijono',
             less: 'Ole hyvä anna vähemmän kuin %s merkkiä',
             more: 'Ole hyvä anna vähintään %s merkkiä',
@@ -388,4 +386,4 @@
 
     return fi_FI;
 
-})));
+}));

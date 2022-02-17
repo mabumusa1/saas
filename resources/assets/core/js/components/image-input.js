@@ -77,8 +77,8 @@ var KTImageInput = function(element, options) {
 
             reader.readAsDataURL(the.inputElement.files[0]);
 
-            KTUtil.addClass(the.element, 'image-input-changed');
-            KTUtil.removeClass(the.element, 'image-input-empty');
+            the.element.classList.add('image-input-changed');
+            the.element.classList.remove('image-input-empty');
 
             // Fire removed event
             KTEventHandler.trigger(the.element, 'kt.imageinput.changed', the);
@@ -93,9 +93,16 @@ var KTImageInput = function(element, options) {
             return;
         }
 
-        KTUtil.removeClass(the.element, 'image-input-changed');
-        KTUtil.removeClass(the.element, 'image-input-empty');
-        KTUtil.css(the.wrapperElement, 'background-image', the.src);
+        the.element.classList.remove('image-input-changed');
+        the.element.classList.remove('image-input-empty');
+
+        if (the.src === 'none') {   
+            KTUtil.css(the.wrapperElement, 'background-image', '');
+            the.element.classList.add('image-input-empty');
+        } else {
+            KTUtil.css(the.wrapperElement, 'background-image', the.src);
+        }
+        
         the.inputElement.value = "";
 
         if ( the.hiddenElement !== null ) {
@@ -114,8 +121,9 @@ var KTImageInput = function(element, options) {
             return;
         }
 
-        KTUtil.removeClass(the.element, 'image-input-changed');
-        KTUtil.addClass(the.element, 'image-input-empty');
+        the.element.classList.remove('image-input-changed');
+        the.element.classList.add('image-input-empty');
+
         KTUtil.css(the.wrapperElement, 'background-image', "none");
         the.inputElement.value = "";
 
@@ -125,6 +133,10 @@ var KTImageInput = function(element, options) {
 
         // Fire removed event
         KTEventHandler.trigger(the.element, 'kt.imageinput.removed', the);
+    }
+
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('image-input');
     }
 
     // Construct Class
@@ -141,6 +153,10 @@ var KTImageInput = function(element, options) {
 
     the.goElement = function() {
         return the.element;
+    }
+    
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

@@ -3,18 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
+ */
 class AccountFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Account::class;
-
     /**
      * Define the model's default state.
      *
@@ -23,8 +19,25 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'softdeletes' => $this->faker->word,
+            'name' =>  $this->faker->firstName(),
+            'data_center_id' => 1,
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        //Create users with all the possible roles
+        return $this->afterCreating(function (Account $account) {
+            $roles = ['fb', 'fnb', 'pb', 'pnb'];
+            User::factory()->owner()->create(['account_id' => $account->id]);
+            foreach ($roles as $role) {
+                User::factory()->create(['account_id' => $account->id, 'role' => $role]);
+            }
+        });
     }
 }

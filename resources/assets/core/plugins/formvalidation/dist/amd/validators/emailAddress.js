@@ -19,8 +19,7 @@ define(["require", "exports"], function (require, exports) {
                         for (var j = 1; j < splitEmailAddressFragmentCount - 1; j++) {
                             emailAddressArray.push(splitEmailAddressFragments[j]);
                         }
-                        nextEmailAddress =
-                            splitEmailAddressFragments[splitEmailAddressFragmentCount - 1];
+                        nextEmailAddress = splitEmailAddressFragments[splitEmailAddressFragmentCount - 1];
                     }
                 }
                 else {

@@ -15,7 +15,7 @@ define(["require", "exports", "../../algorithms/luhn"], function (require, expor
         v = v.substr(0, 10);
         return {
             meta: {},
-            valid: luhn_1.default(v),
+            valid: (0, luhn_1.default)(v),
         };
     }
     exports.default = seVat;

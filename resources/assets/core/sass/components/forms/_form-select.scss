@@ -25,11 +25,11 @@
 		}
 	}
 
-	// White style
-	&.form-select-white {
+	// Transparent style
+	&.form-select-transparent {
 		@include placeholder($input-placeholder-color);
-		background-color: $body-bg;
-		border-color: $body-bg;
+		background-color: transparent;
+		border-color: transparent;
 		color: $input-color;
 
 		.dropdown.show > &,
@@ -37,8 +37,8 @@
 		&.active,
 		&:focus,
 		&.focus {
-			background-color: $body-bg;
-			border-color: $body-bg !important;
+			background-color: transparent;
+			border-color: transparent !important;
 			color: $input-color;
 		}
 	}

@@ -12,9 +12,10 @@ $flatpickr-time-height: 46px;
 .flatpickr-calendar {    
     font-family: inherit;
     border: 0;
+    border-radius: 0;
 	box-shadow: $dropdown-box-shadow;
-    border-radius: $dropdown-border-radius;
     background-color: $body-bg;
+    @include border-radius($dropdown-border-radius);
 
     // Remow arrows
     &:before,

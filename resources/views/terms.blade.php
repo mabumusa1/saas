@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     <div class="row justify-content-center pt-4">
         <div class="col-6">
             <div>
@@ -12,4 +12,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-auth-layout>

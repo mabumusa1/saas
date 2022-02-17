@@ -13,9 +13,7 @@ define(["require", "exports"], function (require, exports) {
                 }
                 else {
                     var pattern = reg.toString();
-                    var exp = input.options.flags
-                        ? new RegExp(pattern, input.options.flags)
-                        : new RegExp(pattern);
+                    var exp = input.options.flags ? new RegExp(pattern, input.options.flags) : new RegExp(pattern);
                     return { valid: exp.test(input.value) };
                 }
             },

@@ -10,7 +10,7 @@ define(["require", "exports", "../../algorithms/luhn"], function (require, expor
         }
         return {
             meta: {},
-            valid: luhn_1.default(value),
+            valid: (0, luhn_1.default)(value),
         };
     }
     exports.default = ilId;

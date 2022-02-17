@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -38,22 +40,16 @@ define(["require", "exports", "../core/Plugin"], function (require, exports, Plu
                 }
                 _this.core.addField(field, opts[field]);
             });
-            this.core
-                .on('core.field.added', this.fieldAddedHandler)
-                .on('core.field.removed', this.fieldRemovedHandler);
+            this.core.on('core.field.added', this.fieldAddedHandler).on('core.field.removed', this.fieldRemovedHandler);
         };
         Declarative.prototype.uninstall = function () {
             this.addedFields.clear();
-            this.core
-                .off('core.field.added', this.fieldAddedHandler)
-                .off('core.field.removed', this.fieldRemovedHandler);
+            this.core.off('core.field.added', this.fieldAddedHandler).off('core.field.removed', this.fieldRemovedHandler);
         };
         Declarative.prototype.onFieldAdded = function (e) {
             var _this = this;
             var elements = e.elements;
-            if (!elements ||
-                elements.length === 0 ||
-                this.addedFields.has(e.field)) {
+            if (!elements || elements.length === 0 || this.addedFields.has(e.field)) {
                 return;
             }
             this.addedFields.set(e.field, true);
@@ -83,18 +79,14 @@ define(["require", "exports", "../core/Plugin"], function (require, exports, Plu
             elements.forEach(function (ele) {
                 var validators = _this.parseElement(ele);
                 if (!_this.isEmptyOption(validators)) {
-                    var field = ele.getAttribute('name') ||
-                        ele.getAttribute(prefix + "field");
+                    var field = ele.getAttribute('name') || ele.getAttribute(prefix + "field");
                     opts[field] = Object.assign({}, opts[field], validators);
                 }
             });
             Object.keys(opts).forEach(function (field) {
                 Object.keys(opts[field].validators).forEach(function (v) {
-                    opts[field].validators[v].enabled =
-                        opts[field].validators[v].enabled || false;
-                    if (fields[field] &&
-                        fields[field].validators &&
-                        fields[field].validators[v]) {
+                    opts[field].validators[v].enabled = opts[field].validators[v].enabled || false;
+                    if (fields[field] && fields[field].validators && fields[field].validators[v]) {
                         Object.assign(opts[field].validators[v], fields[field].validators[v]);
                     }
                 });
@@ -125,8 +117,7 @@ define(["require", "exports", "../core/Plugin"], function (require, exports, Plu
                 var items = reg.exec(name_1);
                 if (items && items.length === 4) {
                     var pluginName = this.toCamelCase(items[1]);
-                    plugins[pluginName] = Object.assign({}, items[3]
-                        ? (_a = {}, _a[this.toCamelCase(items[3])] = value, _a) : { enabled: '' === value || 'true' === value }, plugins[pluginName]);
+                    plugins[pluginName] = Object.assign({}, items[3] ? (_a = {}, _a[this.toCamelCase(items[3])] = value, _a) : { enabled: '' === value || 'true' === value }, plugins[pluginName]);
                 }
             }
             Object.keys(plugins).forEach(function (pluginName) {
@@ -143,8 +134,7 @@ define(["require", "exports", "../core/Plugin"], function (require, exports, Plu
         };
         Declarative.prototype.isEmptyOption = function (opts) {
             var validators = opts.validators;
-            return (Object.keys(validators).length === 0 &&
-                validators.constructor === Object);
+            return Object.keys(validators).length === 0 && validators.constructor === Object;
         };
         Declarative.prototype.parseElement = function (ele) {
             var _a;

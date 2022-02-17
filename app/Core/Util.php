@@ -315,15 +315,15 @@ class Util
         echo self::getIf($cond, $value, $alt);
     }
 
-    public static function notice($text, $state = 'danger', $icon = 'icons/duotone/Tools/Compass.svg')
+    public static function notice($text, $state = 'danger', $icon = 'icons/duotune/art/art006.svg')
     {
         $html = '';
 
         $html .= '<!--begin::Notice-->';
-        $html .= '<div class="d-flex align-items-center rounded py-4 px-4 bg-light-'.$state.' ">';
+        $html .= '<div class="d-flex align-items-center rounded py-5 px-4 bg-light-'.$state.' ">';
         $html .= '  <!--begin::Icon-->';
-        $html .= '  <div class="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative ms-5 me-8">';
-        $html .= '      '.Theme::getSvgIcon('icons/duotone/Layout/Layout-polygon.svg', 'svg-icon-'.$state.' position-absolute opacity-10', 'w-80px h-80px');
+        $html .= '  <div class="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative ms-3 me-6">';
+        $html .= '      '.Theme::getSvgIcon('icons/duotune/abstract/abs051.svg', 'svg-icon-'.$state.' position-absolute opacity-10', 'w-80px h-80px');
         $html .= '	    '.Theme::getSvgIcon($icon, 'svg-icon-3x svg-icon-'.$state.'  position-absolute');
         $html .= '  </div>';
         $html .= '  <!--end::Icon-->';
@@ -339,7 +339,7 @@ class Util
         echo $html;
     }
 
-    public static function info($text, $state = 'danger', $icon = 'icons/duotone/Code/Info-circle.svg')
+    public static function info($text, $state = 'danger', $icon = 'icons/duotune/general/gen044.svg')
     {
         $html = '';
 
@@ -360,9 +360,13 @@ class Util
         echo $html;
     }
 
-    public static function getHtmlAttributes($attributes)
+    public static function getHtmlAttributes($attributes = [])
     {
         $result = [];
+
+        if (empty($attributes)) {
+            return false;
+        }
 
         foreach ($attributes as $name => $value) {
             if (! empty($value)) {
@@ -375,7 +379,11 @@ class Util
 
     public static function putHtmlAttributes($attributes)
     {
-        echo self::getHtmlAttributes($attributes);
+        $result = self::getHtmlAttributes($attributes);
+
+        if ($result) {
+            echo $result;
+        }
     }
 
     public static function getHtmlClass($classes, $full = true)
@@ -472,5 +480,44 @@ class Util
     public static function camelize($input, $separator = '_')
     {
         return str_replace($separator, ' ', ucwords($input, $separator));
+    }
+
+    public static function arrayMergeRecursive()
+    {
+        $arrays = func_get_args();
+        $merged = [];
+
+        while ($arrays) {
+            $array = array_shift($arrays);
+
+            if (! is_array($array)) {
+                trigger_error(__FUNCTION__.' encountered a non array argument', E_USER_WARNING);
+
+                return;
+            }
+
+            if (! $array) {
+                continue;
+            }
+
+            foreach ($array as $key => $value) {
+                if (is_string($key)) {
+                    if (is_array($value) && array_key_exists($key, $merged) && is_array($merged[$key])) {
+                        $merged[$key] = self::arrayMergeRecursive($merged[$key], $value);
+                    } else {
+                        $merged[$key] = $value;
+                    }
+                } else {
+                    $merged[] = $value;
+                }
+            }
+        }
+
+        return $merged;
+    }
+
+    public static function isHexColor($color)
+    {
+        return preg_match('/^#[a-f0-9]{6}$/i', $color);
     }
 }

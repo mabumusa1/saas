@@ -25,12 +25,17 @@
 		background-size: cover;
 	}
 
-	// Change Button
-	[data-kt-image-input-action="change"] {
+	// Actions
+	[data-kt-image-input-action] {
 		cursor: pointer;
 		position: absolute;
-		right: -10px;
-		top: -10px;
+		transform: translate(-50%,-50%);
+	}
+
+	// Change Button
+	[data-kt-image-input-action="change"] {
+		left: 100%;
+		top: 0;
 
 		input {
 			width: 0 !important;
@@ -44,8 +49,8 @@
 	[data-kt-image-input-action="cancel"],
 	[data-kt-image-input-action="remove"] {
 		position: absolute;
-		right: -10px;
-		bottom: -5px;
+		left: 100%;
+		top: 100%;
 	}
 
 	[data-kt-image-input-action="cancel"] {
@@ -82,23 +87,25 @@
 
 		// Change Control
 		[data-kt-image-input-action="change"] {
-			right: 5px;
-			top: 5px;
+			left: 100%;
+			top: 0;
+			transform: translate(-100%, 0%);
 		}
 
 		// Cancel & Remove Buttons
 		[data-kt-image-input-action="cancel"],
 		[data-kt-image-input-action="remove"] {
-			right: 5px;
-			bottom: 5px;
+			left: 100%;
+			top: 100%;
+			transform: translate(-100%,-100%);
 		}
 	}
 
 	// Bordered style
 	&.image-input-outline {
 		.image-input-wrapper {
-			border: 3px solid $white;
-			box-shadow: $box-shadow;
+			border: 3px solid $body-bg;
+			box-shadow: if(isDarkMode(), $box-shadow, $box-shadow-sm);
 		}
 	}
 }

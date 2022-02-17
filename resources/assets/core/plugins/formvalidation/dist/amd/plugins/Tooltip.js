@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -32,7 +34,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
         Tooltip.prototype.install = function () {
             var _a;
             this.tip = document.createElement('div');
-            classSet_1.default(this.tip, (_a = {
+            (0, classSet_1.default)(this.tip, (_a = {
                     'fv-plugins-tooltip': true
                 },
                 _a["fv-plugins-tooltip--" + this.opts.placement] = true,
@@ -59,23 +61,17 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
         };
         Tooltip.prototype.onIconPlaced = function (e) {
             var _this = this;
-            classSet_1.default(e.iconElement, {
+            (0, classSet_1.default)(e.iconElement, {
                 'fv-plugins-tooltip-icon': true,
             });
             switch (this.opts.trigger) {
                 case 'hover':
-                    e.iconElement.addEventListener('mouseenter', function (evt) {
-                        return _this.show(e.element, evt);
-                    });
-                    e.iconElement.addEventListener('mouseleave', function (_evt) {
-                        return _this.hide();
-                    });
+                    e.iconElement.addEventListener('mouseenter', function (evt) { return _this.show(e.element, evt); });
+                    e.iconElement.addEventListener('mouseleave', function (_evt) { return _this.hide(); });
                     break;
                 case 'click':
                 default:
-                    e.iconElement.addEventListener('click', function (evt) {
-                        return _this.show(e.element, evt);
-                    });
+                    e.iconElement.addEventListener('click', function (evt) { return _this.show(e.element, evt); });
                     break;
             }
         };
@@ -83,12 +79,8 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             if (!e.result.valid) {
                 var elements = e.elements;
                 var type = e.element.getAttribute('type');
-                var ele = 'radio' === type || 'checkbox' === type
-                    ? elements[0]
-                    : e.element;
-                var message = typeof e.result.message === 'string'
-                    ? e.result.message
-                    : e.result.message[this.core.getLocale()];
+                var ele = 'radio' === type || 'checkbox' === type ? elements[0] : e.element;
+                var message = typeof e.result.message === 'string' ? e.result.message : e.result.message[this.core.getLocale()];
                 this.messages.set(ele, message);
             }
         };
@@ -96,9 +88,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             if (e.valid) {
                 var elements = e.elements;
                 var type = e.element.getAttribute('type');
-                var ele = 'radio' === type || 'checkbox' === type
-                    ? elements[0]
-                    : e.element;
+                var ele = 'radio' === type || 'checkbox' === type ? elements[0] : e.element;
                 this.messages.delete(ele);
             }
         };
@@ -111,7 +101,7 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
             if (!this.messages.has(ele)) {
                 return;
             }
-            classSet_1.default(this.tip, {
+            (0, classSet_1.default)(this.tip, {
                 'fv-plugins-tooltip--hide': false,
             });
             this.tip.innerHTML = "<div class=\"fv-plugins-tooltip__content\">" + this.messages.get(ele) + "</div>";
@@ -155,20 +145,14 @@ define(["require", "exports", "../core/Plugin", "../utils/classSet"], function (
                     left = targetRect.left + targetRect.width / 2 - width / 2;
                     break;
             }
-            var scrollTop = window.pageYOffset ||
-                document.documentElement.scrollTop ||
-                document.body.scrollTop ||
-                0;
-            var scrollLeft = window.pageXOffset ||
-                document.documentElement.scrollLeft ||
-                document.body.scrollLeft ||
-                0;
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
             top = top + scrollTop;
             left = left + scrollLeft;
             this.tip.setAttribute('style', "top: " + top + "px; left: " + left + "px");
         };
         Tooltip.prototype.hide = function () {
-            classSet_1.default(this.tip, {
+            (0, classSet_1.default)(this.tip, {
                 'fv-plugins-tooltip--hide': true,
             });
         };

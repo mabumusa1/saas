@@ -10,8 +10,10 @@
     }
 
     // Inverse color
-    .text-inverse-#{$name} {
-        color: theme-inverse-color($name) !important;
+    @if (theme-inverse-color($name)) {
+        .text-inverse-#{$name} {
+            color: theme-inverse-color($name) !important;
+        }
     }
 
     @if (theme-light-color($name)) {
@@ -45,25 +47,27 @@
     }
 
     // Hover inverse
-    .text-hover-inverse-#{$name} {
-        transition: $transition-link;
-
-        i {
+    @if (theme-inverse-color($name)) {
+        .text-hover-inverse-#{$name} {
             transition: $transition-link;
-        }
-
-        &:hover {
-            transition: $transition-link;
-            color: theme-inverse-color($name) !important;
 
             i {
                 transition: $transition-link;
-				color: theme-inverse-color($name) !important;
-			}
+            }
 
-			.svg-icon {
-				@include svg-icon-color(theme-inverse-color($name));
-			}
+            &:hover {
+                transition: $transition-link;
+                color: theme-inverse-color($name) !important;
+
+                i {
+                    transition: $transition-link;
+                    color: theme-inverse-color($name) !important;
+                }
+
+                .svg-icon {
+                    @include svg-icon-color(theme-inverse-color($name));
+                }
+            }
         }
     }
 
@@ -91,25 +95,27 @@
     }
 
     // Active inverse
-    .text-active-inverse-#{$name} {
-        transition: $transition-link;        
-
-        i {
-            transition: $transition-link;
-        }
-
-        &.active {
-            transition: $transition-link;
-            color: theme-inverse-color($name) !important;
+    @if (theme-inverse-color($name)) {
+        .text-active-inverse-#{$name} {
+            transition: $transition-link;        
 
             i {
                 transition: $transition-link;
-				color: theme-inverse-color($name) !important;
-			}
+            }
 
-			.svg-icon {
-				@include svg-icon-color(theme-inverse-color($name));
-			}
+            &.active {
+                transition: $transition-link;
+                color: theme-inverse-color($name) !important;
+
+                i {
+                    transition: $transition-link;
+                    color: theme-inverse-color($name) !important;
+                }
+
+                .svg-icon {
+                    @include svg-icon-color(theme-inverse-color($name));
+                }
+            }
         }
     }
 }

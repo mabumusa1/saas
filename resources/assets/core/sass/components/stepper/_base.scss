@@ -74,5 +74,9 @@
 		[data-kt-stepper-action="submit"] {
 			display: inline-block;
 		}
+
+		[data-kt-stepper-action="submit"].btn-flex {
+			display: flex;
+		}
 	}
 }

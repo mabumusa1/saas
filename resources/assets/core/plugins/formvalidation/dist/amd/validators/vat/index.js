@@ -65,125 +65,123 @@ define(["require", "exports", "../../utils/format", "./arVat", "./atVat", "./beV
                 };
                 switch (country.toLowerCase()) {
                     case 'ar':
-                        result = arVat_1.default(value);
+                        result = (0, arVat_1.default)(value);
                         break;
                     case 'at':
-                        result = atVat_1.default(value);
+                        result = (0, atVat_1.default)(value);
                         break;
                     case 'be':
-                        result = beVat_1.default(value);
+                        result = (0, beVat_1.default)(value);
                         break;
                     case 'bg':
-                        result = bgVat_1.default(value);
+                        result = (0, bgVat_1.default)(value);
                         break;
                     case 'br':
-                        result = brVat_1.default(value);
+                        result = (0, brVat_1.default)(value);
                         break;
                     case 'ch':
-                        result = chVat_1.default(value);
+                        result = (0, chVat_1.default)(value);
                         break;
                     case 'cy':
-                        result = cyVat_1.default(value);
+                        result = (0, cyVat_1.default)(value);
                         break;
                     case 'cz':
-                        result = czVat_1.default(value);
+                        result = (0, czVat_1.default)(value);
                         break;
                     case 'de':
-                        result = deVat_1.default(value);
+                        result = (0, deVat_1.default)(value);
                         break;
                     case 'dk':
-                        result = dkVat_1.default(value);
+                        result = (0, dkVat_1.default)(value);
                         break;
                     case 'ee':
-                        result = eeVat_1.default(value);
+                        result = (0, eeVat_1.default)(value);
                         break;
                     case 'el':
-                        result = grVat_1.default(value);
+                        result = (0, grVat_1.default)(value);
                         break;
                     case 'es':
-                        result = esVat_1.default(value);
+                        result = (0, esVat_1.default)(value);
                         break;
                     case 'fi':
-                        result = fiVat_1.default(value);
+                        result = (0, fiVat_1.default)(value);
                         break;
                     case 'fr':
-                        result = frVat_1.default(value);
+                        result = (0, frVat_1.default)(value);
                         break;
                     case 'gb':
-                        result = gbVat_1.default(value);
+                        result = (0, gbVat_1.default)(value);
                         break;
                     case 'gr':
-                        result = grVat_1.default(value);
+                        result = (0, grVat_1.default)(value);
                         break;
                     case 'hr':
-                        result = hrVat_1.default(value);
+                        result = (0, hrVat_1.default)(value);
                         break;
                     case 'hu':
-                        result = huVat_1.default(value);
+                        result = (0, huVat_1.default)(value);
                         break;
                     case 'ie':
-                        result = ieVat_1.default(value);
+                        result = (0, ieVat_1.default)(value);
                         break;
                     case 'is':
-                        result = isVat_1.default(value);
+                        result = (0, isVat_1.default)(value);
                         break;
                     case 'it':
-                        result = itVat_1.default(value);
+                        result = (0, itVat_1.default)(value);
                         break;
                     case 'lt':
-                        result = ltVat_1.default(value);
+                        result = (0, ltVat_1.default)(value);
                         break;
                     case 'lu':
-                        result = luVat_1.default(value);
+                        result = (0, luVat_1.default)(value);
                         break;
                     case 'lv':
-                        result = lvVat_1.default(value);
+                        result = (0, lvVat_1.default)(value);
                         break;
                     case 'mt':
-                        result = mtVat_1.default(value);
+                        result = (0, mtVat_1.default)(value);
                         break;
                     case 'nl':
-                        result = nlVat_1.default(value);
+                        result = (0, nlVat_1.default)(value);
                         break;
                     case 'no':
-                        result = noVat_1.default(value);
+                        result = (0, noVat_1.default)(value);
                         break;
                     case 'pl':
-                        result = plVat_1.default(value);
+                        result = (0, plVat_1.default)(value);
                         break;
                     case 'pt':
-                        result = ptVat_1.default(value);
+                        result = (0, ptVat_1.default)(value);
                         break;
                     case 'ro':
-                        result = roVat_1.default(value);
+                        result = (0, roVat_1.default)(value);
                         break;
                     case 'rs':
-                        result = rsVat_1.default(value);
+                        result = (0, rsVat_1.default)(value);
                         break;
                     case 'ru':
-                        result = ruVat_1.default(value);
+                        result = (0, ruVat_1.default)(value);
                         break;
                     case 'se':
-                        result = seVat_1.default(value);
+                        result = (0, seVat_1.default)(value);
                         break;
                     case 'si':
-                        result = siVat_1.default(value);
+                        result = (0, siVat_1.default)(value);
                         break;
                     case 'sk':
-                        result = skVat_1.default(value);
+                        result = (0, skVat_1.default)(value);
                         break;
                     case 've':
-                        result = veVat_1.default(value);
+                        result = (0, veVat_1.default)(value);
                         break;
                     case 'za':
-                        result = zaVat_1.default(value);
+                        result = (0, zaVat_1.default)(value);
                         break;
                     default:
                         break;
                 }
-                var message = format_1.default(input.l10n
-                    ? opts.message || input.l10n.vat.country
-                    : opts.message, input.l10n
+                var message = (0, format_1.default)(input.l10n && input.l10n.vat ? opts.message || input.l10n.vat.country : opts.message, input.l10n && input.l10n.vat && input.l10n.vat.countries
                     ? input.l10n.vat.countries[country.toUpperCase()]
                     : country.toUpperCase());
                 return Object.assign({}, { message: message }, result);

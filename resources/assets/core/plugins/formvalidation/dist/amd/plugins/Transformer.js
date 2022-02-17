@@ -2,10 +2,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -28,14 +30,8 @@ define(["require", "exports", "../core/Plugin"], function (require, exports, Plu
             this.core.deregisterFilter('field-value', this.valueFilter);
         };
         Transformer.prototype.getElementValue = function (defaultValue, field, element, validator) {
-            if (this.opts[field] &&
-                this.opts[field][validator] &&
-                'function' === typeof this.opts[field][validator]) {
-                return this.opts[field][validator].apply(this, [
-                    field,
-                    element,
-                    validator,
-                ]);
+            if (this.opts[field] && this.opts[field][validator] && 'function' === typeof this.opts[field][validator]) {
+                return this.opts[field][validator].apply(this, [field, element, validator]);
             }
             return defaultValue;
         };

@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     <!--begin::Verify Email Form-->
     <div class="w-100">
 

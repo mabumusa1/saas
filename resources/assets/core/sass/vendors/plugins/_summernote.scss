@@ -21,6 +21,10 @@
         .note-statusbar {
             background: $gray-100;
         }
+
+        &.fullscreen{
+            background-color: $white;
+        }
     }
 
     .note-toolbar {

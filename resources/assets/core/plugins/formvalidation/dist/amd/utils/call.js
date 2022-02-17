@@ -17,9 +17,7 @@ define(["require", "exports"], function (require, exports) {
                 var t = ns_1[_i];
                 context_1 = context_1[t];
             }
-            return typeof context_1[func] === 'undefined'
-                ? null
-                : context_1[func].apply(this, args);
+            return typeof context_1[func] === 'undefined' ? null : context_1[func].apply(this, args);
         }
     }
     exports.default = call;

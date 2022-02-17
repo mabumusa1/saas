@@ -9,7 +9,7 @@ class Theme
      *
      * @var bool
      */
-    private static $initialized = false;
+    public static $initialized = false;
 
     /**
      * Theme's actual config.
@@ -44,7 +44,7 @@ class Theme
      *
      * @var string
      */
-    public static $page = 'index';
+    public static $page = '';
 
     public static $htmlAttributes;
 
@@ -58,6 +58,9 @@ class Theme
     public static $pageLayoutView;
 
     public static $pageLayoutParams;
+
+    // Imported modals
+    public static $importedModals = [];
 
     // Free version flag
 
@@ -86,9 +89,18 @@ class Theme
 
         // Get common config
         $common_config = include $_COMMON_PATH.'/dist/config/general.php';
+
+        // Merge the config arrays
+        self::$config = array_replace_recursive($common_config, $theme_config);
+
+        // Common menu and pages config
         $common_config['pages'] = include $_COMMON_PATH.'/dist/config/pages.php';
         $common_config['menu'] = include $_COMMON_PATH.'/dist/config/menu.php';
 
+        // Global menu config
+        self::$config['menu']['global'] = $common_config['menu']['global'];
+
+        // Local menu and pages config
         $theme_config['menu'] = include $_THEME_PATH.'/dist/config/menu.php';
         $theme_config['pages'] = include $_THEME_PATH.'/dist/config/pages.php';
 
@@ -180,12 +192,17 @@ class Theme
 
         // Merge Layout Builder Stored Options
         if (LayoutBuilder::hasOptions()) {
-            self::$config['skin'] = array_replace_recursive(self::$config['skin'], LayoutBuilder::getOptions());
+            self::$config['layout'] = array_replace_recursive(self::$config['layout'], LayoutBuilder::getOptions());
         }
 
         // Override page layout config
-        if (isset(self::$config['page']['skin'])) {
-            self::$config['skin'] = array_replace_recursive(self::$config['skin'], self::$config['page']['skin']);
+        if (isset(self::$config['page']['layout'])) {
+            self::$config['layout'] = array_replace_recursive(self::$config['layout'], self::$config['page']['layout']);
+        }
+
+        // Override page layout config
+        if (isset(self::$config['page']['widgets'])) {
+            self::$config['widgets'] = array_replace_recursive(self::$config['widgets'], self::$config['page']['widgets']);
         }
 
         // Override page meta config
@@ -195,7 +212,7 @@ class Theme
 
         // Recursive layout array boolean value format
         array_walk_recursive(
-            self::$config['skin'],
+            self::$config['layout'],
             function (&$value) {
                 if ($value === 'true') {
                     $value = true;
@@ -228,7 +245,13 @@ class Theme
     public static function setViewMode($value)
     {
         // force preview mode on server
-        self::$viewMode = 'release';
+        if (isset($_SERVER['SERVER_NAME']) && strpos($_SERVER['SERVER_NAME'], 'keenthemes.com') !== false) {
+            self::$viewMode = 'preview';
+        } elseif (isset($_REQUEST['viewMode']) && $_REQUEST['viewMode'] === 'release') {
+            self::$viewMode = 'release';
+        } else {
+            self::$viewMode = $value;
+        }
     }
 
     public static function getViewMode()
@@ -244,6 +267,19 @@ class Theme
     public static function getDemo()
     {
         return self::$demo;
+    }
+
+    public static function getDemosTotal()
+    {
+        $total = 0;
+
+        foreach (self::getOption('product', 'demos') as $id => $demo) {
+            if ($demo['published'] === true) {
+                $total++;
+            }
+        }
+
+        return $total;
     }
 
     public static function isMultiDemo()
@@ -366,6 +402,52 @@ class Theme
         }
     }
 
+    public static function getPageVendorFiles($type)
+    {
+        $files = [];
+        $vendors = self::getOption('vendors');
+        $pageVendors = self::getOption('page', 'assets/vendors');
+
+        if (empty($pageVendors)) {
+            return [];
+        }
+
+        foreach ($pageVendors as $name) {
+            if (isset($vendors[$name]) && is_array($vendors[$name]) && isset($vendors[$name][$type])) {
+                foreach ($vendors[$name][$type] as $each) {
+                    $files[] = $each;
+                }
+            }
+        }
+
+        return array_unique($files);
+    }
+
+    public static function hasPageVendorFiles($type)
+    {
+        $files = [];
+        $vendors = self::getOption('vendors');
+        $pageVendors = self::getOption('page', 'assets/vendors');
+
+        if (empty($pageVendors)) {
+            return false;
+        }
+
+        foreach ($pageVendors as $name) {
+            if (isset($vendors[$name]) && is_array($vendors[$name]) && isset($vendors[$name][$type])) {
+                foreach ($vendors[$name][$type] as $each) {
+                    $files[] = $each;
+                }
+            }
+        }
+
+        return count(array_unique($files)) > 0;
+    }
+
+    public static function getPageVendorsCssFiles()
+    {
+    }
+
     public static function isProPage($path)
     {
         $pageConfig = self::getPageOptionsByPath($path);
@@ -474,7 +556,7 @@ class Theme
         return $path;
     }
 
-    public static function getView($path, $params = [])
+    public static function getView($path, $params = [], $once = false)
     {
         global $_THEME_PATH, $_COMMON_PATH;
 
@@ -488,11 +570,22 @@ class Theme
             }
         }
 
+        // Get view from common(core))
         if (file_exists($actual_path) === false && file_exists($common_path) === true) {  // try to find in common
             $actual_path = $common_path;
         }
 
-        self::includeView($actual_path, $params);
+        // Override widget params
+        if (self::hasOption('widgets')) {
+            $widgets = self::getOption('widgets');
+
+            if (isset($widgets[$path]) && isset($widgets[$path]['params'])) {
+                $params = array_replace_recursive($params, $widgets[$path]['params']);
+            }
+        }
+
+        // Include view
+        self::includeView($actual_path, $params, $once);
     }
 
     public static function getPageView($params = [])
@@ -525,7 +618,7 @@ class Theme
         self::includeView($actual_path, $params);
     }
 
-    public static function includeView($path, $params = [])
+    public static function includeView($path, $params = [], $once = false)
     {
         if (! file_exists($path)) {
             echo '"'.$path.'" does not exist!<br>';
@@ -537,15 +630,99 @@ class Theme
             preg_match('/dist\/view\/(.*?)\.php$/', $path, $matches);
             if (! empty($matches)) {
                 echo '<!--layout-partial-start:'.htmlentities($matches[1]).'-->';
-                include $path;
+                if ($once === true) {
+                    include_once $path;
+                } else {
+                    include $path;
+                }
                 echo '<!--layout-partial-end:'.htmlentities($matches[1]).'-->';
             }
         } else {
-            include $path;
+            if ($once === true) {
+                include_once $path;
+            } else {
+                include $path;
+            }
         }
 
         return $path;
-        //echo ob_get_contents();
+    }
+
+    public static function importModal($name)
+    {
+        $modals = self::getOption('modals');
+
+        if (isset($modals[$name]) && isset(self::$importedModals[$name]) === false) {
+            self::$importedModals[$name] = $modals[$name];
+
+            if (isset($modals[$name]['assets'])) {
+                if (isset($modals[$name]['assets']['vendors'])) {
+                    if (isset(self::$config['page']['assets']['vendors'])) {
+                        self::$config['page']['assets']['vendors'] = array_merge(self::$config['page']['assets']['vendors'], $modals[$name]['assets']['vendors']);
+                    } else {
+                        self::$config['page']['assets']['vendors'] = $modals[$name]['assets']['vendors'];
+                    }
+                }
+
+                if (isset($modals[$name]['assets']['custom'])) {
+                    if (isset($modals[$name]['assets']['custom']['js'])) {
+                        if (isset(self::$config['page']['assets']['custom']['js'])) {
+                            self::$config['page']['assets']['custom']['js'] = array_merge(self::$config['page']['assets']['custom']['js'], $modals[$name]['assets']['custom']['js']);
+                        } else {
+                            self::$config['page']['assets']['custom']['js'] = $modals[$name]['assets']['custom']['js'];
+                        }
+                    }
+
+                    if (isset($modals[$name]['assets']['custom']['css'])) {
+                        if (isset(self::$config['page']['assets']['custom']['css'])) {
+                            self::$config['page']['assets']['custom']['css'] = array_merge(self::$config['page']['assets']['custom']['css'], $modals[$name]['assets']['custom']['css']);
+                        } else {
+                            self::$config['page']['assets']['custom']['css'] = $modals[$name]['assets']['custom']['css'];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static function importModalById($id)
+    {
+        $name = str_replace('#kt_modal_', '', $id);
+        $name = str_replace('_', '-', $name);
+
+        self::importModal($name);
+    }
+
+    public static function linkModal($name, $return = false)
+    {
+        $modals = self::getOption('modals');
+
+        if ($name && isset($modals[$name])) {
+            self::importModal($name);
+        } else {
+            return;
+        }
+
+        $code = ' data-bs-toggle="modal"';
+        $code .= ' data-bs-target="#kt_modal_'.str_replace('-', '_', $name).'"';
+
+        if ($return === true) {
+            return $code;
+        } else {
+            echo $code;
+        }
+    }
+
+    public static function hasImportedModals()
+    {
+        return ! empty(self::$importedModals);
+    }
+
+    public static function includeImportedModals()
+    {
+        foreach (self::$importedModals as $name => $modal) {
+            self::getView($modal['view'], (isset($modal['params']) ? $modal['params'] : null), true);
+        }
     }
 
     public static function beginPageLayout($path, $params = [])
@@ -615,15 +792,34 @@ class Theme
     public static function rtlCssFilename($path)
     {
         if (isset($_REQUEST['rtl']) && $_REQUEST['rtl'] == 1) {
-            $path = str_replace('.css', '.rtl.css', $path);
-        } elseif (isset($_REQUEST['mode']) && $_REQUEST['mode'] && $_REQUEST['mode'] !== 'default') {
-            if (self::isDarkModeEnabled() && (strpos($path, 'plugins.bundle.css') !== false || strpos($path, 'style.bundle.css') !== false)) {
+            if (strpos($path, 'fullcalendar') !== false) {
+            } else {
+                $path = str_replace('.css', '.rtl.css', $path);
+            }
+
+            if (self::isDarkModeEnabled() && self::isDarkMode() && @$_REQUEST['mode'] != 'rtl') {
+                if (strpos($path, 'plugins.bundle') !== false || strpos($path, 'style.bundle') !== false) {
+                    // import dark mode css
+                    $path = str_replace('.bundle', '.'.self::getCurrentMode().'.bundle', $path);
+                }
+            }
+        } elseif (self::isDarkModeEnabled() && self::isDarkMode() && @$_REQUEST['mode'] != 'rtl') {
+            if (strpos($path, 'plugins.bundle.css') !== false || strpos($path, 'style.bundle.css') !== false) {
                 // import dark mode css
-                $path = str_replace('.bundle', '.'.$_REQUEST['mode'].'.bundle', $path);
+                $path = str_replace('.bundle', '.'.self::getCurrentMode().'.bundle', $path);
             }
         }
 
         return $path;
+    }
+
+    public static function isRTL()
+    {
+        if (isset($_REQUEST['rtl']) && $_REQUEST['rtl'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function strposa($haystack, $needle, $offset = 0)
@@ -647,7 +843,7 @@ class Theme
      */
     public static function isDarkModeEnabled()
     {
-        return (bool) self::getOption('skin', 'main/dark-mode-enabled');
+        return (bool) self::getOption('layout', 'main/dark-mode-enabled');
     }
 
     /**
@@ -661,7 +857,7 @@ class Theme
             return $_REQUEST['mode'];
         }
 
-        return 'default';
+        return self::getOption('layout', 'main/dark-mode-default') === true ? 'dark' : 'light';
     }
 
     /**
@@ -674,11 +870,20 @@ class Theme
         return self::getCurrentMode() === 'dark';
     }
 
+    public static function isPageBgWhite()
+    {
+        return (bool) self::getOption('layout', 'main/page-bg-white');
+    }
+
     public static function getPageUrl($path, $demo = '', $mode = null)
     {
         // Disable pro page URL's for the free version
         if (self::isFreeVersion() === true && self::isProPage($path) === true) {
             return '#';
+        }
+
+        if ($path === '#') {
+            return $path;
         }
 
         $baseUrl = self::getBaseUrlPath();
@@ -709,12 +914,16 @@ class Theme
                     $baseUrl .= '../'.$demo.'/'.$params;
                 }
             } else {
+                $d = '';
+                if (! empty(self::getDemo())) {
+                    $d = '../'.self::getDemo().'/';
+                }
                 if (self::getViewMode() === 'release') {
                     // force add link to other demo in release
-                    $baseUrl .= '../../'.self::getDemo().'/dist/';
+                    $baseUrl .= '../'.$d.'dist/';
                 } else {
                     // for preview
-                    $baseUrl .= '../'.self::getDemo().'/'.$params;
+                    $baseUrl .= $d.$params;
                 }
             }
 
@@ -761,7 +970,7 @@ class Theme
 
     public static function getSvgIcon($path, $class = '', $svgClass = '')
     {
-        $path = str_replace('\\', '/', $path);
+        $path = str_replace('\\', '/', trim($path));
         $full_path = $path;
         if (! file_exists($path)) {
             $full_path = self::getMediaPath().$path;
@@ -944,6 +1153,11 @@ class Theme
                 'version' => '1.22.10',
             ],
             [
+                'name'    => 'Duotune Icons',
+                'url'     => 'https://keenthemes.com/products/duotune-pro',
+                'version' => '1.0.0',
+            ],
+            [
                 'name'    => 'FormValidation',
                 'url'     => 'https://formvalidation.io/',
                 'version' => '1.8.0',
@@ -952,6 +1166,11 @@ class Theme
                 'name'    => 'bootstrap-multiselectsplitter',
                 'url'     => 'https://github.com/poolerMF/bootstrap-multiselectsplitter/',
                 'version' => '1.0.4',
+            ],
+            [
+                'name'    => 'toastr',
+                'url'     => 'https://github.com/petekeller2/toastr',
+                'version' => '2.1.4',
             ],
         ];
 
@@ -1066,5 +1285,69 @@ class Theme
     public static function getCorePath()
     {
         return __DIR__.'/../..';
+    }
+
+    public static function getImageUrl($folder, $file, $flip = true)
+    {
+        $folder = ltrim($folder, '/');
+        $folder = rtrim($folder, '/');
+
+        $path = self::getMediaUrlPath().$folder.'/'.$file;
+
+        if (self::isDarkMode() && $flip === true) {
+            $file = str_replace('.svg', '-dark.svg', $file);
+            $file = str_replace('.png', '-dark.png', $file);
+            $file = str_replace('.jpg', '-dark.jpg', $file);
+
+            $path_dark_path = self::getMediaPath().$folder.'/'.$file;
+            $path_dark_url_path = self::getMediaUrlPath().$folder.'/'.$file;
+
+            if (file_exists($path_dark_path)) {
+                return $path_dark_url_path;
+            }
+        }
+
+        return  $path;
+    }
+
+    public static function getIllustrationUrl($file, $flip = true)
+    {
+        $folder = 'illustrations/'.self::getOption('layout', 'illustrations/set');
+        $folder = ltrim($folder, '/');
+        $folder = rtrim($folder, '/');
+
+        $path = self::getMediaUrlPath().$folder.'/'.$file;
+
+        return self::getImageUrl($folder, $file, $flip);
+    }
+
+    public static function getPagesConfig($config, &$result = [])
+    {
+        foreach ($config as $key => $page) {
+            if ($key === '*') {
+                continue;
+            }
+
+            if (isset($page['view']) && (isset($page['title']))) {
+                $page['path'] = $config['path'].'/'.$key;
+
+                $result[] = $page;
+            } elseif (is_array($page)) {
+                if (isset($config['path'])) {
+                    $page['path'] = $config['path'].'/'.$key;
+                } else {
+                    $page['path'] = $key;
+                }
+
+                self::getPagesConfig($page, $result);
+            }
+        }
+
+        return $result;
+    }
+
+    public static function printJsHostUrl()
+    {
+        echo sprintf('var hostUrl = "%s";', self::getAssetsUrlPath());
     }
 }

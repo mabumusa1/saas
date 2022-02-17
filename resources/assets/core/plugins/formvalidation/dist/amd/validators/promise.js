@@ -4,9 +4,7 @@ define(["require", "exports", "../utils/call"], function (require, exports, call
     function promise() {
         return {
             validate: function (input) {
-                return call_1.default(input.options.promise, [
-                    input,
-                ]);
+                return (0, call_1.default)(input.options.promise, [input]);
             },
         };
     }

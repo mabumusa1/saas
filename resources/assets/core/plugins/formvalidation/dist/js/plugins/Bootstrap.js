@@ -1,5 +1,5 @@
 /**
- * FormValidation (https://formvalidation.io), v1.8.1 (1a099ec)
+ * FormValidation (https://formvalidation.io), v1.9.0 (cbf8fab)
  * The best validation library for JavaScript
  * (c) 2013 - 2021 Nguyen Huu Phuoc <me@phuoc.ng>
  */
@@ -7,8 +7,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Bootstrap = factory()));
-}(this, (function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.plugins = global.FormValidation.plugins || {}, global.FormValidation.plugins.Bootstrap = factory()));
+})(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -69,7 +69,7 @@
     if (typeof Proxy === "function") return true;
 
     try {
-      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
     } catch (e) {
       return false;
@@ -87,6 +87,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return _assertThisInitialized(self);
@@ -140,23 +142,24 @@
     _createClass(s, [{
       key: "onIconPlaced",
       value: function onIconPlaced(n) {
-        var s = n.element.parentElement;
+        var _s = n.element.parentElement;
 
-        if (t(s, "input-group")) {
-          s.parentElement.insertBefore(n.iconElement, s.nextSibling);
+        if (t(_s, "input-group")) {
+          _s.parentElement.insertBefore(n.iconElement, _s.nextSibling);
         }
 
         var l = n.element.getAttribute("type");
 
         if ("checkbox" === l || "radio" === l) {
-          var _l = s.parentElement;
+          var _l = _s.parentElement;
 
-          if (t(s, "form-check")) {
+          if (t(_s, "form-check")) {
             e(n.iconElement, {
               "fv-plugins-icon-check": true
             });
-            s.parentElement.insertBefore(n.iconElement, s.nextSibling);
-          } else if (t(s.parentElement, "form-check")) {
+
+            _s.parentElement.insertBefore(n.iconElement, _s.nextSibling);
+          } else if (t(_s.parentElement, "form-check")) {
             e(n.iconElement, {
               "fv-plugins-icon-check": true
             });
@@ -172,4 +175,4 @@
 
   return s;
 
-})));
+}));

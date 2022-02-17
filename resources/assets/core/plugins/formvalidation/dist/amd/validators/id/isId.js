@@ -14,7 +14,7 @@ define(["require", "exports", "../../utils/isValidDate"], function (require, exp
         var year = parseInt(v.substr(4, 2), 10);
         var century = parseInt(v.charAt(9), 10);
         year = century === 9 ? 1900 + year : (20 + century) * 100 + year;
-        if (!isValidDate_1.default(year, month, day, true)) {
+        if (!(0, isValidDate_1.default)(year, month, day, true)) {
             return {
                 meta: {},
                 valid: false,

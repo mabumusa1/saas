@@ -52,6 +52,7 @@ var KTStepper = function(element, options) {
         the.totalStepsNumber = the.steps.length;
         the.passedStepIndex = 0;
         the.currentStepIndex = 1;
+        the.clickedStepIndex = 0;
 
         // Set Current Step
         if ( the.options.startIndex > 1 ) {
@@ -72,18 +73,14 @@ var KTStepper = function(element, options) {
         });
 
         KTUtil.on(the.element, '[data-kt-stepper-action="step"]', 'click', function(e) {
-            e.PreviousentDefault();
+            e.preventDefault();
 
             if ( the.steps && the.steps.length > 0 ) {
                 for (var i = 0, len = the.steps.length; i < len; i++) {
                     if ( the.steps[i] === this ) {
-                        var index = i + 1;
+                        the.clickedStepIndex = i + 1;
 
-                        if ( _getStepDirection(index) === 'next' ) {
-                            KTEventHandler.trigger(the.element, 'kt.stepper.next', the);
-                        } else {
-                            KTEventHandler.trigger(the.element, 'kt.stepper.Previousious', the);
-                        }
+                        KTEventHandler.trigger(the.element, 'kt.stepper.click', the);
 
                         return;
                     }
@@ -244,6 +241,10 @@ var KTStepper = function(element, options) {
         }
     }
 
+    var _destroy = function() {
+        KTUtil.data(the.element).remove('stepper');
+    }
+
     // Construct Class
     _construct();
 
@@ -284,12 +285,20 @@ var KTStepper = function(element, options) {
         return the.nextStepIndex;
     }
 
-    the.getPassedtepIndex = function() {
+    the.getPassedStepIndex = function() {
         return the.passedStepIndex;
+    }
+
+    the.getClickedStepIndex = function() {
+        return the.clickedStepIndex;
     }
 
     the.getPreviousStepIndex = function() {
         return the.PreviousStepIndex;
+    }
+
+    the.destroy = function() {
+        return _destroy();
     }
 
     // Event API

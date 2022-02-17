@@ -24,8 +24,7 @@ define(["require", "exports"], function (require, exports) {
         var checkChar = 'KJIHGFEDCBA'.charAt(cd);
         return {
             meta: {},
-            valid: value.charAt(8) === "" + checkDigit ||
-                value.charAt(8) === checkChar,
+            valid: value.charAt(8) === "" + checkDigit || value.charAt(8) === checkChar,
         };
     }
     exports.default = peId;

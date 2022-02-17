@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.no_NO = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.no_NO = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Norwegian language package
@@ -11,8 +11,7 @@
 
     var no_NO = {
         base64: {
-            default:
-                'Vennligst fyll ut dette feltet med en gyldig base64-kodet verdi',
+            default: 'Vennligst fyll ut dette feltet med en gyldig base64-kodet verdi',
         },
         between: {
             default: 'Vennligst fyll ut dette feltet med en verdi mellom %s og %s',
@@ -34,8 +33,7 @@
             default: 'Vennligst fyll ut dette feltet med en gyldig',
         },
         creditCard: {
-            default:
-                'Vennligst fyll ut dette feltet med et gyldig kreditkortnummer',
+            default: 'Vennligst fyll ut dette feltet med et gyldig kreditkortnummer',
         },
         cusip: {
             default: 'Vennligst fyll ut dette feltet med et gyldig CUSIP-nummer',
@@ -65,17 +63,14 @@
             default: 'Velg vennligst en gyldig fil',
         },
         greaterThan: {
-            default:
-                'Vennligst fyll ut dette feltet med en verdi større eller lik %s',
-            notInclusive:
-                'Vennligst fyll ut dette feltet med en verdi større enn %s',
+            default: 'Vennligst fyll ut dette feltet med en verdi større eller lik %s',
+            notInclusive: 'Vennligst fyll ut dette feltet med en verdi større enn %s',
         },
         grid: {
             default: 'Vennligst fyll ut dette feltet med et gyldig GRIDnummer',
         },
         hex: {
-            default:
-                'Vennligst fyll ut dette feltet med et gyldig hexadecimalt nummer',
+            default: 'Vennligst fyll ut dette feltet med et gyldig hexadecimalt nummer',
         },
         iban: {
             countries: {
@@ -161,8 +156,7 @@
                 VG: 'De Britiske Jomfruøyene',
                 XK: 'Republikken Kosovo',
             },
-            country:
-                'Vennligst fyll ut dette feltet med et gyldig IBAN-nummer i %s',
+            country: 'Vennligst fyll ut dette feltet med et gyldig IBAN-nummer i %s',
             default: 'Vennligst fyll ut dette feltet med et gyldig IBAN-nummer',
         },
         id: {
@@ -197,10 +191,8 @@
                 TR: 'Tyrkia',
                 ZA: 'Sør-Afrika',
             },
-            country:
-                'Vennligst fyll ut dette feltet med et gyldig identifikasjons-nummer i %s',
-            default:
-                'Vennligst fyll ut dette feltet med et gyldig identifikasjons-nummer',
+            country: 'Vennligst fyll ut dette feltet med et gyldig identifikasjons-nummer i %s',
+            default: 'Vennligst fyll ut dette feltet med et gyldig identifikasjons-nummer',
         },
         identical: {
             default: 'Vennligst fyll ut dette feltet med den samme verdi',
@@ -232,10 +224,8 @@
             default: 'Vennligst fyll ut dette feltet med ett gyldig ISSN-nummer',
         },
         lessThan: {
-            default:
-                'Vennligst fyll ut dette feltet med en verdi mindre eller lik %s',
-            notInclusive:
-                'Vennligst fyll ut dette feltet med en verdi mindre enn %s',
+            default: 'Vennligst fyll ut dette feltet med en verdi mindre eller lik %s',
+            notInclusive: 'Vennligst fyll ut dette feltet med en verdi mindre enn %s',
         },
         mac: {
             default: 'Vennligst fyll ut dette feltet med en gyldig MAC adresse',
@@ -247,8 +237,7 @@
             default: 'Vennligst fyll ut dette feltet',
         },
         numeric: {
-            default:
-                'Vennligst fyll ut dette feltet med et gyldig flytende desimaltall',
+            default: 'Vennligst fyll ut dette feltet med et gyldig flytende desimaltall',
         },
         phone: {
             countries: {
@@ -273,16 +262,14 @@
                 US: 'USA',
                 VE: 'Venezuela',
             },
-            country:
-                'Vennligst fyll ut dette feltet med et gyldig telefonnummer i %s',
+            country: 'Vennligst fyll ut dette feltet med et gyldig telefonnummer i %s',
             default: 'Vennligst fyll ut dette feltet med et gyldig telefonnummer',
         },
         promise: {
             default: 'Vennligst fyll ut dette feltet med en gyldig verdi',
         },
         regexp: {
-            default:
-                'Vennligst fyll ut dette feltet med en verdi som matcher mønsteret',
+            default: 'Vennligst fyll ut dette feltet med en verdi som matcher mønsteret',
         },
         remote: {
             default: 'Vennligst fyll ut dette feltet med en gyldig verdi',
@@ -307,8 +294,7 @@
             upper: 'Venligst fyll inn dette feltet kun med store bokstaver',
         },
         stringLength: {
-            between:
-                'Vennligst fyll ut dette feltet med en verdi mellom %s og %s tegn',
+            between: 'Vennligst fyll ut dette feltet med en verdi mellom %s og %s tegn',
             default: 'Vennligst fyll ut dette feltet med en verdi av gyldig lengde',
             less: 'Vennligst fyll ut dette feltet med mindre enn %s tegn',
             more: 'Vennligst fyll ut dette feltet med mer enn %s tegn',
@@ -318,8 +304,7 @@
         },
         uuid: {
             default: 'Vennligst fyll ut dette feltet med et gyldig UUID-nummer',
-            version:
-                'Vennligst fyll ut dette feltet med en gyldig UUID version %s-nummer',
+            version: 'Vennligst fyll ut dette feltet med en gyldig UUID version %s-nummer',
         },
         vat: {
             countries: {
@@ -401,4 +386,4 @@
 
     return no_NO;
 
-})));
+}));

@@ -18,9 +18,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                     break;
             }
             var isHalf = x % 1 === 0.5 * sign;
-            return isHalf
-                ? (Math.floor(x) + (sign > 0 ? 1 : 0)) / m
-                : Math.round(x) / m;
+            return isHalf ? (Math.floor(x) + (sign > 0 ? 1 : 0)) / m : Math.round(x) / m;
         };
         var floatMod = function (x, y) {
             if (y === 0.0) {
@@ -28,8 +26,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
             }
             var dotX = ("" + x).split('.');
             var dotY = ("" + y).split('.');
-            var precision = (dotX.length === 1 ? 0 : dotX[1].length) +
-                (dotY.length === 1 ? 0 : dotY[1].length);
+            var precision = (dotX.length === 1 ? 0 : dotX[1].length) + (dotY.length === 1 ? 0 : dotY[1].length);
             return round(x - y * Math.floor(x / y), precision);
         };
         return {
@@ -48,9 +45,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 }, input.options);
                 var mod = floatMod(v - opts.baseValue, opts.step);
                 return {
-                    message: format_1.default(input.l10n
-                        ? opts.message || input.l10n.step.default
-                        : opts.message, "" + opts.step),
+                    message: (0, format_1.default)(input.l10n ? opts.message || input.l10n.step.default : opts.message, "" + opts.step),
                     valid: mod === 0.0 || mod === opts.step,
                 };
             },

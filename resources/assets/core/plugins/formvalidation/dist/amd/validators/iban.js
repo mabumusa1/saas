@@ -138,19 +138,15 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                 }
                 if (opts.sepa !== undefined) {
                     var isSepaCountry = SEPA_COUNTRIES.indexOf(country) !== -1;
-                    if (((opts.sepa === 'true' || opts.sepa === true) &&
-                        !isSepaCountry) ||
-                        ((opts.sepa === 'false' || opts.sepa === false) &&
-                            isSepaCountry)) {
+                    if (((opts.sepa === 'true' || opts.sepa === true) && !isSepaCountry) ||
+                        ((opts.sepa === 'false' || opts.sepa === false) && isSepaCountry)) {
                         return {
                             message: opts.message,
                             valid: false,
                         };
                     }
                 }
-                var msg = format_1.default(input.l10n
-                    ? opts.message || input.l10n.iban.country
-                    : opts.message, input.l10n ? input.l10n.iban.countries[country] : country);
+                var msg = (0, format_1.default)(input.l10n ? opts.message || input.l10n.iban.country : opts.message, input.l10n ? input.l10n.iban.countries[country] : country);
                 if (!new RegExp("^" + IBAN_PATTERNS[country] + "$").test(input.value)) {
                     return {
                         message: msg,
@@ -162,8 +158,7 @@ define(["require", "exports", "../utils/format"], function (require, exports, fo
                     .split('')
                     .map(function (n) {
                     var code = n.charCodeAt(0);
-                    return code >= 'A'.charCodeAt(0) &&
-                        code <= 'Z'.charCodeAt(0)
+                    return code >= 'A'.charCodeAt(0) && code <= 'Z'.charCodeAt(0)
                         ?
                             code - 'A'.charCodeAt(0) + 10
                         : n;

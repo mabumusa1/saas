@@ -20,4 +20,8 @@
     @each $breakpoint, $value in $grid-breakpoints {
         --#{$variable-prefix}#{$breakpoint}:#{$value};
     }
+
+    // Border
+    --#{$variable-prefix}border-color:#{$border-color};
+    --#{$variable-prefix}border-dashed-color:#{$border-dashed-color};
 }

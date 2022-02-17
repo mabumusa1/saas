@@ -4,7 +4,12 @@
 
 // Table
 .table {
-	width: 100%;
+	// Fix for BS 5.1.2 update
+	& > :not(:first-child) {
+    	border-color: transparent;
+		border-width: 0;
+		border-style: none;
+	}
 	
 	>:not(:last-child)>:last-child>* {
 		border-bottom-color: inherit;
@@ -110,6 +115,11 @@
 			.table.g#{$infix}-#{$name} {
 				th, td {
 					padding: $value;
+
+					// Datatables responsive mode fix
+					&.dtr-control {
+						padding-left: $value !important;
+					}
 				}
             }
 
@@ -124,6 +134,11 @@
 				th, td {
 					padding-left: $value;
 					padding-right: $value;
+
+					// Datatables responsive mode fix
+					&.dtr-control {
+						padding-left: $value !important;
+					}
 				}
             }
 
@@ -135,6 +150,11 @@
 
 					&:last-child {
 	   					padding-right: $value;
+					}
+
+					// Datatables responsive mode fix
+					&.dtr-control:first-child {
+						padding-left: $value !important;
 					}
 				}
             }

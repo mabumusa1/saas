@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.eu_ES = factory()));
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.FormValidation = global.FormValidation || {}, global.FormValidation.locales = global.FormValidation.locales || {}, global.FormValidation.locales.eu_ES = factory()));
+})(this, (function () { 'use strict';
 
     /**
      * Basque language package
@@ -379,12 +379,11 @@
                 SK: 'Eslovakia',
                 US: 'Estatu Batuak',
             },
-            country:
-                'Mesedez, baliozko posta kode bat sartu herrialde honetarako: %s',
+            country: 'Mesedez, baliozko posta kode bat sartu herrialde honetarako: %s',
             default: 'Mesedez, baliozko posta kode bat sartu',
         },
     };
 
     return eu_ES;
 
-})));
+}));

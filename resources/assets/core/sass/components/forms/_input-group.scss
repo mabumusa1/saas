@@ -18,13 +18,21 @@
         }
 
         .input-group-text {
-            background-color: transparent;
-    		border-color: transparent;
+            background-color: $input-solid-bg;
+		    border-color: $input-solid-bg;
+
+            & + .form-control {
+                border-left-color: $input-border-color;
+            }
         }
 
         .form-control {
             background-color: transparent;
     		border-color: transparent;
+
+            & + .input-group-text {
+                border-left-color: $input-border-color;
+            }
         }
     }
 }

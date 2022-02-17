@@ -15,7 +15,7 @@ define(["require", "exports", "../../algorithms/mod97And10", "../id/nlId"], func
         var id = v.substr(0, 9);
         return {
             meta: {},
-            valid: nlId_1.default(id).valid || mod97And10_1.default("NL" + v),
+            valid: (0, nlId_1.default)(id).valid || (0, mod97And10_1.default)("NL" + v),
         };
     }
     exports.default = nlVat;
