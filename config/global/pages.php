@@ -1,23 +1,6 @@
 <?php
 
 return [
-    '' => [
-        'title'       => 'Dashboard',
-        'description' => '',
-        'view'        => 'index',
-        'layout'      => [
-            'page-title' => [
-                'description' => true,
-                'breadcrumb'  => false,
-            ],
-        ],
-        'assets'      => [
-            'custom' => [
-                'js' => [],
-            ],
-        ],
-    ],
-
     'login'           => [
         'title'  => 'Login',
         'assets' => [

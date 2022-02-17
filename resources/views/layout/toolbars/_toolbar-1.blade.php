@@ -7,8 +7,28 @@
         @endif
 
         @switch(Route::currentRouteName())
-            @case(1)
-                
+            @case('sites.index')
+                    <!--begin::Actions-->
+                    <div class="d-flex align-items-center py-1">
+                        <!--begin::Wrapper-->
+                        <div class="me-4">
+                            <div data-bs-toggle="tooltip" data-bs-placement="left">
+                                <a href="#" class="btn btn-sm btn-secondary fw-bolder">
+                                    Accept Transfer
+                                </a>
+                            </div>
+                        </div>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Wrapper-->
+                        <div data-bs-toggle="tooltip" data-bs-placement="left">
+                            <a href="{{ route('sites.create') }}" class="btn btn-sm btn-primary fw-bolder">
+                                Create
+                            </a>
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Actions-->                
                 @break
 
             @default
