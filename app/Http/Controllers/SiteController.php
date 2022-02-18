@@ -6,15 +6,19 @@ use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Site;
 
-
 class SiteController extends Controller
 {
-
-    public function formValidation(StoreSiteRequest $request)
+    public function formValidation()
     {
         // Setup the validator
-        $validatedData = $request->validated();
+//        $validatedData = $request->validated();
+        echo json_encode(
+            [
+                'valid' => false,
+            ]
+        );
     }
+
     /**
      * Display a listing of the resource.
      *

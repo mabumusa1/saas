@@ -69,18 +69,8 @@
                     <!--begin::Content-->
                     <div class="flex-row-fluid">
                         <!--begin::Form-->
-                        <form id="site-form" method="post" class="form w-lg-500px mx-auto" novalidate="novalidate">
+                        <form id="site-form" class="form w-lg-500px mx-auto" novalidate="novalidate" autocomplete="off">
                             @csrf
-                            @method('post')
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
                             <!--begin::Group-->
                             <div class="mb-5">
                                 <!--begin::Step 1-->
@@ -115,7 +105,7 @@
                                         <h3 class="text-dark mb-8">How do you like to start?</h3>
                                         <div class="mb-10">
                                             <div class="form-check form-check-custom form-check-solid form-check-lg">
-                                                <input name="start" class="form-check-input" type="radio" value="blank" id="blank">
+                                                <input name="start" class="form-check-input" type="radio" value="blank" id="blank" checked>
                                                 <label class="form-check-label" for="blank">
                                                     Start with a blank site
                                                     <br/>
@@ -151,24 +141,25 @@
                                     <h3>Site name and first environment</h3>
                                     <p>A site is a group of up to three environments (Production, Staging, Development) under one name</p>
                                     <div class="mb-10">
-                                        <div class="form-group has-validation">
+                                        <div class="form-group fv-row">
                                             <label>Site Name</label>
-                                            <input name="sitename" type="text" class="form-control form-control-solid" placeholder="" minlength="1" maxlength="40"/> <!-- need validation -->
-                                            <span id="siteerr" class="form-text text-muted">Site name is unique</span>
+                                            <input name="sitename" type="text" class="form-control form-control-solid" placeholder=""/>
+                                            <span class="form-text text-muted">Site name is unique</span>
                                         </div>
                                     </div>
                                     <div class="mb-10">
                                         <div class="row">
                                             <div class="col">
-                                                <div class="form-group">
+                                                <div class="form-group fv-row">
                                                     <label>Environment Name</label>
-                                                    <input name="environmentname" type="text" class="form-control form-control-solid" placeholder="" minlength="3" maxlength="14"/><span> <!-- need validation -->
-                                                    <span id="enverr" class="form-text text-muted">Enviroment name is unique</span>
+                                                    <div class="col d-flex gap-3 align-items-center">
+                                                        <input name="environmentname" type="text" class="w-50 form-control form-control-solid" placeholder=""/>
+                                                        <p class="m-0">.steercampaign.com</p>
+                                                    </div>
+                                                    <span class="form-text text-muted">Enviroment name is unique</span>
                                                 </div>
                                             </div>
-                                            <div class="col d-flex align-items-center">
-                                                <p>.steercampaign.com</p>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="mb-10">
@@ -177,7 +168,7 @@
                                     </div>
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-solid form-check-lg">
-                                            <input name="environment" class="form-check-input" type="radio" value="prd" id="radioProduction">
+                                            <input name="environment" class="form-check-input" type="radio" value="prd" id="radioProduction" checked>
                                             <label class="form-check-label" for="radioProduction">
                                                 <strong><span class="badge badge-success">PRD</span> Production (live)</strong><br/>
                                                 <p>Host a public site</p>
@@ -220,7 +211,7 @@
 
                                 <!--begin::Wrapper-->
                                 <div>
-                                    <button id="btn-submit" type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
                                         <span class="indicator-label">
                                             Submit
                                         </span>
@@ -261,51 +252,109 @@ stepper.on("kt.stepper.previous", function (stepper) {
     stepper.goPrevious(); // go previous step
 });
 
-$(document).ready(function() {
-    $('#btn-submit').click(function (e) {
 
-        $('#btn-submit').attr("data-kt-indicator","on");
-        e.preventDefault();
-
-        var _token = $("input[name='_token']").val();
-        var type = $("input[name='type']:checked").val();
-        var start = $("input[name='start']:checked").val();
-        var sitename = $("input[name='sitename']").val();
-        var environmentname = $("input[name='environmentname']").val();
-        var environment = $("input[name='environment']").val();
-
-        axios.post('/form-validation', {
-                type: type,
-                start: start,
-                sitename: sitename,
-                environmentname: environmentname,
-                environment: environment
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': _token,
-                    'X-Requested-With': 'XMLHttpRequest',
+// Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+var validator = FormValidation.formValidation(
+        document.getElementById('site-form'),
+        {
+        fields: {
+            'sitename': {
+                validators:{
+                    stringLength: {
+                        min:1,
+                        max:40,
+                        message: '1 to 40 characters'
+                    },
+                    remote:{
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $("input[name='_token']").val(),
+                        },
+                        url: '/form-validation',
+                        message: 'Site name is unique',
+                    }
                 }
-            }).then(function(response){
-                $('#btn-submit').attr("data-kt-indicator","off");
-        }).catch(function(error){
-            $('#btn-submit').attr("data-kt-indicator","off")
-            console.log(error.response.data.errors)
-            var err = error.response.data.errors;
-            if('sitename' in err){
-                $('#siteerr').addClass('text-danger');
-                $('#siteerr').removeClass('text-muted');
-                $('#siteerr').text(err['sitename']);
-            }if('environmentname' in err){
-                $('#enverr').addClass('text-danger');
-                $('#enverr').removeClass('text-muted');
-                $('#enverr').text(err['environmentname']);
+            },
+            'environmentname': {
+                validators:{
+                    stringLength: {
+                        min:3,
+                        max:14,
+                        message: '3 to 14 characters'
+                    },
+                    regexp:{
+                        regexp: /^[a-zA-Z0-9]*$/i,
+                        message: 'Only letters and numbers'
+                    },
+                    remote:{
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $("input[name='_token']").val(),
+                        },
+                        url: '/form-validation',
+                        message: 'Name is available',
+                    }
+                    // regexp:{
+                    //     regexp: /^[a-zA-Z]+[a-zA-Z0-9]*$/g,
+                    //     message: 'Begins with a letter'
+                    // }
+                }
             }
-
-        })
-    });
+        },
+        plugins: {
+            trigger: new FormValidation.plugins.Trigger(),
+            bootstrap: new FormValidation.plugins.Bootstrap5({
+                rowSelector: '.fv-row',
+                eleInvalidClass: '',
+                eleValidClass: ''
+            })
+    },
 });
+// $(document).ready(function() {
+//     $('#btn-submit').click(function (e) {
+//
+//         $('#btn-submit').attr("data-kt-indicator","on");
+//         e.preventDefault();
+//
+//         var _token = $("input[name='_token']").val();
+//         var type = $("input[name='type']:checked").val();
+//         var start = $("input[name='start']:checked").val();
+//         var sitename = $("input[name='sitename']").val();
+//         var environmentname = $("input[name='environmentname']").val();
+//         var environment = $("input[name='environment']").val();
+//
+//         axios.post('/form-validation', {
+//                 type: type,
+//                 start: start,
+//                 sitename: sitename,
+//                 environmentname: environmentname,
+//                 environment: environment
+//             },
+//             {
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'X-CSRF-TOKEN': _token,
+//                     'X-Requested-With': 'XMLHttpRequest',
+//                 }
+//             }).then(function(response){
+//                 $('#btn-submit').attr("data-kt-indicator","off");
+//         }).catch(function(error){
+//             $('#btn-submit').attr("data-kt-indicator","off")
+//             console.log(error.response.data.errors)
+//             var err = error.response.data.errors;
+//             if('sitename' in err){
+//                 $('#siteerr').addClass('text-danger');
+//                 $('#siteerr').removeClass('text-muted');
+//                 $('#siteerr').text(err['sitename']);
+//             }if('environmentname' in err){
+//                 $('#enverr').addClass('text-danger');
+//                 $('#enverr').removeClass('text-muted');
+//                 $('#enverr').text(err['environmentname']);
+//             }
+//
+//         })
+//     });
+// });
 </script>
 @endsection
 </x-base-layout>
