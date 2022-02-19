@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $theme = theme();
         // Share theme adapter class
-        View::share('theme', $theme);    
+        View::share('theme', $theme);
         $theme->setDemo('skin');
 
         $theme->initConfig();
@@ -44,12 +44,10 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        view()->composer('*', function ($view)
-        {
+        view()->composer('*', function ($view) {
             if (\Auth::check()) {
                 $view->with('currentAccount', request()->route('account'));
             }
         });
-
     }
 }

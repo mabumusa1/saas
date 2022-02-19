@@ -25,7 +25,7 @@ return new class extends Migration {
                 'label' => 'us-east-1',
                 'region' => 'us-east-1',
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ]
         );
     }

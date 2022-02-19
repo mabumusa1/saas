@@ -6,7 +6,6 @@ use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-
 class SuccessfulAuthenticatedListener
 {
     /**
@@ -28,10 +27,10 @@ class SuccessfulAuthenticatedListener
     public function handle(Authenticated $event)
     {
         /*
-         $user = $event->user; 
+         $user = $event->user;
         dd($user->accounts->first()->id);
         $accountId = $user->accounts()->wherePivot('role', 'owner')->get()->first()->id;
-        session(['deafultAccountId' => $accountId]);        
+        session(['deafultAccountId' => $accountId]);
         */
     }
 }

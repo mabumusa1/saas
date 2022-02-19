@@ -48,7 +48,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
 
-
         Route::model('account', \App\Models\Account::class);
         Route::model('user', \App\Models\User::class);
         Route::model('site', \App\Models\Site::class);

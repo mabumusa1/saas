@@ -17,7 +17,7 @@ class SiteFactory extends Factory
     public function definition()
     {
         return [
-            'name' =>  $this->faker->firstName() . ' Site'
+            'name' =>  $this->faker->firstName().' Site',
         ];
     }
 }

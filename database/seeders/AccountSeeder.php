@@ -16,16 +16,16 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        // We need five account for testing with five users for each account 
+        // We need five account for testing with five users for each account
         if (Account::count() >= 5) {
             $this->command->info('Accounts exists, skip seeding accounts');
-        }else{
+        } else {
             Account::factory()->count(5)->hasAttached(
                 User::factory()->count(5)
                 ->sequence(
                     fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
-                )                
-            )->create();            
+                )
+            )->create();
         }
     }
 }

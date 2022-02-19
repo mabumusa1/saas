@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('{account}')->group(function () {
         Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
@@ -20,7 +18,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'show',
         ]);
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
-    
     });
-
 });
