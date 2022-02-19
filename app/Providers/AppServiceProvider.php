@@ -46,7 +46,12 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view) {
             if (\Auth::check()) {
-                $view->with('currentAccount', request()->route('account'));
+                $account = request()->route('account');
+                if (is_null($account)) {
+                    $account = \Auth::user()->accounts->first();
+                }
+
+                $view->with('currentAccount', $account);
             }
         });
     }
