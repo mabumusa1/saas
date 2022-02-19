@@ -14,7 +14,7 @@ class SiteController extends Controller
 //        $validatedData = $request->validated();
         echo json_encode(
             [
-                'valid' => false,
+                'valid' => true,
             ]
         );
     }

@@ -144,7 +144,7 @@
                                         <div class="form-group fv-row">
                                             <label>Site Name</label>
                                             <input name="sitename" type="text" class="form-control form-control-solid" placeholder=""/>
-                                            <span class="form-text text-muted">Site name is unique</span>
+{{--                                            <span class="form-text text-muted">Site name is unique</span>--}}
                                         </div>
                                     </div>
                                     <div class="mb-10">
@@ -156,7 +156,7 @@
                                                         <input name="environmentname" type="text" class="w-50 form-control form-control-solid" placeholder=""/>
                                                         <p class="m-0">.steercampaign.com</p>
                                                     </div>
-                                                    <span class="form-text text-muted">Enviroment name is unique</span>
+{{--                                                    <span class="form-text text-muted">Enviroment name is unique</span>--}}
                                                 </div>
                                             </div>
 
@@ -211,7 +211,7 @@
 
                                 <!--begin::Wrapper-->
                                 <div>
-                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                    <button id="btn-submit" type="button" class="btn btn-primary" data-kt-stepper-action="submit">
                                         <span class="indicator-label">
                                             Submit
                                         </span>
@@ -237,6 +237,14 @@
     </div>
 
 @section('scripts')
+
+<style>
+    .form-control.is-valid{border-color:#50CD89 !important;}
+    .form-control.is-invalid{border-color: #F1416C !important;}
+    .fv-plugins-icon[data-field='sitename'],
+    .fv-plugins-icon[data-field='environmentname']
+    {top: 22px !important;}
+</style>
 <script>
 var element = document.querySelector("#create_stepper");
 // Initialize Stepper
@@ -252,11 +260,10 @@ stepper.on("kt.stepper.previous", function (stepper) {
     stepper.goPrevious(); // go previous step
 });
 
-
 // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
 var validator = FormValidation.formValidation(
-        document.getElementById('site-form'),
-        {
+    document.getElementById('site-form'),
+    {
         fields: {
             'sitename': {
                 validators:{
@@ -270,7 +277,7 @@ var validator = FormValidation.formValidation(
                         headers: {
                             'X-CSRF-TOKEN': $("input[name='_token']").val(),
                         },
-                        url: '/form-validation',
+                        url: '/1/form-validation',
                         message: 'Site name is unique',
                     }
                 }
@@ -291,24 +298,69 @@ var validator = FormValidation.formValidation(
                         headers: {
                             'X-CSRF-TOKEN': $("input[name='_token']").val(),
                         },
-                        url: '/form-validation',
+                        url: '/1/form-validation',
                         message: 'Name is available',
                     }
-                    // regexp:{
-                    //     regexp: /^[a-zA-Z]+[a-zA-Z0-9]*$/g,
-                    //     message: 'Begins with a letter'
-                    // }
                 }
             }
         },
         plugins: {
             trigger: new FormValidation.plugins.Trigger(),
+            submitButton: new FormValidation.plugins.SubmitButton(),
+            icon: new FormValidation.plugins.Icon({
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-refresh',
+            }),
             bootstrap: new FormValidation.plugins.Bootstrap5({
                 rowSelector: '.fv-row',
-                eleInvalidClass: '',
-                eleValidClass: ''
+                eleInvalidClass: 'is-invalid',
+                eleValidClass: 'is-valid'
             })
-    },
+        },
+    });
+
+// Submit button handler
+const submitButton = document.getElementById('btn-submit');
+submitButton.addEventListener('click', function (e) {
+    // Prevent default button action
+    e.preventDefault();
+    // Validate form before submit
+    if (validator) {
+        validator.validate().then(function (status) {
+            console.log('validated!');
+
+            if (status == 'Valid') {
+                // Show loading indication
+                submitButton.setAttribute('data-kt-indicator', 'on');
+
+                // Disable button to avoid multiple click
+                submitButton.disabled = true;
+
+                // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                setTimeout(function () {
+                    // Remove loading indication
+                    submitButton.removeAttribute('data-kt-indicator');
+
+                    // Enable button
+                    submitButton.disabled = false;
+
+                    // Show popup confirmation
+                    Swal.fire({
+                        text: "Form has been successfully submitted!",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+
+                    //form.submit(); // Submit form
+                }, 2000);
+            }
+        });
+    }
 });
 // $(document).ready(function() {
 //     $('#btn-submit').click(function (e) {
