@@ -22,7 +22,7 @@
 
                         <!--begin::Wrapper-->
                         <div data-bs-toggle="tooltip" data-bs-placement="left">
-                            <a href="{{ route('sites.create') }}" class="btn btn-sm btn-primary fw-bolder">
+                            <a href="{{ route('sites.create', $currentAccount->id) }}" class="btn btn-sm btn-primary fw-bolder">
                                 Create
                             </a>
                         </div>

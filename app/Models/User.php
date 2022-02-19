@@ -40,7 +40,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'account_id',
         'password',
         'remember_token',
         'two_factor_recovery_codes',
@@ -57,8 +56,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function accounts()
+    public function Accounts()
     {
-        return $this->belongsToMany(Account::class);
+        return $this->belongsToMany(Account::class)->withTimestamps()->withPivot('role');
     }
 }

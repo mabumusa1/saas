@@ -26,6 +26,6 @@ class Account extends Model
 
     public function Users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role');
     }
 }

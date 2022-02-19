@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Site extends Model
 {
     use HasFactory;
+
+    public function Account()
+    {
+        return $this->belongsTo(Account::class);
+    }    
 }

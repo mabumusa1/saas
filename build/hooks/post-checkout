@@ -2,4 +2,5 @@
 
 echo "Removing cache to ensure clean state after git checkout..."
 
-rm -rf var/cache
+composer dump-autoload
+php artisan cache:clear

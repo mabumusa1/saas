@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +16,16 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        //Always make sure we have five test accounts only
+        // We need five account for testing with five users for each account 
         if (Account::count() >= 5) {
             $this->command->info('Accounts exists, skip seeding accounts');
-        } else {
-            Account::factory()->count(5)->create();
+        }else{
+            Account::factory()->count(5)->hasAttached(
+                User::factory()->count(5)
+                ->sequence(
+                    fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
+                )                
+            )->create();            
         }
     }
 }

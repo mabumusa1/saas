@@ -16,7 +16,7 @@ class DataCenter extends Model
         'region',
     ];
 
-    public function accounts()
+    public function Accounts()
     {
         return $this->hasMany(Account::class);
     }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -28,21 +29,6 @@ class UserFactory extends Factory
             'job_title' => $this->faker->randomElement(['CTO', 'CEO', 'Marketer']),
             'employer' => $this->faker->company(),
             'experince' => $this->faker->randomElement(['Beginner', 'Intermidate', 'Pro']),
-            'role' => $this->faker->randomElement(['owner', 'fb', 'fnb', 'pb', 'pnb']),
         ];
-    }
-
-    /**
-     * Indicate that the user is owner.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function owner()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'role' => 'owner',
-            ];
-        });
     }
 }

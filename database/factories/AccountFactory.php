@@ -4,7 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Account;
 use App\Models\User;
+use App\Models\Site;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
@@ -19,7 +21,7 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'name' =>  $this->faker->firstName(),
+            'name' =>  $this->faker->firstName() . ' Account',
             'data_center_id' => 1,
         ];
     }
@@ -31,13 +33,10 @@ class AccountFactory extends Factory
      */
     public function configure()
     {
-        //Create users with all the possible roles
+        
         return $this->afterCreating(function (Account $account) {
-            $roles = ['fb', 'fnb', 'pb', 'pnb'];
-            User::factory()->owner()->create(['account_id' => $account->id]);
-            foreach ($roles as $role) {
-                User::factory()->create(['account_id' => $account->id, 'role' => $role]);
-            }
+            // Create Sites attached to the account
+            Site::factory()->count(5)->create(['account_id' => $account->id]);
         });
     }
 }

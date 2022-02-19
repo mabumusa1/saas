@@ -16,7 +16,7 @@ yarn-error.log
 /public/skin
 /public/mix-manifest.json
 !.ddev
-.ddev/mautic-preference
+.ddev/laravel-preference
 /buid/logs
 _ide_helper.php
 _ide_helper_models.php
