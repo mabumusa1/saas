@@ -17,7 +17,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);
-        Route::resource('users', App\Http\Controllers\UsersController::class)->except([
+        Route::resource('users', App\Http\Controllers\UserController::class)->except([
             'show',
         ]);
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');

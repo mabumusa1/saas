@@ -11,6 +11,30 @@ use Illuminate\Support\Arr;
 
 class RoleSeeder extends Seeder
 {
+    private function assignRole(int $index)
+    {
+        $role = 'owner';
+        switch ($index) {
+            case 0:
+                $role = 'owner';
+                break;
+            case 1:
+                $role = 'fb';
+                break;
+            case 2:
+                $role = 'fnb';
+                break;
+            case 3:
+                $role = 'pb';
+                break;
+            case 4:
+                $role = 'pnb';
+                break;
+        }
+
+        return $role;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -18,48 +42,27 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        // Users are created in the Accounts Seeders we just need to update their roles in the pivot table
-        $accounts = Account::all();
-        foreach ($accounts as $account) {
-            foreach ($account->users as $index => $user) {
-                $role = 'owner';
-                switch ($index) {
-                    case 0:
-                        $role = 'owner';
-                        break;
-                    case 1:
-                        $role = 'fb';
-                        break;
-                    case 2:
-                        $role = 'fnb';
-                        break;
-                    case 3:
-                        $role = 'pb';
-                        break;
-                    case 4:
-                        $role = 'pnb';
-                        break;
-                }
-                $account->users()->updateExistingPivot($user->id, [
-                    'role' => $role,
-                ]);
-            }
-        }
-
-        // Make sure each user has at least two accounts for testing
+        //Make all the users belong to two accounts
         $roles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
-        $users = User::all();
-        foreach ($users as $user) {
-            if ($user->accounts->count() == 1) {
-                try {
-                    $currentAccount = $user->accounts->first();
-                    $currentRole = $currentAccount->pivot->role;
-                    $nextId = $currentAccount->id + 1;
-                    $nextAccount = Account::findOrFail($nextId);
-                    $user->accounts()->syncWithoutDetaching([$nextAccount->id], ['role' => Arr::random($roles)]);
-                } catch (\Throwable $th) {
-                }
+        $accounts = Account::all();
+        $users = User::chunk(5, function ($users) use ($accounts) {
+            foreach ($users as $index => $user) {
+                $newAccounts = [];
+                $newAccountFlag = true;
+                $randomId = $accounts->random()->id;
+                $currentAccount = $user->accounts->first()->id;
+
+                do {
+                    if ($currentAccount == $randomId) {
+                        $randomId = $accounts->random()->id;
+                        continue;
+                    }
+                    $newAccounts = [$currentAccount, $randomId];
+                    $newAccountFlag = false;
+                } while ($newAccountFlag);
+
+                $user->accounts()->sync([$currentAccount => ['role' => $this->assignRole($index)], $randomId => ['role' => $this->assignRole(rand(0, 4))]]);
             }
-        }
+        });
     }
 }

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Account $account)
     {
-        return view('user.index');
+        return view('user.index', ['users' => $account->users]);
     }
 
     /**
@@ -21,7 +22,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Account $account)
     {
         return view('user.create');
     }
@@ -32,7 +33,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Account $account, Request $request)
     {
         //
     }
@@ -43,7 +44,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Account $account, $id)
     {
         //
     }
@@ -54,7 +55,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Account $account, $id)
     {
         return view('user.edit');
     }
@@ -66,7 +67,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Account $account, Request $request, $id)
     {
         //
     }
@@ -77,7 +78,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Account $account, $id)
     {
         //
     }

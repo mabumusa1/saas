@@ -20,7 +20,7 @@ class AccountSeeder extends Seeder
         if (Account::count() >= 5) {
             $this->command->info('Accounts exists, skip seeding accounts');
         } else {
-            Account::factory()->count(5)->hasAttached(
+            Account::factory()->count(2)->hasAttached(
                 User::factory()->count(5)
                 ->sequence(
                     fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]

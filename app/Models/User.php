@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\AccountUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,8 +58,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'fullName',
+    ];
+
     public function Accounts()
     {
-        return $this->belongsToMany(Account::class)->withTimestamps()->withPivot('role');
+        return $this->belongsToMany(Account::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
+    }
+
+    /**
+     * Get User Full Name.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
+        );
     }
 }
