@@ -12,14 +12,15 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('account_user', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('account_id');
-            $table->unsignedBigInteger('user_id');
-            $table->enum('role', ['admin', 'staff', 'owner', 'fb', 'fnb', 'pb', 'pnb']);
+            $table->unsignedBigInteger('install_id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->nullabl();
+            $table->string('phone')->nullable();
+            $table->foreign('install_id')->references('id')->on('installs');
             $table->timestamps();
-            $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('account_user');
+        Schema::dropIfExists('contacts');
     }
 };

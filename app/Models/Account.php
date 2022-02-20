@@ -29,4 +29,14 @@ class Account extends Model
     {
         return $this->belongsToMany(User::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
     }
+
+    public function Sites()
+    {
+        return $this->hasMany(Site::class);
+    }
+
+    public function Groups()
+    {
+        return $this->hasMany(Group::class);
+    }
 }

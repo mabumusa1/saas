@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
+use App\Models\Account;
 use App\Models\Site;
 
 class SiteController extends Controller
@@ -24,9 +25,9 @@ class SiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Account $account)
     {
-        return view('sites.index');
+        return view('sites.index', ['sites' => $account->sites]);
     }
 
     /**
@@ -34,7 +35,7 @@ class SiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Account $account)
     {
         return view('sites.create');
     }
@@ -56,7 +57,7 @@ class SiteController extends Controller
      * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\Response
      */
-    public function show(Site $site)
+    public function show(Account $account, Site $site)
     {
         //
     }
@@ -67,9 +68,9 @@ class SiteController extends Controller
      * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\Response
      */
-    public function edit(Site $site)
+    public function edit(Account $account, Site $site)
     {
-        //
+        return view('sites.edit', ['site' => $site]);
     }
 
     /**
@@ -90,7 +91,7 @@ class SiteController extends Controller
      * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Site $site)
+    public function destroy(Account $account, Site $site)
     {
         //
     }
