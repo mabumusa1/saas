@@ -83,15 +83,15 @@ class User extends Authenticatable
         return $this->hasOne(AccountUser::class);
     }
 
-//    /**
-//     * Get User Full Name.
-//     *
-//     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-//     */
-//    public function fullName(): Attribute
-//    {
-//        return new Attribute(
-//            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
-//        );
-//    }
+    /**
+     * Get User Full Name.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
+        );
+    }
 }

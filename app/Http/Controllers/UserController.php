@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use function _PHPStan_76800bfb5\React\Promise\Stream\first;
 use App\Casts\RoleCast;
 use App\Models\Account;
 use App\Models\AccountUser;
@@ -77,24 +76,13 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Account $account, $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Account $account
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\View\View
      */
-    public function edit(Account $account, $user)
+    public function edit(Account $account, User $user)
     {
         return view('user.edit', compact('account', 'user'));
     }
@@ -104,10 +92,10 @@ class UserController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Account $account, Request $request, $user)
+    public function update(Account $account, Request $request, User $user)
     {
         $data = $request->all();
         $message = [
@@ -144,10 +132,10 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Account $account
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Account $account, $user)
+    public function destroy(Account $account, User $user)
     {
         $accountUser = AccountUser::where('account_id', $account->id)->where('role', 'owner')->get();
 
