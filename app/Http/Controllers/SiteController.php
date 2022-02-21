@@ -6,6 +6,7 @@ use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
 use App\Models\Site;
+use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
@@ -26,9 +27,16 @@ class SiteController extends Controller
      * @param \App\Models\Account $account
      * @return \Illuminate\View\View
      */
-    public function index(Account $account)
+    public function index(Account $account, Request $request)
     {
-        return view('sites.index', ['sites' => $account->sites]);
+        $sites = $account->sites();
+        if ($request->filled('q')) {
+            $sites->where('name', 'like', '%'.$request->q.'%')->orWhereHas('installs', function ($query) use ($request) {
+                $query->where('name', 'like', '%'.$request->q.'%');
+            });
+        }
+
+        return view('sites.index', ['sites' => $sites->get()]);
     }
 
     /**
