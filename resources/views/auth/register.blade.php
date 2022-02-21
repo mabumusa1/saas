@@ -62,46 +62,6 @@
             <label class="form-label fw-bolder text-dark fs-6">{{ __('Email') }}</label>
             <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" value="{{ old('email') }}" />
         </div>
-        <!--end::Input group-->
-        <div class="fv-row mb-7">
-            <label class="form-label fw-bolder text-dark fs-6">{{ __('Job Title') }}</label>
-            <select class="form-control form-control-lg form-control-solid" name="job_title">
-                <option value="Developer">Developer</option>
-                <option value="Marketer">Marketer</option>
-                <option value="Designer">Designer</option>
-                <option value="Project Manager">Project Manager</option>
-                <option value="Billing Manager">Billing Manager</option>
-                <option value="IT Professional">IT Professional</option>
-                <option value="Executive">Executive</option>
-                <option value="None of these ">None of these </option>
-            </select>
-        </div>
-        <div class="fv-row mb-7">
-            <label class="form-label fw-bolder text-dark fs-6">{{ __('Employer') }}</label>
-            <select class="form-control form-control-lg form-control-solid" name="employer">, freelance, Myself, full-time, Agency, Business/In-house
-                <option value="Myself">Myself</option>
-                <option value="Freelancer">Freelancer</option>
-                <option value="Myself">Myself</option>
-                <option value="Full-Time">Full-Time</option>
-                <option value="Agency">Agency</option>
-                <option value="Business/In-house">Business/In-house</option>
-            </select>
-        </div>
-        <div class="fv-row mb-7">
-            <label class="form-label fw-bolder text-dark fs-6">{{ __('Experience') }}</label>
-            <select class="form-control form-control-lg form-control-solid" name="experince">
-                <option value="I am a beginner">I am a beginner</option>, I have some experience, ,
-                <option value="I have some experience">I have some experience</option>
-                <option value="I feel comfortable with most Mautic-related tasks">I feel comfortable with most Mautic-related tasks</option>
-                <option value="I am an expert">I am an expert</option>
-            </select>
-        </div>
-        <!--begin::Input group-->
-        <div class="fv-row mb-7">
-            <label class="form-label fw-bolder text-dark fs-6">{{ __('Company Name') }}</label>
-            <input class="form-control form-control-lg form-control-solid" type="text" name="company_name" autocomplete="off" value="{{ old('company_name') }}" />
-        </div>
-        <!--end::Input group-->
         <!--begin::Input group-->
         <div class="mb-10 fv-row" data-kt-password-meter="true">
             <!--begin::Wrapper-->
