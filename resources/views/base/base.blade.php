@@ -42,6 +42,8 @@
         @endforeach
         {{-- end::Global Stylesheets Bundle --}}
     @endif
+    
+    @livewireStyles
 
     @yield('styles')
 </head>
@@ -83,6 +85,9 @@
 {{-- end::Javascript --}}
 
 @yield('scripts')
+@stack('modals')
+
+@livewireScripts
 </body>
 {{-- end::Body --}}
 </html>
