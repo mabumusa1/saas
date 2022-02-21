@@ -78,15 +78,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Account::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
     }
 
-    /**
-     * Get User Full Name.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    public function fullName(): Attribute
+    public function accountUser()
     {
-        return new Attribute(
-            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
-        );
+        return $this->hasOne(AccountUser::class);
     }
+
+//    /**
+//     * Get User Full Name.
+//     *
+//     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+//     */
+//    public function fullName(): Attribute
+//    {
+//        return new Attribute(
+//            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
+//        );
+//    }
 }
