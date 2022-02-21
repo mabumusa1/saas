@@ -35,7 +35,7 @@
                             <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                                 <thead>
                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                        <th>Site Name</th>
+                                        <th id="sortable">Site Name<i class="bi {{ $order === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i></th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -50,8 +50,8 @@
                                         @foreach ($site->installs as $install)
                                             <tr class="env {{ request()->has('env') ?: 'd-none' }}">
                                                 <td class="table-light">
-                                                    <div>
-                                                        @switch($install->type)
+                                                    <i class="bi bi-arrow-90deg-right"></i>
+                                                    @switch($install->type)
                                                             @case('prd')
                                                                 <span class="badge badge-success">PRD</span>
                                                             @break
@@ -64,8 +64,7 @@
                                                                 <span class="badge badge-light-dark">DEV</span>
                                                             @break
                                                         @endswitch
-                                                    </div>
-                                                    <p>{{ $install->name }}</p>
+                                                    <p class="d-inline">{{ $install->name }}</p>
                                                 </td>
                                                 <td class="table-light">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -90,9 +89,15 @@
             border-color: #B5B5C3
         }
 
+        #sortable {
+            cursor: pointer;
+        }
+        #sortable:hover {
+            background-color: lightgray;
+        }
     </style>
         <script>
-            const showEnv = document.getElementById('show_env');
+            var showEnv = document.getElementById('show_env');
 
 
             showEnv.addEventListener('change', function() {
@@ -115,6 +120,15 @@
                         path: newurl
                     }, '', newurl);
                 }
+            });
+            var sortable = document.querySelector('#sortable');
+            sortable.addEventListener('click', function(){
+                let searchParams = new URLSearchParams(window.location.search);
+                searchParams.set('order', "{{ $order === 'ASC' ? 'DESC' : 'ASC' }}");
+                let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+                        '?' + searchParams.toString();
+                        location.href = newurl;
+
             });
         </script>
     @endsection

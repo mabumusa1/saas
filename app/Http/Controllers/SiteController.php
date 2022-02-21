@@ -28,14 +28,16 @@ class SiteController extends Controller
      */
     public function index(Account $account, Request $request)
     {
+        $order = $request->order ?: 'DESC';
         $sites = $account->sites();
         if ($request->filled('q')) {
             $sites->where('name', 'like', '%'.$request->q.'%')->orWhereHas('installs', function ($query) use ($request) {
                 $query->where('name', 'like', '%'.$request->q.'%');
             });
         }
+        $sites->orderBy('name', $order);
 
-        return view('sites.index', ['sites' => $sites->get()]);
+        return view('sites.index', ['sites' => $sites->get(), 'order' => $order]);
     }
 
     /**
