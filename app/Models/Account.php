@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Models\AccountUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
@@ -14,28 +17,48 @@ class Account extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'name',
     ];
 
-    public function dataCenter()
+    /**
+     * Get the Data Center that owns the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function dataCenter(): BelongsTo
     {
         return $this->belongsTo(DataCenter::class);
     }
 
-    public function Users()
+    /**
+     * The Users that belong to the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function Users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
     }
 
-    public function Sites()
+    /**
+     * Get all of the sites for the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Sites(): HasMany
     {
         return $this->hasMany(Site::class);
     }
 
-    public function Groups()
+    /**
+     * Get all of the Groups for the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Groups(): HasMany
     {
         return $this->hasMany(Group::class);
     }

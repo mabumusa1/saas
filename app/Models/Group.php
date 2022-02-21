@@ -13,7 +13,7 @@ class Group extends Model
     /**
      * Get all of the sites for the Group.
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function Sites(): BelongsToMany
     {

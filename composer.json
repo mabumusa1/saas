@@ -24,7 +24,7 @@
         "laravel-shift/blueprint": "^2.1",
         "nascent-africa/jetstrap": "^2.4",
         "nunomaduro/collision": "^6.1",
-        "nunomaduro/larastan": "^0.7.6",
+        "nunomaduro/larastan": "^2.0",
         "php-coveralls/php-coveralls": "^2.4",
         "phpunit/phpunit": "^9.5.10"
     },

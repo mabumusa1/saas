@@ -48,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
             if (\Auth::check()) {
                 $account = request()->route('account');
                 if (is_null($account)) {
+                    /** @phpstan-ignore-next-line */
                     $account = \Auth::user()->accounts->first();
                 }
 

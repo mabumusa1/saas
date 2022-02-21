@@ -23,7 +23,8 @@ class SiteController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Account $account
+     * @return \Illuminate\View\View
      */
     public function index(Account $account)
     {
@@ -33,7 +34,8 @@ class SiteController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Account $account
+     * @return \Illuminate\View\View
      */
     public function create(Account $account)
     {
@@ -43,30 +45,21 @@ class SiteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param \App\Models\Account $account
      * @param  \App\Http\Requests\StoreSiteRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreSiteRequest $request)
+    public function store(Account $account, StoreSiteRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Account $account, Site $site)
-    {
-        //
+        return redirect(route('sites.index', $account->id))->with('status', 'Site is under creation, we will send you an update once it is done!');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param \App\Models\Account $account
      * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Account $account, Site $site)
     {
@@ -76,23 +69,25 @@ class SiteController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param \App\Models\Account $account
      * @param  \App\Http\Requests\UpdateSiteRequest  $request
      * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateSiteRequest $request, Site $site)
+    public function update(Account $account, UpdateSiteRequest $request, Site $site)
     {
-        //
+        return redirect(route('sites.index'))->with('status', 'Site has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param \App\Models\Account $account
      * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Site $site)
     {
-        //
+        return redirect(route('sites.index'))->with('status', 'Site has been deleted');
     }
 }
