@@ -26,6 +26,7 @@
                                             Show Environments
                                         </label>
                                     </div>
+                                    <a class="btn btn-link btn-sm ms-5" href="{{ route('groups.create', $currentAccount->id ) }}">Add Group</a>
                                 </div>
                             </div>
                         </form>
@@ -84,6 +85,12 @@
         </div>
     </div>
     @section('scripts')
+    <style>
+        .form-control:focus + .input-group-text {
+            border-color: #B5B5C3
+        }
+
+    </style>
         <script>
             const showEnv = document.getElementById('show_env');
 
