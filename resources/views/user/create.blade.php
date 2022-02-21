@@ -6,7 +6,7 @@
                     <h1>Add user</h1>
                     <div class="separator mb-5"></div>
                 </div>
-                {!! Form::open(['method' => 'POST','route' => ['users.store', $account],'enctype'=>"multipart/form-data",'id'=>'form_lang_tab']) !!}
+                <form method="POST" id ="form_lang_tab" action="{{ route('users.store', $account) }}">
                     <div class="mb-10 col-12 border p-10">
                     <div class="col-5">
                         <div class="mb-10">
@@ -61,7 +61,7 @@
                         <button href="#" type="submit" class="btn btn-bg-info text-white">Create user</button>
                     </div>
                 </div>
-                {!! Form::close() !!}
+            </form>
             </div>
         </div>
     </div>
