@@ -6,31 +6,68 @@
                     <h1>Edit user</h1>
                     <div class="separator mb-5"></div>
                 </div>
-
-                <div class="mb-10 col-12 border p-10">
-                    <div class="bg-gray-100 rou p-6 my-4">
-                        <h1 class="text-black">Bryan Coward</h1>
-                        <p>byranccoward@gmail.com</p>
+                <form action="{{ route('users.update', ['account' => $account, 'user' => $user])}}" method="post">
+                    {{ method_field('PUT') }}
+                    {{ csrf_field() }}
+                    <div class="mb-10 col-12 border p-10">
+                    <div class="mb-10">
+                        <div class="form-group fv-row">
+                            <label class="required">First Name</label>
+                            <input name="first_name" type="text" value="{{$user->first_name}}"
+                                   class="form-control form-control-solid" placeholder=""/>
+                            @if ($errors->has('first_name'))
+                                <span class="help-block"><strong>{{ $errors->first('first_name') }}</strong></span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="mb-10">
+                        <div class="form-group fv-row">
+                            <label class="required">Last Name</label>
+                            <input name="last_name" value="{{$user->last_name}}" type="text"
+                                   class="form-control form-control-solid" placeholder=""/>
+                            @if ($errors->has('last_name'))
+                                <span class="help-block"><strong>{{ $errors->first('last_name') }}</strong></span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="mb-10">
+                        <div class="form-group fv-row">
+                            <label class="required">Email</label>
+                            <input name="email" value="{{$user->email}}" type="text"
+                                   class="form-control form-control-solid" placeholder=""/>
+                            @if ($errors->has('email'))
+                                <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
+                            @endif
+                        </div>
                     </div>
                     <div class="form-group fv-row col-5 my-4">
                         <label class="required text-lg-start">Account access</label>
                         <a href="#" class="float-end">View access type definitions</a>
-                        <select class="form-select form-select-solid" aria-label="Select example">
-                            <option>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="role" class="form-select form-select-solid" aria-label="Select example">
+                            <option value="">Open this select menu</option>
+                            <option @if($user->accountUser->role == 'Owner') selected @endif value="owner">Owner</option>
+                            <option @if($user->accountUser->role == 'Full (with Billing)') selected @endif value="fb">Full (with Billing)</option>
+                            <option @if($user->accountUser->role == 'Full (without Billing)') selected @endif value="fnb">Full (without Billing)</option>
+                            <option @if($user->accountUser->role == 'Partial (with Billing)') selected @endif value="pb">Partial (with Billing)</option>
+                            <option @if($user->accountUser->role == 'Partial (without Billing)') selected @endif value="pnb">Partial (without Billing)</option>
                         </select>
+                        @if ($errors->has('role'))
+                            <span class="help-block"><strong>{{ $errors->first('role') }}</strong></span>
+                        @endif
                     </div>
                     <div class="separator mb-5"></div>
                     <div class="my-4">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#kt_modal_1">
                             <i class="bi bi-dash-circle fs-4 me-2"></i>Remove user
                         </button>
-                        <a href="#" class="btn btn-bg-info float-end text-white">Update user</a>
-                        <a href="#" class="btn btn-outline btn-outline-solid btn-outline-default float-end mx-3">Cancel</a>
+                        <button type="submit" class="btn btn-bg-info float-end text-white">Update user</button>
+                        <a href="{{route('users.index', $account)}}"
+                           class="btn btn-outline btn-outline-solid btn-outline-default float-end mx-3">Cancel</a>
                     </div>
                 </div>
+                </form>
+
 
             </div>
         </div>
@@ -41,19 +78,24 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Remove User</h5>
                     <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                         aria-label="Close">
                         <span class="svg-icon svg-icon-2x"></span>
                     </div>
                     <!--end::Close-->
                 </div>
 
                 <div class="modal-body">
-                    <p>Are you sure you want to delete this user? {username or name}</p>
+                    <p>Are you sure you want to delete this user? {{$user->first_name}} {{$user->last_name}}</p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Yes, Delete!</button>
+                    <form action="{{ route('users.destroy', ['account' => $account, 'user' => $user])}}" method="post">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Yes, Delete!</button>
+                    </form>
                 </div>
             </div>
         </div>

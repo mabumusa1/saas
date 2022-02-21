@@ -7,6 +7,10 @@
                     <a href="{{ route('users.create', $currentAccount->id) }}" class="btn btn-primary">Add User</a>
                 </div>
 
+                @if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif
+
                 <div class="table-responsive">
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
