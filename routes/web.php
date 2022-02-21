@@ -17,6 +17,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);
+        Route::resource('groups', App\Http\Controllers\GroupController::class)->except([
+            'show',
+        ]);
         Route::resource('users', App\Http\Controllers\UserController::class)->except([
             'show',
         ]);
