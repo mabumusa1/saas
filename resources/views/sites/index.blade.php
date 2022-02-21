@@ -47,9 +47,9 @@
                                             </td>
                                         </tr>
                                         @foreach ($site->installs as $install)
-                                            <tr>
+                                            <tr class="env {{ request()->has('env') ?: 'd-none' }}">
                                                 <td class="table-light">
-                                                    <div class="env {{ request()->has('env') ?: 'd-none' }}">
+                                                    <div>
                                                         @switch($install->type)
                                                             @case('prd')
                                                                 <span class="badge badge-success">PRD</span>
