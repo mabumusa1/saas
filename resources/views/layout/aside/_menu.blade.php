@@ -84,7 +84,7 @@
         </div>
 
         <div class="menu-item">
-            <a class="menu-link" href="{{ route('sites.index', $account->id) }}">
+            <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
                 <span class="menu-icon">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art003.svg-->
                     <span class="svg-icon svg-icon-2">
@@ -118,14 +118,14 @@
                     class="menu-arrow"></span></span>
             <div class="menu-sub menu-sub-accordion menu-active-bg">
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('users.index','2') }}">
+                    <a class="menu-link" href="{{ route('users.index', $currentAccount->id) }}">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
                         <span class="menu-title">Account Users</span>
                     </a>
                 </div>
-                <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/techincal_contacts"><span
+                <div class="menu-item"><a class="menu-link" href="{{ route('contacts.index', $currentAccount->id) }}"><span
                             class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Techincal Contacts</span></a>
                 </div>
                 <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/activity_log"><span

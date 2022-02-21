@@ -20,6 +20,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::resource('users', App\Http\Controllers\UserController::class)->except([
             'show',
         ]);
+
+        Route::resource('contacts', App\Http\Controllers\ContactController::class)->only([
+            'index', 'edit', 'update',
+        ]);
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
     });
 });
