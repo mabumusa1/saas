@@ -19,26 +19,26 @@ class RoleCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        $label = '';
+        $code = '';
         switch ($attributes['role']) {
             case 'owner':
-                $label = 'Owner';
+                $code = 'owner';
                 break;
             case 'fb':
-                $label = 'Full (with Billing)';
+                $code = 'fb';
                 break;
             case 'fnb':
-                $label = 'Full (without Billing)';
+                $code = 'fnb';
                 break;
             case 'pb':
-                $label = 'Partial (with Billing)';
+                $code = 'pb';
                 break;
             case 'pnb':
-                $label = 'Partial (without Billing)';
+                $code = 'pnb';
                 break;
         }
 
-        return  $label;
+        return  $code;
     }
 
     /**
