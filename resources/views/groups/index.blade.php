@@ -1,70 +1,49 @@
 <x-base-layout>
     <div class="container mb-8">
-        <div class="card">
-            <div class="card-body">
-                <div class="mb-10 col-12 border p-10">
-                    <div class="d-flex justify-content-between mb-5">
-                        <h1>Groups</h1>
-                        <a href="{{ route('groups.create', $currentAccount->id) }}" class="btn btn-primary">Add
-                            Group</a>
-                    </div>
-                    <h5 class="text-muted">Search for group</h4>
-                        <form id="filters">
-                            <div class="row">
-                                <div class="col-5 mb-4">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control border-right-0" name="q"
-                                            value="{{ request()->get('q') }}" />
-                                        <span class="input-group-text bg-transparent" id="basic-addon2"><i
-                                                class="bi bi-search"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="table-responsive">
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
 
-                            <table class="table table-rounded table-row-bordered border gy-7 gs-7">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                        <th>Name</th>
-                                        <th>Notes</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($groups as $group)
-                                        <tr>
-                                            <td>{{ $group->name }}</td>
-                                            <td>{{ $group->notes }}</td>
-                                            <td>
-                                                <div>
-                                                    <a href="{{ route('groups.edit', compact('account', 'group')) }}"
-                                                        class="btn btn-warning btn-sm">Edit</a>
-                                                    <form
-                                                        action="{{ route('groups.destroy', compact('account', 'group')) }}"
-                                                        method="post" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            id="btn-submit">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-10">Groups</h5>
+                        @foreach ($groups as $grp)
+                            <div class="mb-5">
+                                <a href="{{ route('groups.edit', [$account->id, $grp->id]) }}">
+                                    <span class="d-block">{{ $grp->name }}</span>
+                                    <span>{{ $grp->notes }}</span>
+                                </a>
+                            </div>
+                        @endforeach
+                        <a class="btn btn-primary btn-sm" href={{ route('groups.create', [$account->id, $grp->id])}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                              </svg>
+                            Add Group</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-dark mb-8">Edit Group</h2>
+                        <div class="alert alert-success">Please select a group</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     @section('scripts')
-        <style>
-            .form-control:focus + .input-group-text {
-                border-color: #B5B5C3
-            }
-
-        </style>
+        <script>
+            document.querySelector('#selectAll').addEventListener('click', function() {
+                document.querySelectorAll('.site').forEach(function(el) {
+                    el.checked = true;
+                })
+            });
+            document.querySelector('#removeAll').addEventListener('click', function() {
+                document.querySelectorAll('.site').forEach(function(el) {
+                    el.checked = false;
+                })
+            });
+        </script>
     @endsection
 </x-base-layout>

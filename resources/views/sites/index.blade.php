@@ -28,7 +28,7 @@
                                         </label>
                                     </div>
                                     <a class="btn btn-link btn-sm ms-5"
-                                        href="{{ route('groups.create', $currentAccount->id) }}">Add Group</a>
+                                        href="{{ route('groups.index', $currentAccount->id) }}">Manage groups</a>
                                 </div>
                             </div>
                         </form>

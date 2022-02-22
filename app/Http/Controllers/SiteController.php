@@ -74,7 +74,7 @@ class SiteController extends Controller
      */
     public function edit(Account $account, Site $site)
     {
-        $groups = Group::all();
+        $groups = $account->groups;
 
         return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
     }
