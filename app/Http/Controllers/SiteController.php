@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
+use App\Models\Group;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
@@ -73,7 +74,9 @@ class SiteController extends Controller
      */
     public function edit(Account $account, Site $site)
     {
-        return view('sites.edit', ['site' => $site]);
+        $groups = Group::all();
+
+        return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
     }
 
     /**

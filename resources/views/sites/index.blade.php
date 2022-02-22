@@ -2,7 +2,7 @@
     <div class="container mb-8">
         <div class="card">
             <div class="card-body">
-                <div class="mb-10 col-12 border p-10">
+                <div class="mb-10 col-12">
                     <div class="d-flex justify-content-between mb-5">
                         <h1>Sites</h1>
                         <a href="{{ route('sites.create', $currentAccount->id) }}" class="btn btn-primary">Add Site</a>
@@ -21,12 +21,14 @@
                                 <div class="col-7 d-flex justify-content-end align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
-                                            {{ request()->has('env') ? 'checked' : '' }} id="show_env" name="env">
+                                            {{ request()->has('env') ? (request()->get('env') == 1 ? 'checked' : '') : 'checked' }}
+                                            id="show_env" name="env">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Show Environments
                                         </label>
                                     </div>
-                                    <a class="btn btn-link btn-sm ms-5" href="{{ route('groups.create', $currentAccount->id ) }}">Add Group</a>
+                                    <a class="btn btn-link btn-sm ms-5"
+                                        href="{{ route('groups.create', $currentAccount->id) }}">Add Group</a>
                                 </div>
                             </div>
                         </form>
@@ -35,7 +37,10 @@
                             <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                                 <thead>
                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                        <th id="sortable">Site Name<i class="bi {{ $order === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i></th>
+                                        <th id="sortable">Site Name<i
+                                                class="bi {{ $order === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
+                                        </th>
+                                        <th>Group</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -43,29 +48,39 @@
                                     @foreach ($sites as $site)
                                         <tr>
                                             <td>{{ $site->name }}</td>
-                                            <td><a
-                                                    href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
+                                            <td>
+                                                <span class="badge badge-secondary">{{ $site->groupName }}</span>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-warning btn-sm" href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
+                                                <form action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}" class="d-inline" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                <button class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
                                             </td>
                                         </tr>
                                         @foreach ($site->installs as $install)
-                                            <tr class="env {{ request()->has('env') ?: 'd-none' }}">
+                                            <tr
+                                                class="env {{ request()->has('env') ? (request()->get('env') == 1 ? '' : 'd-none') : '' }}">
                                                 <td class="table-light">
                                                     <i class="bi bi-arrow-90deg-right"></i>
                                                     @switch($install->type)
-                                                            @case('prd')
-                                                                <span class="badge badge-success">PRD</span>
-                                                            @break
+                                                        @case('prd')
+                                                            <span class="badge badge-success">PRD</span>
+                                                        @break
 
-                                                            @case('stg')
-                                                                <span class="badge badge-light-success">STG</span>
-                                                            @break
+                                                        @case('stg')
+                                                            <span class="badge badge-light-success">STG</span>
+                                                        @break
 
-                                                            @case('dev')
-                                                                <span class="badge badge-light-dark">DEV</span>
-                                                            @break
-                                                        @endswitch
+                                                        @case('dev')
+                                                            <span class="badge badge-light-dark">DEV</span>
+                                                        @break
+                                                    @endswitch
                                                     <p class="d-inline">{{ $install->name }}</p>
                                                 </td>
+
                                                 <td class="table-light">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <a class="btn btn-sm btn-primary" href="#">Backup Install</a>
@@ -73,6 +88,7 @@
                                                         <a class="btn btn-sm btn-danger" href="#"> Delete Install</a>
                                                     </div>
                                                 </td>
+                                                <td class="table-light"></td>
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -84,18 +100,20 @@
         </div>
     </div>
     @section('scripts')
-    <style>
-        .form-control:focus + .input-group-text {
-            border-color: #B5B5C3
-        }
+        <style>
+            .form-control:focus+.input-group-text {
+                border-color: #B5B5C3
+            }
 
-        #sortable {
-            cursor: pointer;
-        }
-        #sortable:hover {
-            background-color: lightgray;
-        }
-    </style>
+            #sortable {
+                cursor: pointer;
+            }
+
+            #sortable:hover {
+                background-color: lightgray;
+            }
+
+        </style>
         <script>
             var showEnv = document.getElementById('show_env');
 
@@ -106,12 +124,12 @@
                     document.querySelectorAll('.env').forEach(function(el) {
                         el.classList.remove('d-none');
                     });
-                    searchParams.set('env', 'on');
+                    searchParams.set('env', '1');
                 } else {
                     document.querySelectorAll('.env').forEach(function(el) {
                         el.classList.add('d-none');
                     });
-                    searchParams.delete('env');
+                    searchParams.set('env', '0');
                 }
                 if (history.pushState) {
                     let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname +
@@ -122,12 +140,12 @@
                 }
             });
             var sortable = document.querySelector('#sortable');
-            sortable.addEventListener('click', function(){
+            sortable.addEventListener('click', function() {
                 let searchParams = new URLSearchParams(window.location.search);
                 searchParams.set('order', "{{ $order === 'ASC' ? 'DESC' : 'ASC' }}");
                 let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname +
-                        '?' + searchParams.toString();
-                        location.href = newurl;
+                    '?' + searchParams.toString();
+                location.href = newurl;
 
             });
         </script>
