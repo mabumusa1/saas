@@ -39,15 +39,15 @@ class GroupController extends Controller
 
     public function store(Account $account, StoreGroupRequest $request)
     {
-        $account->Groups()->create($request->validated());
+        $group = $account->groups()->create($request->validated());
 
-        return to_route('groups.index', compact('account'));
+        return to_route('groups.edit', compact('account', 'group'));
     }
 
     public function edit(Account $account, Group $group)
     {
         $sites = $account->sites;
-        $groups = Group::all();
+        $groups = $account->groups;
 
         return view('groups.edit', compact('account', 'group', 'sites', 'groups'));
     }
