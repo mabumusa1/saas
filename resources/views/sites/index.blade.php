@@ -40,7 +40,7 @@
                                         <th id="sortable">Site Name<i
                                                 class="bi {{ $order === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
                                         </th>
-                                        <th>Group</th>
+                                        <th>Groups</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -49,7 +49,9 @@
                                         <tr>
                                             <td>{{ $site->name }}</td>
                                             <td>
-                                                <span class="badge badge-secondary">{{ $site->groupName }}</span>
+                                                @foreach($site->groups as $group)
+                                                <span class="badge badge-secondary">{{ $group->name }}</span>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <a class="btn btn-warning btn-sm" href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
