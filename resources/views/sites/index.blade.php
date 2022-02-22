@@ -34,32 +34,38 @@
                         </form>
                         <div class="table-responsive">
 
-                            <table class="table table-rounded table-row-bordered border gy-7 gs-7">
+                            <table class="table table-rounded border gy-7 gs-7">
                                 <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200 table-active">
                                         <th id="sortable">Site Name<i
                                                 class="bi {{ $order === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
                                         </th>
                                         <th>Groups</th>
-                                        <th>Actions</th>
+                                        <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($sites as $site)
-                                        <tr>
+                                        <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                                             <td>{{ $site->name }}</td>
                                             <td>
-                                                @foreach($site->groups as $group)
-                                                <span class="badge badge-secondary">{{ $group->name }}</span>
+                                                @foreach ($site->groups as $group)
+                                                    <span class="badge badge-secondary">{{ $group->name }}</span>
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                <a class="btn btn-warning btn-sm" href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
-                                                <form action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}" class="d-inline" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                <button class="btn btn-danger btn-sm">Delete</button>
-                                            </form>
+                                            <td class="text-center">
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <a class="btn btn-warning btn-sm"
+                                                        href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
+                                                        <form
+                                                        action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
+                                                        class="d-inline" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm btn-delete">Delete</button>
+                                                    </form>
+                                                </div>
+
                                             </td>
                                         </tr>
                                         @foreach ($site->installs as $install)
@@ -82,15 +88,16 @@
                                                     @endswitch
                                                     <p class="d-inline">{{ $install->name }}</p>
                                                 </td>
+                                                <td class="table-light"></td>
 
-                                                <td class="table-light">
+                                                <td class="table-light text-center">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <a class="btn btn-sm btn-primary" href="#">Backup Install</a>
                                                         <a class="btn btn-sm btn-primary" href="#"> Clear Cache</a>
                                                         <a class="btn btn-sm btn-danger" href="#"> Delete Install</a>
                                                     </div>
                                                 </td>
-                                                <td class="table-light"></td>
+
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -115,6 +122,10 @@
                 background-color: lightgray;
             }
 
+            .btn-delete{
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
         </style>
         <script>
             var showEnv = document.getElementById('show_env');
