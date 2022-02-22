@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Casts\RoleCast;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class AccountUser extends Pivot
 {
+    use HasFactory;
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
