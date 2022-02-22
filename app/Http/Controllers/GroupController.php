@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Account;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class GroupController extends Controller
 {
@@ -18,6 +19,10 @@ class GroupController extends Controller
      */
     public function index(Account $account, Request $request)
     {
+        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
+            dd('You don not have access on this page');
+        }
+
         $groups = $account->groups();
         if ($request->filled('q')) {
             $groups->where('name', 'like', '%'.$request->q.'%')->orWhereHas('sites', function ($query) use ($request) {
@@ -35,6 +40,10 @@ class GroupController extends Controller
      */
     public function create(Account $account)
     {
+        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
+            dd('You don not have access on this page');
+        }
+
         return view('groups.create', compact('account'));
     }
 
@@ -47,6 +56,10 @@ class GroupController extends Controller
      */
     public function store(Account $account, StoreGroupRequest $request)
     {
+        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
+            dd('You don not have access on this page');
+        }
+
         $account->Groups()->create($request->validated());
 
         return to_route('groups.index', compact('account'));
@@ -61,6 +74,10 @@ class GroupController extends Controller
      */
     public function edit(Account $account, Group $group)
     {
+        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
+            dd('You don not have access on this page');
+        }
+
         $sites = $account->sites;
         $groups = Group::all();
 
@@ -77,6 +94,10 @@ class GroupController extends Controller
      */
     public function update(Account $account, Group $group, UpdateGroupRequest $request)
     {
+        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
+            dd('You don not have access on this page');
+        }
+
         $group->update([
             'name' => $request->input('name'),
             'notes' => $request->input('notes'),
@@ -99,6 +120,10 @@ class GroupController extends Controller
      */
     public function destroy(Account $account, Group $group)
     {
+        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
+            dd('You don not have access on this page');
+        }
+
         $group->sites()->detach();
         $group->delete();
 
