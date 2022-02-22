@@ -23,6 +23,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'job_title' => ['nullable', Rule::in(['Developer', 'Marketer', 'Designer', 'Project Manager', 'Billing Manager', 'IT Professional', 'Executive', 'None of these'])],
+            'employer' => ['nullable', Rule::in(['Myself, freelance', 'Myself, full-time', 'Agency', 'Business/In-house'])],
+            'experince' => ['nullable', Rule::in(['I am a beginner', 'I have some experience', 'I feel comfortable with most Mautic-related tasks', 'I am an expert'])],
+            'company_name' => ['nullable', 'string', 'max:255'],
+
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -37,6 +43,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'first_name' => $input['first_name'],
                 'last_name' => $input['last_name'],
                 'email' => $input['email'],
+                'phone' => $input['phone'],
+                'job_title' => $input['job_title'],
+                'employer' => $input['employer'],
+                'experince' => $input['experince'],
+                'company_name' => $input['company_name'],
+
             ])->save();
         }
     }
@@ -55,6 +67,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'last_name' => $input['last_name'],
             'email' => $input['email'],
             'email_verified_at' => null,
+            'phone' => $input['phone'],
+            'job_title' => $input['job_title'],
+            'employer' => $input['employer'],
+            'experince' => $input['experince'],
+            'company_name' => $input['company_name'],
         ])->save();
 
         $user->sendEmailVerificationNotification();

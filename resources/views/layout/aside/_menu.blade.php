@@ -49,7 +49,7 @@
         @foreach ( Auth::user()->accounts as $account)
             <!--begin::Menu item-->
                 <div class="menu-item px-3">
-                    <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
+                    <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
                         {{ $account->name }}
                     </a>
                 </div>
