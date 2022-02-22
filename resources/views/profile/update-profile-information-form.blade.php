@@ -79,37 +79,56 @@
                 <x-jet-input-error for="email" />
             </div>
 
+            <!-- Phone -->
+            <div class="form-group">
+                <x-jet-label for="phone" value="{{ __('Phone') }}" />
+                <x-jet-input id="phone" type="text" class="{{ $errors->has('phone') ? 'is-invalid' : '' }}" wire:model.defer="state.phone" autocomplete="phone" />
+                <x-jet-input-error for="phone" />
+            </div>            
+
             <!-- Job Title -->
             <div class="form-group">
                 <x-jet-label for="job_title" value="{{ __('Job Title') }}" />
-                <select name="job_title" id="job_title" class="form-control">
-                    <option value="Developer">Developer</option>
-                    <option value="Marketer">Marketer</option>
-                    <option value="Designer">Designer</option>
-                    <option value="Project Manager">Project Manager</option>
-                    <option value="Billing Manager">Billing Manager</option>
-                    <option value="IT Professional">IT Professional</option>
-                    <option value="Executive">Executive</option>
-                    <option value="None of these ">None of these </option>
+                <select wire:model="state.job_title" name="job_title" id="job_title" class="form-control">
+                    <?php
+                        $titles = ['Developer', 'Marketer', 'Designer', 'Project Manager', 'Billing Manager', 'IT Professional', 'Executive', 'None of these'];
+                    ?>
+                    @foreach ($titles as $title )
+                        <option value="$title">{{ $title }}</option>    
+                    @endforeach
                 </select>
-                <x-jet-input-error for="text" class="mt-2" />                
+                <x-jet-input-error for="job_title" class="mt-2" />                
             </div>
 
             <!-- Employer -->
             <div class="form-group">
                 <x-jet-label for="employer" value="{{ __('Employer') }}" />
-                <select name="employer" id="employer" class="form-control">
-                    <option value="Myself">Myself</option>
-                    <option value="Freelancer">Freelancer</option>
-                    <option value="Myself">Myself</option>
-                    <option value="Full-Time">Full-Time</option>
-                    <option value="Agency">Agency</option>
-                    <option value="Business/In-house">Business/In-house</option>
+                <select wire:model="state.employer" name="employer" id="employer" class="form-control">
+                    <?php
+                        $employers = ['Myself, freelance', 'Myself, full-time', 'Agency', 'Business/In-house'];
+                    ?>
+                    @foreach ($employers as $employer )
+                        <option value="$employer">{{ $employer }}</option>    
+                    @endforeach
                 </select>
                 <x-jet-input-error for="text" class="mt-2" />                
             </div>
 
-            <!-- Employer -->
+            <!-- Experince -->
+            <div class="form-group">
+                <x-jet-label for="experince" value="{{ __('Experince') }}" />
+                <select wire:model="state.experince" name="experince" id="experince" class="form-control">
+                    <?php
+                        $experinces = ['I am a beginner', 'I have some experience', 'I feel comfortable with most Mautic-related tasks', 'I am an expert'];
+                    ?>
+                    @foreach ($experinces as $experince )
+                        <option value="$experince">{{ $experince }}</option>    
+                    @endforeach
+                </select>
+                <x-jet-input-error for="text" class="mt-2" />                
+            </div>
+
+            <!-- Company Name -->
             <div class="form-group">
                 <x-jet-label for="company_name" value="{{ __('Company Name') }}" />
                 <x-jet-input id="company_name" type="text" class="{{ $errors->has('company_name') ? 'is-invalid' : '' }}" wire:model.defer="state.company_name" autocomplete="company_name" />

@@ -26,9 +26,10 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'phone' => $this->faker->phoneNumber(),
-            'job_title' => $this->faker->randomElement(['CTO', 'CEO', 'Marketer']),
-            'employer' => $this->faker->company(),
-            'experince' => $this->faker->randomElement(['Beginner', 'Intermidate', 'Pro']),
+            'job_title' => $this->faker->randomElement(['Developer', 'Marketer', 'Designer', 'Project Manager', 'Billing Manager', 'IT Professional', 'Executive', 'None of these']),
+            'employer' => $this->faker->randomElement(['Myself, freelance', 'Myself, full-time', 'Agency', 'Business/In-house']),
+            'experince' => $this->faker->randomElement(['I am a beginner', 'I have some experience', 'I feel comfortable with most Mautic-related tasks', 'I am an expert']),
+            'company_name' => $this->faker->company(),
         ];
     }
 }
