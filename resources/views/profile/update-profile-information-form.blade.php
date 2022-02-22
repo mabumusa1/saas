@@ -44,7 +44,7 @@
                 <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
                     {{ __('Select A New Photo') }}
 				</x-jet-secondary-button>
-				
+
 				@if ($this->user->profile_photo_path)
                     <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
                         {{ __('Remove Photo') }}
@@ -84,20 +84,21 @@
                 <x-jet-label for="phone" value="{{ __('Phone') }}" />
                 <x-jet-input id="phone" type="text" class="{{ $errors->has('phone') ? 'is-invalid' : '' }}" wire:model.defer="state.phone" autocomplete="phone" />
                 <x-jet-input-error for="phone" />
-            </div>            
+            </div>
 
             <!-- Job Title -->
             <div class="form-group">
+
                 <x-jet-label for="job_title" value="{{ __('Job Title') }}" />
                 <select wire:model="state.job_title" name="job_title" id="job_title" class="form-control">
                     <?php
                         $titles = ['Developer', 'Marketer', 'Designer', 'Project Manager', 'Billing Manager', 'IT Professional', 'Executive', 'None of these'];
                     ?>
                     @foreach ($titles as $title )
-                        <option value="$title">{{ $title }}</option>    
+                        <option value="{{ $title }}">{{ $title }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="job_title" class="mt-2" />                
+                <x-jet-input-error for="job_title" class="mt-2" />
             </div>
 
             <!-- Employer -->
@@ -108,10 +109,10 @@
                         $employers = ['Myself, freelance', 'Myself, full-time', 'Agency', 'Business/In-house'];
                     ?>
                     @foreach ($employers as $employer )
-                        <option value="$employer">{{ $employer }}</option>    
+                        <option value="{{ $employer }}">{{ $employer }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="text" class="mt-2" />                
+                <x-jet-input-error for="text" class="mt-2" />
             </div>
 
             <!-- Experince -->
@@ -122,10 +123,10 @@
                         $experinces = ['I am a beginner', 'I have some experience', 'I feel comfortable with most Mautic-related tasks', 'I am an expert'];
                     ?>
                     @foreach ($experinces as $experince )
-                        <option value="$experince">{{ $experince }}</option>    
+                        <option value="{{ $experince }}">{{ $experince }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="text" class="mt-2" />                
+                <x-jet-input-error for="text" class="mt-2" />
             </div>
 
             <!-- Company Name -->
