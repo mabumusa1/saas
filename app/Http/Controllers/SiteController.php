@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
+use App\Models\Group;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
@@ -80,7 +81,9 @@ class SiteController extends Controller
      */
     public function edit(Account $account, Site $site)
     {
-        return view('sites.edit', ['site' => $site]);
+        $groups = Group::all();
+
+        return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
     }
 
     /**
@@ -90,9 +93,14 @@ class SiteController extends Controller
      * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSiteRequest $request, Site $site)
+    public function update(UpdateSiteRequest $request, Account $account, Site $site)
     {
-        //
+        $site->update([
+            'name' => $request->input('name'),
+        ]);
+        $site->groups()->sync($request->input('groups'));
+
+        return to_route('sites.index', compact('account'));
     }
 
     /**
@@ -103,6 +111,13 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        //
+        $site->groups()->detach();
+        $site->installs->each(function ($install) {
+            $install->contact()->delete();
+        });
+        $site->installs()->delete();
+        $site->delete();
+
+        return to_route('sites.index', compact('account'));
     }
 }
