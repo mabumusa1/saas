@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateContactRequest;
 
 class ContactController extends Controller
 {
@@ -23,7 +24,7 @@ class ContactController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Account $account
-     * @param  \App\Models\Site  $site
+     * @param  \App\Models\Contact  $contact
      * @return \Illuminate\View\View
      */
     public function edit(Account $account, Contact $contact)
@@ -36,7 +37,7 @@ class ContactController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \App\Http\Requests\UpdateContactRequest  $request
-     * @param  \App\Models\Site  $site
+     * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Account $account, UpdateContactRequest $request, Contact $contact)

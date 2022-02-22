@@ -5,7 +5,7 @@
         @csrf
 
         <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
         <!--begin::Heading-->
         <div class="text-center mb-10">
@@ -90,7 +90,7 @@
     <!--end::Reset Password Form-->
 
     @section('scripts')
-        <script src="{{ asset($request->input('demo', 'demo1') . '/js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
+        <script src="{{ asset($request->input('demo', 'skin') . '/js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
     @endsection
 
 </x-auth-layout>
