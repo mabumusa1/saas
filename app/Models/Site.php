@@ -13,6 +13,15 @@ class Site extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * Get the Account that owns the Site.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
