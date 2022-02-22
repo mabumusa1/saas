@@ -29,7 +29,7 @@ class ContactController extends Controller
      */
     public function edit(Account $account, Contact $contact)
     {
-        return view('contact.edit', ['contact' => $contact]);
+        return view('contact.edit', ['account' => $account, 'contact' => $contact]);
     }
 
     /**
@@ -42,6 +42,14 @@ class ContactController extends Controller
      */
     public function update(Account $account, UpdateContactRequest $request, Contact $contact)
     {
-        return redirect(route('contact.index'))->with('status', 'Contact has been updated');
+        $data = $request->all();
+        $contact->update([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+        ]);
+
+        return redirect(route('contacts.index', ['account' => $account]))->with('status', 'Contact has been updated');
     }
 }
