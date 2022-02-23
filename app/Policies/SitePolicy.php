@@ -81,7 +81,7 @@ class SitePolicy
      */
     public function copy(User $user, Site $site)
     {
-        $roles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
+        $allowedRoles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -95,7 +95,7 @@ class SitePolicy
      */
     public function transfer(User $user, Site $site)
     {
-        $roles = ['owner', 'fb'];
+        $allowedRoles = ['owner', 'fb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -109,7 +109,7 @@ class SitePolicy
      */
     public function acceptTransfer(User $user, Site $site)
     {
-        $roles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
