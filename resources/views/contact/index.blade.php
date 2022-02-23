@@ -2,6 +2,9 @@
     <div class="container mb-8">
         <div class="card">
             <div class="card-body">
+                @if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif
                 <div class="mb-10 col-12 border p-10">
                     <div class="d-flex justify-content-between mb-5">
                         <h1>Techincal Contacts</h1>

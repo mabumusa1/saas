@@ -77,10 +77,6 @@
                                         <!--end::Svg Icon-->
                                     </div>
                                     </div>
-
-                                    @if ($errors->has('phone'))
-                                        <span class="help-block"><strong>{{ $errors->first('phone') }}</strong></span>
-                                    @endif
                                 </div>
                             </div>
                             <div class="separator mb-5"></div>
