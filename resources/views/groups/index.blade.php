@@ -44,6 +44,7 @@
                     el.checked = false;
                 })
             });
+
         </script>
     @endsection
 </x-base-layout>

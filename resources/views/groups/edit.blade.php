@@ -76,7 +76,7 @@
 
                                 <div class="row">
                                     <div class="col-6 mb-5">
-                                        <button type="submit" class="btn btn-danger btn-sm"
+                                        <button type="button" class="btn btn-danger btn-sm btn-delete"
                                             id="btn-submit">Delete group</button>
                                     </div>
                                     <div class="col-6 mb-5 d-flex justify-content-end">
@@ -85,6 +85,10 @@
 
                                     </div>
                                 </div>
+                        </form>
+                        <form action="{{ route('groups.destroy', compact('account', 'group')) }}" method="post" class="form-delete">
+                            @csrf
+                            @method('DELETE')
                         </form>
                     </div>
                 </div>
@@ -103,6 +107,25 @@
                     el.checked = false;
                 })
             });
+
+            var deleteBtn = document.querySelectorAll('.btn-delete');
+            deleteBtn.forEach(function(button){
+                button.addEventListener('click', function(e){
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelector('.form-delete').submit();
+                    }
+                })
+                });
+            })
         </script>
     @endsection
 </x-base-layout>

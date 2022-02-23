@@ -57,15 +57,17 @@
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a class="btn btn-warning btn-sm"
                                                         href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
-                                                        <form
-                                                        action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
-                                                        class="d-inline" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger btn-sm btn-delete">Delete</button>
-                                                    </form>
-                                                </div>
+                                                    <button class="btn btn-danger btn-sm btn-delete"
+                                                        data-target=".delete_form{{ $site->id }}">Delete</button>
 
+                                                </div>
+                                                <form
+                                                    action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
+                                                    class="delete_form{{ $site->id }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                </form>
                                             </td>
                                         </tr>
                                         @foreach ($site->installs as $install)
@@ -122,10 +124,11 @@
                 background-color: lightgray;
             }
 
-            .btn-delete{
+            .btn-delete {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
+
         </style>
         <script>
             var showEnv = document.getElementById('show_env');
@@ -161,6 +164,24 @@
                 location.href = newurl;
 
             });
+            var deleteBtn = document.querySelectorAll('.btn-delete');
+            deleteBtn.forEach(function(button){
+                button.addEventListener('click', function(e){
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelector(button.getAttribute('data-target')).submit();
+                    }
+                })
+                });
+            })
         </script>
     @endsection
 </x-base-layout>
