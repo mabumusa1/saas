@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Casts\RoleCast;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
@@ -42,20 +43,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Account $account, Request $request)
+    public function store(Account $account, StoreUserRequest $request)
     {
         $data = $request->all();
-
-        $message = [
-            'role.required' => 'The account access field is required.',
-        ];
-
-        $this->validate($request, [
-            'first_name'  => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
-            'role'  => 'required',
-        ], $message);
 
         $user = User::create([
             'first_name' => $data['first_name'],
