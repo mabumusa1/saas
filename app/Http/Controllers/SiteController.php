@@ -7,10 +7,19 @@ use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
 use App\Models\Site;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class SiteController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Site::class, 'site');
+    }
+
     public function formValidation()
     {
         // Setup the validator
@@ -30,10 +39,6 @@ class SiteController extends Controller
      */
     public function index(Account $account, Request $request)
     {
-        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
-            dd('You don not have access on this page');
-        }
-
         $order = $request->order ?: 'DESC';
         $sites = $account->sites();
         if ($request->filled('q')) {
@@ -54,10 +59,6 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
-            dd('You don not have access on this page');
-        }
-
         return view('sites.create');
     }
 
@@ -70,10 +71,6 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
-        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
-            dd('You don not have access on this page');
-        }
-
         return redirect(route('sites.index', $account->id))->with('status', 'Site is under creation, we will send you an update once it is done!');
     }
 
@@ -86,10 +83,6 @@ class SiteController extends Controller
      */
     public function edit(Account $account, Site $site)
     {
-        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
-            dd('You don not have access on this page');
-        }
-
         return view('sites.edit', ['site' => $site]);
     }
 
@@ -103,10 +96,6 @@ class SiteController extends Controller
      */
     public function update(Account $account, UpdateSiteRequest $request, Site $site)
     {
-        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
-            dd('You don not have access on this page');
-        }
-
         return redirect(route('sites.index'))->with('status', 'Site has been updated');
     }
 
@@ -119,10 +108,6 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        if (! Gate::allows('isPb') && ! Gate::allows('isPnb')) {
-            dd('You don not have access on this page');
-        }
-
         return redirect(route('sites.index'))->with('status', 'Site has been deleted');
     }
 }
