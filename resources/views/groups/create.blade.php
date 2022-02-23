@@ -14,6 +14,7 @@
                         <textarea class="form-control" name="notes" placeholder="Description"></textarea>
                     </div>
                     <div class="mb-5 d-flex justify-content-end">
+                        <a class="btn btn-secondary btn-color-gray-700 btn-flex btn-active-primary h-40px border-0 fw-bolder px-4 px-lg-6 me-2 me-lg-3" href="{{ url()->previous() }}">Cancel</a>
                         <button type="submit" class="btn btn-primary" id="btn-submit">Create</button>
                     </div>
                 </form>

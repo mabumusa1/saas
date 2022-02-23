@@ -21,7 +21,7 @@
                                 @endif
                             </div>
                         @endforeach
-                        <a class="btn btn-link btn-sm" href={{ route('groups.create', [$account->id, $grp->id])}}>
+                        <a class="btn btn-primary btn-sm" href="{{ route('groups.create', [$account->id])}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                               </svg>
@@ -76,7 +76,7 @@
 
                                 <div class="row">
                                     <div class="col-6 mb-5">
-                                        <button type="submit" class="text-danger btn btn-link btn-sm"
+                                        <button type="submit" class="btn btn-danger btn-sm"
                                             id="btn-submit">Delete group</button>
                                     </div>
                                     <div class="col-6 mb-5 d-flex justify-content-end">
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-    @section('scripts')
+    @push('scripts')
         <script>
             document.querySelector('#selectAll').addEventListener('click', function() {
                 document.querySelectorAll('.site').forEach(function(el) {
@@ -104,5 +104,5 @@
                 })
             });
         </script>
-    @endsection
+    @endpush
 </x-base-layout>

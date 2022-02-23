@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
+use App\Models\Group;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
@@ -73,7 +74,9 @@ class SiteController extends Controller
      */
     public function edit(Account $account, Site $site)
     {
-        return view('sites.edit', ['site' => $site]);
+        $groups = $account->groups;
+
+        return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
     }
 
     /**
@@ -98,6 +101,6 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        return redirect(route('sites.index'))->with('status', 'Site has been deleted');
+        return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
     }
 }

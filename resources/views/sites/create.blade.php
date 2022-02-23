@@ -236,7 +236,7 @@
         </div>
     </div>
 
-@section('scripts')
+@push('scripts')
 
 <style>
     .form-control.is-valid{border-color:#50CD89 !important;}
@@ -408,5 +408,5 @@ submitButton.addEventListener('click', function (e) {
 //     });
 // });
 </script>
-@endsection
+@endpush
 </x-base-layout>
