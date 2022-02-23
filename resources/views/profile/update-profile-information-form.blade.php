@@ -89,12 +89,12 @@
             <!-- Job Title -->
             <div class="form-group">
                 <x-jet-label for="job_title" value="{{ __('Job Title') }}" />
-                <select wire:model="state.job_title" name="job_title" id="job_title" class="form-control">
+                <select wire:model.defer="state.job_title" name="job_title" id="job_title" class="form-control">
                     <?php
                         $titles = ['Developer', 'Marketer', 'Designer', 'Project Manager', 'Billing Manager', 'IT Professional', 'Executive', 'None of these'];
                     ?>
                     @foreach ($titles as $title )
-                        <option value="$title">{{ $title }}</option>    
+                        <option value="{{ $title }}">{{ $title }}</option>    
                     @endforeach
                 </select>
                 <x-jet-input-error for="job_title" class="mt-2" />                
@@ -103,12 +103,12 @@
             <!-- Employer -->
             <div class="form-group">
                 <x-jet-label for="employer" value="{{ __('Employer') }}" />
-                <select wire:model="state.employer" name="employer" id="employer" class="form-control">
+                <select wire:model.defer="state.employer" name="employer" id="employer" class="form-control">
                     <?php
                         $employers = ['Myself, freelance', 'Myself, full-time', 'Agency', 'Business/In-house'];
                     ?>
                     @foreach ($employers as $employer )
-                        <option value="$employer">{{ $employer }}</option>    
+                        <option value="{{ $employer }}">{{ $employer }}</option>    
                     @endforeach
                 </select>
                 <x-jet-input-error for="text" class="mt-2" />                
@@ -117,12 +117,12 @@
             <!-- Experince -->
             <div class="form-group">
                 <x-jet-label for="experince" value="{{ __('Experince') }}" />
-                <select wire:model="state.experince" name="experince" id="experince" class="form-control">
+                <select wire:model.defer="state.experince" name="experince" id="experince" class="form-control">
                     <?php
                         $experinces = ['I am a beginner', 'I have some experience', 'I feel comfortable with most Mautic-related tasks', 'I am an expert'];
                     ?>
                     @foreach ($experinces as $experince )
-                        <option value="$experince">{{ $experince }}</option>    
+                        <option value="{{ $experince }}">{{ $experince }}</option>    
                     @endforeach
                 </select>
                 <x-jet-input-error for="text" class="mt-2" />                
