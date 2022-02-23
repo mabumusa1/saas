@@ -6,6 +6,7 @@ use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
 use App\Models\Group;
+use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
@@ -60,7 +61,9 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        return view('sites.create');
+        $installs = Install::all();
+
+        return view('sites.create', compact('installs'));
     }
 
     /**
@@ -122,6 +125,7 @@ class SiteController extends Controller
         });
         $site->installs()->delete();
         $site->delete();
+
         return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
     }
 }
