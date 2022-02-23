@@ -44,7 +44,7 @@
                 <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
                     {{ __('Select A New Photo') }}
 				</x-jet-secondary-button>
-				
+
 				@if ($this->user->profile_photo_path)
                     <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteProfilePhoto">
                         {{ __('Remove Photo') }}
@@ -88,6 +88,7 @@
 
             <!-- Job Title -->
             <div class="form-group">
+
                 <x-jet-label for="job_title" value="{{ __('Job Title') }}" />
                 <select wire:model.defer="state.job_title" name="job_title" id="job_title" class="form-control">
                     <?php
@@ -111,7 +112,7 @@
                         <option value="{{ $employer }}">{{ $employer }}</option>    
                     @endforeach
                 </select>
-                <x-jet-input-error for="text" class="mt-2" />                
+                <x-jet-input-error for="text" class="mt-2" />
             </div>
 
             <!-- Experince -->
