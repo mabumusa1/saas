@@ -9,6 +9,13 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    private $account;
+
+    public function __construct()
+    {
+        $this->account = request()->route('account');
+    }
+
     /**
      * Determine whether the user can view any models.
      *

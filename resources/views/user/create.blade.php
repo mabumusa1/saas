@@ -7,7 +7,7 @@
                     <div class="separator mb-5"></div>
                 </div>
                 <form method="POST" id ="form_lang_tab" action="{{ route('users.store', $account) }}">
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="mb-10 col-12 border p-10">
                     <div class="col-5">
                         <div class="mb-10">
@@ -51,9 +51,6 @@
                             @endif
                         </div>
                     </div>
-
-
-
                     <div class="separator mb-5"></div>
                     <div class="my-4 d-flex justify-content-end">
                         <a href="{{route('users.index', $account)}}" class="btn btn-outline btn-outline-solid btn-outline-default mx-3">Cancel</a>

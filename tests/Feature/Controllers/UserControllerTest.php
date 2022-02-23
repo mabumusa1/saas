@@ -14,8 +14,6 @@ use Tests\TestCase;
  */
 class UserControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * @test
      */
@@ -86,7 +84,7 @@ class UserControllerTest extends TestCase
         ]);
 
         $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('message'), 'User successfully created!');
+        $this->assertEquals(session('status'), 'User successfully created!');
     }
 
     /**
@@ -182,7 +180,7 @@ class UserControllerTest extends TestCase
         $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
 
         $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('message'), 'Sorry  you  can not delete this user!');
+        $this->assertEquals(session('status'), 'Sorry  you  can not delete this user!');
     }
 
     /**
@@ -212,6 +210,6 @@ class UserControllerTest extends TestCase
 
         $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
         $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('message'), 'User successfully deleted!');
+        $this->assertEquals(session('status'), 'User successfully deleted!');
     }
 }

@@ -17,7 +17,7 @@ class ContactController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Site::class, 'site');
+        $this->authorizeResource(Contact::class, 'contact');
     }
 
     /**
@@ -55,19 +55,13 @@ class ContactController extends Controller
     {
         $data = $request->all();
 
-        $this->validate($request, [
-            'first_name'  => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-        ]);
-
         $contact->update([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'phone' => isset($data['phone']) ? $data['phone'] : null,
         ]);
-        Session::flash('message', 'Contact has been updated!');
+        Session::flash('status', 'Contact has been updated!');
 
         return redirect(route('contacts.index', ['account' => $account]));
     }

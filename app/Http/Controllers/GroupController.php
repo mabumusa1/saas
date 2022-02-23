@@ -17,7 +17,7 @@ class GroupController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Site::class, 'site');
+        $this->authorizeResource(Group::class, 'group');
     }
 
     /**
@@ -47,7 +47,6 @@ class GroupController extends Controller
     {
         return view('groups.create', compact('account'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -59,6 +58,7 @@ class GroupController extends Controller
     {
         $group = $account->groups()->create($request->validated());
 
+        session()->flash('success', 'Group created successfully.');
         return to_route('groups.edit', compact('account', 'group'));
     }
 
@@ -96,8 +96,9 @@ class GroupController extends Controller
         } else {
             $group->sites()->detach();
         }
+        session()->flash('success', 'Group updated successfully.');
 
-        return to_route('groups.index', compact('account'));
+        return to_route('groups.edit', compact('account', 'group'));
     }
 
     /**
@@ -111,7 +112,7 @@ class GroupController extends Controller
     {
         $group->sites()->detach();
         $group->delete();
-
+        session()->flash('success', 'Group deleted successfully.');
         return to_route('groups.index', compact('account'));
     }
 }
