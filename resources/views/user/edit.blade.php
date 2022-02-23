@@ -7,8 +7,8 @@
                     <div class="separator mb-5"></div>
                 </div>
                 <form action="{{ route('users.update', ['account' => $account, 'user' => $user])}}" method="post">
-                    {{ method_field('PUT') }}
-                    {{ csrf_field() }}
+                    @csrf
+                    @method('PUT')
                     <div class="mb-10 col-12 border p-10">
                     <div class="mb-10">
                         <div class="form-group fv-row">
@@ -45,11 +45,9 @@
                         <a href="#" class="float-end">View access type definitions</a>
                         <select name="role" class="form-select form-select-solid" aria-label="Select example">
                             <option value="">Open this select menu</option>
-                            <option @if($user->accountUser->role == 'Owner') selected @endif value="owner">Owner</option>
-                            <option @if($user->accountUser->role == 'Full (with Billing)') selected @endif value="fb">Full (with Billing)</option>
-                            <option @if($user->accountUser->role == 'Full (without Billing)') selected @endif value="fnb">Full (without Billing)</option>
-                            <option @if($user->accountUser->role == 'Partial (with Billing)') selected @endif value="pb">Partial (with Billing)</option>
-                            <option @if($user->accountUser->role == 'Partial (without Billing)') selected @endif value="pnb">Partial (without Billing)</option>
+                            @foreach(roles() as $roleKey => $roleValue)
+                                <option @if($user->accountUser->role == $roleKey) selected @endif value="{{$roleKey}}">{{$roleValue}}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('role'))
                             <span class="help-block"><strong>{{ $errors->first('role') }}</strong></span>

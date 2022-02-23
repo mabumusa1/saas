@@ -7,6 +7,7 @@
                     <div class="separator mb-5"></div>
                 </div>
                 <form method="POST" id ="form_lang_tab" action="{{ route('users.store', $account) }}">
+                    @csrf
                     <div class="mb-10 col-12 border p-10">
                     <div class="col-5">
                         <div class="mb-10">
@@ -41,20 +42,15 @@
                             <a href="#" class="float-end">View access type definitions</a>
                             <select  name="role" class="form-select form-select-solid" aria-label="Select example">
                                 <option value="">Open this select menu</option>
-                                <option value="owner">Owner</option>
-                                <option value="fb">Full (with Billing)</option>
-                                <option value="fnb">Full (without Billing)</option>
-                                <option value="pb">Partial (with Billing)</option>
-                                <option value="pnb">Partial (without Billing)'</option>
+                                @foreach(roles() as $roleKey => $roleValue)
+                                    <option value="{{$roleKey}}">{{$roleValue}}</option>
+                                @endforeach
                             </select>
                             @if ($errors->has('role'))
                                 <span class="help-block"><strong>{{ $errors->first('role') }}</strong></span>
                             @endif
                         </div>
                     </div>
-
-
-
                     <div class="separator mb-5"></div>
                     <div class="my-4 d-flex justify-content-end">
                         <a href="{{route('users.index', $account)}}" class="btn btn-outline btn-outline-solid btn-outline-default mx-3">Cancel</a>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Casts\RoleCast;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
@@ -13,6 +15,16 @@ use Session;
 
 class UserController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,20 +54,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Account $account, Request $request)
+    public function store(Account $account, StoreUserRequest $request)
     {
         $data = $request->all();
-
-        $message = [
-            'role.required' => 'The account access field is required.',
-        ];
-
-        $this->validate($request, [
-            'first_name'  => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
-            'role'  => 'required',
-        ], $message);
 
         $user = User::create([
             'first_name' => $data['first_name'],
@@ -70,7 +71,7 @@ class UserController extends Controller
             'role' => $data['role'],
         ]);
 
-        Session::flash('message', 'User successfully created!');
+        Session::flash('status', 'User successfully created!');
 
         return redirect()->route('users.index', $account);
     }
@@ -88,27 +89,14 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User $user
+     * @param Account $account
+     * @param UpdateUserRequest $request
+     * @param User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Account $account, Request $request, User $user)
+    public function update(Account $account, UpdateUserRequest $request, User $user)
     {
         $data = $request->all();
-        $message = [
-            'role.required' => 'The account access field is required.',
-        ];
-
-        $this->validate($request, [
-            'first_name'  => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
-            'email' => 'required|max:255|unique:users,email,'.$user->id,
-            'role'  => 'required',
-        ], $message);
-
         $accountUser = AccountUser::where('user_id', $user->id)->first();
         $accountUser->update([
             'account_id' => $account->id,
@@ -123,7 +111,7 @@ class UserController extends Controller
             'password' => Hash::make('password'),
         ]);
 
-        Session::flash('message', 'User successfully updated!');
+        Session::flash('status', 'User successfully updated!');
 
         return redirect()->route('users.index', $account);
     }
@@ -140,7 +128,7 @@ class UserController extends Controller
         $accountUser = AccountUser::where('account_id', $account->id)->where('role', 'owner')->get();
 
         if (count($accountUser) == 1) {
-            Session::flash('message', 'Sorry  you  can not delete this user!');
+            Session::flash('status', 'Sorry  you  can not delete this user!');
 
             return redirect()->route('users.index', $account);
         }
@@ -149,7 +137,7 @@ class UserController extends Controller
         $user = User::find($user->id);
         $user->delete();
 
-        Session::flash('message', 'User successfully deleted!');
+        Session::flash('status', 'User successfully deleted!');
 
         return redirect()->route('users.index', $account);
     }

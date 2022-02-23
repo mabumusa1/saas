@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Site::class, 'site');
+    }
+
     public function formValidation()
     {
         // Setup the validator
@@ -112,7 +122,6 @@ class SiteController extends Controller
         });
         $site->installs()->delete();
         $site->delete();
-
-        return to_route('sites.index', compact('account'));
+        return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
     }
 }

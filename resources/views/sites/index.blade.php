@@ -128,7 +128,6 @@
             </div>
         </div>
     </div>
-
     @push('scripts')
         <style>
             .form-control:focus+.input-group-text {
@@ -138,11 +137,9 @@
             #sortable {
                 cursor: pointer;
             }
-
             #sortable:hover {
                 background-color: lightgray;
             }
-
             .btn-delete {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;

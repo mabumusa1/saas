@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Group::class, 'group');
+    }
+
+    /**
      * Display a listing of the resource.
      * @param \App\Models\Account $account
      * @param  \Illuminate\Http\Request  $request
@@ -49,7 +59,6 @@ class GroupController extends Controller
         $group = $account->groups()->create($request->validated());
 
         session()->flash('success', 'Group created successfully.');
-
         return to_route('groups.edit', compact('account', 'group'));
     }
 
