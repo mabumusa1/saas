@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Site::class, 'site');
+    }
+
     public function formValidation()
     {
         // Setup the validator

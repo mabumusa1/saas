@@ -15,6 +15,16 @@ use Session;
 class UserController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param \App\Models\Account $account
