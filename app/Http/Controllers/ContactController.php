@@ -11,6 +11,16 @@ use Session;
 class ContactController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Site::class, 'site');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param \App\Models\Account $account
