@@ -38,7 +38,7 @@
                                     <input name="first_name" value="{{ $contact->first_name }}" type="text"
                                            class="form-control form-control-solid" placeholder=""/>
                                     @if ($errors->has('first_name'))
-                                        <span class="help-block"><strong></strong></span>
+                                        <span class="help-block"><strong>{{ $errors->first('first_name') }}</strong></span>
                                     @endif
                                 </div>
                                 <div class="form-group col-6 fv-row">
@@ -46,7 +46,7 @@
                                     <input name="last_name" value="{{ $contact->last_name }}" type="text"
                                            class="form-control form-control-solid" placeholder=""/>
                                     @if ($errors->has('last_name'))
-                                    <span class="help-block"><strong></strong></span>
+                                        <span class="help-block"><strong>{{ $errors->first('last_name') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     <input name="email" value="{{ $contact->email }}" type="text"
                                            class="form-control form-control-solid" placeholder=""/>
                                     @if ($errors->has('email'))
-                                        <span class="help-block"><strong></strong></span>
+                                        <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                     </div>
 
                                     @if ($errors->has('phone'))
-                                        <span class="help-block"><strong></strong></span>
+                                        <span class="help-block"><strong>{{ $errors->first('phone') }}</strong></span>
                                     @endif
                                 </div>
                             </div>
