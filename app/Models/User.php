@@ -98,22 +98,22 @@ class User extends Authenticatable
     /**
      * Check if the user has a specific role.
      *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return  bool
      */
     public function hasRole(Account $account, String $role): bool
     {
-        return $this->accounts()->get()->where('id', $account->id)->first()->pivot->role === $role;
+        return $this->accounts()->get()->where('id', $account->id)->first()->pivot->role === $role;  /* @phpstan-ignore-line */
     }
 
     /**
      * Check if the user has many roles.
      *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return  bool
      */
     public function belongToRoles(Account $account, array $roles): bool
     {
         return in_array(
-            $this->accounts()->get()->where('id', $account->id)->first()->pivot->role,
+            $this->accounts()->get()->where('id', $account->id)->first()->pivot->role,  /* @phpstan-ignore-line */
             $roles
         );
     }
