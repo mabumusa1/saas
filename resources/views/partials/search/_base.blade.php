@@ -18,7 +18,6 @@
             {{ theme()->getView('partials/search/partials/_form') }}
             <div class="separator border-gray-200 mb-6"></div>
             <div data-kt-search-element="results" class="d-none">
-                ...
             </div>
             <div data-kt-search-element="main">
 

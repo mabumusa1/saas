@@ -23,23 +23,58 @@ var KTLayoutSearch = function () {
 
     // Private functions
     var process = function (search) {
-        axios.get('/api/search', {
-            params: {
-                query: search.getQuery()
-            }
-        }).then(function(res){
-            console.log(res);
-            search.complete();
-        });
+        clear();
+                axios.get('/site_search', {
+                        params: {
+                            query: search.getQuery()
+                        }
+                    })
+                    .then(function (res) {
+                        if (!!Object.keys(res.data).length) {
+                            var container = document.createElement('div');
+                            container.classList.add('scroll-y', 'mh-200px', 'mh-lg-350px');
+                            Object.keys(res.data).forEach(function (key) {
+                                var title = document.createElement('h3');
+                                title.classList.add('fs-5', 'text-muted', 'm-0', 'pb-5');
+                                title.textContent = key;
+                                container.appendChild(title);
+                                res.data[key].forEach(function (item) {
+                                    container.appendChild(createSearchItem(item));
+                                });
+                            });
+
+                            resultsElement.appendChild(container);
+                            resultsElement.classList.remove('d-none');
+
+                        } else {
+                            emptyElement.classList.remove('d-none');
+
+                        }
+                        search.complete()
+                    });
     }
 
     var clear = function (search) {
         // Show recently viewed
         mainElement.classList.remove('d-none');
         // Hide results
+        resultsElement.innerHTML = '';
         resultsElement.classList.add('d-none');
         // Hide empty message
         emptyElement.classList.add('d-none');
+    }
+
+    var createSearchItem = function (item) {
+        var a = document.createElement('a');
+        var container = document.createElement('div');
+        var title = document.createElement('span');
+        a.classList.add('d-flex', 'text-dark', 'text-hover-primary', 'align-items-center', 'mb-5')
+        container.classList.add('d-flex', 'flex-column');
+        title.classList.add('fs-6', 'fw-bold');
+        container.appendChild(title);
+        a.appendChild(container);
+        title.textContent = item.name;
+        return a;
     }
 
     // Public methods
