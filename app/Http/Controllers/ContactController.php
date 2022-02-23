@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateContactRequest;
 use App\Models\Account;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Session;
 
 class ContactController extends Controller
 {
@@ -54,9 +55,10 @@ class ContactController extends Controller
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'phone' => $data['phone'],
+            'phone' => isset($data['phone']) ? $data['phone'] : null,
         ]);
+        Session::flash('message', 'Contact has been updated!');
 
-        return redirect(route('contacts.index', ['account' => $account]))->with('status', 'Contact has been updated');
+        return redirect(route('contacts.index', ['account' => $account]));
     }
 }
