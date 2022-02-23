@@ -10,6 +10,13 @@ class InstallPolicy
 {
     use HandlesAuthorization;
 
+    private $account;
+
+    public function __construct()
+    {
+        $this->account = request()->route('account');
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,7 +25,9 @@ class InstallPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        $allowedRoles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
+
+        return $user->belongToRoles($this->account, $allowedRoles);
     }
 
     /**
@@ -30,7 +39,9 @@ class InstallPolicy
      */
     public function view(User $user, Install $install)
     {
-        //
+        $allowedRoles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
+
+        return $user->belongToRoles($this->account, $allowedRoles);
     }
 
     /**
@@ -41,7 +52,9 @@ class InstallPolicy
      */
     public function create(User $user)
     {
-        //
+        $allowedRoles = ['owner', 'fb', 'fnb'];
+
+        return $user->belongToRoles($this->account, $allowedRoles);
     }
 
     /**
@@ -53,7 +66,9 @@ class InstallPolicy
      */
     public function update(User $user, Install $install)
     {
-        //
+        $allowedRoles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
+
+        return $user->belongToRoles($this->account, $allowedRoles);
     }
 
     /**
@@ -65,30 +80,8 @@ class InstallPolicy
      */
     public function delete(User $user, Install $install)
     {
-        //
-    }
+        $allowedRoles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Install  $install
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Install $install)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Install  $install
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Install $install)
-    {
-        //
+        return $user->belongToRoles($this->account, $allowedRoles);
     }
 }

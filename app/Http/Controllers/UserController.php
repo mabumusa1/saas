@@ -51,7 +51,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Models\Account $account
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, StoreUserRequest $request)
