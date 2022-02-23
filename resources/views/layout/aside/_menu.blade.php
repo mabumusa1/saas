@@ -49,9 +49,15 @@
         @foreach ( Auth::user()->accounts as $account)
             <!--begin::Menu item-->
                 <div class="menu-item px-3">
-                    <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
-                        {{ $account->name }}
-                    </a>
+                    @if (Illuminate\Support\Str::contains(Route::currentRouteName(), ['sites.edit', 'groups.edit']))
+                        <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
+                            {{ $account->name }}
+                        </a>
+                    @else
+                        <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
+                            {{ $account->name }}
+                        </a>
+                    @endif
                 </div>
                 <!--end::Menu item-->
 

@@ -101,6 +101,6 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        return redirect(route('sites.index'))->with('status', 'Site has been deleted');
+        return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
     }
 }
