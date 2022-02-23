@@ -89,8 +89,8 @@
     </form>
     <!--end::Reset Password Form-->
 
-    @section('scripts')
+    @push('scripts')
         <script src="{{ asset($request->input('demo', 'skin') . '/js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
-    @endsection
+    @endpush
 
 </x-auth-layout>

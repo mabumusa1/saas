@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    @section('scripts')
+    @push('scripts')
         <script>
             document.querySelector('#selectAll').addEventListener('click', function() {
                 document.querySelectorAll('.site').forEach(function(el) {
@@ -61,5 +61,5 @@
                 })
             });
         </script>
-    @endsection
+    @endpush
 </x-base-layout>
