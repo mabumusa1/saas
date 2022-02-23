@@ -23,15 +23,35 @@ var KTLayoutSearch = function () {
 
     // Private functions
     var process = function (search) {
-        search.complete();
-        axios.get('/api/search', {
-            params: {
-                query: search.getQuery()
-            }
-        }).then(function (res) {
-            console.log(res);
-            search.complete();
-        });
+        clear();
+                axios.get('/site_search', {
+                        params: {
+                            query: search.getQuery()
+                        }
+                    })
+                    .then(function (res) {
+                        if (!!Object.keys(res.data).length) {
+                            var container = document.createElement('div');
+                            container.classList.add('scroll-y', 'mh-200px', 'mh-lg-350px');
+                            Object.keys(res.data).forEach(function (key) {
+                                var title = document.createElement('h3');
+                                title.classList.add('fs-5', 'text-muted', 'm-0', 'pb-5');
+                                title.textContent = key;
+                                container.appendChild(title);
+                                res.data[key].forEach(function (item) {
+                                    container.appendChild(createSearchItem(item));
+                                });
+                            });
+
+                            resultsElement.appendChild(container);
+                            resultsElement.classList.remove('d-none');
+
+                        } else {
+                            emptyElement.classList.remove('d-none');
+
+                        }
+                        search.complete()
+                    });
     }
 
     var clear = function (search) {
@@ -86,37 +106,7 @@ var KTLayoutSearch = function () {
             searchObject = new KTSearch(element);
 
             // Search handler
-            searchObject.on('kt.search.process', function (search) {
-                clear();
-                axios.get('/site_search', {
-                        params: {
-                            query: search.getQuery()
-                        }
-                    })
-                    .then(function (res) {
-                        if (!!Object.keys(res.data).length) {
-                            var container = document.createElement('div');
-                            container.classList.add('scroll-y', 'mh-200px', 'mh-lg-350px');
-                            Object.keys(res.data).forEach(function (key) {
-                                var title = document.createElement('h3');
-                                title.classList.add('fs-5', 'text-muted', 'm-0', 'pb-5');
-                                title.textContent = key;
-                                container.appendChild(title);
-                                res.data[key].forEach(function (item) {
-                                    container.appendChild(createSearchItem(item));
-                                });
-                            });
-
-                            resultsElement.appendChild(container);
-                            resultsElement.classList.remove('d-none');
-
-                        } else {
-                            emptyElement.classList.remove('d-none');
-
-                        }
-                        search.complete()
-                    });
-            });
+            searchObject.on('kt.search.process', process);
 
             // Clear handler
             searchObject.on('kt.search.clear', clear);
