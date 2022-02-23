@@ -11,8 +11,11 @@
 |
 */
 
+use App\Http\Controllers\SearchController;
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/api/search', SearchController::class);
     Route::prefix('{account}')->group(function () {
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',

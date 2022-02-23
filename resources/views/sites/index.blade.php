@@ -53,7 +53,6 @@
                                                 @endforeach
                                             </td>
                                             <td class="text-center">
-<<<<<<< HEAD
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a class="btn btn-warning btn-sm"
                                                         href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
@@ -68,17 +67,6 @@
                                                     @method('DELETE')
 
                                                 </form>
-=======
-                                                <a href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}"><i class="bi bi-pencil"></i></a>
-                                                <form
-                                                action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
-                                                class="d-inline" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm btn-delete"><i class="bi bi-archive"></i></button>
-                                            </form>
-
->>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
                                             </td>
                                         </tr>
                                         @foreach ($site->installs as $install)
@@ -104,15 +92,6 @@
                                                 <td class="table-light"></td>
 
                                                 <td class="table-light text-center">
-<<<<<<< HEAD
-                                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a class="btn btn-sm btn-primary" href="#">Backup Install</a>
-                                                        <a class="btn btn-sm btn-primary" href="#"> Clear Cache</a>
-                                                        <a class="btn btn-sm btn-danger" href="#"> Delete Install</a>
-                                                    </div>
-                                                </td>
-
-=======
                                                     <!--begin::Trigger-->
                                                     <button type="button" class="btn btn-primary btn-sm"
                                                     data-kt-menu-trigger="click"
@@ -139,7 +118,6 @@
                                                         <!--end::Menu item-->
                                                     </div>
                                                 </td>
->>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -150,11 +128,8 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    @section('scripts')
-=======
+
     @push('scripts')
->>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
         <style>
             .form-control:focus+.input-group-text {
                 border-color: #B5B5C3
@@ -168,18 +143,10 @@
                 background-color: lightgray;
             }
 
-<<<<<<< HEAD
             .btn-delete {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
-
-=======
-            .btn-delete{
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
->>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
         </style>
         <script>
             var showEnv = document.getElementById('show_env');
@@ -215,7 +182,6 @@
                 location.href = newurl;
 
             });
-<<<<<<< HEAD
             var deleteBtn = document.querySelectorAll('.btn-delete');
             deleteBtn.forEach(function(button){
                 button.addEventListener('click', function(e){
@@ -235,9 +201,5 @@
                 });
             })
         </script>
-    @endsection
-=======
-        </script>
     @endpush
->>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
 </x-base-layout>
