@@ -12,8 +12,8 @@
 */
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
-        Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('{account}')->group(function () {
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);
