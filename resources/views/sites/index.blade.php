@@ -5,7 +5,6 @@
                 <div class="mb-10 col-12">
                     <div class="d-flex justify-content-between mb-5">
                         <h1>Sites</h1>
-                        <a href="{{ route('sites.create', $currentAccount->id) }}" class="btn btn-primary">Add Site</a>
                     </div>
                     <h5 class="text-muted">Search for site, domain, environment</h4>
                         <form id="filters">
@@ -54,6 +53,7 @@
                                                 @endforeach
                                             </td>
                                             <td class="text-center">
+<<<<<<< HEAD
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <a class="btn btn-warning btn-sm"
                                                         href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
@@ -68,6 +68,17 @@
                                                     @method('DELETE')
 
                                                 </form>
+=======
+                                                <a href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}"><i class="bi bi-pencil"></i></a>
+                                                <form
+                                                action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
+                                                class="d-inline" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm btn-delete"><i class="bi bi-archive"></i></button>
+                                            </form>
+
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
                                             </td>
                                         </tr>
                                         @foreach ($site->installs as $install)
@@ -93,6 +104,7 @@
                                                 <td class="table-light"></td>
 
                                                 <td class="table-light text-center">
+<<<<<<< HEAD
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <a class="btn btn-sm btn-primary" href="#">Backup Install</a>
                                                         <a class="btn btn-sm btn-primary" href="#"> Clear Cache</a>
@@ -100,6 +112,34 @@
                                                     </div>
                                                 </td>
 
+=======
+                                                    <!--begin::Trigger-->
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                    data-kt-menu-trigger="click"
+                                                    data-kt-menu-placement="bottom-start">
+                                                    <span class="svg-icon svg-icon-5 ms-3 me-0"><i class="bi bi-three-dots-vertical"></i></span>
+                                                    </button>
+                                                    <!--end::Trigger-->
+                                                    <!--begin::Menu-->
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4"
+                                                    data-kt-menu="true">
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <a href="#" class="menu-link px-3">
+                                                                Backup Install
+                                                            </a>
+                                                            <a href="#" class="menu-link px-3">
+                                                                Clear Cache
+                                                            </a>
+                                                            <a href="#" class="menu-link px-3">
+                                                                Delete Install
+                                                            </a>
+
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                    </div>
+                                                </td>
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
                                             </tr>
                                         @endforeach
                                     @endforeach
@@ -110,7 +150,11 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     @section('scripts')
+=======
+    @push('scripts')
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
         <style>
             .form-control:focus+.input-group-text {
                 border-color: #B5B5C3
@@ -124,11 +168,18 @@
                 background-color: lightgray;
             }
 
+<<<<<<< HEAD
             .btn-delete {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
 
+=======
+            .btn-delete{
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
         </style>
         <script>
             var showEnv = document.getElementById('show_env');
@@ -164,6 +215,7 @@
                 location.href = newurl;
 
             });
+<<<<<<< HEAD
             var deleteBtn = document.querySelectorAll('.btn-delete');
             deleteBtn.forEach(function(button){
                 button.addEventListener('click', function(e){
@@ -184,4 +236,8 @@
             })
         </script>
     @endsection
+=======
+        </script>
+    @endpush
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
 </x-base-layout>

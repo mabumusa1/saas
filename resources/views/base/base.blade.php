@@ -43,7 +43,7 @@
         {{-- end::Global Stylesheets Bundle --}}
     @endif
 
-    @yield('styles')
+    @stack('styles')
 </head>
 {{-- end::Head --}}
 
@@ -82,7 +82,8 @@
 @endif
 {{-- end::Javascript --}}
 
-@yield('scripts')
+@stack('scripts')
+
 </body>
 {{-- end::Body --}}
 </html>

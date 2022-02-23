@@ -48,7 +48,11 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     @section('scripts')
+=======
+    @push('scripts')
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
         <script>
             document.querySelector('#selectAll').addEventListener('click', function() {
                 document.querySelectorAll('.site').forEach(function(el) {
@@ -61,5 +65,9 @@
                 })
             });
         </script>
+<<<<<<< HEAD
     @endsection
+=======
+    @endpush
+>>>>>>> 0fed0b7d4a90ba2a4f2787d1d9e69ba69fbba309
 </x-base-layout>

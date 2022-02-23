@@ -21,7 +21,7 @@ class SuccessfulAuthenticatedListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  \Illuminate\Auth\Events\Authenticated  $event
      * @return void
      */
     public function handle(Authenticated $event)

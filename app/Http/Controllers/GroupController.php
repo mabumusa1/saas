@@ -12,8 +12,9 @@ class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Account $account
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
      */
     public function index(Account $account, Request $request)
     {
@@ -29,14 +30,20 @@ class GroupController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Account $account
+     * @return \Illuminate\View\View
      */
     public function create(Account $account)
     {
         return view('groups.create', compact('account'));
     }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Http\Requests\StoreGroupRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Account $account, StoreGroupRequest $request)
     {
         $group = $account->groups()->create($request->validated());
@@ -46,6 +53,13 @@ class GroupController extends Controller
         return to_route('groups.edit', compact('account', 'group'));
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Models\Group $group
+     * @return \Illuminate\View\View
+     */
     public function edit(Account $account, Group $group)
     {
         $sites = $account->sites;
@@ -54,6 +68,14 @@ class GroupController extends Controller
         return view('groups.edit', compact('account', 'group', 'sites', 'groups'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Models\Group $group
+     * @param  \App\Http\Requests\UpdateGroupRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Account $account, Group $group, UpdateGroupRequest $request)
     {
         $group->update([
@@ -65,19 +87,23 @@ class GroupController extends Controller
         } else {
             $group->sites()->detach();
         }
-
         session()->flash('success', 'Group updated successfully.');
 
         return to_route('groups.edit', compact('account', 'group'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Models\Group $group
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Account $account, Group $group)
     {
         $group->sites()->detach();
         $group->delete();
-
         session()->flash('success', 'Group deleted successfully.');
-
         return to_route('groups.index', compact('account'));
     }
 }
