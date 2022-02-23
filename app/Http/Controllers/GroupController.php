@@ -17,7 +17,7 @@ class GroupController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Site::class, 'site');
+        $this->authorizeResource(Group::class, 'group');
     }
 
     /**

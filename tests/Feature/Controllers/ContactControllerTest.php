@@ -143,6 +143,6 @@ class ContactControllerTest extends TestCase
         ]);
 
         $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('message'), 'Contact has been updated!');
+        $this->assertEquals(session('status'), 'Contact has been updated!');
     }
 }
