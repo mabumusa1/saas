@@ -7,8 +7,8 @@
                     <div class="separator mb-5"></div>
                 </div>
                 <form action="{{ route('users.update', ['account' => $account, 'user' => $user])}}" method="post">
-                    {{ method_field('PUT') }}
-                    {{ csrf_field() }}
+                    @csrf
+                    @method('PUT')
                     <div class="mb-10 col-12 border p-10">
                     <div class="mb-10">
                         <div class="form-group fv-row">
