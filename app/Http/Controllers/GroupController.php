@@ -41,6 +41,8 @@ class GroupController extends Controller
     {
         $group = $account->groups()->create($request->validated());
 
+        session()->flash('success', 'Group created successfully.');
+
         return to_route('groups.edit', compact('account', 'group'));
     }
 
@@ -64,13 +66,17 @@ class GroupController extends Controller
             $group->sites()->detach();
         }
 
-        return to_route('groups.index', compact('account'));
+        session()->flash('success', 'Group updated successfully.');
+
+        return to_route('groups.edit', compact('account', 'group'));
     }
 
     public function destroy(Account $account, Group $group)
     {
         $group->sites()->detach();
         $group->delete();
+
+        session()->flash('success', 'Group deleted successfully.');
 
         return to_route('groups.index', compact('account'));
     }
