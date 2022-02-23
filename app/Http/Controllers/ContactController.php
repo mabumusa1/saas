@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateContactRequest;
 use App\Models\Account;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Session;
 
 class ContactController extends Controller
 {
@@ -29,7 +30,7 @@ class ContactController extends Controller
      */
     public function edit(Account $account, Contact $contact)
     {
-        return view('contact.edit', ['account' => $account, 'contact' => $contact]);
+        return view('contact.edit', compact('account', 'contact'));
     }
 
     /**
@@ -43,13 +44,21 @@ class ContactController extends Controller
     public function update(Account $account, UpdateContactRequest $request, Contact $contact)
     {
         $data = $request->all();
+
+        $this->validate($request, [
+            'first_name'  => 'required|string|max:255',
+            'last_name'  => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+        ]);
+
         $contact->update([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'phone' => $data['phone'],
+            'phone' => isset($data['phone']) ? $data['phone'] : null,
         ]);
+        Session::flash('message', 'Contact has been updated!');
 
-        return redirect(route('contacts.index', ['account' => $account]))->with('status', 'Contact has been updated');
+        return redirect(route('contacts.index', ['account' => $account]));
     }
 }
