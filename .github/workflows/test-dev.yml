@@ -109,11 +109,6 @@ jobs:
         
   dusk-php:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        php-versions: ['8.0']
-
     name: PHP Dusk
     env:
       APP_NAME: testing
