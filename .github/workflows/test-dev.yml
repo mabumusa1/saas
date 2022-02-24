@@ -114,7 +114,7 @@ jobs:
       matrix:
         php-versions: ['8.0']
 
-    name: PHPUnit (PHP ${{ matrix.php-versions }})
+    name: PHP Dusk
     env:
       APP_NAME: testing
       APP_ENV: testing
