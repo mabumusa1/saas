@@ -2,18 +2,18 @@
 
 namespace Tests\Browser;
 
+use App\Models\Account;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use App\Models\Account;
-use App\Models\User;
 
 class AuthTest extends DuskTestCase
 {
     use DatabaseMigrations;
- 
+
     /**
-     * Can Login
+     * Can Login.
      *
      * @return void
      */
@@ -26,7 +26,7 @@ class AuthTest extends DuskTestCase
             )
         )->create();
 
-        $user = User::where('email','email0@domain.com')->first();
+        $user = User::where('email', 'email0@domain.com')->first();
 
         $this->browse(function ($browser) use ($user) {
             $browser->screenshot('filename');
@@ -36,6 +36,5 @@ class AuthTest extends DuskTestCase
                     ->press('Continue')
                     ->assertPathIs('/1/dashboard');
         });
-
     }
 }
