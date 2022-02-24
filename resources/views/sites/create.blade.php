@@ -142,11 +142,15 @@
                                         <hr />
                                         <div class="mt-5">
                                             <h3 class="text-dark">Select Install to use</h3>
-                                            <select class="form-select" name="install_id">
+                                            <select class="form-select" name="install_id" required>
+                                                <option value="" disabled selected>Please select an install</option>
                                                 @foreach ($installs as $install)
                                                     <option value="{{ $install->id }}">{{ $install->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Please select a valid Instal.
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
@@ -282,13 +286,22 @@
 
         </style>
         <script>
+            var installId = document.querySelector('[name="install_id"]');
+            installId.addEventListener('change', function(){
+                installId.classList.remove('is-invalid');
+            })
             var element = document.querySelector("#create_stepper");
             // Initialize Stepper
             var stepper = new KTStepper(element);
 
             // Handle next step
             stepper.on("kt.stepper.next", function(stepper) {
-                stepper.goNext(); // go next step
+
+                if(['copyEnv', 'moveEnv'].includes(document.querySelector('[name="start"]:checked').value) && !installId.value){
+                    installId.classList.add('is-invalid');
+                }else{
+                    stepper.goNext();
+                }
             });
 
             // Handle previous step
