@@ -1,7 +1,7 @@
 <x-auth-layout>
 
     <!--begin::Signin Form-->
-    <form method="POST" action="{{ theme()->getPageUrl('login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
+    <form method="POST" action="{{ route('post.login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
     @csrf
 
     <!--begin::Heading-->

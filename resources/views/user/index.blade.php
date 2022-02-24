@@ -10,7 +10,7 @@
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th></th>
+                            <th>Full name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Account access</th>
