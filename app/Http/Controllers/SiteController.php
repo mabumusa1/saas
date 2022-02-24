@@ -97,9 +97,14 @@ class SiteController extends Controller
      * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Account $account, UpdateSiteRequest $request, Site $site)
+    public function update(UpdateSiteRequest $request, Account $account, Site $site)
     {
-        return redirect(route('sites.index'))->with('status', 'Site has been updated');
+        $site->update([
+            'name' => $request->input('name'),
+        ]);
+        $site->groups()->sync($request->input('groups'));
+
+        return to_route('sites.index', compact('account'));
     }
 
     /**
@@ -111,6 +116,12 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
+        $site->groups()->detach();
+        $site->installs->each(function ($install) {
+            $install->contact()->delete();
+        });
+        $site->installs()->delete();
+        $site->delete();
         return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
     }
 }
