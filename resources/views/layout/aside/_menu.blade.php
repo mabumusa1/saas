@@ -28,7 +28,6 @@
                 <h5 class="text-white">{{  \Illuminate\Support\Str::words($currentAccount->name, 2, '...')   }} </h5>
             </div>
         </div>
-        @if(!Gate::allows('isAdmin'))
         <!--begin::Trigger-->
         <button type="button" class="btn btn-primary w-100"
                 data-kt-menu-trigger="click"
@@ -44,36 +43,33 @@
         </button>
         <!--end::Trigger-->
         <!--begin::Menu-->
-
-            <div
+        <div
             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4"
             data-kt-menu="true">
-            @foreach ( Auth::user()->accounts as $account)
-                <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        @if (Illuminate\Support\Str::contains(Route::currentRouteName(), ['sites.edit', 'groups.edit', 'contacts.edit', 'users.edit']))
-                            <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
-                                {{ $account->name }}
-                            </a>
-                        @else
-                            <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
-                                {{ $account->name }}
-                            </a>
-                        @endif
-                    </div>
-                    <!--end::Menu item-->
+        @foreach ( Auth::user()->accounts as $account)
+            <!--begin::Menu item-->
+                <div class="menu-item px-3">
+                    @if (Illuminate\Support\Str::contains(Route::currentRouteName(), ['sites.edit', 'groups.edit', 'contacts.edit', 'users.edit']))
+                        <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
+                            {{ $account->name }}
+                        </a>
+                    @else
+                        <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
+                            {{ $account->name }}
+                        </a>
+                    @endif
+                </div>
+                <!--end::Menu item-->
 
-                @endforeach
+            @endforeach
         </div>
-        @endif
     </div>
 
     {{--begin::Menu--}}
     <div
         class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
         id="#kt_aside_menu" data-kt-menu="true">
-        @if(!Gate::allows('isAdmin'))
-            <div class="menu-item">
+        <div class="menu-item">
             <a class="menu-link" href="{{ route('dashboard', $currentAccount->id) }}">
                 <span class="menu-icon">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art002.svg-->
@@ -91,30 +87,9 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </div>
-        @endif
-        @if(Gate::allows('isAdmin'))
-            <div class="menu-item">
-                <a class="menu-link" href="{{ route('dashboard.index', $currentAccount->id) }}">
-                  <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
-                      <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                            <path opacity="0.3"
-                                  d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                  fill="black"></path>
-                            <path
-                                d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                fill="black"></path>
-                        </svg>
-                      </span>
-                      <!--end::Svg Icon-->
-                    </span>
-                    <span class="menu-title">Dashboard</span>
-                </a>
-            </div>
-        @endif
-        @if(!Gate::allows('isAdmin'))
-            <div class="menu-item">
-                <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
+
+        <div class="menu-item">
+            <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
                 <span class="menu-icon">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art003.svg-->
                     <span class="svg-icon svg-icon-2">
@@ -151,37 +126,17 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <!--end::Svg Icon-->
-                    </span>
-                    <span class="menu-title">Users</span><span class="menu-arrow"></span>
-                </span>
-                <div class="menu-sub menu-sub-accordion menu-active-bg">
-                    @if(!Gate::allows('isAdmin'))
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('users.index', $currentAccount->id) }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Account Users</span>
-                            </a>
-                        </div>
-                    @endif
-                    @if(!Gate::allows('isAdmin'))
-                        <div class="menu-item"><a class="menu-link"
-                                                  href="{{ route('contacts.index', $currentAccount->id) }}"><span
-                                    class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-                                    class="menu-title">Techincal Contacts</span></a>
-                        </div>
-                    @endif
-                    @if(!Gate::allows('isAdmin'))
-                        <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/activity_log"><span
-                                    class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-                                    class="menu-title">Activity Log</span></a>
-                        </div>
-                    @endif
+                        <span class="menu-title">Account Users</span>
+                    </a>
+                </div>
+                <div class="menu-item"><a class="menu-link" href="{{ route('contacts.index', $currentAccount->id) }}"><span
+                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Techincal Contacts</span></a>
+                </div>
+                <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/activity_log"><span
+                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Activity Log</span></a>
                 </div>
             </div>
-        @endif
+        </div>
         {{-- {!! $menu->build() !!} --}}
     </div>
     {{--end::Menu--}}
