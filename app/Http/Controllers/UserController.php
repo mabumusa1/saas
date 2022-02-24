@@ -16,9 +16,7 @@ use Session;
 class UserController extends Controller
 {
     /**
-     * Create the controller instance.
-     *
-     * @return void
+     * UserController constructor.
      */
     public function __construct()
     {
@@ -26,10 +24,8 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account)
     {
@@ -37,10 +33,8 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
@@ -48,10 +42,8 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \Illuminate\Http\Request  $request
+     * @param Account $account
+     * @param StoreUserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, StoreUserRequest $request)
@@ -77,11 +69,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\User $user
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, User $user)
     {
@@ -117,10 +107,8 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\User $user
+     * @param Account $account
+     * @param User $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, User $user)

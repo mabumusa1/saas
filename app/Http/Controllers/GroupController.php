@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
     /**
-     * Create the controller instance.
-     *
-     * @return void
+     * GroupController constructor.
      */
     public function __construct()
     {
@@ -21,10 +19,9 @@ class GroupController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @param \App\Models\Account $account
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account, Request $request)
     {
@@ -39,19 +36,17 @@ class GroupController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
         return view('groups.create', compact('account'));
     }
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\StoreGroupRequest $request
+     * @param Account $account
+     * @param StoreGroupRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, StoreGroupRequest $request)
@@ -59,15 +54,14 @@ class GroupController extends Controller
         $group = $account->groups()->create($request->validated());
 
         session()->flash('success', 'Group created successfully.');
+
         return to_route('groups.edit', compact('account', 'group'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Group $group
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Group $group
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Group $group)
     {
@@ -78,11 +72,9 @@ class GroupController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Group $group
-     * @param  \App\Http\Requests\UpdateGroupRequest  $request
+     * @param Account $account
+     * @param Group $group
+     * @param UpdateGroupRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Account $account, Group $group, UpdateGroupRequest $request)
@@ -102,10 +94,8 @@ class GroupController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Group $group
+     * @param Account $account
+     * @param Group $group
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Group $group)
@@ -113,6 +103,7 @@ class GroupController extends Controller
         $group->sites()->detach();
         $group->delete();
         session()->flash('success', 'Group deleted successfully.');
+
         return to_route('groups.index', compact('account'));
     }
 }
