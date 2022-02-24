@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 class SiteController extends Controller
 {
     /**
-     * Create the controller instance.
-     *
-     * @return void
+     * SiteController constructor.
      */
     public function __construct()
     {
@@ -34,10 +32,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account, Request $request)
     {
@@ -54,10 +51,8 @@ class SiteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
@@ -67,11 +62,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\StoreSiteRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param StoreSiteRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
@@ -79,11 +72,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Site $site
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Site $site)
     {
@@ -93,11 +84,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\UpdateSiteRequest  $request
-     * @param  \App\Models\Site  $site
+     * @param UpdateSiteRequest $request
+     * @param Account $account
+     * @param Site $site
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateSiteRequest $request, Account $account, Site $site)
@@ -111,11 +100,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param Site $site
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Account $account, Site $site)
     {
