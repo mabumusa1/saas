@@ -74,7 +74,7 @@ class GroupController extends Controller
      * @param  \App\Models\Group $group
      * @param  \App\Http\Requests\UpdateGroupRequest  $request
      * @return \Illuminate\Http\RedirectResponse
-     */    
+     */
     public function update(Account $account, Group $group, UpdateGroupRequest $request)
     {
         $group->update([
@@ -89,7 +89,7 @@ class GroupController extends Controller
 
         return to_route('groups.index', compact('account'));
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

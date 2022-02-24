@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateContactRequest;
 use App\Models\Account;
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateContactRequest;
 
 class ContactController extends Controller
 {
