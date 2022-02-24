@@ -26,3 +26,5 @@ _ide_helper_models.php
 auth.json
 .env.testing
 install_ddev.sh
+
+ddev/.gitignore
