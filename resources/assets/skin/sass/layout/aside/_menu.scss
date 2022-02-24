@@ -12,6 +12,10 @@
         @include menu-link-indention(get($aside-config, menu-indention), get($aside-config, padding-x));
     }
 
+    .menu-title {
+        font-size: 1.1rem;
+    }
+
     // Item
     .menu-item {
         padding: 0;
@@ -33,7 +37,7 @@
 .aside-dark {
     .hover-scroll-overlay-y {
         --scrollbar-space: 0.4rem;
-        
+
         @include scrollbar-color(get($aside-config, scrollbar-color), get($aside-config, scrollbar-hover-color));
     }
 

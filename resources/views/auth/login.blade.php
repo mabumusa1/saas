@@ -8,7 +8,7 @@
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">
-                {{ __('Sign In') }}
+                {{ __('Sign In To Steer Campaign') }}
             </h1>
             <!--end::Title-->
 
