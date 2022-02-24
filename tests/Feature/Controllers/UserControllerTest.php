@@ -14,6 +14,8 @@ use Tests\TestCase;
  */
 class UserControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @test
      */
@@ -22,6 +24,12 @@ class UserControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
 
         $response = $this->get(route('users.index', $account));
 
@@ -39,6 +47,12 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
         $response = $this->get(route('users.create', $account));
 
         $response->assertOk();
@@ -54,6 +68,12 @@ class UserControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
 
         $response = $this->post(route('users.store', $account), [
             'first_name' => 'First Name',
@@ -75,6 +95,12 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
         $response = $this->post(route('users.store', $account), [
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
@@ -95,7 +121,6 @@ class UserControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         $account = Account::factory()->create();
-        $user = User::factory()->create();
 
         AccountUser::factory()->create([
             'account_id' => $account->id,
@@ -120,6 +145,12 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
         $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
             'first_name' => 'First Name',
             'last_name' => '',
@@ -136,9 +167,15 @@ class UserControllerTest extends TestCase
      */
     public function user_update()
     {
-        $this->actingAs($user = User::factory()->create());
+        $this->actingAs($userLogin = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $userLogin->id,
+            'role' => 'owner',
+        ]);
 
         $user = User::factory()->create();
 
@@ -157,7 +194,7 @@ class UserControllerTest extends TestCase
         ]);
 
         $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('message'), 'User successfully updated!');
+        $this->assertEquals(session('status'), 'User successfully updated!');
     }
 
     /**
@@ -165,16 +202,22 @@ class UserControllerTest extends TestCase
      */
     public function user_destroy_only_if_account_has_one_owner()
     {
-        $this->actingAs($user = User::factory()->create());
+        $this->actingAs($userLogin = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $userLogin->id,
+            'role' => 'owner',
+        ]);
 
         $user = User::factory()->create();
 
         AccountUser::factory()->create([
             'account_id' => $account->id,
             'user_id' => $user->id,
-            'role' => 'owner',
+            'role' => 'pb',
         ]);
 
         $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
@@ -188,9 +231,15 @@ class UserControllerTest extends TestCase
      */
     public function user_destroy()
     {
-        $this->actingAs($user = User::factory()->create());
+        $this->actingAs($userLogin = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $userLogin->id,
+            'role' => 'owner',
+        ]);
 
         $user = User::factory()->create();
 

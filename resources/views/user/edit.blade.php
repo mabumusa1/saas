@@ -46,6 +46,7 @@
                         <select name="role" class="form-select form-select-solid" aria-label="Select example">
                             <option value="">Open this select menu</option>
                             @foreach(roles() as $roleKey => $roleValue)
+
                                 <option @if($user->accountUser->role == $roleKey) selected @endif value="{{$roleKey}}">{{$roleValue}}</option>
                             @endforeach
                         </select>
