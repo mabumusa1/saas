@@ -15,7 +15,7 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         php-versions: ['8.0']
 
@@ -106,6 +106,103 @@ jobs:
       with:
         name: clover
         path: build/logs/clover.xml
+        
+  dusk-php:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: ['8.0']
+
+    name: PHPUnit (PHP ${{ matrix.php-versions }})
+    env:
+      APP_NAME: testing
+      APP_ENV: testing
+      APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: db
+      DB_USERNAME: db
+      DB_PASSWORD: db
+      BCRYPT_ROUNDS: 4
+      CACHE_DRIVER: array
+      MAIL_MAILER: array
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+      TELESCOPE_ENABLED: false      
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_DATABASE: db
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_USER: db
+          MYSQL_PASSWORD: db
+          MYSQL_ROOT_PASSWORD: db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, dom, fileinfo, mysql
+        coverage: xdebug
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        # Use composer.json for key, if composer.lock is not committed.
+        # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install Composer dependencies
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+    - name: Prepare the application
+      run: chmod -R 777 storage bootstrap/cache
+ 
+    - name: Clear Config
+      run: php artisan config:clear
+    - name: Upgrade Chrome Driver
+      run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+    - name: Start Chrome Driver
+      run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+    - name: Run Laravel Server
+      run: php artisan serve --no-reload &
+    - name: Run Dusk Tests
+      env:
+        APP_URL: "http://127.0.0.1:8000"
+      run: php artisan dusk
+    - name: Upload Screenshots
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: screenshots
+        path: tests/Browser/screenshots
+    - name: Upload Console Logs
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: console
+        path: tests/Browser/console
 
   misc:
     runs-on: ubuntu-latest
