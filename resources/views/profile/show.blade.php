@@ -1,4 +1,8 @@
 <x-base-layout>
+    @push('styles')
+        @livewireStyles
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    @endpush
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
             {{ __('Profile') }}
@@ -32,4 +36,10 @@
             @livewire('profile.delete-user-form')
         @endif
     </div>
+    @push('scripts')
+        @stack('modals')
+
+        @livewireScripts
+    @endpush
+
 </x-base-layout>

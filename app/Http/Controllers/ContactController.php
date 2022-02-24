@@ -6,14 +6,24 @@ use App\Http\Requests\UpdateContactRequest;
 use App\Models\Account;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
+=======
+use Session;
+>>>>>>> 8ace9bb3064931a44da8111f248fc97905aa5874
 
 class ContactController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * ContactController constructor.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Contact::class, 'contact');
+    }
+
+    /**
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account)
     {
@@ -21,27 +31,33 @@ class ContactController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Contact $contact)
     {
-        return view('contact.edit', ['contact' => $contact]);
+        return view('contact.edit', compact('account', 'contact'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\UpdateContactRequest  $request
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param UpdateContactRequest $request
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Account $account, UpdateContactRequest $request, Contact $contact)
     {
-        return redirect(route('contact.index'))->with('status', 'Contact has been updated');
+        $data = $request->all();
+
+        $contact->update([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'phone' => isset($data['phone']) ? $data['phone'] : null,
+        ]);
+        Session::flash('status', 'Contact has been updated!');
+
+        return redirect(route('contacts.index', ['account' => $account]));
     }
 }

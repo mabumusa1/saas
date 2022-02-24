@@ -21,7 +21,7 @@
                                 @endif
                             </div>
                         @endforeach
-                        <a class="btn btn-link btn-sm" href={{ route('groups.create', [$account->id, $grp->id])}}>
+                        <a class="btn btn-primary btn-sm" href="{{ route('groups.create', [$account->id])}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                               </svg>
@@ -76,7 +76,7 @@
 
                                 <div class="row">
                                     <div class="col-6 mb-5">
-                                        <button type="submit" class="text-danger btn btn-link btn-sm"
+                                        <button type="button" class="btn btn-danger btn-sm btn-delete"
                                             id="btn-submit">Delete group</button>
                                     </div>
                                     <div class="col-6 mb-5 d-flex justify-content-end">
@@ -86,12 +86,16 @@
                                     </div>
                                 </div>
                         </form>
+                        <form action="{{ route('groups.destroy', compact('account', 'group')) }}" method="post" class="form-delete">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @section('scripts')
+    @push('scripts')
         <script>
             document.querySelector('#selectAll').addEventListener('click', function() {
                 document.querySelectorAll('.site').forEach(function(el) {
@@ -103,6 +107,48 @@
                     el.checked = false;
                 })
             });
+
+            var deleteBtn = document.querySelectorAll('.btn-delete');
+            deleteBtn.forEach(function(button){
+                button.addEventListener('click', function(e){
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.querySelector('.form-delete').submit();
+                    }
+                })
+                });
+            })
+
+            @if (session()->has('success'))
+
+                toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toastr-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                };
+
+                toastr.success("{{ session()->get('success') }}");
+            @endif
         </script>
-    @endsection
+    @endpush
 </x-base-layout>

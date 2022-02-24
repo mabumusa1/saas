@@ -28,11 +28,27 @@
                         </div>
                         <!--end::Wrapper-->
                     </div>
-                    <!--end::Actions-->                
+                    <!--end::Actions-->
                 @break
 
+            @case('users.index')
+             <!--begin::Actions-->
+             <div class="d-flex align-items-center py-1">
+                <!--begin::Wrapper-->
+                <!--end::Wrapper-->
+
+                <!--begin::Wrapper-->
+                <div data-bs-toggle="tooltip" data-bs-placement="left">
+                    <a href="{{ route('users.create', $currentAccount->id) }}" class="btn btn-sm btn-primary fw-bolder">
+                        Add User
+                    </a>
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Actions-->
+                @break
             @default
-                
+
         @endswitch
     </div>
     <!--end::Container-->

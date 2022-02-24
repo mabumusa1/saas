@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             InstallSeeder::class,
             ContactSeeder::class,
             GroupSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

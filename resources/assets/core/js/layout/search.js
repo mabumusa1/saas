@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var KTLayoutSearch = function() {
+var KTLayoutSearch = function () {
     // Private variables
     var element;
     var formElement;
@@ -13,84 +13,73 @@ var KTLayoutSearch = function() {
     var preferencesElement;
     var preferencesShowElement;
     var preferencesDismissElement;
-    
+
     var advancedOptionsFormElement;
     var advancedOptionsFormShowElement;
     var advancedOptionsFormCancelElement;
     var advancedOptionsFormSearchElement;
-    
+
     var searchObject;
 
     // Private functions
-    var processs = function(search) {
-        var timeout = setTimeout(function() {
-            var number = KTUtil.getRandomInt(1, 3);
+    var process = function (search) {
+        clear();
+                axios.get('/site_search', {
+                        params: {
+                            query: search.getQuery()
+                        }
+                    })
+                    .then(function (res) {
+                        if (!!Object.keys(res.data).length) {
+                            var container = document.createElement('div');
+                            container.classList.add('scroll-y', 'mh-200px', 'mh-lg-350px');
+                            Object.keys(res.data).forEach(function (key) {
+                                var title = document.createElement('h3');
+                                title.classList.add('fs-5', 'text-muted', 'm-0', 'pb-5');
+                                title.textContent = key;
+                                container.appendChild(title);
+                                res.data[key].forEach(function (item) {
+                                    container.appendChild(createSearchItem(item));
+                                });
+                            });
 
-            // Hide recently viewed
-            mainElement.classList.add('d-none');
+                            resultsElement.appendChild(container);
+                            resultsElement.classList.remove('d-none');
 
-            if (number === 3) {
-                // Hide results
-                resultsElement.classList.add('d-none');
-                // Show empty message 
-                emptyElement.classList.remove('d-none');
-            } else {
-                // Show results
-                resultsElement.classList.remove('d-none');
-                // Hide empty message 
-                emptyElement.classList.add('d-none');
-            }                  
+                        } else {
+                            emptyElement.classList.remove('d-none');
 
-            // Complete search
-            search.complete();
-        }, 1500);
+                        }
+                        search.complete()
+                    });
     }
 
-    var clear = function(search) {
+    var clear = function (search) {
         // Show recently viewed
         mainElement.classList.remove('d-none');
         // Hide results
+        resultsElement.innerHTML = '';
         resultsElement.classList.add('d-none');
-        // Hide empty message 
+        // Hide empty message
         emptyElement.classList.add('d-none');
-    }    
-
-    var handlePreferences = function() {
-        // Preference show handler
-        preferencesShowElement.addEventListener('click', function() {
-            wrapperElement.classList.add('d-none');
-            preferencesElement.classList.remove('d-none');
-        });
-
-        // Preference dismiss handler
-        preferencesDismissElement.addEventListener('click', function() {
-            wrapperElement.classList.remove('d-none');
-            preferencesElement.classList.add('d-none');
-        });
     }
 
-    var handleAdvancedOptionsForm = function() {
-        // Show
-        advancedOptionsFormShowElement.addEventListener('click', function() {
-            wrapperElement.classList.add('d-none');
-            advancedOptionsFormElement.classList.remove('d-none');
-        });
-
-        // Cancel
-        advancedOptionsFormCancelElement.addEventListener('click', function() {
-            wrapperElement.classList.remove('d-none');
-            advancedOptionsFormElement.classList.add('d-none');
-        });
-
-        // Search
-        advancedOptionsFormSearchElement.addEventListener('click', function() {
-            
-        });
+    var createSearchItem = function (item) {
+        var a = document.createElement('a');
+        var container = document.createElement('div');
+        var title = document.createElement('span');
+        a.classList.add('d-flex', 'text-dark', 'text-hover-primary', 'align-items-center', 'mb-5')
+        container.classList.add('d-flex', 'flex-column');
+        title.classList.add('fs-6', 'fw-bold');
+        container.appendChild(title);
+        a.appendChild(container);
+        title.textContent = item.name;
+        return a;
     }
 
     // Public methods
-	return {
-		init: function() {
+    return {
+        init: function () {
             // Elements
             element = document.querySelector('#kt_header_search');
 
@@ -112,24 +101,20 @@ var KTLayoutSearch = function() {
             advancedOptionsFormShowElement = element.querySelector('[data-kt-search-element="advanced-options-form-show"]');
             advancedOptionsFormCancelElement = element.querySelector('[data-kt-search-element="advanced-options-form-cancel"]');
             advancedOptionsFormSearchElement = element.querySelector('[data-kt-search-element="advanced-options-form-search"]');
-            
+
             // Initialize search handler
             searchObject = new KTSearch(element);
 
             // Search handler
-            searchObject.on('kt.search.process', processs);
+            searchObject.on('kt.search.process', process);
 
             // Clear handler
             searchObject.on('kt.search.clear', clear);
-
-            // Custom handlers
-            handlePreferences();
-            handleAdvancedOptionsForm();            
-		}
-	};
+        }
+    };
 }();
 
 // On document ready
-KTUtil.onDOMContentLoaded(function() {
+KTUtil.onDOMContentLoaded(function () {
     KTLayoutSearch.init();
 });

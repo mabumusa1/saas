@@ -15,7 +15,6 @@
             @if( theme()->getOption('layout', 'aside/display') === true )
                 {{ theme()->getView('layout/aside/_base') }}
             @endif
-
                 <!--begin::Wrapper-->
                 <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                 {{ theme()->getView('layout/header/_base') }}

@@ -23,7 +23,7 @@
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         {{--begin::Logo--}}
         <a href="{{ theme()->getPageUrl('') }}">
-            <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/' . $logoFileName) }}" class="h-100px logo"/>
+            <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'logos/' . $logoFileName) }}" class="h-50px logo"/>
         </a>
         {{--end::Logo--}}
 

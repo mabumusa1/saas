@@ -12,6 +12,18 @@ class Contact extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+    ];
+
+    /**
      * Get the Install associated with the Contact.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

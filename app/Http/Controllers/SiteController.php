@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
+use App\Models\Group;
+use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
+    /**
+     * SiteController constructor.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Site::class, 'site');
+    }
+
     public function formValidation()
     {
         // Setup the validator
@@ -22,10 +32,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account, Request $request)
     {
@@ -42,22 +51,20 @@ class SiteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
-        return view('sites.create');
+        $installs = Install::all();
+
+        return view('sites.create', compact('installs'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\StoreSiteRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param StoreSiteRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
@@ -65,39 +72,47 @@ class SiteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Site $site
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Site $site)
     {
-        return view('sites.edit', ['site' => $site]);
+        $groups = $account->groups;
+
+        return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\UpdateSiteRequest  $request
-     * @param  \App\Models\Site  $site
+     * @param UpdateSiteRequest $request
+     * @param Account $account
+     * @param Site $site
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Account $account, UpdateSiteRequest $request, Site $site)
+    public function update(UpdateSiteRequest $request, Account $account, Site $site)
     {
-        return redirect(route('sites.index'))->with('status', 'Site has been updated');
+        $site->update([
+            'name' => $request->input('name'),
+        ]);
+        $site->groups()->sync($request->input('groups'));
+
+        return to_route('sites.index', compact('account'));
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param Site $site
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Account $account, Site $site)
     {
-        return redirect(route('sites.index'))->with('status', 'Site has been deleted');
+        $site->groups()->detach();
+        $site->installs->each(function ($install) {
+            $install->contact()->delete();
+        });
+        $site->installs()->delete();
+        $site->delete();
+
+        return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
     }
 }

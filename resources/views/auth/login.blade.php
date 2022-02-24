@@ -1,14 +1,14 @@
 <x-auth-layout>
 
     <!--begin::Signin Form-->
-    <form method="POST" action="{{ theme()->getPageUrl('login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
+    <form method="POST" action="{{ route('post.login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
     @csrf
 
     <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">
-                {{ __('Sign In to Metronic') }}
+                {{ __('Sign In To Steer Campaign') }}
             </h1>
             <!--end::Title-->
 
@@ -23,8 +23,6 @@
             <!--end::Link-->
         </div>
         <!--begin::Heading-->
-
-        <div class="mb-10 bg-light-info p-8 rounded"><div class="text-info"> Use account <strong>admin@demo.com</strong> and password <strong>demo</strong> to continue. </div></div>
 
         <!--begin::Input group-->
         <div class="fv-row mb-10">
@@ -79,24 +77,6 @@
                 @include('partials.general._button-indicator', ['label' => __('Continue')])
             </button>
             <!--end::Submit button-->
-
-            <!--begin::Separator-->
-            <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
-            <!--end::Separator-->
-
-            <!--begin::Google link-->
-            <a href="{{ url('/auth/redirect/google') }}?redirect_uri={{ url()->previous() }}" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'svg/brand-logos/google-icon.svg') }}" class="h-20px me-3"/>
-                {{ __('Continue with Google') }}
-            </a>
-            <!--end::Google link-->
-
-            <!--begin::Facebook link-->
-            <a href="{{ url('/auth/redirect/facebook') }}?redirect_uri={{ url()->previous() }}" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                <img alt="Logo" src="{{ asset(theme()->getMediaUrlPath() . 'svg/brand-logos/facebook-4.svg') }}" class="h-20px me-3"/>
-                {{ __('Continue with Facebook') }}
-            </a>
-            <!--end::Facebook link-->
         </div>
         <!--end::Actions-->
     </form>

@@ -4,18 +4,12 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-5">
                     <h1>Account users</h1>
-                    <a href="{{ route('users.create', $currentAccount->id) }}" class="btn btn-primary">Add User</a>
                 </div>
-
-                @if(Session::has('message'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-                @endif
-
                 <div class="table-responsive">
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th></th>
+                            <th>Full name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Account access</th>
@@ -28,7 +22,7 @@
                                 <td>{{ $user->fullName }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone }}</td>
-                                <td>{{ $user->pivot->role }}</td>
+                                <td>{{ isset(roles()[$user->pivot->role]) ? roles()[$user->pivot->role] : '' }}</td>
                                 <td><a href="{{ route('users.edit',[$currentAccount->id, $user->id]) }}">Edit</a></td>
                             </tr>
                             @endforeach
