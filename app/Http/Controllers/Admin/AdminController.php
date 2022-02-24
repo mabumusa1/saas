@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account)
     {
@@ -25,32 +23,23 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
      */
     public function create(Account $account)
     {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param StoreUserRequest $request
      */
     public function store(Account $account, StoreUserRequest $request)
     {
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\User $user
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param User $user
      */
     public function edit(Account $account, User $user)
     {
@@ -60,18 +49,14 @@ class AdminController extends Controller
      * @param Account $account
      * @param UpdateUserRequest $request
      * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Account $account, UpdateUserRequest $request, User $user)
     {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\User $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param User $user
      */
     public function destroy(Account $account, User $user)
     {
