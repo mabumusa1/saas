@@ -22,7 +22,7 @@ class LoginAsClient extends Controller
                 if ($user) {
                     Auth::guard('web')->login($user);
 
-                    return redirect()->route('dashboard', Auth::user()->accountUser->account_id);
+                    return redirect()->route('dashboard');
                 } else {
                     return redirect()->route('login');
                 }
