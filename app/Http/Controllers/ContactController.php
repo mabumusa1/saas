@@ -11,9 +11,7 @@ use Session;
 class ContactController extends Controller
 {
     /**
-     * Create the controller instance.
-     *
-     * @return void
+     * ContactController constructor.
      */
     public function __construct()
     {
@@ -21,10 +19,8 @@ class ContactController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account)
     {
@@ -32,11 +28,9 @@ class ContactController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\View\View
+     * @param Account $account
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Contact $contact)
     {
@@ -44,12 +38,10 @@ class ContactController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Models\Account $account
-     * @param  \App\Http\Requests\UpdateContactRequest  $request
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Account $account
+     * @param UpdateContactRequest $request
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Account $account, UpdateContactRequest $request, Contact $contact)
     {
