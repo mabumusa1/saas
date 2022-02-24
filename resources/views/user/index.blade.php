@@ -4,7 +4,6 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-5">
                     <h1>Account users</h1>
-                    <a href="{{ route('users.create', $currentAccount->id) }}" class="btn btn-primary">Add User</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
