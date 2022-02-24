@@ -205,7 +205,7 @@ jobs:
       fail-fast: true
       matrix:
         php-versions: ['8.0']
-        commands: ['PHPSTAN', 'CS Fixer', 'PHP Dusk']
+        commands: ['PHPSTAN', 'CS Fixer']
     name: ${{ matrix.commands }}
     env:
       APP_NAME: testing
