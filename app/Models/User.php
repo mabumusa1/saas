@@ -78,6 +78,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Account::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
     }
 
+    public function accountUser()
+    {
+        return $this->hasOne(AccountUser::class);
+    }
+
     /**
      * Get User Full Name.
      *
