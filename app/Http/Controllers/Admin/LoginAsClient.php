@@ -11,24 +11,23 @@ use Session;
 
 class LoginAsClient extends Controller
 {
+    /**
+     * @param Account $account
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function loginAsClient(Account $account, Request $request)
     {
-        if (! empty($account)) {
-            Auth::guard('web')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            if (! empty($account)) {
-                $user = $account->users()->first();
-                if ($user) {
-                    Auth::guard('web')->login($user);
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        $user = $account->users()->first();
+        if ($user) {
+            Auth::guard('web')->login($user);
 
-                    return redirect()->route('dashboard');
-                } else {
-                    return redirect()->route('login');
-                }
-            }
+            return redirect()->route('dashboard');
         } else {
-            return back();
+            return redirect()->route('login');
         }
     }
 }
