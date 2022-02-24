@@ -93,10 +93,10 @@
 
                                                 <td class="table-light text-center">
                                                     <!--begin::Trigger-->
-                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                    <button type="button" class="btn btn-primary btn-sm btn-icon"
                                                     data-kt-menu-trigger="click"
                                                     data-kt-menu-placement="bottom-start">
-                                                    <span class="svg-icon svg-icon-5 ms-3 me-0"><i class="bi bi-three-dots-vertical"></i></span>
+                                                    <span class="svg-icon svg-icon-5"><i class="bi bi-three-dots-vertical"></i></span>
                                                     </button>
                                                     <!--end::Trigger-->
                                                     <!--begin::Menu-->
