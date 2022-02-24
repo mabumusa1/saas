@@ -28,6 +28,7 @@
                 <h5 class="text-white">{{  \Illuminate\Support\Str::words($currentAccount->name, 2, '...')   }} </h5>
             </div>
         </div>
+        @if(!Gate::allows('isAdmin'))
         <!--begin::Trigger-->
         <button type="button" class="btn btn-primary w-100"
                 data-kt-menu-trigger="click"
@@ -43,33 +44,36 @@
         </button>
         <!--end::Trigger-->
         <!--begin::Menu-->
-        <div
+
+            <div
             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4"
             data-kt-menu="true">
-        @foreach ( Auth::user()->accounts as $account)
-            <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                    @if (Illuminate\Support\Str::contains(Route::currentRouteName(), ['sites.edit', 'groups.edit', 'contacts.edit', 'users.edit']))
-                        <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
-                            {{ $account->name }}
-                        </a>
-                    @else
-                        <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
-                            {{ $account->name }}
-                        </a>
-                    @endif
-                </div>
-                <!--end::Menu item-->
+            @foreach ( Auth::user()->accounts as $account)
+                <!--begin::Menu item-->
+                    <div class="menu-item px-3">
+                        @if (Illuminate\Support\Str::contains(Route::currentRouteName(), ['sites.edit', 'groups.edit', 'contacts.edit', 'users.edit']))
+                            <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
+                                {{ $account->name }}
+                            </a>
+                        @else
+                            <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
+                                {{ $account->name }}
+                            </a>
+                        @endif
+                    </div>
+                    <!--end::Menu item-->
 
-            @endforeach
+                @endforeach
         </div>
+        @endif
     </div>
 
     {{--begin::Menu--}}
     <div
         class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
         id="#kt_aside_menu" data-kt-menu="true">
-        <div class="menu-item">
+        @if(!Gate::allows('isAdmin'))
+            <div class="menu-item">
             <a class="menu-link" href="{{ route('dashboard', $currentAccount->id) }}">
                 <span class="menu-icon">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art002.svg-->
@@ -88,9 +92,30 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </div>
-
-        <div class="menu-item">
-            <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
+        @endif
+        @if(Gate::allows('isAdmin'))
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('dashboard.index', $currentAccount->id) }}">
+                  <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
+                      <span class="svg-icon svg-icon-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                            <path opacity="0.3"
+                                  d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                  fill="black"></path>
+                            <path
+                                d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                fill="black"></path>
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title">Dashboard</span>
+                </a>
+            </div>
+        @endif
+        @if(!Gate::allows('isAdmin'))
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
                 <span class="menu-icon">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art003.svg-->
                     <span class="svg-icon svg-icon-2">
@@ -105,40 +130,56 @@
                 </span>
                     <!--end::Svg Icon-->
                 </span>
-                <span class="menu-title">Sites</span>
-            </a>
-        </div>
-
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion"><span class="menu-link"><span
-                    class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
-            <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                   viewBox="0 0 24 24" fill="none">
-            <path opacity="0.3"
-                  d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z"
-                  fill="black"></path>
-            <path
-                d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z"
-                fill="black"></path>
-            </svg></span>
-                    <!--end::Svg Icon--></span><span class="menu-title">Users</span><span
-                    class="menu-arrow"></span></span>
-            <div class="menu-sub menu-sub-accordion menu-active-bg">
-                <div class="menu-item">
-                    <a class="menu-link" href="{{ route('users.index', $currentAccount->id) }}">
-                        <span class="menu-bullet">
-                            <span class="bullet bullet-dot"></span>
+                    <span class="menu-title">Sites</span>
+                </a>
+            </div>
+        @endif
+        @if(!Gate::allows('isAdmin'))
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <span class="menu-link">
+                    <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                                   viewBox="0 0 24 24" fill="none">
+                                <path opacity="0.3"
+                                      d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z"
+                                      fill="black"></path>
+                                <path
+                                    d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z"
+                                    fill="black"></path>
+                            </svg>
                         </span>
-                        <span class="menu-title">Account Users</span>
-                    </a>
-                </div>
-                <div class="menu-item"><a class="menu-link" href="{{ route('contacts.index', $currentAccount->id) }}"><span
-                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Techincal Contacts</span></a>
-                </div>
-                <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/activity_log"><span
-                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Activity Log</span></a>
+                        <!--end::Svg Icon-->
+                    </span>
+                    <span class="menu-title">Users</span><span class="menu-arrow"></span>
+                </span>
+                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    @if(!Gate::allows('isAdmin'))
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('users.index', $currentAccount->id) }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Account Users</span>
+                            </a>
+                        </div>
+                    @endif
+                    @if(!Gate::allows('isAdmin'))
+                        <div class="menu-item"><a class="menu-link"
+                                                  href="{{ route('contacts.index', $currentAccount->id) }}"><span
+                                    class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+                                    class="menu-title">Techincal Contacts</span></a>
+                        </div>
+                    @endif
+                    @if(!Gate::allows('isAdmin'))
+                        <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/activity_log"><span
+                                    class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+                                    class="menu-title">Activity Log</span></a>
+                        </div>
+                    @endif
                 </div>
             </div>
-        </div>
+        @endif
         {{-- {!! $menu->build() !!} --}}
     </div>
     {{--end::Menu--}}
