@@ -28,6 +28,12 @@ class ContactControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
         $response = $this->get(route('contacts.index', $account));
 
         $response->assertOk();
@@ -42,6 +48,12 @@ class ContactControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
@@ -78,6 +90,12 @@ class ContactControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
@@ -116,6 +134,12 @@ class ContactControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
 
         $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
 
         $site = Site::factory()->create([
             'account_id' => $account->id,

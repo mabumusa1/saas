@@ -13,6 +13,10 @@
 
 use App\Http\Controllers\SearchController;
 
+Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
+Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
+//Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', SearchController::class);
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
@@ -30,5 +34,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'index', 'edit', 'update',
         ]);
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
+    });
+
+    Route::prefix('{account}/admin')->middleware('admin')->group(function () {
+        Route::resource('dashboard', App\Http\Controllers\Admin\AdminController::class)->only([
+            'index',
+        ]);
+
+        Route::get('/login-as-client', [App\Http\Controllers\Admin\LoginAsClient::class, 'loginAsClient'])->name('login.as.client');
     });
 });
