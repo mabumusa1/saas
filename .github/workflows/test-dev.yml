@@ -119,6 +119,8 @@ jobs:
       APP_NAME: testing
       APP_ENV: testing
       APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
+      APP_URL: "http://127.0.0.1:8000"
+      DUSK_DRIVER_URL: "http://127.0.0.1:8000"
       DB_CONNECTION: mysql
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
@@ -188,9 +190,6 @@ jobs:
     - name: Run Laravel Server
       run: php artisan serve --no-reload &
     - name: Run Dusk Tests
-      env:
-        APP_URL: "http://127.0.0.1:8000"
-        DUSK_DRIVER_URL: "http://127.0.0.1:8000"
       run: php artisan dusk
     - name: Upload Screenshots
       if: failure()
