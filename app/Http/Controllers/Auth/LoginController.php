@@ -21,7 +21,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             if (Auth::user()->accountUser()->first()->role == 'admin') {
-                return redirect()->route('dashboard.index', Auth::user()->accountUser->account_id);
+                return redirect()->route('dashboard.index', Auth::user()->accountUser()->first()->account_id);
             } else {
                 return redirect()->route('dashboard');
             }
