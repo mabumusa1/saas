@@ -51,6 +51,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('account', \App\Models\Account::class);
         Route::model('user', \App\Models\User::class);
         Route::model('site', \App\Models\Site::class);
+        Route::model('plan', \App\Models\Plan::class);
+        Route::pattern('isYearlyPlan', '[01]+');
     }
 
     /**
