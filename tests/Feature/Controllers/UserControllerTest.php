@@ -6,7 +6,6 @@ use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 /**
