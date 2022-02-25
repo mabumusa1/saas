@@ -123,7 +123,7 @@ class UserController extends Controller
     {
         $accountUser = AccountUser::where('account_id', $account->id)->where('role', 'owner')->get();
 
-        if ($user->accountUser->role == 'owner' && count($accountUser) == 1) {
+        if ($user->accountUser()->first()->role == 'owner' && count($accountUser) == 1) {
             Session::flash('status', 'Sorry  you  can not delete this user!');
 
             return redirect()->route('users.index', $account);
