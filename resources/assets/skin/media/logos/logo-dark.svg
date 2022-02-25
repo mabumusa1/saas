@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="910.17377"
+   height="256.25888"
+   viewBox="0 0 240.8168 67.801834"
+   version="1.1"
+   id="svg413"
+   sodipodi:docname="logo-dark.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   inkscape:export-filename="/home/user/Desktop/Steer Campaign Branding/logo-dark.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <metadata
+     id="metadata77">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     id="namedview415"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     width="350px"
+     inkscape:zoom="0.5"
+     inkscape:cx="490"
+     inkscape:cy="-19.783181"
+     inkscape:window-width="1296"
+     inkscape:window-height="713"
+     inkscape:window-x="70"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg413" />
+  <defs
+     id="defs410" />
+  <g
+     inkscape:label="Background"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-38.364585,-47.878452)" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Slogan"
+     transform="translate(-38.364585,-47.878452)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58329964px;line-height:20.35289955px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="201.62282"
+       y="100.32998"
+       id="text17403"><tspan
+         sodipodi:role="line"
+         id="tspan17401"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58329964px;font-family:Varela;-inkscape-font-specification:Varela;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458299"
+         x="201.62282"
+         y="100.32998">Marketing Automation</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Icon"
+     transform="translate(-38.364585,-47.878452)">
+    <g
+       id="g682"
+       transform="matrix(0.33900917,0,0,0.33900917,24.554707,30.927993)"
+       style="fill:#ffffff;fill-opacity:1">
+      <path
+         d="m 99.265,114 c 8.824,0 16,-7.176 16,-16 0,-8.824 -7.176,-16 -16,-16 -8.824,0 -16,7.176 -16,16 0,8.824 7.175,16 16,16 z m 0,-24 c 4.41,0 8,3.59 8,8 0,4.41 -3.59,8 -8,8 -4.41,0 -8,-3.59 -8,-8 0,-4.41 3.589,-8 8,-8 z"
+         id="path674"
+         style="fill:#ffffff;fill-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 117.265,64.529 c 2.501,0 4.529,-2.028 4.529,-4.529 0,-2.502 -2.028,-4.53 -4.529,-4.53 -2.501,0 -4.529,2.028 -4.529,4.53 -0.001,2.501 2.027,4.529 4.529,4.529 z"
+         id="path676"
+         style="fill:#ffffff;fill-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 45.265,115.47 c -2.501,0 -4.529,2.028 -4.529,4.53 0,2.501 2.028,4.529 4.529,4.529 2.501,0 4.529,-2.028 4.529,-4.529 0,-2.502 -2.028,-4.53 -4.529,-4.53 z"
+         id="path678"
+         style="fill:#ffffff;fill-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 255.265,50 h -52.719 c -26.07,0 -47.281,21.211 -47.281,47.281 V 146 h -48.719 c -26.07,0 -47.281,21.211 -47.281,47.281 V 246 c 0,2.211 1.789,4 4,4 h 52.719 c 26.07,0 47.281,-21.211 47.281,-47.281 V 154 h 48.719 c 26.07,0 47.281,-21.211 47.281,-47.281 V 54 c 0,-2.211 -1.789,-4 -4,-4 z m -100,152.719 c 0,21.66 -17.621,39.281 -39.281,39.281 H 67.265 V 193.281 C 67.265,171.621 84.886,154 106.546,154 h 48.719 z m 96,-96 c 0,21.66 -17.621,39.281 -39.281,39.281 H 163.265 V 97.281 C 163.265,75.621 180.886,58 202.546,58 h 48.719 z"
+         id="path680"
+         style="fill:#ffffff;fill-opacity:1"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:19.04999924px;line-height:29.76569939px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+     x="165.61211"
+     y="31.907185"
+     id="text9589"><tspan
+       sodipodi:role="line"
+       id="tspan9587"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.04999924px;font-family:Varela;-inkscape-font-specification:Varela;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458299"
+       x="165.61211"
+       y="31.907185">Steer Campaign</tspan></text>
+</svg>
