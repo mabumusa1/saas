@@ -17,8 +17,12 @@
 
         document.querySelectorAll('.btn-qty').forEach(function(btn){
             btn.addEventListener('click', function(){
+                btn.parentElement.parentElement.querySelector('.overlay').classList.add('overlay-block');
+                btn.parentElement.parentElement.querySelector('.overlay-layer').classList.remove('d-none');
                 axios.get('generatePaymentLink/' + btn.getAttribute('data-plan') + '/' + (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? 1 : 0)).then(function(res){
                     btn.parentElement.parentElement.querySelector('.paddle_button').setAttribute('data-override', res.data)
+                    btn.parentElement.parentElement.querySelector('.overlay').classList.remove('overlay-block');
+                    btn.parentElement.parentElement.querySelector('.overlay-layer').classList.add('d-none');
                 })
             })
         })
