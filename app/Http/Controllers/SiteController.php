@@ -8,8 +8,8 @@ use App\Models\Account;
 use App\Models\Group;
 use App\Models\Install;
 use App\Models\Site;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 class SiteController extends Controller

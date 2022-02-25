@@ -9,8 +9,8 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Session;
@@ -66,12 +66,10 @@ class UserController extends Controller
         ]);
 
         $authUser = Auth::user();
-        if ($authUser) {
-            activity('User created')
-                ->performedOn($user)
-                ->causedBy($authUser)
-                ->log('User created by '.$authUser->getFullNameAttribute());
-        }
+        activity('User created')
+            ->performedOn($user)
+            ->causedBy($authUser)
+            ->log('User created by '.$authUser->getFullNameAttribute());
 
         Session::flash('status', 'User successfully created!');
 
@@ -138,12 +136,10 @@ class UserController extends Controller
         Session::flash('status', 'User successfully deleted!');
 
         $authUser = Auth::user();
-        if ($authUser) {
-            activity('User deleted')
-                ->performedOn($user)
-                ->causedBy($authUser)
-                ->log('User deleted by '.$authUser->getFullNameAttribute());
-        }
+        activity('User deleted')
+            ->performedOn($user)
+            ->causedBy($authUser)
+            ->log('User deleted by '.$authUser->getFullNameAttribute());
 
         return redirect()->route('users.index', $account);
     }
