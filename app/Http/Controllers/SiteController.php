@@ -9,6 +9,7 @@ use App\Models\Group;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
+use Session;
 
 class SiteController extends Controller
 {
@@ -45,9 +46,11 @@ class SiteController extends Controller
                 $query->where('name', 'like', '%'.$request->q.'%');
             });
         }
-        $sites->orderBy('name', $order);
 
-        return view('sites.index', ['sites' => $sites->get(), 'order' => $order]);
+        $sites->orderBy('name', $order);
+        $sites = $sites->get();
+
+        return view('sites.index', compact('sites', 'order'));
     }
 
     /**
@@ -68,7 +71,9 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
-        return redirect(route('sites.index', $account->id))->with('status', 'Site is under creation, we will send you an update once it is done!');
+        Session::flash('status', 'Site is under creation, we will send you an update once it is done!');
+
+        return redirect(route('sites.index', $account->id));
     }
 
     /**
@@ -80,21 +85,23 @@ class SiteController extends Controller
     {
         $groups = $account->groups;
 
-        return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
+        return view('sites.edit', compact('site', 'account', 'groups'));
     }
 
     /**
-     * @param UpdateSiteRequest $request
      * @param Account $account
      * @param Site $site
+     * @param UpdateSiteRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateSiteRequest $request, Account $account, Site $site)
+    public function update(Account $account, Site $site, UpdateSiteRequest $request)
     {
         $site->update([
             'name' => $request->input('name'),
         ]);
         $site->groups()->sync($request->input('groups'));
+
+        Session::flash('status', 'Site successfully updated!');
 
         return to_route('sites.index', compact('account'));
     }
@@ -113,6 +120,8 @@ class SiteController extends Controller
         $site->installs()->delete();
         $site->delete();
 
-        return redirect(route('sites.index', $account->id))->with('status', 'Site has been deleted');
+        Session::flash('status', 'Site successfully deleted!');
+
+        return redirect(route('sites.index', $account->id));
     }
 }

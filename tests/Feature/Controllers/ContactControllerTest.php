@@ -22,7 +22,7 @@ class ContactControllerTest extends TestCase
     /**
      * @test
      */
-    public function index_displays_view()
+    public function test_index_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -43,7 +43,7 @@ class ContactControllerTest extends TestCase
     /**
      * @test
      */
-    public function edit_displays_view()
+    public function test_edit_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -85,7 +85,7 @@ class ContactControllerTest extends TestCase
     /**
      * @test
      */
-    public function contact_update_fail_without_last_name()
+    public function test_contact_update_fail_without_last_name()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -129,7 +129,7 @@ class ContactControllerTest extends TestCase
     /**
      * @test
      */
-    public function contact_update()
+    public function test_contact_update()
     {
         $this->actingAs($user = User::factory()->create());
 
