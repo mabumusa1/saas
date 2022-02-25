@@ -177,6 +177,16 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
+    - name: Build NPM Assets
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
+    - name: Complile Assets
+      run: |
+       npm install
+       npm run dev
+
     - name: Install Composer dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
@@ -258,16 +268,6 @@ jobs:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
-
-    - name: Build NPM Assets
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-        cache: 'npm'
-    - name: Complile Assets
-      run: |
-       npm install
-       npm run dev
 
     - name: Install Composer dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
