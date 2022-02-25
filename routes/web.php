@@ -18,12 +18,7 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')-
 //Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user/subscribe', function (Request $request) {
-        $user = auth()->user();
-        $payLink = $user->newSubscription('Enterprise Plan E3 Annual', $premium = 24539)
-            ->returnTo(asset('/'))
-            ->create();
-
-        return view('billing', ['payLink' => $payLink]);
+        return view('billing.subscribe');
     });
     Route::get('site_search', SearchController::class);
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
