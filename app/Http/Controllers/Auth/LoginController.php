@@ -25,9 +25,20 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+            $authUser = Auth::user();
             if (Auth::user()->accountUser()->first()->role == 'admin') {
+                activity('Admin login')
+                    ->performedOn($authUser)
+                    ->causedBy($authUser)
+                    ->log($authUser->getFullNameAttribute().' Login in Admin dashboard');
+
                 return redirect()->route('dashboard.index', Auth::user()->accountUser()->first()->account_id);
             } else {
+                activity('Clint login')
+                    ->performedOn($authUser)
+                    ->causedBy($authUser)
+                    ->log($authUser->getFullNameAttribute().' Login in Clint dashboard');
+
                 return redirect()->route('dashboard');
             }
         }

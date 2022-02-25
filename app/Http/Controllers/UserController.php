@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use function _PHPStan_3e014c27f\React\Promise\Stream\first;
 use App\Casts\RoleCast;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
@@ -63,7 +65,11 @@ class UserController extends Controller
             'role' => $data['role'],
         ]);
 
-        activity()->log('Created new user');
+        $authUser = Auth::user();
+        activity('User created')
+            ->performedOn($user)
+            ->causedBy($authUser)
+            ->log('User created by '.$authUser->getFullNameAttribute());
 
         Session::flash('status', 'User successfully created!');
 
@@ -117,7 +123,7 @@ class UserController extends Controller
     {
         $accountUser = AccountUser::where('account_id', $account->id)->where('role', 'owner')->get();
 
-        if (count($accountUser) == 1) {
+        if ($user->accountUser->role == 'owner' && count($accountUser) == 1) {
             Session::flash('status', 'Sorry  you  can not delete this user!');
 
             return redirect()->route('users.index', $account);
@@ -128,6 +134,12 @@ class UserController extends Controller
         $user->delete();
 
         Session::flash('status', 'User successfully deleted!');
+
+        $authUser = Auth::user();
+        activity('User deleted')
+            ->performedOn($user)
+            ->causedBy($authUser)
+            ->log('User deleted by '.$authUser->getFullNameAttribute());
 
         return redirect()->route('users.index', $account);
     }

@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Models\Group;
 use App\Models\Install;
 use App\Models\Site;
+use Auth;
 use Illuminate\Http\Request;
 use Session;
 
@@ -113,10 +114,21 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
+        $authUser = Auth::user();
         $site->groups()->detach();
-        $site->installs->each(function ($install) {
+        $site->installs->each(function ($install) use ($authUser) {
+            activity('Install deleted')
+                ->performedOn($install)
+                ->causedBy($authUser)
+                ->log('User created by '.$authUser->getFullNameAttribute());
             $install->contact()->delete();
         });
+
+        activity('Site deleted')
+            ->performedOn($site)
+            ->causedBy($authUser)
+            ->log('Site deleted by '.$authUser->getFullNameAttribute());
+
         $site->installs()->delete();
         $site->delete();
 
