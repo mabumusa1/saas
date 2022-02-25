@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use function _PHPStan_3e014c27f\React\Promise\Stream\first;
-use App\Casts\RoleCast;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\Fluent\Concerns\Has;
 use Session;
 
 class UserController extends Controller

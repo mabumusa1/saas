@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
-use App\Models\Group;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
