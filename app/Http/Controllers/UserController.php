@@ -62,12 +62,10 @@ class UserController extends Controller
         ]);
 
         $authUser = Auth::user();
-        if ($authUser) {
-            activity('User created')
-                ->performedOn($user)
-                ->causedBy($authUser)
-                ->log('User created by '.$authUser->getFullNameAttribute());
-        }
+        activity('User created')
+            ->performedOn($user)
+            ->causedBy($authUser)
+            ->log('User created by '.$authUser->getFullNameAttribute());
 
         Session::flash('status', 'User successfully created!');
 
@@ -134,12 +132,10 @@ class UserController extends Controller
         Session::flash('status', 'User successfully deleted!');
 
         $authUser = Auth::user();
-        if ($authUser) {
-            activity('User deleted')
-                ->performedOn($user)
-                ->causedBy($authUser)
-                ->log('User deleted by '.$authUser->getFullNameAttribute());
-        }
+        activity('User deleted')
+            ->performedOn($user)
+            ->causedBy($authUser)
+            ->log('User deleted by '.$authUser->getFullNameAttribute());
 
         return redirect()->route('users.index', $account);
     }
