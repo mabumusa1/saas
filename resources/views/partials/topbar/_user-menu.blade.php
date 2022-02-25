@@ -7,7 +7,7 @@
             <!--begin::Username-->
             <div class="d-flex flex-column">
                 <div class="fw-bolder d-flex align-items-center fs-5">
-                    {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
+                    {{ auth()->user()->fullName }}
                 </div>
                 <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
             </div>
