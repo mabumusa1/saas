@@ -16,18 +16,19 @@
         "spatie/laravel-activitylog": "^4.4"
     },
     "require-dev": {
-        "spatie/laravel-ignition": "^1.0",
-        "fakerphp/faker": "^1.9.1",
-        "jasonmccreary/laravel-test-assertions": "^2.0",
+        "amirami/localizator": "^0.8.1@alpha",
         "barryvdh/laravel-ide-helper": "^2.10",
+        "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "mockery/mockery": "^1.4.2",
+        "jasonmccreary/laravel-test-assertions": "^2.0",
         "laravel-shift/blueprint": "^2.1",
+        "mockery/mockery": "^1.4.2",
         "nascent-africa/jetstrap": "^2.4",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
         "php-coveralls/php-coveralls": "^2.4",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "files": [
