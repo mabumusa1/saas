@@ -63,6 +63,8 @@ class UserController extends Controller
             'role' => $data['role'],
         ]);
 
+        activity()->log('Created new user');
+
         Session::flash('status', 'User successfully created!');
 
         return redirect()->route('users.index', $account);
