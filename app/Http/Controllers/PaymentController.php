@@ -33,6 +33,6 @@ class PaymentController extends Controller
             $initalPayLinks[$plan->id] = $this->generatePaymentLink($account, $plan);
         }
 
-        return view('payment.checkout', ['plans' => $plans, 'payLinks' => $initalPayLinks]);
+        return view('payment.checkout', ['plans' => $plans, 'payLinks' => $initalPayLinks, 'account' => $account]);
     }
 }

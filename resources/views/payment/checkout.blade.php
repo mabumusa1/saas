@@ -14,6 +14,14 @@
                 })
             })
         })
+
+        document.querySelectorAll('.btn-qty').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                axios.get('generatePaymentLink/' + btn.getAttribute('data-plan') + '/' + (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? 1 : 0)).then(function(res){
+                    btn.parentElement.parentElement.querySelector('.paddle_button').setAttribute('data-override', res.data)
+                })
+            })
+        })
     </script>
     @endpush
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -40,11 +48,11 @@
                         <!--end::Nav group-->
                         <!--begin::Row-->
                         <div class="row g-10">
-                            <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6 justify-content-center">
-                                <li class="nav-item">
+                            <ul class="nav nav-pills justify-content-center">
+                                <li class="nav-item flex-fill text-center">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#tab-0">SME Plans</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item flex-fill text-center">
                                     <a class="nav-link" data-bs-toggle="tab" href="#tab-1">Enterprise Plans</a>
                                 </li>
                             </ul>
