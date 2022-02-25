@@ -6,6 +6,7 @@ use App\Core\Adapters\Theme;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Paddle\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Cashier::useReceiptModel(App\Models\Cashier\Receipt::class);
+        Cashier::useSubscriptionModel(App\Models\Cashier\Subscription::class);
+
         $theme = theme();
         // Share theme adapter class
         View::share('theme', $theme);

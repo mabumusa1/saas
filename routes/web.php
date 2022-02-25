@@ -20,7 +20,11 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', SearchController::class);
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
+        Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout']);
+        Route::get('generatePaymentLink/{plan}/{isYearlyPlan?}', [App\Http\Controllers\PaymentController::class, 'generatePaymentLink']);
+
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);
