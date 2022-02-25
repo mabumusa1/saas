@@ -60,18 +60,29 @@
                                             <!--end::Input control-->
 
                                             <!--begin::Increase control-->
-                                            <button class="btn btn-icon btn-outline btn-outline-secondary btn-qty" type="button"
-                                                data-kt-dialer-control="increase" data-plan="{{ $plan->id }}">
+                                            <button class="btn btn-icon btn-outline btn-outline-secondary btn-qty"
+                                                type="button" data-kt-dialer-control="increase"
+                                                data-plan="{{ $plan->id }}">
                                                 <i class="bi bi-plus fs-1"></i>
                                             </button>
                                             <!--end::Increase control-->
                                         </div>
                                         <!--end::Dialer-->
                                         <!--begin::Select-->
-                                        <a href="#!" class="ml-4 paddle_button"
-                                            data-override="{{ $payLinks[$plan->id] }}">
-                                            Paddle Checkout
-                                        </a>
+                                        <div class="overlay card-rounded">
+                                            <div class="overlay-wrapper">
+                                                <a href="#!" class="ml-4 paddle_button"
+                                                    data-override="{{ $payLinks[$plan->id] }}">
+                                                    Paddle Checkout
+                                                </a>
+                                            </div>
+                                            <div class="overlay-layer card-rounded bg-dark bg-opacity-5 d-none">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!--end::Select-->
                                     </div>
                                     <!--end::Option-->
