@@ -34,7 +34,7 @@ class AuthTest extends DuskTestCase
                     ->type('email', $user->email)
                     ->type('password', 'password')
                     ->press('Continue')
-                    ->assertPathIs('/1/dashboard');
+                    ->assertPathIs('/1/admin/dashboard');
         });
     }
 }
