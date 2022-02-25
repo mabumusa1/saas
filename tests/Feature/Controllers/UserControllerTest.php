@@ -19,7 +19,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function index_displays_view()
+    public function test_index_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -41,7 +41,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function create_displays_view()
+    public function test_create_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -63,7 +63,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_store_fail_without_last_name()
+    public function test_user_store_fail_without_last_name()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -89,7 +89,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_store()
+    public function test_user_store()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -116,7 +116,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function edit_displays_view()
+    public function test_edit_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -139,7 +139,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_update_fail_without_last_name()
+    public function test_user_update_fail_without_last_name()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -165,7 +165,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_update()
+    public function test_user_update()
     {
         $this->actingAs($userLogin = User::factory()->create());
 
@@ -200,7 +200,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_destroy_only_if_account_has_one_owner()
+    public function test_user_destroy_only_if_account_has_one_owner()
     {
         $this->actingAs($userLogin = User::factory()->create());
 
@@ -229,7 +229,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_destroy()
+    public function test_user_destroy()
     {
         $this->actingAs($userLogin = User::factory()->create());
 
