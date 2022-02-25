@@ -15,7 +15,7 @@
                                             <!--begin::Price-->
                                             <div class="text-center">
                                                 <span class="mb-2 text-primary">$</span>
-                                                <span class="fs-3x fw-bolder text-primary" data-kt-plan-price-month="{{ $plan->monthly_price }}" data-kt-plan-price-annual="{{ $plan->yearly_price }}">{{ $plan->monthly_price }}</span>
+                                                <span class="fs-3x fw-bolder text-primary" data-kt-element="price" data-kt-plan-price-month="{{ $plan->monthly_price }}" data-kt-plan-price-annual="{{ $plan->yearly_price }}">{{ $plan->monthly_price }}</span>
                                                 <span class="fs-7 fw-bold opacity-50">/
                                                 <span data-kt-element="period">Mon</span></span>
                                             </div>
@@ -44,11 +44,10 @@
                                         <!--begin::Select-->
                                         <a href="#!" class="ml-4 paddle_button" data-override="{{ $payLinks[$plan->id] }}">
                                             Paddle Checkout
-                                        </a>                                        
+                                        </a>
                                         <!--end::Select-->
                                     </div>
                                     <!--end::Option-->
                                 </div>
                             </div>
                             <!--end::Col-->
-                        
