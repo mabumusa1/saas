@@ -4,19 +4,16 @@
     @endpush
     @push('scripts')
     <script>
-    var slider = document.querySelector("#kt_slider_soft_limits");
-    
-    noUiSlider.create(slider, {
-        start: 30,
-        range: {
-            min: 30,
-            max: 400
-        },
-        step: 29,
-    });
-    slider.noUiSlider.on("update", function (values, handle) {
-        document.querySelector(".price").innerHTML = values[handle];
-    });
+        document.querySelector('[data-kt-buttons="true"]').children.forEach(function(button){
+            button.addEventListener('click', function(e){
+                e.preventDefault();
+                e.target.getAttribute('data-kt-plan')
+                document.querySelectorAll('[data-kt-element="price"]').forEach(function(el){
+                    el.textContent = el.getAttribute('data-kt-plan-price-' + e.target.getAttribute('data-kt-plan'));
+                    el.parentElement.querySelector('[data-kt-element="period"]').textContent = e.target.getAttribute('data-kt-plan')[0].toUpperCase() + e.target.getAttribute('data-kt-plan').substring(1, 3)
+                })
+            })
+        })
     </script>
     @endpush
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -43,7 +40,7 @@
                         <!--end::Nav group-->
                         <!--begin::Row-->
                         <div class="row g-10">
-                            <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                            <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6 justify-content-center">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#tab-0">SME Plans</a>
                                 </li>
@@ -53,14 +50,14 @@
                             </ul>
                             <div class="tab-content" id="pricing-plans">
                                 @foreach ($plans->chunk(3) as $index => $plansGroup )
-                                
+
                                     <div class="tab-pane fade show <?php echo ($index == 0) ? 'active' : '' ?>" id="tab-{{ $index }}" role="tabpanel">
                                         <div class="row g-10">
                                             @foreach ($plansGroup as $plan )
                                                 @include('payment.partials.plan', ['plan' => $plan, 'payLinks' => $payLinks])
                                             @endforeach
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
