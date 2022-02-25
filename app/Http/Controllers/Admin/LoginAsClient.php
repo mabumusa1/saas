@@ -24,6 +24,10 @@ class LoginAsClient extends Controller
         $user = $account->users()->first();
         if ($user) {
             Auth::guard('web')->login($user);
+            activity('Admin login in Client dashboard')
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('Admin login as '.roles()[$user->accountUser->role]);
 
             return redirect()->route('dashboard');
         } else {
