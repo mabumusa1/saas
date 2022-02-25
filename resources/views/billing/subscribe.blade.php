@@ -298,10 +298,11 @@
                                         <div class="text-gray-400 fw-bold mb-5">Optimal for 1000+ team
                                         <br>and enterpise</div>
                                         <!--end::Description-->
+                                        <div id="kt_slider_soft_limits"></div>
                                         <!--begin::Price-->
                                         <div class="text-center">
                                             <span class="mb-2 text-primary">$</span>
-                                            <span class="fs-3x fw-bolder text-primary" data-kt-plan-price-month="999" data-kt-plan-price-annual="9999">999</span>
+                                            <span class="fs-3x fw-bolder text-primary price"></span>
                                             <span class="fs-7 fw-bold opacity-50">/
                                             <span data-kt-element="period">Mon</span></span>
                                         </div>
@@ -423,3 +424,20 @@
     <!--end::Container-->
 </div>
 @endsection
+@push('scripts')
+<script>
+var slider = document.querySelector("#kt_slider_soft_limits");
+
+noUiSlider.create(slider, {
+    start: 30,
+    range: {
+        min: 30,
+        max: 400
+    },
+    step: 29,
+});
+slider.noUiSlider.on("update", function (values, handle) {
+    document.querySelector(".price").innerHTML = values[handle];
+});
+</script>
+@endpush
