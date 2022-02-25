@@ -117,7 +117,8 @@ jobs:
     name: PHP Dusk
     env:
       APP_NAME: testing
-      APP_ENV: testing
+      APP_ENV: local
+      APP_DEBUG: true
       APP_KEY: base64:2ew0gnfULJPlKpjCeSqr5IgqthFVKPlpW0MdoTGUUsM=
       APP_URL: "http://127.0.0.1:8000"
       DUSK_DRIVER_URL: "http://localhost:9515"
