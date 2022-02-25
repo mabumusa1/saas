@@ -220,7 +220,7 @@ class UserControllerTest extends TestCase
             'role' => 'pb',
         ]);
 
-        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
+        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $userLogin]));
 
         $this->assertEquals($response->getStatusCode(), 302);
         $this->assertEquals(session('status'), 'Sorry  you  can not delete this user!');
