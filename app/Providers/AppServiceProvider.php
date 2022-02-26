@@ -3,12 +3,12 @@
 namespace App\Providers;
 
 use App\Core\Adapters\Theme;
+use App\Models\Cashier\Receipt;
+use App\Models\Cashier\Subscription;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Paddle\Cashier;
-use App\Models\Cashier\Receipt;
-use App\Models\Cashier\Subscription;
 
 class AppServiceProvider extends ServiceProvider
 {
