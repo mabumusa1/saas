@@ -63,4 +63,14 @@ class Account extends Model
     {
         return $this->hasMany(Group::class);
     }
+
+    /**
+     * Get the customer's email address to associate with Paddle.
+     *
+     * @return string|null
+     */
+    public function paddleEmail()
+    {
+        return $this->billing_email;
+    }
 }

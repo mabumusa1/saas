@@ -19,11 +19,22 @@
             btn.addEventListener('click', function(){
                 btn.parentElement.parentElement.querySelector('.overlay').classList.add('overlay-block');
                 btn.parentElement.parentElement.querySelector('.overlay-layer').classList.remove('d-none');
-                axios.get('generatePaymentLink/' + btn.getAttribute('data-plan') + '/' + (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? 1 : 0)).then(function(res){
-                    btn.parentElement.parentElement.querySelector('.paddle_button').setAttribute('data-override', res.data)
+                isAnnual = (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? true : false)
+                axios.post('{{ route("payment.generatePaymentLink", $currentAccount) }}', {
+                    'plan': btn.getAttribute('data-plan'),
+                    'account': {{ $account->id }},
+                    'options': {
+                        'annual': isAnnual,
+                        'quantity': 1
+                    }
+                }).then(function(res){
+                    btn.parentElement.parentElement.querySelector('.paddle_button').setAttribute('data-override', res.data.link)
                     btn.parentElement.parentElement.querySelector('.overlay').classList.remove('overlay-block');
                     btn.parentElement.parentElement.querySelector('.overlay-layer').classList.add('d-none');
-                })
+                }).catch(function(err){
+                    //TODO: Show message that there is an error with the request
+                    console.log(err);
+                });
             })
         })
     </script>

@@ -15,6 +15,7 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
+Route::post('generatePaymentLink', [App\Http\Controllers\PaymentController::class, 'generatePaymentLink'])->name('payment.generatePaymentLink');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', SearchController::class)->name('site.search');
@@ -22,7 +23,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
         Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
-        Route::get('generatePaymentLink/{plan}/{isYearlyPlan?}', [App\Http\Controllers\PaymentController::class, 'generatePaymentLink']);
 
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',

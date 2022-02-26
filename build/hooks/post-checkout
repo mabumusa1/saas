@@ -4,3 +4,7 @@ echo "Removing cache to ensure clean state after git checkout..."
 
 composer dump-autoload
 php artisan cache:clear
+php artisan view:clear
+php artisan config:clear
+php artisan event:clear
+php artisan route:clear
