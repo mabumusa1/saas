@@ -46,9 +46,11 @@ class PaymentController extends Controller
         return view('payment.checkout', ['plans' => $plans]);
     }
 
-
     public function billing(Account $account)
     {
-        return view('payment.billing');
+        $receipts = $account->receipts->all();
+        // $receipt = $receipts[0];
+        // dd($receipt->subscription->name, $receipt->quantity, $receipts[0]->amount, $receipt->tax);
+        return view('payment.billing', compact('receipts'));
     }
 }
