@@ -29,6 +29,12 @@ class AccountSeeder extends Seeder
                 )
             )//->has(->has(Install::factory()->count(2)))
             ->create();
+
+            //Make the owner email, the billing email
+            foreach (Account::all() as $account) {
+                $account->billing_email = $account->users()->first()->email;
+                $account->save();
+            }
         }
     }
 }

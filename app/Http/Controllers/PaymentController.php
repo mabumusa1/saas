@@ -45,4 +45,10 @@ class PaymentController extends Controller
 
         return view('payment.checkout', ['plans' => $plans]);
     }
+
+
+    public function billing(Account $account)
+    {
+        return view('payment.billing');
+    }
 }
