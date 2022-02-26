@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('data_center_id');
             $table->string('name')->unique();
+            $table->string('billing_email')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('data_center_id')->references('id')->on('data_centers');

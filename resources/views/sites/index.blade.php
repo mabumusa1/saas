@@ -121,6 +121,16 @@
                                             </tr>
                                         @endforeach
                                     @endforeach
+                                    @if(!count($sites))
+                                    <tr>
+                                        <td colspan="3" class="p-0">
+                                            <div class="alert alert-success m-0">
+                                                <p class="text-center">You have no sites.</p>
+                                                <a href="{{ route('payment.checkout', $currentAccount->id) }}" class="btn btn-success d-block">Checkout</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

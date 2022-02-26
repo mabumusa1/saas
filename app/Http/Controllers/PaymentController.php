@@ -2,24 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\makePayLinkRequest;
 use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function generatePaymentLink(Account $account, Plan $plan, bool $yearly = false)
+    public function makePayLink(Account $account, makePayLinkRequest $request)
     {
-        $planRemoteId = ($yearly) ? $plan->yearly_id : $plan->monthly_id;
+        $plan = Plan::find($request->input('plan'));
+        $quantity = $request->input('options.quantity', 1);
+        $annual = $request->input('options.annual', false);
+        $options = $request->input('options');
 
+        $planRemoteId = ($options['annual']) ? $plan->yearly_id : $plan->monthly_id;
+
+        $customerEmail = '';
+        $payLink = '';
+        $account = Account::find($request->input('account'));
         $payLink = $account->newSubscription($plan->name, $premium = $planRemoteId)
-        ->returnTo(route('sites.index', [$account]))
-        ->create();
+        //TODO: Add flag to the URL to indeicate that the site is being created
+        ->returnTo(route('sites.index', $account->id))
+        ->create([
+            'quantity' => $options['quantity'],
+            'customer_email' => $account->paddleEmail(),
+        ]);
 
-        return $payLink;
+        return response()->json(['link' => $payLink]);
     }
 
     /**
@@ -28,11 +42,7 @@ class PaymentController extends Controller
     public function checkout(Account $account)
     {
         $plans = Plan::all();
-        $initalPayLinks = [];
-        foreach ($plans as $plan) {
-            $initalPayLinks[$plan->id] = $this->generatePaymentLink($account, $plan);
-        }
 
-        return view('payment.checkout', ['plans' => $plans, 'payLinks' => $initalPayLinks, 'account' => $account]);
+        return view('payment.checkout', ['plans' => $plans]);
     }
 }

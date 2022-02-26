@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ContactSeeder::class,
             GroupSeeder::class,
             AdminSeeder::class,
+            PlanSeeder::class,
         ]);
     }
 }

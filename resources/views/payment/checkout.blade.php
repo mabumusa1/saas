@@ -15,15 +15,32 @@
             })
         })
 
-        document.querySelectorAll('.btn-qty').forEach(function(btn){
-            btn.addEventListener('click', function(){
-                btn.parentElement.parentElement.querySelector('.overlay').classList.add('overlay-block');
-                btn.parentElement.parentElement.querySelector('.overlay-layer').classList.remove('d-none');
-                axios.get('generatePaymentLink/' + btn.getAttribute('data-plan') + '/' + (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? 1 : 0)).then(function(res){
-                    btn.parentElement.parentElement.querySelector('.paddle_button').setAttribute('data-override', res.data)
-                    btn.parentElement.parentElement.querySelector('.overlay').classList.remove('overlay-block');
-                    btn.parentElement.parentElement.querySelector('.overlay-layer').classList.add('d-none');
-                })
+
+        document.querySelectorAll('.purchase-button').forEach(function(btn){
+            btn.addEventListener('click', function(e){
+                console.log(btn);
+                btn.parentElement.parentElement.parentElement.querySelector('.overlay').classList.add('overlay-block');
+                btn.parentElement.parentElement.parentElement.querySelector('.overlay-layer').classList.remove('d-none');
+                isAnnual = (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? true : false)
+                planId = btn.getAttribute('data-plan-id');
+                quantity = document.querySelector('#amount-' + planId).value
+                axios.post('{{ route("payment.makePayLink", $currentAccount->id) }}', {
+                    'account': {{ $currentAccount->id }},
+                    'plan': planId,
+                    'options': {
+                        'annual': isAnnual,
+                        'quantity': quantity
+                    }
+                }).then(function(res){
+                    Paddle.Checkout.open({
+                    	override: res.data.link
+                    });
+                    btn.parentElement.parentElement.parentElement.querySelector('.overlay').classList.remove('overlay-block');
+                    btn.parentElement.parentElement.parentElement.querySelector('.overlay-layer').classList.add('d-none');
+                }).catch(function(err){
+                    //TODO: Show message that there is an error with the request
+                    console.log(err);
+                });
             })
         })
     </script>
@@ -66,7 +83,7 @@
                                     <div class="tab-pane fade show <?php echo ($index == 0) ? 'active' : '' ?>" id="tab-{{ $index }}" role="tabpanel">
                                         <div class="row g-10">
                                             @foreach ($plansGroup as $plan )
-                                                @include('payment.partials.plan', ['plan' => $plan, 'payLinks' => $payLinks])
+                                                @include('payment.partials.plan', ['plan' => $plan])
                                             @endforeach
                                         </div>
                                     </div>
