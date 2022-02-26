@@ -65,6 +65,7 @@ class UserController extends Controller
         activity('User created')
             ->performedOn($user)
             ->causedBy($authUser)
+            ->withProperties(['account_id' => $account->id])
             ->log('User created by '.$authUser->getFullNameAttribute());
 
         Session::flash('status', 'User successfully created!');
@@ -135,6 +136,7 @@ class UserController extends Controller
         activity('User deleted')
             ->performedOn($user)
             ->causedBy($authUser)
+            ->withProperties(['account_id' => $account->id])
             ->log('User deleted by '.$authUser->getFullNameAttribute());
 
         return redirect()->route('users.index', $account);

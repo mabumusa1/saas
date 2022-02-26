@@ -115,10 +115,11 @@ class SiteController extends Controller
     {
         $authUser = Auth::user();
         $site->groups()->detach();
-        $site->installs->each(function ($install) use ($authUser) {
+        $site->installs->each(function ($install) use ($authUser, $account) {
             activity('Install deleted')
                 ->performedOn($install)
                 ->causedBy($authUser)
+                ->withProperties(['account_id' => $account->id])
                 ->log('User created by '.$authUser->getFullNameAttribute());
             $install->contact()->delete();
         });
@@ -126,6 +127,7 @@ class SiteController extends Controller
         activity('Site deleted')
             ->performedOn($site)
             ->causedBy($authUser)
+            ->withProperties(['account_id' => $account->id])
             ->log('Site deleted by '.$authUser->getFullNameAttribute());
 
         $site->installs()->delete();

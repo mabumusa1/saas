@@ -6,7 +6,7 @@
                     <div class="d-flex justify-content-between mb-5">
                         <h1>Sites</h1>
                     </div>
-                    <h5 class="text-muted">Search for site, domain, environment</h4>
+                        <h4 class="text-muted">Search for site, domain, environment</h4>
                         <form id="filters">
                             <div class="row">
                                 <div class="col-5 mb-4">
