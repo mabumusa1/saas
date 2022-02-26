@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
@@ -25,6 +26,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('billing', [App\Http\Controllers\PaymentController::class, 'billing'])->name('payment.billing');
         Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
         Route::post('makePayLink', [App\Http\Controllers\PaymentController::class, 'makePayLink'])->name('payment.makePayLink');
+        Route::get('subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+        Route::post('subscriptions/{subscription}/cancel', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
 
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
