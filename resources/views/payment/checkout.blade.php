@@ -23,10 +23,8 @@
                 isAnnual = (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') === 'annual' ? true : false)
                 planId = btn.getAttribute('data-plan-id');
                 quantity = document.querySelector('#amount-' + planId).value
-                axios.post('{{ route("payment.makePayLink") }}', {
-                    @auth
-                        'account': {{ $currentAccount->id }},
-                    @endauth
+                axios.post('{{ route("payment.makePayLink", $currentAccount->id) }}', {
+                    'account': {{ $currentAccount->id }},
                     'plan': planId,
                     'options': {
                         'annual': isAnnual,

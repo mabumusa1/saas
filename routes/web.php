@@ -15,8 +15,6 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
-Route::post('makePayLink', [App\Http\Controllers\PaymentController::class, 'makePayLink'])->name('payment.makePayLink');
-Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.unAuthcheckout');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', SearchController::class)->name('site.search');
@@ -24,6 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
         Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
+        Route::post('makePayLink', [App\Http\Controllers\PaymentController::class, 'makePayLink'])->name('payment.makePayLink');
 
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',

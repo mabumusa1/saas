@@ -71,7 +71,7 @@
                                         <!--begin::Select-->
                                         <div class="overlay card-rounded">
                                             <div class="overlay-wrapper">
-                                                <a href="#!" class="btn btn-large ml-4 purchase-button" data-plan-id="{{$plan->id}}">Purchase</a>
+                                                <a href="#!" class="btn btn-success btn-large ml-4 purchase-button" data-plan-id="{{$plan->id}}">Purchase</a>
                                             </div>
                                             <div class="overlay-layer card-rounded bg-dark bg-opacity-5 d-none">
                                                 <div class="spinner-border text-primary" role="status">
