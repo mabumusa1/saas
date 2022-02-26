@@ -52,11 +52,11 @@
                                         <!--end::Features-->
 
                                         <!--begin::Dialer-->
-                                        <div class="input-group mb-5" data-kt-dialer="true" data-kt-dialer-min="1"
-                                            data-kt-dialer-max="50000" data-kt-dialer-step="1">
+                                        <div class="input-group mb-5 dailer" data-kt-dialer="true" data-kt-dialer-min="1"
+                                            data-kt-dialer-max="100" data-kt-dialer-step="1">
                                             <!--begin::Input control-->
                                             <input type="text" class="form-control text-center" readonly
-                                                placeholder="Amount" value="1" data-kt-dialer-control="input" />
+                                                placeholder="Amount" value="1" data-kt-dialer-control="input" id="amount-{{$plan->id}}" />
                                             <!--end::Input control-->
 
                                             <!--begin::Increase control-->
@@ -71,10 +71,7 @@
                                         <!--begin::Select-->
                                         <div class="overlay card-rounded">
                                             <div class="overlay-wrapper">
-                                                <a href="#!" class="ml-4 paddle_button"
-                                                    data-override="{{ $payLinks[$plan->id] }}">
-                                                    Paddle Checkout
-                                                </a>
+                                                <a href="#!" class="btn btn-large ml-4 purchase-button" data-plan-id="{{$plan->id}}">Purchase</a>
                                             </div>
                                             <div class="overlay-layer card-rounded bg-dark bg-opacity-5 d-none">
                                                 <div class="spinner-border text-primary" role="status">
