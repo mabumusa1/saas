@@ -27,7 +27,7 @@ class PaymentController extends Controller
         $account = Account::find($request->input('account'));
         $payLink = $account->newSubscription($plan->name, $premium = $planRemoteId)
         //TODO: Add flag to the URL to indeicate that the site is being created
-        ->returnTo(route('sites.index', $account->id))
+        ->returnTo(route('sites.index', $account->id).'?status=1')
         ->create([
             'quantity' => $options['quantity'],
             'customer_email' => $account->paddleEmail(),
