@@ -25,6 +25,7 @@ class LoginAsClient extends Controller
             activity('Admin login in Client dashboard')
                 ->performedOn($user)
                 ->causedBy($user)
+                ->withProperties(['account_id' => $account->id])
                 ->log('Admin login as '.roles()[$user->accountUser()->first()->role]);
 
             return redirect()->route('dashboard');
