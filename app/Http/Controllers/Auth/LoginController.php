@@ -29,6 +29,7 @@ class LoginController extends Controller
                 activity('Admin login')
                     ->performedOn($authUser)
                     ->causedBy($authUser)
+                    ->withProperties(['account_id' => Auth::user()->accountUser()->first()->account_id])
                     ->log($authUser->getFullNameAttribute().' Login in Admin dashboard');
 
                 return redirect()->route('dashboard.index', Auth::user()->accountUser()->first()->account_id);
@@ -36,6 +37,7 @@ class LoginController extends Controller
                 activity('Clint login')
                     ->performedOn($authUser)
                     ->causedBy($authUser)
+                    ->withProperties(['account_id' => Auth::user()->accountUser()->first()->account_id])
                     ->log($authUser->getFullNameAttribute().' Login in Clint dashboard');
 
                 return redirect()->route('dashboard');

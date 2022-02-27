@@ -23,11 +23,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
+
         Route::get('billing', [App\Http\Controllers\PaymentController::class, 'billing'])->name('payment.billing');
         Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
         Route::post('makePayLink', [App\Http\Controllers\PaymentController::class, 'makePayLink'])->name('payment.makePayLink');
         Route::get('subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
         Route::post('subscriptions/{subscription}/cancel', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
+
+        Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
+            'index', 'destroy',
+        ]);
 
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
