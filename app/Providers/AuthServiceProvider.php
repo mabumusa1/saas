@@ -28,7 +28,6 @@ class AuthServiceProvider extends ServiceProvider
         Account::class => AccountPolicy::class,
         Contact::class => ContactPolicy::class,
         Group::class => GroupPolicy::class,
-        Install::class => InstallPolicy::class,
         Site::class => SitePolicy::class,
         User::class => UserPolicy::class,
     ];
