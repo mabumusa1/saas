@@ -7,7 +7,6 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {

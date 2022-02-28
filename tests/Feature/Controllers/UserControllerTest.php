@@ -6,7 +6,6 @@ use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 /**
@@ -220,7 +219,7 @@ class UserControllerTest extends TestCase
             'role' => 'pb',
         ]);
 
-        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
+        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $userLogin]));
 
         $this->assertEquals($response->getStatusCode(), 302);
         $this->assertEquals(session('status'), 'Sorry  you  can not delete this user!');

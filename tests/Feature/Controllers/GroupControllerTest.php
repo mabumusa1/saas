@@ -8,7 +8,6 @@ use App\Models\Group;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 /**
@@ -37,12 +36,12 @@ class GroupControllerTest extends TestCase
             'account_id' => $account->id,
         ]);
 
-         Site::factory()->create([
+        Site::factory()->create([
             'account_id' => $account->id,
             'name' => 'test',
         ]);
 
-        $response = $this->call('GET', route('groups.index', $account), ["q"=>"test"]);
+        $response = $this->call('GET', route('groups.index', $account), ['q'=>'test']);
         $response->assertOk();
         $response->assertViewIs('groups.index');
         $response->assertViewHas('account');

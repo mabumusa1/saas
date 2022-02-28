@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -17,9 +16,22 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+            $authUser = Auth::user();
             if (Auth::user()->accountUser()->first()->role == 'admin') {
+                activity('Admin login')
+                    ->performedOn($authUser)
+                    ->causedBy($authUser)
+                    ->withProperties(['account_id' => Auth::user()->accountUser()->first()->account_id])
+                    ->log($authUser->getFullNameAttribute().' Login in Admin dashboard');
+
                 return redirect()->route('dashboard.index', Auth::user()->accountUser()->first()->account_id);
-            }else{
+            } else {
+                activity('Clint login')
+                    ->performedOn($authUser)
+                    ->causedBy($authUser)
+                    ->withProperties(['account_id' => Auth::user()->accountUser()->first()->account_id])
+                    ->log($authUser->getFullNameAttribute().' Login in Clint dashboard');
+
                 return redirect()->route('dashboard');
             }
         }

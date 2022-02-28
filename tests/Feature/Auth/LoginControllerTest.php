@@ -1,15 +1,11 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Auth;
 
 use App\Models\Account;
 use App\Models\AccountUser;
-use App\Models\Contact;
-use App\Models\Install;
-use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 /**

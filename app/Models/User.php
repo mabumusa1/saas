@@ -2,12 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\AccountUser;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -61,14 +57,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<string>
-     */
-    protected $appends = [
-    ];
-
-    /**
      * The Accounts that belong to the User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -84,15 +72,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get User Full Name.
+     * Get the user's full name.
      *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return string
      */
-    public function fullName(): Attribute
+    public function getFullNameAttribute()
     {
-        return new Attribute(
-            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
-        );
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**

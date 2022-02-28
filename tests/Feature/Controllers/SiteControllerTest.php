@@ -4,12 +4,9 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
-use App\Models\Contact;
-use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 /**
@@ -58,7 +55,7 @@ class SiteControllerTest extends TestCase
             'name' => 'Site test name',
         ]);
 
-        $response = $this->call('GET', route('sites.index', $account), ["q"=>"test"]);
+        $response = $this->call('GET', route('sites.index', $account), ['q'=>'test']);
 
         $response->assertOk();
         $response->assertViewIs('sites.index');
@@ -217,7 +214,7 @@ class SiteControllerTest extends TestCase
             'name' => 'test',
         ]);
 
-         Install::factory()->create([
+        Install::factory()->create([
             'site_id' => $site->id,
             'name' => 'test',
             'type' => 'dev',

@@ -9,7 +9,6 @@ use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 /**

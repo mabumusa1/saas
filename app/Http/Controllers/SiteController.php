@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
-use App\Models\Group;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 class SiteController extends Controller
@@ -111,10 +111,23 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
+        $authUser = Auth::user();
         $site->groups()->detach();
-        $site->installs->each(function ($install) {
+        $site->installs->each(function ($install) use ($authUser, $account) {
+            activity('Install deleted')
+                ->performedOn($install)
+                ->causedBy($authUser)
+                ->withProperties(['account_id' => $account->id])
+                ->log('User created by '.$authUser->getFullNameAttribute());
             $install->contact()->delete();
         });
+
+        activity('Site deleted')
+            ->performedOn($site)
+            ->causedBy($authUser)
+            ->withProperties(['account_id' => $account->id])
+            ->log('Site deleted by '.$authUser->getFullNameAttribute());
+
         $site->installs()->delete();
         $site->delete();
 
