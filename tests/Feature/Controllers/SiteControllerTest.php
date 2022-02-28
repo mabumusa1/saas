@@ -22,6 +22,25 @@ class SiteControllerTest extends TestCase
     /**
      * @test
      */
+    public function test_form_validation()
+    {
+        $this->actingAs($user = User::factory()->create());
+
+        $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
+        $response = $this->post(route('validation', $account));
+        $response->assertOk();
+    }
+
+    /**
+     * @test
+     */
     public function test_index_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
@@ -34,7 +53,12 @@ class SiteControllerTest extends TestCase
             'role' => 'owner',
         ]);
 
-        $response = $this->get(route('sites.index', $account));
+        Site::factory()->create([
+            'account_id' => $account->id,
+            'name' => 'Site test name',
+        ]);
+
+        $response = $this->call('GET', route('sites.index', $account), ["q"=>"test"]);
 
         $response->assertOk();
         $response->assertViewIs('sites.index');
@@ -190,7 +214,13 @@ class SiteControllerTest extends TestCase
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
-            'name' => 'Site test name',
+            'name' => 'test',
+        ]);
+
+         Install::factory()->create([
+            'site_id' => $site->id,
+            'name' => 'test',
+            'type' => 'dev',
         ]);
 
         $response = $this->delete(route('sites.destroy', ['account' => $account, 'site' => $site]));

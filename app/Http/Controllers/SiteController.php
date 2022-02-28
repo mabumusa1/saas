@@ -23,8 +23,6 @@ class SiteController extends Controller
 
     public function formValidation()
     {
-        // Setup the validator
-//        $validatedData = $request->validated();
         echo json_encode(
             [
                 'valid' => true,

@@ -13,7 +13,6 @@
 
 use App\Http\Controllers\SearchController;
 
-Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

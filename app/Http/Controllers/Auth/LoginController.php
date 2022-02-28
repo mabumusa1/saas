@@ -10,14 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
-
-    /**
      * @param LoginRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -27,7 +19,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             if (Auth::user()->accountUser()->first()->role == 'admin') {
                 return redirect()->route('dashboard.index', Auth::user()->accountUser()->first()->account_id);
-            } else {
+            }else{
                 return redirect()->route('dashboard');
             }
         }

@@ -46,7 +46,7 @@ class LoginControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_authenticate()
+    public function test_authenticate_as_owner()
     {
         $user = User::factory()->create();
 
@@ -62,6 +62,31 @@ class LoginControllerTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
         ]);
+
+        $this->assertEquals($response->getStatusCode(), 302);
+        $this->followingRedirects();
+    }
+
+    /**
+     * @test
+     */
+    public function test_authenticate_as_admin()
+    {
+        $user = User::factory()->create();
+
+        $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'admin',
+        ]);
+
+        $response = $this->post(route('post.login'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
         $this->assertEquals($response->getStatusCode(), 302);
         $this->followingRedirects();
     }

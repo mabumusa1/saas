@@ -23,22 +23,20 @@ class Contact extends Model
         'phone',
     ];
 
+
     /**
-     * Get the Install associated with the Contact.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function Install(): HasOne
+    public function Install()
     {
         return $this->hasOne(Install::class);
     }
 
+
     /**
-     * Get User Full Name.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return Attribute
      */
-    public function fullName(): Attribute
+    public function fullName()
     {
         return new Attribute(
             get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),

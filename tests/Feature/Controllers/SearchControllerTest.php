@@ -34,6 +34,17 @@ class SearchControllerTest extends TestCase
             'role' => 'owner',
         ]);
 
+        $site = Site::factory()->create([
+            'account_id' => $account->id,
+            'name' => 'Site test name',
+        ]);
+
+        Install::factory()->create([
+            'site_id' => $site->id,
+            'name' => 'Install test name',
+            'type' => 'dev',
+        ]);
+
         $response = $this->get(
             route('site.search', $account),
             [
