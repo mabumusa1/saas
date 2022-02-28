@@ -18,7 +18,7 @@ class AdminControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_index()
+    public function test_login_as_admin()
     {
         $user = User::factory()->create();
         $account = Account::factory()->create();
@@ -45,5 +45,26 @@ class AdminControllerTest extends TestCase
         $this->assertEquals($response->getStatusCode(), 200);
         $response->assertViewIs('admin.dashboard.index');
         $response->assertViewHas('accounts');
+    }
+
+    /**
+     * @test
+     */
+    public function test_login_as_admin_call_client_urls()
+    {
+        $user = User::factory()->create();
+        $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'admin',
+        ]);
+
+        $this->actingAs($user);
+
+        $response = $this->get(route('users.index', $account));
+
+        $this->assertEquals($response->getStatusCode(), 403);
     }
 }
