@@ -35,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
 
         bootstrap()->run();
 
-
         Paginator::useBootstrap();
 
         view()->composer('*', function ($view) {

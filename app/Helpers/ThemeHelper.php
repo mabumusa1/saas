@@ -10,13 +10,11 @@ if (! function_exists('get_svg_icon')) {
         $file_path = public_path($path);
 
         if (! file_exists($file_path)) {
-
         }
 
         $svg_content = file_get_contents($file_path);
 
         if (empty($svg_content)) {
-
         }
 
         $dom = new DOMDocument();
@@ -68,7 +66,6 @@ if (! function_exists('theme')) {
     }
 }
 
-
 if (! function_exists('bootstrap')) {
     /**
      * Get the instance of Util class core.
@@ -80,6 +77,7 @@ if (! function_exists('bootstrap')) {
     {
         $demo = ucwords(theme()->getDemo());
         $bootstrap = "\App\Core\Bootstraps\Bootstrap$demo";
+
         return app($bootstrap);
     }
 }
