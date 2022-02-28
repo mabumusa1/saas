@@ -7,7 +7,7 @@ return [
         [
             'title' => 'Dashboard',
             'path'  => '',
-            'icon'  => theme()->getSvgIcon('skin/media/icons/duotune/art/art002.svg', 'svg-icon-2'),
+            'icon'  => theme()->getSvgIcon('skin/media/icons/duotune/art/art002.svg', 'svg-icon-2', 'test'),
         ],
 
         [

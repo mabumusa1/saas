@@ -35,12 +35,6 @@ class AppServiceProvider extends ServiceProvider
 
         bootstrap()->run();
 
-        if (isRTL()) {
-            // RTL html attributes
-            Theme::addHtmlAttribute('html', 'dir', 'rtl');
-            Theme::addHtmlAttribute('html', 'direction', 'rtl');
-            Theme::addHtmlAttribute('html', 'style', 'direction:rtl;');
-        }
 
         Paginator::useBootstrap();
 
