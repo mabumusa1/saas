@@ -50,7 +50,17 @@ class SiteController extends Controller
         $sites->orderBy('name', $order);
         $sites = $sites->get();
 
+        if (! count($sites)) {
+            return view('sites.empty');
+        }
+        dd($sites[0]->id);
+
         return view('sites.index', compact('sites', 'order'));
+    }
+
+    public function show(Account $account, Site $site)
+    {
+        return view('sites.show', compact('site'));
     }
 
     /**
