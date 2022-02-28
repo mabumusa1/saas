@@ -20,7 +20,5 @@ class IsAdmin
         if (Auth::user() && Auth::user()->accountUser()->first()->role == 'admin') {
             return $next($request);
         }
-
-        abort(403, 'THIS ACTION IS UNAUTHORIZED.');
     }
 }

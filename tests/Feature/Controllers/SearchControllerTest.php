@@ -4,6 +4,8 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
+use App\Models\Install;
+use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

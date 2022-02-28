@@ -31,20 +31,6 @@ class GroupPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Group $group)
-    {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user

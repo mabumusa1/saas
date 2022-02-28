@@ -63,7 +63,7 @@ class AdminControllerTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->get(route('users.index', $account));
+        $response = $this->get(route('sites.index', $account));
 
         $this->assertEquals($response->getStatusCode(), 403);
     }
