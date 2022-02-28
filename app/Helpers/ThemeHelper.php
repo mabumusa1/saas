@@ -10,11 +10,13 @@ if (! function_exists('get_svg_icon')) {
         $file_path = public_path($path);
 
         if (! file_exists($file_path)) {
+            return '';
         }
 
         $svg_content = file_get_contents($file_path);
 
         if (empty($svg_content)) {
+            return '';
         }
 
         $dom = new DOMDocument();
