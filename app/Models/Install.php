@@ -12,16 +12,6 @@ class Install extends Model
     use HasFactory;
 
     /**
-     * Get the Site that owns the Install.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function Site(): BelongsTo
-    {
-        return $this->belongsTo(Site::class);
-    }
-
-    /**
      * Get the contact associated with the Install.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

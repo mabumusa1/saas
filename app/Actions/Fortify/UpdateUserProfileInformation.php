@@ -31,49 +31,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
         ])->validateWithBag('updateProfileInformation');
 
-        if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
-        }
-
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
-        } else {
-            $user->forceFill([
-                'first_name' => $input['first_name'],
-                'last_name' => $input['last_name'],
-                'email' => $input['email'],
-                'phone' => $input['phone'],
-                'job_title' => $input['job_title'],
-                'employer' => $input['employer'],
-                'experince' => $input['experince'],
-                'company_name' => $input['company_name'],
-
-            ])->save();
-        }
-    }
-
-    /**
-     * Update the given verified user's profile information.
-     *
-     * @param  mixed  $user
-     * @param  array  $input
-     * @return void
-     */
-    protected function updateVerifiedUser($user, array $input)
-    {
         $user->forceFill([
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'email' => $input['email'],
-            'email_verified_at' => null,
             'phone' => $input['phone'],
             'job_title' => $input['job_title'],
             'employer' => $input['employer'],
             'experince' => $input['experince'],
             'company_name' => $input['company_name'],
         ])->save();
-
-        $user->sendEmailVerificationNotification();
     }
 }

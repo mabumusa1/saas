@@ -82,16 +82,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the user has a specific role.
-     *
-     * @return  bool
-     */
-    public function hasRole(Account $account, String $role): bool
-    {
-        return $this->accounts()->get()->where('id', $account->id)->first()->pivot->role === $role;  /* @phpstan-ignore-line */
-    }
-
-    /**
      * Check if the user has many roles.
      *
      * @return  bool
