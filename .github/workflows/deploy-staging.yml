@@ -45,6 +45,6 @@ jobs:
 
       - name: Re-Migrate the database
         run: |
-          heroku run php artisan db:wipe
-          heroku run php artisan migrate
-          heroku run php artisan db:seed
+          heroku run php artisan db:wipe --force
+          heroku run php artisan migrate --force
+          heroku run php artisan db:seed --force
