@@ -20,25 +20,6 @@ class SiteControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_form_validation()
-    {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
-        $response = $this->post(route('validation', $account));
-        $response->assertOk();
-    }
-
-    /**
-     * @test
-     */
     public function test_index_displays_view()
     {
         $this->actingAs($user = User::factory()->create());
