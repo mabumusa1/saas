@@ -24,9 +24,7 @@ class Contact extends Model
     ];
 
     /**
-     * Get the Install associated with the Contact.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function Install(): HasOne
     {

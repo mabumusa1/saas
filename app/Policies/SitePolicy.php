@@ -78,46 +78,4 @@ class SitePolicy
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
-
-    /**
-     * Determine whether the user can copy the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function copy(User $user, Site $site)
-    {
-        $allowedRoles = ['owner', 'fb', 'fnb', 'pb', 'pnb'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
-    }
-
-    /**
-     * Determine whether the user can transfer the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function transfer(User $user, Site $site)
-    {
-        $allowedRoles = ['owner', 'fb'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
-    }
-
-    /**
-     * Determine whether the user can accept transfer the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function acceptTransfer(User $user, Site $site)
-    {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
-    }
 }

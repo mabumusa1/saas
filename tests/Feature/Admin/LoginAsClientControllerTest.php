@@ -18,7 +18,7 @@ class LoginAsClientControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_index()
+    public function test_login_as_client()
     {
         $user = User::factory()->create();
         $account = Account::factory()->create();

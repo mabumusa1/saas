@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
+use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,7 +32,12 @@ class SiteControllerTest extends TestCase
             'role' => 'owner',
         ]);
 
-        $response = $this->get(route('sites.index', $account));
+        Site::factory()->create([
+            'account_id' => $account->id,
+            'name' => 'Site test name',
+        ]);
+
+        $response = $this->call('GET', route('sites.index', $account), ['q'=>'test']);
 
         $response->assertOk();
         $response->assertViewIs('sites.index');
@@ -187,7 +193,13 @@ class SiteControllerTest extends TestCase
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
-            'name' => 'Site test name',
+            'name' => 'test',
+        ]);
+
+        Install::factory()->create([
+            'site_id' => $site->id,
+            'name' => 'test',
+            'type' => 'dev',
         ]);
 
         $response = $this->delete(route('sites.destroy', ['account' => $account, 'site' => $site]));

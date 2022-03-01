@@ -29,11 +29,19 @@ class GroupControllerTest extends TestCase
             'user_id' => $user->id,
             'role' => 'owner',
         ]);
-        $data = [
-            'q'=>'name',
-        ];
 
-        $response = $this->get(route('groups.index', $account), $data);
+        Group::factory()->create([
+            'name' => 'test',
+            'notes' => 'test',
+            'account_id' => $account->id,
+        ]);
+
+        Site::factory()->create([
+            'account_id' => $account->id,
+            'name' => 'test',
+        ]);
+
+        $response = $this->call('GET', route('groups.index', $account), ['q'=>'test']);
         $response->assertOk();
         $response->assertViewIs('groups.index');
         $response->assertViewHas('account');

@@ -23,8 +23,6 @@ class SiteController extends Controller
 
     public function formValidation()
     {
-        // Setup the validator
-//        $validatedData = $request->validated();
         echo json_encode(
             [
                 'valid' => true,
@@ -33,9 +31,10 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Account $account
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Display a listing of the resource.
+     *
+     * @param \App\Models\Account $account
+     * @return \Illuminate\View\View
      */
     public function index(Account $account, Request $request)
     {
@@ -53,7 +52,6 @@ class SiteController extends Controller
         if (! count($sites)) {
             return view('sites.empty');
         }
-        dd($sites[0]->id);
 
         return view('sites.index', compact('sites', 'order'));
     }
@@ -75,9 +73,11 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Account $account
-     * @param StoreSiteRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * Store a newly created resource in storage.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Http\Requests\StoreSiteRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
@@ -87,9 +87,11 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Account $account
-     * @param Site $site
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * Show the form for editing the specified resource.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Models\Site  $site
+     * @return \Illuminate\View\View
      */
     public function edit(Account $account, Site $site)
     {
@@ -99,9 +101,11 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Account $account
-     * @param Site $site
-     * @param UpdateSiteRequest $request
+     * Update the specified resource in storage.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Http\Requests\UpdateSiteRequest  $request
+     * @param  \App\Models\Site  $site
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Account $account, Site $site, UpdateSiteRequest $request)
@@ -117,9 +121,11 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Account $account
-     * @param Site $site
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Account $account
+     * @param  \App\Models\Site  $site
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Site $site)
     {

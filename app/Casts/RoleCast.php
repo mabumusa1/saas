@@ -39,7 +39,7 @@ class RoleCast implements CastsAttributes
                 'role' => $value,
             ];
         } else {
-            throw new \InvalidArgumentException('Invalid Role Provided.');
+            throw new \Exception('Invalid Role Provided.');
         }
     }
 }

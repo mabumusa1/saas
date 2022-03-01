@@ -12,14 +12,15 @@ class Install extends Model
     use HasFactory;
 
     /**
-     * Get the Site that owns the Install.
+     * The attributes that are mass assignable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var array<string>
      */
-    public function Site(): BelongsTo
-    {
-        return $this->belongsTo(Site::class);
-    }
+    protected $fillable = [
+        'site_id',
+        'name',
+        'type',
+    ];
 
     /**
      * Get the contact associated with the Install.

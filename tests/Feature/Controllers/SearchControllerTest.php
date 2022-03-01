@@ -4,6 +4,8 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
+use App\Models\Install;
+use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,6 +30,17 @@ class SearchControllerTest extends TestCase
             'account_id' => $account->id,
             'user_id' => $user->id,
             'role' => 'owner',
+        ]);
+
+        $site = Site::factory()->create([
+            'account_id' => $account->id,
+            'name' => 'Site test name',
+        ]);
+
+        Install::factory()->create([
+            'site_id' => $site->id,
+            'name' => 'Install test name',
+            'type' => 'dev',
         ]);
 
         $response = $this->get(

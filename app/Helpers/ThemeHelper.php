@@ -24,63 +24,12 @@ if (! function_exists('get_svg_icon')) {
 
         // remove unwanted comments
         $xpath = new DOMXPath($dom);
-        foreach ($xpath->query('//comment()') as $comment) {
-            $comment->parentNode->removeChild($comment);
-        }
 
         // add class to svg
         if (! empty($svgClass)) {
             foreach ($dom->getElementsByTagName('svg') as $element) {
                 $element->setAttribute('class', $svgClass);
             }
-        }
-
-        // remove unwanted tags
-        $title = $dom->getElementsByTagName('title');
-        if ($title['length']) {
-            $dom->documentElement->removeChild($title[0]);
-        }
-        $desc = $dom->getElementsByTagName('desc');
-        if ($desc['length']) {
-            $dom->documentElement->removeChild($desc[0]);
-        }
-        $defs = $dom->getElementsByTagName('defs');
-        if ($defs['length']) {
-            $dom->documentElement->removeChild($defs[0]);
-        }
-
-        // remove unwanted id attribute in g tag
-        $g = $dom->getElementsByTagName('g');
-        foreach ($g as $el) {
-            $el->removeAttribute('id');
-        }
-        $mask = $dom->getElementsByTagName('mask');
-        foreach ($mask as $el) {
-            $el->removeAttribute('id');
-        }
-        $rect = $dom->getElementsByTagName('rect');
-        foreach ($rect as $el) {
-            $el->removeAttribute('id');
-        }
-        $xpath = $dom->getElementsByTagName('path');
-        foreach ($xpath as $el) {
-            $el->removeAttribute('id');
-        }
-        $circle = $dom->getElementsByTagName('circle');
-        foreach ($circle as $el) {
-            $el->removeAttribute('id');
-        }
-        $use = $dom->getElementsByTagName('use');
-        foreach ($use as $el) {
-            $el->removeAttribute('id');
-        }
-        $polygon = $dom->getElementsByTagName('polygon');
-        foreach ($polygon as $el) {
-            $el->removeAttribute('id');
-        }
-        $ellipse = $dom->getElementsByTagName('ellipse');
-        foreach ($ellipse as $el) {
-            $el->removeAttribute('id');
         }
 
         $string = $dom->saveXML($dom->documentElement);
@@ -119,18 +68,6 @@ if (! function_exists('theme')) {
     }
 }
 
-if (! function_exists('util')) {
-    /**
-     * Get the instance of Util class core.
-     *
-     * @return \App\Core\Adapters\Util|\Illuminate\Contracts\Foundation\Application|mixed
-     */
-    function util()
-    {
-        return app(\App\Core\Adapters\Util::class);
-    }
-}
-
 if (! function_exists('bootstrap')) {
     /**
      * Get the instance of Util class core.
@@ -142,10 +79,6 @@ if (! function_exists('bootstrap')) {
     {
         $demo = ucwords(theme()->getDemo());
         $bootstrap = "\App\Core\Bootstraps\Bootstrap$demo";
-
-        if (! class_exists($bootstrap)) {
-            abort(404, 'Demo has not been set or '.$bootstrap.' file is not found.');
-        }
 
         return app($bootstrap);
     }
@@ -162,33 +95,8 @@ if (! function_exists('assetCustom')) {
      */
     function assetCustom($path)
     {
-        // Include rtl css file
-        if (isRTL()) {
-            return asset(theme()->getDemo().'/'.dirname($path).'/'.basename($path, '.css').'.rtl.css');
-        }
-
-        // Include dark style css file
-        if (theme()->isDarkModeEnabled() && theme()->getCurrentMode() !== 'default') {
-            $darkPath = str_replace('.bundle', '.'.theme()->getCurrentMode().'.bundle', $path);
-            if (file_exists(public_path(theme()->getDemo().'/'.$darkPath))) {
-                return asset(theme()->getDemo().'/'.$darkPath);
-            }
-        }
-
         // Include default css file
         return asset(theme()->getDemo().'/'.$path);
-    }
-}
-
-if (! function_exists('isRTL')) {
-    /**
-     * Check if the request has RTL param.
-     *
-     * @return bool
-     */
-    function isRTL()
-    {
-        return (bool) request()->input('rtl');
     }
 }
 
