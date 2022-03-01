@@ -34,7 +34,7 @@ var KTScroll = function(element, options) {
         the.options = KTUtil.deepExtend({}, defaultOptions, options);
 
         // Elements
-        the.element = element;        
+        the.element = element;
         the.id = the.element.getAttribute('id');
 
         // Set initialized
@@ -94,13 +94,13 @@ var KTScroll = function(element, options) {
     var _update = function() {
         // Activate/deactivate
         if ( _getOption('activate') === true || the.element.hasAttribute('data-kt-scroll-activate') === false ) {
-            _setupHeight();
+            // _setupHeight();
             _setupScrollHandler();
             _setupState();
         } else {
             _resetHeight()
             _destroyScrollHandler();
-        }        
+        }
     }
 
     var _getHeight = function() {
@@ -183,7 +183,7 @@ var KTScroll = function(element, options) {
 
         height = height - parseInt(KTUtil.css(the.element, 'margin-top'));
         height = height - parseInt(KTUtil.css(the.element, 'margin-bottom'));
-        
+
         if (KTUtil.css(element, 'border-top')) {
             height = height - parseInt(KTUtil.css(element, 'border-top'));
         }
