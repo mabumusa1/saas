@@ -32,11 +32,11 @@
             <!--end::Label-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" type="email" name="email" autocomplete="off"
+            <input class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" type="email" name="email" id="email" autocomplete="off"
                 value="{{ old('email') }}" required autofocus />
             <!--end::Input-->
             @error('email')
-                <span class="invalid-feedback">{{ $message }}</span>
+                <span class="invalid-feedback" id="email-error">{{ $message }}</span>
             @enderror
         </div>
         <!--end::Input group-->
