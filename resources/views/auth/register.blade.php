@@ -97,7 +97,7 @@
         <!--begin::Input group-->
         <div class="fv-row mb-10">
             <label class="form-check form-check-custom form-check-solid form-check-inline">
-                <input class="form-check-input" type="checkbox" name="toc" value="1" />
+                <input class="form-check-input" type="checkbox" name="terms" value="1" />
                 <span class="form-check-label fw-bold text-gray-700 fs-6">
                     {{ __('I Agree &') }} <a href="#" class="ms-1 link-primary">{{ __('Terms and conditions') }}</a>.
                 </span>
