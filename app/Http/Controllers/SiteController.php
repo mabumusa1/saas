@@ -52,7 +52,6 @@ class SiteController extends Controller
         if (! count($sites)) {
             return view('sites.empty');
         }
-        dd($sites[0]->id);
 
         return view('sites.index', compact('sites', 'order'));
     }
