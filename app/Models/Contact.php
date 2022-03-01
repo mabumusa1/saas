@@ -26,7 +26,7 @@ class Contact extends Model
     /**
      * @return HasOne
      */
-    public function Install()
+    public function Install(): HasOne
     {
         return $this->hasOne(Install::class);
     }

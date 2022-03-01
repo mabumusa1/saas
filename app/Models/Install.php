@@ -12,6 +12,17 @@ class Install extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        'site_id',
+        'name',
+        'type',
+    ];
+
+    /**
      * Get the contact associated with the Install.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
