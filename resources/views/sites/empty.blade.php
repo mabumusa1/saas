@@ -3,8 +3,8 @@
         <div class="text-center">
             <img class="mb-3"
                 src="{{ asset(theme()->getMediaUrlPath() . 'illustrations/unitedpalms-1/2.png') }}" width="200">
-            <h1>Welcome, {{ auth()->user()->fullName }}!</h1>
-            <p>You have no sites added, lets get started and add one.</p>
+            <h1>{{ __('Welcome') }} , {{ auth()->user()->fullName }}!</h1>
+            <p>{{ __('You have no sites added, lets get started and add one.') }}</p>
         </div>
     </div>
     <div>
@@ -15,10 +15,10 @@
                         <img width="100" src="{{ asset(theme()->getMediaUrlPath() . 'custom/new-window.png') }}"
                             alt="">
                         <div class="ms-3">
-                            <h5 class="card-title mb-5">Add a new site</h5>
-                            <p class="mb-0">Need more information?</p>
-                            <a href="#">Learn more about adding a site</a>
-                            <a href="" class="btn btn-primary btn-sm mt-5 ">Add now</a>
+                            <h5 class="card-title mb-5">{{ __('Add a new site') }}</h5>
+                            <p class="mb-0">{{ __('Need more information?') }}</p>
+                            <a href="#">{{ __('Learn more about adding a site') }}</a>
+                            <a href="" class="btn btn-primary btn-sm mt-5 ">{{ __('Add now') }}</a>
                         </div>
                     </div>
                 </div>
@@ -29,10 +29,10 @@
                         <img width="100" src="{{ asset(theme()->getMediaUrlPath() . 'custom/file-upload.png') }}"
                             alt="">
                         <div class="ms-3">
-                            <h5 class="card-title mb-5">Accept a transfer</h5>
-                            <p class="mb-0">Waiting on a transfer?</p>
-                            <a href="#">Learn more about site transfers</a>
-                            <a href="" class="btn btn-primary btn-sm mt-5 ">Accept now</a>
+                            <h5 class="card-title mb-5">{{ __('Accept a transfer') }}</h5>
+                            <p class="mb-0">{{ __('Waiting on a transfer?') }}</p>
+                            <a href="#">{{ __('Learn more about site transfers') }}</a>
+                            <a href="" class="btn btn-primary btn-sm mt-5 ">{{ __('Accept now') }}</a>
                         </div>
                     </div>
                 </div>

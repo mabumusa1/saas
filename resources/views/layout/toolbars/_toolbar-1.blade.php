@@ -14,7 +14,7 @@
                         <div class="me-4">
                             <div data-bs-toggle="tooltip" data-bs-placement="left">
                                 <a href="#" class="btn btn-sm btn-secondary fw-bolder">
-                                    Accept Transfer
+                                    {{ __('Accept Transfer') }}
                                 </a>
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                         <!--begin::Wrapper-->
                         <div data-bs-toggle="tooltip" data-bs-placement="left">
                             <a href="{{ route('sites.create', $currentAccount->id) }}" class="btn btn-sm btn-primary fw-bolder">
-                                Create
+                                {{ __('Create') }}
                             </a>
                         </div>
                         <!--end::Wrapper-->
@@ -54,7 +54,7 @@
                 <!--begin::Wrapper-->
                 <div data-bs-toggle="tooltip" data-bs-placement="left">
                     <a href="{{ route('users.create', $currentAccount->id) }}" class="btn btn-sm btn-primary fw-bolder">
-                        Add User
+                        {{ __('Add User') }}
                     </a>
                 </div>
                 <!--end::Wrapper-->

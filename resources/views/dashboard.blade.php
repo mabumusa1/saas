@@ -4,7 +4,14 @@
     <div class="row gy-5 g-xl-8">
         <!--begin::Col-->
         <div class="col-xxl-4">
-            dashboard   
+            {{ __('dashboard') }}
+        <div>
+            <a href="{{route('localization', 'en')}}">EN</a>
+        </div>
+
+        <div>
+           <a href="{{route('localization', 'de')}}">DE</a>
+        </div>
         </div>
         <!--end::Col-->
 
@@ -41,19 +48,19 @@
     <div class="row gy-5 g-xl-8">
         <!--begin::Col-->
         <div class="col-xl-4">
-            
+
         </div>
         <!--end::Col-->
 
         <!--begin::Col-->
         <div class="col-xl-4">
-            
+
         </div>
         <!--end::Col-->
 
         <!--begin::Col-->
         <div class="col-xl-4">
-            
+
         </div>
         <!--end::Col-->
     </div>
@@ -63,13 +70,13 @@
     <div class="row g-5 gx-xxl-8">
         <!--begin::Col-->
         <div class="col-xxl-4">
-            
+
         </div>
         <!--end::Col-->
 
         <!--begin::Col-->
         <div class="col-xxl-8">
-            
+
         </div>
         <!--end::Col-->
     </div>
