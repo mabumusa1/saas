@@ -8,10 +8,10 @@ use Illuminate\Http\RedirectResponse;
 class LocalizationController
 {
     /**
-     * @param $locale
+     * @param string $locale
      * @return RedirectResponse
      */
-    public function index($locale):string
+    public function index(string $locale)
     {
         App::setLocale($locale);
         session()->put('local', $locale);
