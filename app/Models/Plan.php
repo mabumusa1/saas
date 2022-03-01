@@ -17,13 +17,11 @@ class Plan extends Model
     protected $fillable = [
         'name',
         'short_description',
-        'stripe_product_id',
-        'stripe_monthly_price_id',
-        'stripe_yearly_price_id',
+        'monthly_id',
+        'yearly_id',
         'monthly_price',
         'yearly_price',
-        // 'features',
-        'contacts',
+        'features',
         'options',
     ];
 

@@ -14,7 +14,6 @@
                 </div>
 
                 <div class="modal-body">
-                    <div id="card-element"></div>
                     <div class="form-group">
                         <label for="holder">Holder name</label>
                         <input id="holder" type="text" class="form-control">
@@ -67,7 +66,7 @@
                                     <!--begin::Wrapper-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Icon-->
-                                        <img src="{{ asset('skin/media/svg/card-logos/' . $paymentMethod->card->brand . '.svg') }}"
+                                        <img src="{{ asset(theme()->getMediaUrlPath() . '/svg/card-logos/' . $paymentMethod->card->brand . '.svg') }}"
                                             alt="" class="me-4">
                                         <!--end::Icon-->
                                         <!--begin::Details-->
@@ -138,15 +137,6 @@
                 'pk_test_51KY8wAJJANQIX4AvfvOhK9r1X40Wdzh2EXopxzcyHbwylMgKBpEHKtJhloE93u8CGoaz7IOnihxBCAr4skqwhM0N00aKqlXsoK'
             );
 
-            const appearance = {
-                theme: 'stripe'
-            };
-
-            // Pass the appearance object to the Elements instance
-            const elements = stripe.elements({
-                clientSecret: '{{ $intent->client_secret }}',
-                appearance
-            });
 
 
             const elements = stripe.elements();
@@ -156,29 +146,9 @@
             cardExpiryElement.mount('#card-expiry');
             var cardCVCElement = elements.create('cardCvc');
             cardCVCElement.mount('#card-cvc');
+            // const cardElement = elements.create('card');
 
-
-            cardButton.addEventListener('click', async (e) => {
-                const {
-                    setupIntent,
-                    error
-                } = await stripe.confirmCardSetup(
-                    clientSecret, {
-                        payment_method: {
-                            card: cardNumberElement,
-                            billing_details: {
-                                name: cardHolderName.value
-                            }
-                        }
-                    }
-                );
-
-                if (error) {
-                    // Display "error.message" to the user...
-                } else {
-                    // The card has been verified successfully...
-                }
-            });
+            // cardElement.mount('#card-element');
         </script>
     @endpush
 </x-base-layout>
