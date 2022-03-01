@@ -5,15 +5,15 @@
                 <div class="card">
 
                     <div class="card-body p-0">
-                        <span class="border border-left-5 border-primary d-block p-5">Production</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">Backup</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">Domains</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">points</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">Access Logs</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">Error Logs</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">SSL</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">Site Migration</span>
-                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">Go live checklist</span>
+                        <span class="border border-left-5 border-primary d-block p-5">{{ __('Production') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Backup') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Domains') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Points') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Access Logs') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Error Logs') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('SSL') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Site Migration') }}</span>
+                        <span class="d-block p-2 ps-7 border border-bottom-0 border-top-0 border-gray-400">{{ __('Go live checklist') }}</span>
                         <a href=""
                             class="btn-action bg-hover-primary bg-transparent border border-gray-400 border-hover-primary btn d-block d-flex text-hover-light text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -22,7 +22,7 @@
                                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
                                 </path>
                             </svg>
-                            Add Staging
+                            {{ __('Add Staging') }}
                         </a>
                         <a href=""
                             class="btn-action bg-hover-primary bg-transparent border border-gray-400 border-hover-primary btn d-block d-flex text-hover-light text-primary">
@@ -32,7 +32,7 @@
                                     d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
                                 </path>
                             </svg>
-                            Add Development
+                            {{ __('Add Development') }}
                         </a>
                     </div>
                 </div>
@@ -55,16 +55,16 @@
                     <!--begin::Wrapper-->
                     <div class="d-flex flex-column text-dark pe-0 pe-sm-10">
                         <!--begin::Title-->
-                        <h4 class="mb-2 dark">Go live checklist</h4>
+                        <h4 class="mb-2 dark">{{ __('Go live checklist') }}</h4>
                         <!--end::Title-->
                         <div class="d-flex">
                             <!--begin::Content-->
-                            <span>It's easy to lose track of all the required and optimal task for a site launcher. Use
+                            <span>{{ __('It is easy to lose track of all the required and optimal task for a site launcher. Use
                                 our checklist for keeping track. Find it any time in your site details links on the
-                                left.</span>
+                                left.') }}</span>
                             <!--end::Content-->
                             <div class="flex-lg-row-auto ms-4">
-                                <button class="btn btn-primary">See the checklist</button>
+                                <button class="btn btn-primary">{{ __('See the checklist') }}</button>
                             </div>
                         </div>
                     </div>
@@ -154,12 +154,11 @@
                     <!--begin::Wrapper-->
                     <div class="d-flex flex-column text-light pe-0 pe-sm-10">
                         <!--begin::Title-->
-                        <h4 class="mb-2 light">This is an alert</h4>
+                        <h4 class="mb-2 light">{{ __('This is an alert') }}</h4>
                         <!--end::Title-->
 
                         <!--begin::Content-->
-                        <span>The alert component can be used to highlight certain parts of your page for higher content
-                            visibility.</span>
+                        <span>{{ __('The alert component can be used to highlight certain parts of your page for higher content visibility.') }}</span>
                         <!--end::Content-->
                     </div>
                     <!--end::Wrapper-->
@@ -182,7 +181,7 @@
                 <!--begin::Alert-->
                 <div class="alert alert-dismissible d-flex flex-column p-0 mb-10">
                     <div class="align-items-center d-flex justify-content-between bg-primary ps-5">
-                        <h4 class="mb-0 light">This is an alert</h4>
+                        <h4 class="mb-0 light">{{ __('This is an alert') }}</h4>
                         <button type="button"
                             class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
                             data-bs-dismiss="alert">
@@ -198,11 +197,10 @@
 
                     <div class="border border-2 border-gray-300 p-4">
                         <!--begin::Wrapper-->
-                        <span>The alert component can be used to highlight certain parts of your page for higher content
-                            visibility.</span>
+                        <span>{{ __('The alert component can be used to highlight certain parts of your page for higher content visibility.') }}</span>
                         <!--end::Content-->
                         <div class="mt-2">
-                            <button class="btn btn-primary">Get started</button>
+                            <button class="btn btn-primary">{{ __('Get started') }}</button>
                         </div>
                         <!--end::Wrapper-->
                     </div>
@@ -214,14 +212,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            PHP Test Driver
+                            {{ __('PHP Test Driver') }}
                         </h3>
                         <div class="d-flex justify-content-between">
-                            <p>Preview your website on PHP 8.0 without actually changing the PHP
-                                version. Visitors will continue to see the current PHP version of your
-                                barehsite in their hrawsers Clear vaur conkies to end the nraview</p>
+                            <p>
+                                {{ __('Preview your website on PHP 8.0 without actually changing the PHP version. Visitors will continue to see the current PHP version of your barehsite in their hrawsers Clear vaur conkies to end the nraview') }}
+                            </p>
                             <div class="flex-column-auto">
-                                <button class="btn btn-primary">Preview PHP 8.0</button>
+                                <button class="btn btn-primary">{{ __('Preview PHP 8.0') }}</button>
                             </div>
                         </div>
                     </div>
@@ -229,15 +227,15 @@
                 <div class="card mt-6">
                     <div class="card-body">
                         <h3 class="card-title">
-                            Environment stats
+                            {{ __('Environment stats') }}
                         </h3>
                         <div>
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <span>Primary domain: </span> <a href="">Set primary domain</a>
+                                    <span>{{ __('Primary domain:') }} </span> <a href="">{{ __('Set primary domain') }}</a>
                                 </div>
                                 <div>
-                                    <span>SSH Login: </span> <span>test@domain.com</span>
+                                    <span>{{ __('SSH Login:') }} </span> <span>test@domain.com</span>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -248,15 +246,15 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <span>Technical contact:</span><span>Mohammad
+                                    <span>{{ __('Technical contact:') }}</span><span>Mohammad
                                         AbuMusa</span>
                                 </div>
                                 <div>
-                                    <span>Created:</span> <span>Feb 1, 2022 7:03 AM UTC</span>
+                                    <span>{{ __('Created:') }}</span> <span>Feb 1, 2022 7:03 AM UTC</span>
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <a href="">View DNS Details</a>
+                                <a href="">{{ __('View DNS Details') }}</a>
                             </div>
                         </div>
                     </div>
@@ -265,16 +263,16 @@
                     <div class="col col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Visitors</h3>
-                                <p class="mt-20 text-center">Not Available</p>
+                                <h3 class="card-title">{{ __('Visitors') }}</h3>
+                                <p class="mt-20 text-center">{{ __('Not Available') }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Bandwidth</h3>
-                                <p class="mt-20 text-center">Not Available</p>
+                                <h3 class="card-title">{{ __('Bandwidth') }}</h3>
+                                <p class="mt-20 text-center">{{ __('Not Available') }}</p>
                             </div>
                         </div>
                     </div>
@@ -282,10 +280,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">Storage</h3>
-                                    <a href="">View Storage Details</a>
+                                    <h3 class="card-title">{{ __('Storage') }}</h3>
+                                    <a href="">{{ __('View Storage Details') }}</a>
                                 </div>
-                                <p class="mt-20 text-center">Not Available</p>
+                                <p class="mt-20 text-center">{{ __('Not Available') }}</p>
                             </div>
                         </div>
                     </div>

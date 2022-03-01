@@ -6,7 +6,7 @@
                     <div class="d-flex justify-content-between mb-5">
                         <h1>Sites</h1>
                     </div>
-                        <h4 class="text-muted">Search for site, domain, environment</h4>
+                        <h4 class="text-muted">{{ __('Search for site, domain, environment') }}</h4>
                         <form id="filters">
                             <div class="row">
                                 <div class="col-5 mb-4">
@@ -23,11 +23,11 @@
                                             {{ request()->has('env') ? (request()->get('env') == 1 ? 'checked' : '') : 'checked' }}
                                             id="show_env" name="env">
                                         <label class="form-check-label" for="flexCheckDefault">
-                                            Show Environments
+                                            {{ __('Show Environments') }}
                                         </label>
                                     </div>
                                     <a class="btn btn-link btn-sm ms-5"
-                                        href="{{ route('groups.index', $currentAccount->id) }}">Manage group</a>
+                                        href="{{ route('groups.index', $currentAccount->id) }}">{{ __('Manage group') }}</a>
                                 </div>
                             </div>
                         </form>
@@ -36,11 +36,11 @@
                             <table class="table table-rounded border gy-7 gs-7">
                                 <thead>
                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200 table-active">
-                                        <th id="sortable">Site Name<i
+                                        <th id="sortable">{{ __('Site Name') }}<i
                                                 class="bi {{ $order === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
                                         </th>
-                                        <th>Groups</th>
-                                        <th class="text-center">Actions</th>
+                                        <th>{{ __('Groups') }}</th>
+                                        <th class="text-center">{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,15 +76,15 @@
                                                     <i class="bi bi-arrow-90deg-right"></i>
                                                     @switch($install->type)
                                                         @case('prd')
-                                                            <span class="badge badge-success">PRD</span>
+                                                            <span class="badge badge-success">{{ __('PRD') }}</span>
                                                         @break
 
                                                         @case('stg')
-                                                            <span class="badge badge-light-success">STG</span>
+                                                            <span class="badge badge-light-success">{{ __('STG') }}</span>
                                                         @break
 
                                                         @case('dev')
-                                                            <span class="badge badge-light-dark">DEV</span>
+                                                            <span class="badge badge-light-dark">{{ __('DEV') }}</span>
                                                         @break
                                                     @endswitch
                                                     <p class="d-inline">{{ $install->name }}</p>
@@ -105,13 +105,13 @@
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
                                                             <a href="#" class="menu-link px-3">
-                                                                Backup Install
+                                                                {{ __('Backup Install') }}
                                                             </a>
                                                             <a href="#" class="menu-link px-3">
-                                                                Clear Cache
+                                                                {{ __('Clear Cache') }}
                                                             </a>
                                                             <a href="#" class="menu-link px-3">
-                                                                Delete Install
+                                                                {{ __('Delete Install') }}
                                                             </a>
 
                                                         </div>

@@ -5,7 +5,7 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <h5 class="card-title mb-10">Groups</h5>
+                        <h5 class="card-title mb-10">{{ __('Groups') }}</h5>
                         @foreach ($groups as $grp)
                             <div class="mb-5">
                                 <a href="{{ route('groups.edit', [$account->id, $grp->id]) }}">
@@ -18,15 +18,16 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                               </svg>
-                            Add Group</a>
+                            {{ __('Add Group') }}
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="col-9">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-dark mb-8">Edit Group</h2>
-                        <div class="alert alert-success">Please select a group</div>
+                        <h2 class="text-dark mb-8">{{ __('Edit Group') }}</h2>
+                        <div class="alert alert-success">{{ __('Please select a group') }}</div>
                     </div>
                 </div>
             </div>

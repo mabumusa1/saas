@@ -16,6 +16,7 @@
         "spatie/laravel-activitylog": "^4.4"
     },
     "require-dev": {
+        "amirami/localizator": "^0.8.1@alpha",
         "barryvdh/laravel-ide-helper": "^2.10",
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.0",

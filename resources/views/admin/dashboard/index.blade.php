@@ -7,8 +7,8 @@
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th>#</th>
-                            <th>Full name</th>
-                            <th>Actions</th>
+                            <th>{{ __('Full name') }}</th>
+                            <th>{{ __('Actions') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -16,7 +16,7 @@
                                 <tr>
                                     <td>{{ $account->id }}</td>
                                     <td>{{ $account->name }}</td>
-                                    <td><a href="{{route('login.as.client', $account)}}">Login as client</a></td>
+                                    <td><a href="{{route('login.as.client', $account)}}">{{ __('Login as client') }}</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

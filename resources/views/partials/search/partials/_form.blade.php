@@ -10,7 +10,7 @@
     <!--end::Svg Icon-->
     <!--end::Icon-->
     <!--begin::Input-->
-    <input type="text" class="search-input form-control form-control-flush ps-10" name="search" value="" placeholder="Search..." data-kt-search-element="input">
+    <input type="text" class="search-input form-control form-control-flush ps-10" name="search" value="" placeholder="{{ __('Search...') }}" data-kt-search-element="input">
     <!--end::Input-->
     <!--begin::Spinner-->
     <span class="position-absolute top-50 end-0 translate-middle-y lh-0 me-1 d-none" data-kt-search-element="spinner">

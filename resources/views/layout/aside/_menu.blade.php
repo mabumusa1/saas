@@ -90,7 +90,7 @@
                     </span>
                     <!--end::Svg Icon-->
                 </span>
-                    <span class="menu-title">Dashboard</span>
+                    <span class="menu-title">{{ __('Dashboard') }}</span>
                 </a>
             </div>
         @endif
@@ -110,7 +110,7 @@
                 </span>
                       <!--end::Svg Icon-->
                 </span>
-                    <span class="menu-title">Accounts</span>
+                    <span class="menu-title">{{ __('Accounts') }}</span>
                 </a>
             </div>
         @endif
@@ -129,7 +129,7 @@
                 </span>
                       <!--end::Svg Icon-->
                 </span>
-                    <span class="menu-title">Logs</span>
+                    <span class="menu-title">{{ __('Logs') }}</span>
                 </a>
             </div>
         @if(!Gate::allows('isAdmin'))
@@ -152,7 +152,7 @@
                     </span>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-title">Sites</span>
+                    <span class="menu-title">{{ __('Sites') }}</span>
                 </a>
             </div>
         @endif
@@ -174,7 +174,7 @@
                     </g>
                 </svg>
             </span>
-                    <!--end::Svg Icon--></span><span class="menu-title">Users</span><span
+                    <!--end::Svg Icon--></span><span class="menu-title">{{ __('Users') }}</span><span
                     class="menu-arrow"></span></span>
             <div class="menu-sub menu-sub-accordion menu-active-bg">
                 <div class="menu-item">
@@ -182,15 +182,15 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Account Users</span>
+                        <span class="menu-title">{{ __('Account Users') }}</span>
                     </a>
                 </div>
                 <div class="menu-item"><a class="menu-link"
                                           href="{{ route('contacts.index', $currentAccount->id) }}"><span
-                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Techincal Contacts</span></a>
+                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ __('Techincal Contacts') }}</span></a>
                 </div>
                 <div class="menu-item"><a class="menu-link" href="https://sc.ddev.site/activity_log"><span
-                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Activity Log</span></a>
+                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ __('Activity Log') }}</span></a>
                 </div>
             </div>
         </div>

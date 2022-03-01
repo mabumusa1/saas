@@ -39,8 +39,8 @@
                 <!--end::Icon-->
                 <!--begin::Message-->
                 <div class="pb-15 fw-bold">
-                    <h3 class="text-gray-600 fs-5 mb-2">No result found</h3>
-                    <div class="text-muted fs-7">Please try again with a different query</div>
+                    <h3 class="text-gray-600 fs-5 mb-2">{{ __('No result found') }}</h3>
+                    <div class="text-muted fs-7">{{ __('Please try again with a different query') }}</div>
                 </div>
                 <!--end::Message-->
             </div>

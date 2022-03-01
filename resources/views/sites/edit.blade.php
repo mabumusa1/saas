@@ -12,16 +12,16 @@
                             @method('PUT')
                             <div class="mb-5">
                                 <div class="mb-5">
-                                    <label class="form-label">Name *</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Group Name"
+                                    <label class="form-label">{{ __('Name') }}*</label>
+                                    <input type="text" class="form-control" name="name" placeholder="{{ __('Name') }}"
                                         id="name" required value={{ $site->name }}>
                                 </div>
                             </div>
                             <div class="mb-5">
-                                <h5>Assign Site to groups</h5>
+                                <h5>{{ __('Assign Site to groups') }}</h5>
                                 <div>
-                                    <button type="button" class="btn btn-dark btn-sm" id="selectAll">Select all</button>
-                                    <button type="button" class="btn btn-dark btn-sm" id="removeAll">Remove all</button>
+                                    <button type="button" class="btn btn-dark btn-sm" id="selectAll">{{ __('Select all') }}</button>
+                                    <button type="button" class="btn btn-dark btn-sm" id="removeAll">{{ __('Remove all') }}</button>
                                 </div>
                                 <div class="mt-17">
                                     <div class="row">
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-end"><button type="submit" class="ml-auto btn btn-primary btn-sm" id="btn-submit">Update site</button></div>
+                                <div class="d-flex justify-content-end"><button type="submit" class="ml-auto btn btn-primary btn-sm" id="btn-submit">{{ __('Update site') }}</button></div>
 
                         </form>
                     </div>

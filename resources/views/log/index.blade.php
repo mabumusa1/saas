@@ -6,7 +6,7 @@
                     <h1>Log</h1>
                 </div>
                 @if(Gate::allows('isAdmin'))
-                    <h4 class="text-muted">Search by account Id</h4>
+                    <h4 class="text-muted">{{ __('Search by account Id') }}</h4>
                     <form id="filters">
                         <div class="row">
                             <div class="col-5 mb-4">
@@ -24,13 +24,13 @@
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th>Log Id</th>
-                            <th>Log name</th>
-                            <th>Description</th>
-                            <th>Subject type</th>
-                            <th>Subject</th>
-                            <th>Causer type</th>
-                            <th>Causer</th>
+                            <th>{{ __('Log Id') }}</th>
+                            <th>{{ __('Log name') }}</th>
+                            <th>{{ __('Description') }}</th>
+                            <th>{{ __('Subject type') }}</th>
+                            <th>{{ __('Subject') }}</th>
+                            <th>{{ __('Causer type') }}</th>
+                            <th>{{ __('Causer') }}</th>
                         </tr>
                         </thead>
                         <tbody>
