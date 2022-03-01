@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Cashier\Billable;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Billable;
 
     /**
      * The attributes that are mass assignable.
