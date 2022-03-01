@@ -39,17 +39,9 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
 
-      - name: Compile the assets
-        run: |
-          npm i
-          npm run prod
-
       - name: Push to Heroku
-        run: |
-          git add -A 
-          git commit -m "add assets"
-          git push -f heroku HEAD:main
-          
+        run: git push -f heroku HEAD:main
+
       - name: Re-Migrate the database
         run: |
           heroku run php artisan db:wipe
