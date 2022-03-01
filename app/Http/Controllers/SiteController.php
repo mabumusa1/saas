@@ -49,9 +49,23 @@ class SiteController extends Controller
         $sites->orderBy('name', $order);
         $sites = $sites->get();
 
+        if (! count($sites)) {
+            return view('sites.empty');
+        }
+        dd($sites[0]->id);
+
         return view('sites.index', compact('sites', 'order'));
     }
 
+    public function show(Account $account, Site $site)
+    {
+        return view('sites.show', compact('site'));
+    }
+
+    /**
+     * @param Account $account
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function create(Account $account)
     {
         $installs = Install::all();
