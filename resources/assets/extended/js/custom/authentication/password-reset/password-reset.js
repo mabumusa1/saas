@@ -69,7 +69,7 @@ var KTPasswordResetGeneral = function () {
                             });
                         })
                         .catch(function (error) {
-                            let dataMessage = error.response.data.message;
+                            let dataMessage = '';
                             let dataErrors = error.response.data.errors;
 
                             for (const errorsKey in dataErrors) {

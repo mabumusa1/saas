@@ -29,7 +29,7 @@ var KTPasswordResetNewPassword = function () {
                             }
                         }
                     },
-                    'confirm-password': {
+                    'password_confirmation': {
                         validators: {
                             notEmpty: {
                                 message: 'The password confirmation is required'
@@ -69,8 +69,10 @@ var KTPasswordResetNewPassword = function () {
             e.preventDefault();
 
             validator.revalidateField('password');
+            validator.revalidateField('password_confirmation');
 
             validator.validate().then(function (status) {
+                console.log(status);
                 if (status == 'Valid') {
                     // Show loading indication
                     submitButton.setAttribute('data-kt-indicator', 'on');
@@ -101,7 +103,7 @@ var KTPasswordResetNewPassword = function () {
                             });
                         })
                         .catch(function (error) {
-                            let dataMessage = error.response.data.message;
+                            let dataMessage = '';
                             let dataErrors = error.response.data.errors;
 
                             for (const errorsKey in dataErrors) {

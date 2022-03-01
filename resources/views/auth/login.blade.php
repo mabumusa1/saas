@@ -1,10 +1,11 @@
 <x-auth-layout>
 
     <!--begin::Signin Form-->
-    <form method="POST" action="{{ route('post.login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
-    @csrf
+    <form method="POST" action="{{ route('post.login') }}" class="form w-100" novalidate="novalidate"
+        id="kt_sign_in_form">
+        @csrf
 
-    <!--begin::Heading-->
+        <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
             <h1 class="text-dark mb-3">
@@ -31,8 +32,12 @@
             <!--end::Label-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" value="{{ old('email') }}" required autofocus/>
+            <input class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" type="email" name="email" autocomplete="off"
+                value="{{ old('email') }}" required autofocus />
             <!--end::Input-->
+            @error('email')
+                <span class="invalid-feedback">{{ $message }}</span>
+            @enderror
         </div>
         <!--end::Input group-->
 
@@ -49,13 +54,14 @@
                     <a href="{{ theme()->getPageUrl('password.request') }}" class="link-primary fs-6 fw-bolder">
                         {{ __('Forgot Password ?') }}
                     </a>
-            @endif
-            <!--end::Link-->
+                @endif
+                <!--end::Link-->
             </div>
             <!--end::Wrapper-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" required/>
+            <input class="form-control form-control-lg form-control-solid" type="password" name="password"
+                autocomplete="off" required />
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -63,9 +69,9 @@
         <!--begin::Input group-->
         <div class="fv-row mb-10">
             <label class="form-check form-check-custom form-check-solid">
-                <input class="form-check-input" type="checkbox" name="remember"/>
+                <input class="form-check-input" type="checkbox" name="remember" />
                 <span class="form-check-label fw-bold text-gray-700 fs-6">{{ __('Remember me') }}
-            </span>
+                </span>
             </label>
         </div>
         <!--end::Input group-->
