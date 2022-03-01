@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          ref: 'staging'
           fetch-depth: 0
 
       - name: Heroku login credentials
