@@ -6,9 +6,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
-use App\Models\Account;
-use App\Models\Cashier\Subscription;
-use App\Models\Cashier\SubscriptionItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
         Cashier::useSubscriptionModel(Subscription::class);
         Cashier::useSubscriptionItemModel(SubscriptionItem::class);        
         Paginator::useBootstrap();
+
+        Cashier::useCustomerModel(Account::class);
+
         view()->composer('*', function ($view) {
             if (\Auth::check()) {
                 $account = request()->route('account');
