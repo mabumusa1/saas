@@ -15,4 +15,14 @@ class DataCenter extends Model
         'label',
         'region',
     ];
+
+    /**
+     * Get all of the Accounts for the Data Center.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Accounts(): HasMany
+    {
+        return $this->hasMany(Account::class);
+    }
 }

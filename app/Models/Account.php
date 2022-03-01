@@ -24,6 +24,16 @@ class Account extends Model
     ];
 
     /**
+     * Get the Data Center that owns the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function dataCenter(): BelongsTo
+    {
+        return $this->belongsTo(DataCenter::class);
+    }
+
+    /**
      * The Users that belong to the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
