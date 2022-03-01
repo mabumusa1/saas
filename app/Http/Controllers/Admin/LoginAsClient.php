@@ -30,6 +30,8 @@ class LoginAsClient extends Controller
                 ->log('Admin login as '.roles()[$user->accountUser()->first()->role]);
 
             return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('login');
         }
     }
 }
