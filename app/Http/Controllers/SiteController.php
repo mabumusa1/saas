@@ -52,12 +52,6 @@ class SiteController extends Controller
         return view('sites.index', compact('sites', 'order'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param \App\Models\Account $account
-     * @return \Illuminate\View\View
-     */
     public function create(Account $account)
     {
         $installs = Install::all();
