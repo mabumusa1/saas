@@ -11,7 +11,7 @@ class LocalizationController
      * @param $locale
      * @return RedirectResponse
      */
-    public function index($locale)
+    public function index($locale):string
     {
         App::setLocale($locale);
         session()->put('local', $locale);
