@@ -8,6 +8,7 @@
         "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/cashier": "^13.8",
         "laravel/framework": "^9.0",
         "laravel/jetstream": "^2.6",
         "laravel/sanctum": "^2.11",

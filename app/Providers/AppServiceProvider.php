@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        Cashier::useCustomerModel(Account::class);
 
         view()->composer('*', function ($view) {
             if (\Auth::check()) {
