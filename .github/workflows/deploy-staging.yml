@@ -48,7 +48,7 @@ jobs:
         run: |
           git add -A 
           git commit -m "add assets"
-          git push -f heroku staging:main
+          git push -f heroku HEAD:main
           
       - name: Re-Migrate the database
         run: |
