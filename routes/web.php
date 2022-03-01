@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\SearchController;
+use App\Models\Account;
 
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
@@ -20,6 +21,26 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', SearchController::class)->name('site.search');
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
+        Route::get('billing', [App\Http\Controllers\PaymentController::class, 'billing'])->name('payment.billing');
+        Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
+        Route::get('stripe', function (Account $account) {
+            $stripeCustomer = $account->createOrGetStripeCustomer();
+
+            return view('stripe', [
+                'intent' => $account->createSetupIntent(),
+            ]);
+        });
+        Route::post('add_payment_method', function (Account $account) {
+            $account->addPaymentMethod(request('id'));
+
+            return redirect()->back();
+        });
+        Route::get('subscribe', function (Request $request, Account $account) {
+            return $account->subscriptions;
+            // $stripeCustomer = $account->createOrGetStripeCustomer();
+            // $paymentMethod = $account->defaultPaymentMethod();
+            // return $account->newSubscription('default', 'price_1KYO5DJJANQIX4Avt9ArzGKc')->create($paymentMethod->id);
+        });
         Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
             'index', 'destroy',
         ]);
