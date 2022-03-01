@@ -7,6 +7,14 @@ var KTSigninGeneral = function () {
     var submitButton;
     var validator;
 
+    document.querySelector('#email').addEventListener('input', function(e){
+        e.target.classList.remove('is-invalid');
+        var error = document.querySelector('#email-error');
+        if(error){
+            error.remove();
+        }
+    })
+
     // Handle form
     var handleForm = function (e) {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
