@@ -72,7 +72,12 @@
         ],
         "checkcs": "./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --using-cache=no --show-progress=dots --diff $cs_fix_files",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
-        "fixcs": "./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --using-cache=no --show-progress=dots --diff $cs_fix_files"
+        "fixcs": "./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --using-cache=no --show-progress=dots --diff $cs_fix_files",
+        "compile": [
+            "@php artisan route:cache",
+            "@php artisan event:cache",
+            "@php artisan view:cache"
+        ]        
     },
     "extra": {
     },
