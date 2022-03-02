@@ -1,4 +1,77 @@
 <x-base-layout>
+    @push('scripts')
+        <script>
+            document.querySelector('[data-kt-buttons="true"]').children.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.target.getAttribute('data-kt-plan')
+                    document.querySelectorAll('[data-kt-element="price"]').forEach(function(el) {
+                        el.textContent = el.getAttribute('data-kt-plan-price-' + e.target.getAttribute(
+                            'data-kt-plan'));
+                        el.parentElement.querySelector('[data-kt-element="period"]').textContent = e
+                            .target.getAttribute('data-kt-plan')[0].toUpperCase() + e.target
+                            .getAttribute('data-kt-plan').substring(1, 3)
+                    })
+                })
+            })
+
+
+            document.querySelectorAll('.purchase-button').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    btn.parentElement.parentElement.parentElement.querySelector('.overlay').classList.add(
+                        'overlay-block');
+                    btn.parentElement.parentElement.parentElement.querySelector('.overlay-layer').classList
+                        .remove('d-none');
+                    isAnnual = (document.querySelector('.active[data-kt-plan]').getAttribute('data-kt-plan') ===
+                        'annual' ? true : false)
+                    planId = btn.getAttribute('data-plan-id');
+                    quantity = document.querySelector('#amount-' + planId).value
+
+                    axios.post("{{ route('payment.makeCheckoutLink', $currentAccount->id) }}", {
+                        'account': {{ $currentAccount->id }},
+                        'plan': planId,
+                        'options': {
+                            'annual': isAnnual,
+                            'quantity': quantity
+                        }
+                    }).then(function(res) {
+                        Paddle.Checkout.open({
+                            override: res.data.link
+                        });
+                    }).catch(function(err) {
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toastr-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        };
+
+                        toastr.error("Something went wrong, please try again later");
+                        //TODO: Show message that there is an error with the request
+                        console.log(err);
+
+                    }).finally(function(){
+                        btn.parentElement.parentElement.parentElement.querySelector('.overlay')
+                            .classList.remove('overlay-block');
+                        btn.parentElement.parentElement.parentElement.querySelector('.overlay-layer')
+                            .classList.add('d-none');
+                    });
+                })
+            })
+        </script>
+    @endpush
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
