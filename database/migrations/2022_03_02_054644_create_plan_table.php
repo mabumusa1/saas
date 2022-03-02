@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\Plan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Plan;
+
 
 return new class extends Migration {
     /**
@@ -22,12 +23,12 @@ return new class extends Migration {
             $table->string('stripe_yearly_price_id')->charset('utf8')->collate('utf8_cs')->nullable()->unique();
             $table->string('monthly_price')->nullable()->unique();
             $table->string('yearly_price')->nullable()->unique();
-            $table->integer('contacts')->nullable();
+            $table->json('features')->nullable();
             $table->json('options')->nullable();
             $table->boolean('archived')->default(false);
             $table->timestamps();
         });
-
+        
         $plans = [
             [
                 'name' => 'Small - 2,500 Leads',
@@ -37,10 +38,9 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcdZJJANQIX4AvZvUiYVZz',
                 'monthly_price' => 50,
                 'yearly_price' => 500,
-                // 'features' => ['2,500 Contacts', 'Backups', 'Hosting', 'Security', 'Scalablity'],
-                'contacts' => 2500,
+                'features' => ['2,500 Contacts', 'Backups', 'Hosting', 'Security', 'Scalablity'],
                 'options' => ['backups', 'hosting'],
-                'archived' => false,
+                'archived' => false
             ],
             [
                 'name' => 'Small - 5,000 Leads',
@@ -50,19 +50,18 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcesJJANQIX4AvzHkRsIJH',
                 'monthly_price' => 90,
                 'yearly_price' => 900,
-                'contacts' => 5000,
-                /* 'features' => [
+                'features' => [
                     '5,000 Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
+                'archived' => false
 
             ],
             [
@@ -73,19 +72,18 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcfzJJANQIX4AvQgoUXy6q',
                 'monthly_price' => 160,
                 'yearly_price' => 1600,
-                'contacts' => 10000,
-                // 'features' => [
-                //     '10,000 Contacts',
-                //     'Backups',
-                //     'Hosting',
-                //     'Security',
-                //     'Scalablity',
-                // ],
+                'features' => [
+                    '10,000 Contacts',
+                    'Backups',
+                    'Hosting',
+                    'Security',
+                    'Scalablity',
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
+                'archived' => false
 
             ],
             [
@@ -96,19 +94,18 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcgYJJANQIX4AvYfnTSVwv',
                 'monthly_price' => 420,
                 'yearly_price' => 4200,
-                'contacts' => 25000,
-                /* 'features' => [
+                'features' => [
                     '25,000 Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
+                'archived' => false
             ],
             [
                 'name' => 'Medium  - 50,000 Leads',
@@ -118,19 +115,18 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYchzJJANQIX4AvCfLCKqjQ',
                 'monthly_price' => 800,
                 'yearly_price' => 8000,
-                'contacts' => 50000,
-                /* 'features' => [
+                'features' => [
                     '50,000 Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
+                'archived' => false
             ],
             [
                 'name' => 'Medium  - 100,000 Leads',
@@ -140,19 +136,18 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcimJJANQIX4Av3MAHwrgy',
                 'monthly_price' => 1250,
                 'yearly_price' => 15000,
-                'contacts' => 100000,
-                /* 'features' => [
+                'features' => [
                     '100,000 Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
+                'archived' => false
             ],
             [
                 'name' => 'Large  - 500,000 Leads',
@@ -162,19 +157,18 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcjqJJANQIX4Av6PJzUZDc',
                 'monthly_price' => 5417,
                 'yearly_price' => 65000,
-                'contacts' => 500000,
-                /* 'features' => [
+                'features' => [
                     '500,000 Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
+                'archived' => false
             ],
             [
                 'name' => 'Large  - 1 Million Leads',
@@ -184,20 +178,19 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYckmJJANQIX4Avc3dSSjXH',
                 'monthly_price' => 10833,
                 'yearly_price' => 130000,
-                'contacts' => 1000000,
-                /* 'features' => [
+                'features' => [
                     '1 Million Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
-            ],
+                'archived' => false
+            ],            
             [
                 'name' => 'Large  - 1.5 Million Leads',
                 'short_description' => 'Large Mautic installation supports up to 1.5 Million leads',
@@ -206,27 +199,28 @@ return new class extends Migration {
                 'stripe_yearly_price_id' => 'price_1KYcleJJANQIX4AvQmpUq5L5',
                 'monthly_price' => 15833,
                 'yearly_price' => 190000,
-                'contacts' => 1500000,
-                /* 'features' => [
+                'features' => [
                     '1.5 Million Contacts',
                     'Backups',
                     'Hosting',
                     'Security',
                     'Scalablity',
-                ], */
+                ],
                 'options' => [
                     'backups',
                     'hosting',
                 ],
-                'archived' => false,
-            ],
+                'archived' => false
+            ],            
 
         ];
+        
+
 
         foreach ($plans as $plan) {
             $m = new Plan($plan);
             $m->save();
-        }
+        }        
     }
 
     /**

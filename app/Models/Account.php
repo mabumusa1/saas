@@ -75,4 +75,14 @@ class Account extends Model
         return $this->hasMany(Group::class);
     }
 
+
+    /**
+     * Get the customer name that should be synced to Stripe.
+     *
+     * @return string|null
+     */
+    public function stripeName()
+    {
+        return $this->company_name;
+    }
 }
