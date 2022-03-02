@@ -22,7 +22,8 @@ class Plan extends Model
         'stripe_yearly_price_id',
         'monthly_price',
         'yearly_price',
-        'features',
+        // 'features',
+        'contacts',
         'options',
     ];
 
