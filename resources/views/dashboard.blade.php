@@ -5,13 +5,6 @@
         <!--begin::Col-->
         <div class="col-xxl-4">
             {{ __('dashboard') }}
-        <div>
-            <a href="{{route('localization', 'en')}}">EN</a>
-        </div>
-
-        <div>
-           <a href="{{route('localization', 'de')}}">DE</a>
-        </div>
         </div>
         <!--end::Col-->
 
