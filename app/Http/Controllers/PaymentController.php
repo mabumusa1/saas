@@ -8,9 +8,12 @@ use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CheckoutLinkRequest;
+
 
 class PaymentController extends Controller
 {
+
     /**
      * @return \Illuminate\Contracts\View\View
      */
@@ -44,6 +47,12 @@ class PaymentController extends Controller
         if(!$account->hasStripeId()){
             $account->createOrGetStripeCustomer();
         }
+        return $request->account->redirectToBillingPortal(route('sites.index', $account));
+    }
+
+
+    public function billing_portal(Account $account, Request $request)
+    {
         return $request->account->redirectToBillingPortal(route('sites.index', $account));
     }
 }
