@@ -21,8 +21,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', SearchController::class)->name('site.search');
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
-        Route::get('billing', [App\Http\Controllers\PaymentController::class, 'billing'])->name('payment.billing');
+        Route::get('billing', [App\Http\Controllers\PaymentController::class, 'billing_portal'])->name('payment.billing');
         Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
+        Route::post('makeCheckoutLink', [App\Http\Controllers\PaymentController::class, 'makeCheckoutLink'])->name('payment.makeCheckoutLink');
+
         Route::get('stripe', function (Account $account) {
             $stripeCustomer = $account->createOrGetStripeCustomer();
 

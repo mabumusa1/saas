@@ -7,6 +7,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use App\Models\Account;
+use App\Models\Cashier\Subscription;
+use App\Models\Cashier\SubscriptionItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Cashier::useCustomerModel(Account::class);
+        Cashier::useSubscriptionModel(Subscription::class);
+        Cashier::useSubscriptionItemModel(SubscriptionItem::class);        
+
         $theme = theme();
         // Share theme adapter class
         View::share('theme', $theme);
@@ -45,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        Cashier::useCustomerModel(Account::class);
+        
 
         view()->composer('*', function ($view) {
             if (\Auth::check()) {

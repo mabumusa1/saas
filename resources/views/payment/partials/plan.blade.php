@@ -71,7 +71,14 @@
             <!--begin::Select-->
             <div class="overlay card-rounded">
                 <div class="overlay-wrapper">
-                    <a href="#!" class="btn btn-success btn-large ml-4 purchase-button" data-plan-id="{{$plan->id}}">Purchase</a>
+                    <form action="{{ route('payment.makeCheckoutLink', $currentAccount->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" id="plan-id" name="plan" value="{{$plan->id}}">
+                        <input type="hidden" id="account-id" name="account" value="{{$plan->id}}">
+                        <input type="hidden" id="is_annual" name="options['annual']" value="false">
+                        <input type="hidden" id="quantity" name="options['quantity']" value="1">
+                        <input type="submit" value="Purchase" class="btn btn-success btn-large ml-4 purchase-button">
+                    </form>
                 </div>
                 <div class="overlay-layer card-rounded bg-dark bg-opacity-5 d-none">
                     <div class="spinner-border text-primary" role="status">
