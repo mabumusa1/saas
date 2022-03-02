@@ -7,34 +7,11 @@ use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CheckoutLinkRequest;
+
 
 class PaymentController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    /* public function makePayLink(Account $account, makePayLinkRequest $request)
-    {
-        $plan = Plan::find($request->input('plan'));
-        $quantity = $request->input('options.quantity', 1);
-        $annual = $request->input('options.annual', false);
-        $options = $request->input('options');
-
-        $planRemoteId = ($options['annual']) ? $plan->yearly_id : $plan->monthly_id;
-
-        $customerEmail = '';
-        $payLink = '';
-        $account = Account::find($request->input('account'));
-        $payLink = $account->newSubscription($plan->name, $premium = $planRemoteId)
-        //TODO: Add flag to the URL to indeicate that the site is being created
-        ->returnTo(route('sites.index', $account->id).'?status=1')
-        ->create([
-            'quantity' => $options['quantity'],
-            'customer_email' => $account->paddleEmail(),
-        ]);
-
-        return response()->json(['link' => $payLink]);
-    } */
 
     /**
      * @return \Illuminate\Contracts\View\View
@@ -46,6 +23,23 @@ class PaymentController extends Controller
         return view('payment.checkout', ['plans' => $plans]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function makeCheckoutLink(Account $account, CheckoutLinkRequest $request)
+    {
+        $plan = Plan::find($request->plan);
+        $payLink =  $account
+        ->newSubscription($plan->name, ($request->get('options')['annual']) ? $plan->stripe_yearly_price_id : $plan->stripe_monthly_price_id)
+        ->allowPromotionCodes()
+        ->checkout([
+            'success_url' => route('sites.create', $account->id),
+            'cancel_url' => route('sites.index', $account->id),
+        ]);
+
+        return response()->json(['link' => $payLink]);
+    }
+
     public function billing(Account $account)
     {
         $receipts = [];
@@ -54,5 +48,11 @@ class PaymentController extends Controller
         // $receipt = $receipts[0];
         // dd($receipt->subscription->name, $receipt->quantity, $receipts[0]->amount, $receipt->tax);
         return view('payment.billing', compact('receipts', 'paymentMethods', 'intent'));
+    }
+
+
+    public function billing_portal(Account $account, Request $request)
+    {
+        return $request->account->redirectToBillingPortal(route('sites.index', $account));
     }
 }

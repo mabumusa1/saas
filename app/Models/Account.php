@@ -75,39 +75,14 @@ class Account extends Model
         return $this->hasMany(Group::class);
     }
 
+
     /**
-     * The "booted" method of the model.
+     * Get the customer name that should be synced to Stripe.
      *
-     * @return void
+     * @return string|null
      */
-    protected static function booted()
+    public function stripeName()
     {
-        static::updated(queueable(function ($customer) {
-            if ($customer->hasStripeId()) {
-                $customer->syncStripeCustomerDetails();
-            }
-        }));
-    }
-
-    public function stripeAddress()
-    {
-        return [
-            'line1'                 => $this->line1,
-            'line2'                 => $this->line2,
-            'city'                   => $this->city,
-            'state'                => $this->state,
-            'country'           => $this->country,
-            'postal_code'   => $this->postalCode,
-        ];
-    }
-
-    public function stripePhone()
-    {
-        return $this->phone;
-    }
-
-    public function stripeEmail()
-    {
-        return $this->email;
+        return $this->company_name;
     }
 }

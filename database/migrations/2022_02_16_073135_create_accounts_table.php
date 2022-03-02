@@ -20,14 +20,6 @@ return new class extends Migration {
             $table->string('pm_type')->nullable();
             $table->string('pm_last_four', 4)->nullable();
             $table->timestamp('trial_ends_at')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('line1')->nullable();
-            $table->string('line2')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('country')->nullable();
-            $table->string('postal_code')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('data_center_id')->references('id')->on('data_centers');
