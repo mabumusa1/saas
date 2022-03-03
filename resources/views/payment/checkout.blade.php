@@ -1,6 +1,7 @@
 <x-base-layout>
     @push('scripts')
         <script>
+            var exceeder = {};
             document.querySelector('[data-kt-buttons="true"]').children.forEach(function(button) {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -19,7 +20,6 @@
             document.querySelectorAll('.purchase-button').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log(btn.parentElement.parentElement.parentElement.parentElement)
                     btn.parentElement.parentElement.parentElement.classList.add(
                         'overlay-block');
                     btn.parentElement.parentElement.parentElement.querySelector('.overlay-layer').classList
@@ -77,43 +77,73 @@
                 values.forEach(function(value, index) {
                     if (index === 0) {
                         sliderValues['min'] = parseInt(value);
-                    } else if (index === values.length - 1) {
-                        sliderValues['max'] = parseInt(value);
                     } else {
                         sliderValues[(index * steps) + '%'] = parseInt(value);
                     }
                 })
+                exceeder.value = parseInt(values[values.length - 1] + 1000);
+                exceeder.label = parseInt(values[values.length - 1]);
+                sliderValues['max'] = exceeder.value;
                 return sliderValues;
+
             }
+
 
             var slider = document.querySelector("#kt_slider_basic");
 
             noUiSlider.create(slider, {
                 start: 100 / plans.length,
                 snap: true,
-                tooltips: [wNumb({
-                    decimals: 0,
-                    thousand: ',',
-
-                })],
+                connect: [true],
+                tooltips: [{
+                    to: function(value) {
+                        var formatter = new Intl.NumberFormat('en-US')
+                        if (value == exceeder.value) {
+                            return '> ' + formatter.format(exceeder.label);
+                        } else {
+                            return formatter.format(value);
+                        }
+                    }
+                }],
                 connect: true,
                 range: createSliderValues(plans.map(function(plan) {
                     return plan.contacts
                 }))
             });
 
+            function formatTooltip(values) {
+                console.log(values)
+            }
+
             slider.noUiSlider.on("update", function(values, handle) {
                 var plan = plans.find(function(plan) {
                     return plan.contacts == values[handle];
                 });
-                document.querySelector('#plan-name').textContent = plan.name;
                 var price = document.querySelector('[data-kt-element="price"]');
-                price.setAttribute('data-kt-plan-price-month', plan.monthly_price);
-                price.setAttribute('data-kt-plan-price-annual', plan.yearly_price);
-                price.textContent = document.querySelector('[data-kt-buttons="true"] .active[data-kt-plan]').getAttribute('data-kt-plan') == 'month' ? price.innerHTML = plan.monthly_price : price.innerHTML = plan.yearly_price;
-                document.querySelector('.purchase-button').setAttribute('data-plan-id', plan.id);
+                var purchaseButton = document.querySelector('.purchase-button');
+                if (plan) {
+                    document.querySelector('#plan-name').textContent = plan.name;
+
+                    price.setAttribute('data-kt-plan-price-month', plan.monthly_price);
+                    price.setAttribute('data-kt-plan-price-annual', plan.yearly_price);
+                    price.textContent = document.querySelector('[data-kt-buttons="true"] .active[data-kt-plan]')
+                        .getAttribute('data-kt-plan') == 'month' ? price.innerHTML = plan.monthly_price : price
+                        .innerHTML =
+                        plan.yearly_price;
+                        purchaseButton.setAttribute('data-plan-id', plan.id);
+                } else {
+                    document.querySelector('#plan-name').textContent = 'Contact us';
+                    purchaseButton.value = 'Contact us';
+                    purchaseButton.removeAttribute('data-plan-id');
+
+                    price.textContent = '-';
+                }
+
+
             });
         </script>
+        <style>
+        </style>
     @endpush
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
@@ -135,10 +165,12 @@
                             </div>
                             <div class="mb-0">
                                 <label class="form-label">Contacts</label>
-                                <div id="kt_slider_basic"></div>
+                                <div id="kt_slider_basic" class="noUi-lg mt-10"></div>
                             </div>
                         </div>
-                        @include('payment.partials.plan', ['plan' => $plans->first()])
+                        @include('payment.partials.plan', [
+                            'plan' => $plans->first(),
+                        ])
                     </div>
                 </div>
                 <!--end::Card body-->
