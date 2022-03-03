@@ -92,9 +92,9 @@
             var slider = document.querySelector("#kt_slider_basic");
 
             noUiSlider.create(slider, {
-                start: 100 / plans.length,
+                start: 0,
                 snap: true,
-                connect: [true],
+                connect: true,
                 tooltips: [{
                     to: function(value) {
                         var formatter = new Intl.NumberFormat('en-US')
@@ -130,7 +130,7 @@
                         .getAttribute('data-kt-plan') == 'month' ? price.innerHTML = plan.monthly_price : price
                         .innerHTML =
                         plan.yearly_price;
-                        purchaseButton.setAttribute('data-plan-id', plan.id);
+                    purchaseButton.setAttribute('data-plan-id', plan.id);
                 } else {
                     document.querySelector('#plan-name').textContent = 'Contact us';
                     purchaseButton.value = 'Contact us';
@@ -143,6 +143,27 @@
             });
         </script>
         <style>
+            .noUi-target {
+                background: transparent;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .noUi-connects {
+                background: #E4E6EF;
+            }
+
+            .noUi-touch-area {
+                background: #009EF7;
+                border-radius: 50px;
+            }
+
+            .noUi-tooltip {
+                background: #009EF7;
+                color: white
+            }
+
         </style>
     @endpush
     <div class="post d-flex flex-column-fluid" id="kt_post">
