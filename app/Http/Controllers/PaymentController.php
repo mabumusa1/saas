@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckoutLinkRequest;
 use App\Http\Requests\makePayLinkRequest;
 use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CheckoutLinkRequest;
-
 
 class PaymentController extends Controller
 {
-
     /**
      * @return \Illuminate\Contracts\View\View
      */
@@ -29,8 +27,9 @@ class PaymentController extends Controller
     public function makeCheckoutLink(Account $account, CheckoutLinkRequest $request)
     {
         $plan = Plan::find($request->plan);
-        $payLink =  $account
+        $payLink = $account
         ->newSubscription($plan->name, ($request->get('options')['annual']) ? $plan->stripe_yearly_price_id : $plan->stripe_monthly_price_id)
+        ->quantity($request->input('options.quantity'))
         ->allowPromotionCodes()
         ->checkout([
             'success_url' => route('sites.create', $account->id),
@@ -49,7 +48,6 @@ class PaymentController extends Controller
         // dd($receipt->subscription->name, $receipt->quantity, $receipts[0]->amount, $receipt->tax);
         return view('payment.billing', compact('receipts', 'paymentMethods', 'intent'));
     }
-
 
     public function billing_portal(Account $account, Request $request)
     {
