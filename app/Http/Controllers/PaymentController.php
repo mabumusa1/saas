@@ -32,8 +32,8 @@ class PaymentController extends Controller
         ->quantity($request->input('options.quantity'))
         ->allowPromotionCodes()
         ->checkout([
-            'success_url' => route('sites.create', $account->id),
-            'cancel_url' => route('sites.index', $account->id),
+            'success_url' => route('payment.billing', $account->id),
+            'cancel_url' => route('payment.checkout', $account->id),
         ]);
 
         return response()->json(['link' => $payLink]);
