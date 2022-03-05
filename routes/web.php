@@ -24,25 +24,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('billing', [App\Http\Controllers\PaymentController::class, 'billing_portal'])->name('payment.billing');
         Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
         Route::post('makeCheckoutLink', [App\Http\Controllers\PaymentController::class, 'makeCheckoutLink'])->name('payment.makeCheckoutLink');
-
-        Route::get('stripe', function (Account $account) {
-            $stripeCustomer = $account->createOrGetStripeCustomer();
-
-            return view('stripe', [
-                'intent' => $account->createSetupIntent(),
-            ]);
-        });
-        Route::post('add_payment_method', function (Account $account) {
-            $account->addPaymentMethod(request('id'));
-
-            return redirect()->back();
-        });
-        Route::get('subscribe', function (Request $request, Account $account) {
-            return $account->subscriptions;
-            // $stripeCustomer = $account->createOrGetStripeCustomer();
-            // $paymentMethod = $account->defaultPaymentMethod();
-            // return $account->newSubscription('default', 'price_1KYO5DJJANQIX4Avt9ArzGKc')->create($paymentMethod->id);
-        });
         Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
             'index', 'destroy',
         ]);
