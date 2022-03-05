@@ -2,7 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Models\Cashier\Subscription;
 use Laravel\Cashier\Events\WebhookReceived;
+use Log;
 
 class StripeEventListener
 {
@@ -24,7 +26,9 @@ class StripeEventListener
      */
     public function handle(WebhookReceived $event)
     {
-        if ($event->payload['type'] === 'customer.subscription.updated') {
+        if ($event->payload['type'] === 'customer.subscription.deleted') {
+            $subscription = Subscription::where('stripe_id', $event->payload['data']['object']['id'])->first();
+            $subscription->sites()->delete();
         }
     }
 }
