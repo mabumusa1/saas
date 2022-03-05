@@ -67,7 +67,9 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        $installs = $account->installs;
+        $installs = Install::all();
+        $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
+        $count = $account->subscriptions()->active()->sum('quantity');
 
         return view('sites.create', compact('installs', 'account', 'subscriptions', 'count'));
     }
