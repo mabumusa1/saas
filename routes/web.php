@@ -28,6 +28,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'index', 'destroy',
         ]);
 
+        Route::get('subscriptions', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('subscriptions.index');
+        Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);
