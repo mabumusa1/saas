@@ -68,8 +68,10 @@ class SiteController extends Controller
     public function create(Account $account)
     {
         $installs = Install::all();
+        $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
+        $count = $account->subscriptions()->active()->sum('quantity');
 
-        return view('sites.create', compact('installs'));
+        return view('sites.create', compact('installs', 'account', 'subscriptions', 'count'));
     }
 
     /**
@@ -81,6 +83,13 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
+        $subscription = $account->subscriptions()->active()->available()->first();
+
+        $account->sites()->create([
+            'name' => $request->sitename,
+            'subscription_id' => $subscription->id,
+        ]);
+
         Session::flash('status', 'Site is under creation, we will send you an update once it is done!');
 
         return redirect(route('sites.index', $account->id));
