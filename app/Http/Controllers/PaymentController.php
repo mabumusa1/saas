@@ -51,6 +51,10 @@ class PaymentController extends Controller
 
     public function billing_portal(Account $account, Request $request)
     {
-        return $request->account->redirectToBillingPortal(route('sites.index', $account));
+        return view('payment.accountBillingInfo');
+        /*if($account->hasStripeId()){
+            $account->createOrGetStripeCustomer();
+        }
+        return $request->account->redirectToBillingPortal(route('sites.index', $account));*/
     }
 }
