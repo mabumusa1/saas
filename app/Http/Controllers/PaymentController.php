@@ -33,24 +33,17 @@ class PaymentController extends Controller
         ->allowPromotionCodes()
         ->checkout([
             'success_url' => route('payment.billing', $account->id),
-            'cancel_url' => route('payment.checkout', $account->id),
+            'cancel_url' => route('payment.checkout', $account->id),    
         ]);
 
         return response()->json(['link' => $payLink]);
     }
 
-    public function billing(Account $account)
-    {
-        $receipts = [];
-        $paymentMethods = $account->paymentMethods();
-        $intent = $account->createSetupIntent();
-        // $receipt = $receipts[0];
-        // dd($receipt->subscription->name, $receipt->quantity, $receipts[0]->amount, $receipt->tax);
-        return view('payment.billing', compact('receipts', 'paymentMethods', 'intent'));
-    }
-
     public function billing_portal(Account $account, Request $request)
     {
+        if(!$account->hasStripeId()){
+            $account->createOrGetStripeCustomer();
+        }
         return $request->account->redirectToBillingPortal(route('sites.index', $account));
     }
 }

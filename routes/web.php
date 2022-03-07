@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\SearchController;
-use App\Models\Account;
 
 Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');

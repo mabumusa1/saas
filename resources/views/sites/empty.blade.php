@@ -1,42 +1,37 @@
 <x-base-layout>
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="text-center">
-            <img class="mb-3"
-                src="{{ asset('skin/illustrations/unitedpalms-1/2.png') }}" width="200">
-            <h1>{{ __('Welcome') }} , {{ auth()->user()->fullName }}!</h1>
-            <p>{{ __('You have no sites added, lets get started and add one.') }}</p>
-        </div>
-    </div>
-    <div>
-        <div class="row justify-content-around">
-            <div class="col col-5">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <img width="100" src="{{ asset('skin/custom/new-window.png') }}"
-                            alt="">
-                        <div class="ms-3">
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <img class="mb-3" src="{{ asset('skin/media/illustrations/unitedpalms-1/2.png') }}" width="200">
+                    <h1 class="mb-3">{{ __('Welcome') }} , {{ auth()->user()->fullName }}!</h1>
+                    <h2 class="mb-3">{{ __('You have no sites added, lets get started and add one.') }}</h2>
+                    </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card bordered">
+                        <div class="card-body text-center">
+                            <img width="100" src="{{ asset('skin/media/custom/new-window.png') }}" alt="">
                             <h5 class="card-title mb-5">{{ __('Add a new site') }}</h5>
-                            <p class="mb-0">{{ __('Need more information?') }}</p>
-                            <a href="#">{{ __('Learn more about adding a site') }}</a>
-                            <a href="" class="btn btn-primary btn-sm mt-5 ">{{ __('Add now') }}</a>
+                            <p class="mb-0"><a href="#">{{ __('Learn more about adding a site') }}</a></p>
+                            <a href="{{ route('sites.create', $currentAccount->id) }}" class="btn btn-primary btn-lg mt-5">{{ __('Add now') }}</a>
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col col-5">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <img width="100" src="{{ asset('skin/custom/file-upload.png') }}"
-                            alt="">
-                        <div class="ms-3">
+                <div class="col">
+                    <div class="card bordered">
+                        <div class="card-body text-center">
+                            <img width="100" src="{{ asset('skin/media/custom/file-upload.png') }}" alt="">
                             <h5 class="card-title mb-5">{{ __('Accept a transfer') }}</h5>
-                            <p class="mb-0">{{ __('Waiting on a transfer?') }}</p>
-                            <a href="#">{{ __('Learn more about site transfers') }}</a>
-                            <a href="" class="btn btn-primary btn-sm mt-5 ">{{ __('Accept now') }}</a>
+                            <p class="mb-0"><a href="#">{{ __('Learn more about site transfers') }}</a></p>
+                            <a href="" class="btn btn-primary btn-lg mt-5 ">{{ __('Accept now') }}</a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 </x-base-layout>

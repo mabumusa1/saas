@@ -15,10 +15,11 @@ return new class extends Migration {
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('account_id');
+            $table->foreignId('subscription_id')->references('id')->on('subscriptions');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreignId('subscription_id')->references('id')->on('subscriptions');
         });
     }
 
