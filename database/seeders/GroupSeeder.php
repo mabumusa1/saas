@@ -19,12 +19,14 @@ class GroupSeeder extends Seeder
         $accounts = Account::all();
 
         foreach ($accounts as $key => $account) {
-            // Create two groups
-            if ($account->groups->count() <= 2) {
-                Group::factory()->count(2)->create(['account_id' => $account->id]);
-                $site = $account->sites()->first();
-                $group = $account->groups()->first();
-                $site->groups()->sync([$group->id]);
+            if(!empty($account->stripe_id)){
+                // Create two groups
+                if ($account->groups->count() <= 2) {
+                    Group::factory()->count(2)->create(['account_id' => $account->id]);
+                    $site = $account->sites()->first();
+                    $group = $account->groups()->first();
+                    $site->groups()->sync([$group->id]);
+                }
             }
         }
     }
