@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreignId('subscription_id')->references('id')->on('subscriptions');
         });
     }
 

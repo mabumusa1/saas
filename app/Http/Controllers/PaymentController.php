@@ -33,7 +33,7 @@ class PaymentController extends Controller
         ->allowPromotionCodes()
         ->checkout([
             'success_url' => route('payment.billing', $account->id),
-            'cancel_url' => route('payment.checkout', $account->id),    
+            'cancel_url' => route('payment.checkout', $account->id),
         ]);
 
         return response()->json(['link' => $payLink]);
@@ -41,9 +41,10 @@ class PaymentController extends Controller
 
     public function billing_portal(Account $account, Request $request)
     {
-        if(!$account->hasStripeId()){
+        return view('payment.accountBillingInfo');
+        /*if($account->hasStripeId()){
             $account->createOrGetStripeCustomer();
         }
-        return $request->account->redirectToBillingPortal(route('sites.index', $account));
+        return $request->account->redirectToBillingPortal(route('sites.index', $account));*/
     }
 }

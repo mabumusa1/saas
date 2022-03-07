@@ -22,7 +22,7 @@ class LoginController extends Controller
                     ->performedOn($authUser)
                     ->causedBy($authUser)
                     ->withProperties(['account_id' => Auth::user()->accountUser()->first()->account_id])
-                    ->log($authUser->getFullNameAttribute().' Login in Admin dashboard');
+                    ->log($authUser->fullName.' Login in Admin dashboard');
 
                 return redirect()->route('dashboard.index', Auth::user()->accountUser()->first()->account_id);
             } else {
@@ -30,7 +30,7 @@ class LoginController extends Controller
                     ->performedOn($authUser)
                     ->causedBy($authUser)
                     ->withProperties(['account_id' => Auth::user()->accountUser()->first()->account_id])
-                    ->log($authUser->getFullNameAttribute().' Login in Clint dashboard');
+                    ->log($authUser->fullName.' Login in Clint dashboard');
 
                 return redirect()->route('dashboard');
             }

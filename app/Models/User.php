@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -9,7 +11,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -17,7 +18,6 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    
 
     /**
      * The attributes that are mass assignable.
@@ -75,13 +75,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the user's full name.
+     * Get User Full Name.
      *
-     * @return string
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getFullNameAttribute()
+    public function fullName(): Attribute
     {
-        return "{$this->first_name} {$this->last_name}";
+        return new Attribute(
+            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
+        );
     }
 
     /**
