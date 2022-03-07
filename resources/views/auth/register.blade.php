@@ -1,7 +1,7 @@
 <x-auth-layout>
 
     <!--begin::Signup Form-->
-    <form method="POST" action="{{ theme()->getPageUrl('register') }}" class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
+    <form method="POST" action="{{ route('register') }}" class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
         @csrf
 
         <!--begin::Heading-->
@@ -16,7 +16,7 @@
             <div class="text-gray-400 fw-bold fs-4">
                 {{ __('Already have an account?') }}
 
-                <a href="{{ theme()->getPageUrl('login') }}" class="link-primary fw-bolder">
+                <a href="{{ route('login') }}" class="link-primary fw-bolder">
                     {{ __('Sign in here') }}
                 </a>
             </div>
@@ -114,5 +114,8 @@
         <!--end::Actions-->
     </form>
     <!--end::Signup Form-->
+    @push('scripts')
+        <script src="skin/js/custom/authentication/sign-up/general.js"></script>  
+    @endpush
 
 </x-auth-layout>

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Core\Adapters\Theme;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -29,15 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $theme = theme();
-        // Share theme adapter class
-        View::share('theme', $theme);
-        $theme->setDemo('skin');
-
-        $theme->initConfig();
-
-        bootstrap()->run();
-
         Paginator::useBootstrap();
 
         view()->composer('*', function ($view) {

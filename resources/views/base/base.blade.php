@@ -1,85 +1,37 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"{!! theme()->printHtmlAttributes('html') !!} {{ theme()->printHtmlClasses('html') }}>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 {{-- begin::Head --}}
 <head>
     <meta charset="utf-8"/>
-    <title>{{ ucfirst(theme()->getOption('meta', 'title')) }} | Steer Campaign</title>
-    <meta name="description" content="{{ ucfirst(theme()->getOption('meta', 'description')) }}"/>
-    <meta name="keywords" content="{{ theme()->getOption('meta', 'keywords') }}"/>
-    <link rel="canonical" href="{{ ucfirst(theme()->getOption('meta', 'canonical')) }}"/>
+    <title>Steer Campaign</title>
+    <meta name="description" content="Steer Campaign the marketing automation solution based on Mautic"/>
+    <meta name="keywords" content="marketing automation, mautic, white-label"/>
+    <link rel="canonical" href="{{ url()->current() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" href="{{ asset(theme()->getDemo() . '/' .theme()->getOption('assets', 'favicon')) }}"/>
+    <link rel="shortcut icon" href="skin/media/logos/favicon.ico"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- begin::Fonts --}}
-    {{ theme()->includeFonts() }}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
     {{-- end::Fonts --}}
-
-    @if (theme()->hasOption('page', 'assets/vendors/css'))
-        {{-- begin::Page Vendor Stylesheets(used by this page) --}}
-        @foreach (array_unique(theme()->getOption('page', 'assets/vendors/css')) as $file)
-            {!! preloadCss(assetCustom($file)) !!}
-        @endforeach
-        {{-- end::Page Vendor Stylesheets --}}
-    @endif
-
-    @if (theme()->hasOption('page', 'assets/custom/css'))
-        {{-- begin::Page Custom Stylesheets(used by this page) --}}
-        @foreach (array_unique(theme()->getOption('page', 'assets/custom/css')) as $file)
-            {!! preloadCss(assetCustom($file)) !!}
-        @endforeach
-        {{-- end::Page Custom Stylesheets --}}
-    @endif
-
-    @if (theme()->hasOption('assets', 'css'))
-        {{-- begin::Global Stylesheets Bundle(used by all pages) --}}
-        @foreach (array_unique(theme()->getOption('assets', 'css')) as $file)
-            @if (strpos($file, 'plugins') !== false)
-                {!! preloadCss(assetCustom($file)) !!}
-            @else
-                <link href="{{ assetCustom($file) }}" rel="stylesheet" type="text/css"/>
-            @endif
-        @endforeach
-        {{-- end::Global Stylesheets Bundle --}}
-    @endif
+    
+    <link rel="preload" href="{{ asset('skin/plugins/global/plugins.bundle.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'" type="text/css"><noscript><link rel="stylesheet" href="https://sc.ddev.site/skin/plugins/global/plugins.bundle.css"></noscript>
+    <link rel="preload" href="{{ asset('skin/plugins/global/plugins-custom.bundle.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'" type="text/css"><noscript><link rel="stylesheet" href="https://sc.ddev.site/skin/plugins/global/plugins-custom.bundle.css"></noscript>
+    <link href="{{ asset('skin/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
 
     @stack('styles')
 </head>
 {{-- end::Head --}}
 
 {{-- begin::Body --}}
-<body {!! theme()->printHtmlAttributes('body') !!} {!! theme()->printHtmlClasses('body') !!} {!! theme()->printCssVariables('body') !!}>
-
-@if (theme()->getOption('layout', 'loader/display') === true)
-    {{ theme()->getView('layout/_loader') }}
-@endif
+<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"   style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
 
 @yield('content')
 
-{{-- begin::Javascript --}}
-@if (theme()->hasOption('assets', 'js'))
-    {{-- begin::Global Javascript Bundle(used by all pages) --}}
-    @foreach (array_unique(theme()->getOption('assets', 'js')) as $file)
-        <script src="{{ asset(theme()->getDemo() . '/' .$file) }}"></script>
-    @endforeach
-    {{-- end::Global Javascript Bundle --}}
-@endif
+<script src="{{ asset('skin/plugins/global/plugins.bundle.js') }}" type="application/javascript"></script>
+<script src="{{ asset('skin/js/scripts.bundle.js') }}" type="application/javascript"></script>
+<script src="{{ asset('skin/js/custom/widgets.js') }}" type="application/javascript"></script>
 
-@if (theme()->hasOption('page', 'assets/vendors/js'))
-    {{-- begin::Page Vendors Javascript(used by this page) --}}
-    @foreach (array_unique(theme()->getOption('page', 'assets/vendors/js')) as $file)
-        <script src="{{ asset(theme()->getDemo() . '/' .$file) }}"></script>
-    @endforeach
-    {{-- end::Page Vendors Javascript --}}
-@endif
-
-@if (theme()->hasOption('page', 'assets/custom/js'))
-    {{-- begin::Page Custom Javascript(used by this page) --}}
-    @foreach (array_unique(theme()->getOption('page', 'assets/custom/js')) as $file)
-        <script src="{{ asset(theme()->getDemo() . '/' .$file) }}"></script>
-    @endforeach
-    {{-- end::Page Custom Javascript --}}
-@endif
 {{-- end::Javascript --}}
 
 @stack('scripts')

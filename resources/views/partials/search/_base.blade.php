@@ -6,7 +6,7 @@
     <!--begin::Search toggle-->
     <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
         <div class="btn btn-icon btn-active-light-primary btn-custom">
-            {!! theme()->getSvgIcon('icons/duotune/general/gen021.svg', 'svg-icon-1') !!}
+            {!! get_svg_icon('icons/duotune/general/gen021.svg', 'svg-icon-1') !!}
         </div>
     </div>
     <!--end::Search toggle-->
@@ -15,7 +15,7 @@
     <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px">
         <!--begin::Wrapper-->
         <div data-kt-search-element="wrapper">
-            {{ theme()->getView('partials/search/partials/_form') }}
+            @include('partials/search/partials/_form')
             <div class="separator border-gray-200 mb-6"></div>
             <div data-kt-search-element="results" class="d-none">
             </div>

@@ -16,9 +16,6 @@
         <include>
             <directory suffix=".php">./app</directory>
         </include>
-        <exclude>
-        <directory suffix=".php">./app/Core</directory>
-        </exclude>
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>

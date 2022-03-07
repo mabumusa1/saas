@@ -1,5 +1,5 @@
 <!--begin::Container-->
-<div id="kt_content_container" class="{{ theme()->printHtmlClasses('content-container', false) }}">
+<div id="kt_content_container" class="container-xxl">
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}

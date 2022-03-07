@@ -1,6 +1,6 @@
 <x-auth-layout>
     <!--begin::Forgot Password Form-->
-    <form method="POST" action="{{ theme()->getPageUrl('password.email') }}" class="form w-100" novalidate="novalidate" id="kt_password_reset_form">
+    <form method="POST" action="{{ route('password.email') }}" class="form w-100" novalidate="novalidate" id="kt_password_reset_form">
     @csrf
 
         <!--begin::Heading-->
@@ -32,7 +32,7 @@
                 @include('partials.general._button-indicator')
             </button>
 
-            <a href="{{ theme()->getPageUrl('login') }}" class="btn btn-lg btn-light-primary fw-bolder">{{ __('Cancel') }}</a>
+            <a href="{{ route('login') }}" class="btn btn-lg btn-light-primary fw-bolder">{{ __('Cancel') }}</a>
         </div>
         <!--end::Actions-->
     </form>
