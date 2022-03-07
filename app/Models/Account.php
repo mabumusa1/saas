@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function Illuminate\Events\queueable;
 use Laravel\Cashier\Billable;
 
 class Account extends Model
@@ -75,4 +76,39 @@ class Account extends Model
         return $this->hasMany(Group::class);
     }
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updated(queueable(function ($customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
+    }
+
+    public function stripeAddress()
+    {
+        return [
+            'line1'                 => $this->line1,
+            'line2'                 => $this->line2,
+            'city'                   => $this->city,
+            'state'                => $this->state,
+            'country'           => $this->country,
+            'postal_code'   => $this->postalCode,
+        ];
+    }
+
+    public function stripePhone()
+    {
+        return $this->phone;
+    }
+
+    public function stripeEmail()
+    {
+        return $this->email;
+    }
 }
