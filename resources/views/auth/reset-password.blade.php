@@ -1,7 +1,7 @@
 <x-auth-layout>
 
     <!--begin::Reset Password Form-->
-    <form method="POST" action="{{ theme()->getPageUrl('password.update') }}" class="form w-100" novalidate="novalidate" id="kt_new_password_form">
+    <form method="POST" action="{{ route('password.update') }}" class="form w-100" novalidate="novalidate" id="kt_new_password_form">
         @csrf
 
         <!-- Password Reset Token -->
@@ -83,14 +83,15 @@
                 @include('partials.general._button-indicator')
             </button>
 
-            <a href="{{ theme()->getPageUrl('login') }}" class="btn btn-lg btn-light-primary fw-bolder">{{ __('Cancel') }}</a>
+            <a href="{{ route('login') }}" class="btn btn-lg btn-light-primary fw-bolder">{{ __('Cancel') }}</a>
         </div>
         <!--end::Actions-->
     </form>
     <!--end::Reset Password Form-->
 
     @push('scripts')
-        <script src="{{ asset($request->input('demo', 'skin') . '/js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
+        <script src="{{ asset('skin/js/custom/authentication/password-reset/password-reset.js') }}" type="application/javascript"></script>
+        <script src="{{ asset('skin/js/custom/authentication/password-reset/new-password.js') }}" type="application/javascript"></script>
     @endpush
 
 </x-auth-layout>

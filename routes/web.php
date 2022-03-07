@@ -11,14 +11,11 @@
 |
 */
 
-use App\Http\Controllers\SearchController;
-
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('site_search', SearchController::class)->name('site.search');
+    Route::get('site_search', App\Http\Controllers\SearchController::class)->name('site.search');
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index'])->name('localization');
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
         Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
             'index', 'destroy',

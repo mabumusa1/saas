@@ -16,7 +16,7 @@
 <div class="notice d-flex bg-light-{{ $color }} rounded border-{{ $color }} border border-dashed {{ $class }} {{ $padding }}">
     @if ($icon)
         <!--begin::Icon-->
-        {!! theme()->getSvgIcon($icon, "svg-icon-2tx svg-icon-" . $color . " me-4") !!}
+        {!! get_svg_icon($icon, "svg-icon-2tx svg-icon-" . $color . " me-4") !!}
         <!--end::Icon-->
     @endif
 

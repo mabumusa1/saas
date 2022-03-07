@@ -67,7 +67,7 @@
                                     <!--begin::Wrapper-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Icon-->
-                                        <img src="{{ asset(theme()->getMediaUrlPath() . '/svg/card-logos/' . $paymentMethod->card->brand . '.svg') }}"
+                                        <img src="{{ asset('skin/media/svg/card-logos/' . $paymentMethod->card->brand . '.svg') }}"
                                             alt="" class="me-4">
                                         <!--end::Icon-->
                                         <!--begin::Details-->

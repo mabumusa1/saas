@@ -17,7 +17,7 @@
             <div class="text-gray-400 fw-bold fs-4">
                 {{ __('New Here?') }}
 
-                <a href="{{ theme()->getPageUrl('register') }}" class="link-primary fw-bolder">
+                <a href="{{ route('register') }}" class="link-primary fw-bolder">
                     {{ __('Create an Account') }}
                 </a>
             </div>
@@ -51,7 +51,7 @@
 
                 <!--begin::Link-->
                 @if (Route::has('password.request'))
-                    <a href="{{ theme()->getPageUrl('password.request') }}" class="link-primary fs-6 fw-bolder">
+                    <a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">
                         {{ __('Forgot Password ?') }}
                     </a>
                 @endif
@@ -88,4 +88,7 @@
     </form>
     <!--end::Signin Form-->
 
+    @push('scripts')
+        <script src="skin/js/custom/authentication/sign-in/general.js"></script>  
+    @endpush
 </x-auth-layout>
