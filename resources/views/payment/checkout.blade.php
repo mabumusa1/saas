@@ -1,5 +1,6 @@
 <x-base-layout>
     @push('scripts')
+        <script src="{{ asset('skin/js/custom/payment/checkout.js') }}"></script>
         <script>
             var exceeder = {};
             document.querySelector('[data-kt-buttons="true"]').children.forEach(function(button) {
@@ -166,7 +167,7 @@
 
         </style>
     @endpush
-    <div class="post d-flex flex-column-fluid" id="kt_post">
+    <div class="post d-flex flex-column-fluid" id="kt_post" data-plans="{!! json_encode($plans) !!}">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <!--begin::Pricing card-->
