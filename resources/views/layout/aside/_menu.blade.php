@@ -66,96 +66,55 @@
     <div
         class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
         id="#kt_aside_menu" data-kt-menu="true">
-        @if(!Gate::allows('isAdmin'))
+        @if(Gate::allows('isAdmin'))
+            <div class="menu-item">
+                <a class="menu-link" href="{{ route('dashboard.index', $currentAccount->id) }}">
+                  <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
+                      <span class="svg-icon svg-icon-2">
+                        {!! get_svg_icon('skin/media/icons/duotune/abstract/abs046.svg') !!}
+                      </span>
+                      <!--end::Svg Icon-->
+                </span>
+                    <span class="menu-title">{{ __('Accounts') }}</span>
+                </a>
+            </div>
+        @else
+            <!-- Dashboard -->
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('dashboard', $currentAccount->id) }}">
                 <span class="menu-icon">
-                    <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art002.svg-->
                     <span class="svg-icon svg-icon-2">
-                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
-                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <g id="Stockholm-icons-/-Layout-/-Layout-grid" stroke="none" stroke-width="1" fill="none"
-                               fill-rule="evenodd">
-                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
-                                <rect id="Rectangle-7" fill="#000000" opacity="0.3" x="4" y="4" width="4" height="4"
-                                      rx="1"></rect>
-                                <path
-                                    d="M5,10 L7,10 C7.55228475,10 8,10.4477153 8,11 L8,13 C8,13.5522847 7.55228475,14 7,14 L5,14 C4.44771525,14 4,13.5522847 4,13 L4,11 C4,10.4477153 4.44771525,10 5,10 Z M11,4 L13,4 C13.5522847,4 14,4.44771525 14,5 L14,7 C14,7.55228475 13.5522847,8 13,8 L11,8 C10.4477153,8 10,7.55228475 10,7 L10,5 C10,4.44771525 10.4477153,4 11,4 Z M11,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,13 C14,13.5522847 13.5522847,14 13,14 L11,14 C10.4477153,14 10,13.5522847 10,13 L10,11 C10,10.4477153 10.4477153,10 11,10 Z M17,4 L19,4 C19.5522847,4 20,4.44771525 20,5 L20,7 C20,7.55228475 19.5522847,8 19,8 L17,8 C16.4477153,8 16,7.55228475 16,7 L16,5 C16,4.44771525 16.4477153,4 17,4 Z M17,10 L19,10 C19.5522847,10 20,10.4477153 20,11 L20,13 C20,13.5522847 19.5522847,14 19,14 L17,14 C16.4477153,14 16,13.5522847 16,13 L16,11 C16,10.4477153 16.4477153,10 17,10 Z M5,16 L7,16 C7.55228475,16 8,16.4477153 8,17 L8,19 C8,19.5522847 7.55228475,20 7,20 L5,20 C4.44771525,20 4,19.5522847 4,19 L4,17 C4,16.4477153 4.44771525,16 5,16 Z M11,16 L13,16 C13.5522847,16 14,16.4477153 14,17 L14,19 C14,19.5522847 13.5522847,20 13,20 L11,20 C10.4477153,20 10,19.5522847 10,19 L10,17 C10,16.4477153 10.4477153,16 11,16 Z M17,16 L19,16 C19.5522847,16 20,16.4477153 20,17 L20,19 C20,19.5522847 19.5522847,20 19,20 L17,20 C16.4477153,20 16,19.5522847 16,19 L16,17 C16,16.4477153 16.4477153,16 17,16 Z"
-                                    id="Combined-Shape" fill="#000000"></path>
-                            </g>
-                        </svg>
+                        {!! get_svg_icon('skin/media/icons/duotune/general/gen001.svg') !!}
                     </span>
                     <!--end::Svg Icon-->
                 </span>
                     <span class="menu-title">{{ __('Dashboard') }}</span>
                 </a>
             </div>
-        @endif
-        @if(Gate::allows('isAdmin'))
-            <div class="menu-item">
-                <a class="menu-link" href="{{ route('dashboard.index', $currentAccount->id) }}">
-                  <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
-                      <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                            <path opacity="0.3"
-                                  d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                  fill="black"></path>
-                            <path
-                                d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                fill="black"></path>
-                        </svg>
-                </span>
-                      <!--end::Svg Icon-->
-                </span>
-                    <span class="menu-title">{{ __('Accounts') }}</span>
-                </a>
-            </div>
-        @endif
-
-        @if(!Gate::allows('isAdmin'))
+            <!-- Sites -->
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
                     <span class="menu-icon">
                         <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art003.svg-->
                         <span class="svg-icon svg-icon-2">
-                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
-                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g id="Stockholm-icons-/-Layout-/-Layout-top-panel-6" stroke="none" stroke-width="1"
-                                   fill="none" fill-rule="evenodd">
-                                    <rect id="bound" x="0" y="0" width="24" height="24"></rect>
-                                    <rect id="Rectangle-7-Copy" fill="#000000" x="2" y="5" width="19" height="4"
-                                          rx="1"></rect>
-                                    <rect id="Rectangle-7-Copy-4" fill="#000000" opacity="0.3" x="2" y="11" width="19"
-                                          height="10" rx="1"></rect>
-                                </g>
-                            </svg>
-                    </span>
+                            {!! get_svg_icon('skin/media/icons/duotune/abstract/abs027.svg') !!}
+                        </span>
                         <!--end::Svg Icon-->
                     </span>
                     <span class="menu-title">{{ __('Sites') }}</span>
                 </a>
             </div>
-        @endif
-        @if(!Gate::allows('isAdmin'))
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion"><span class="menu-link"><span
-                    class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
-            <span class="svg-icon svg-icon-2">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                     xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="Stockholm-icons-/-General-/-User" stroke="none" stroke-width="1" fill="none"
-                       fill-rule="evenodd">
-                        <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
-                        <path
-                            d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z"
-                            id="Mask" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-                        <path
-                            d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z"
-                            id="Mask-Copy" fill="#000000" fill-rule="nonzero"></path>
-                    </g>
-                </svg>
+            <!-- Users -->
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion"><span class="menu-link">
+                <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
+                    <span class="svg-icon svg-icon-2">
+                        {!! get_svg_icon('skin/media/icons/duotune/communication/com014.svg') !!}
+                    </span>
+                <!--end::Svg Icon-->
+                </span>
+                <span class="menu-title">{{ __('Users') }}</span>
+                <span class="menu-arrow"></span>
             </span>
-                    <!--end::Svg Icon--></span><span class="menu-title">{{ __('Users') }}</span><span
-                    class="menu-arrow"></span></span>
             <div class="menu-sub menu-sub-accordion menu-active-bg">
                 <div class="menu-item">
                     <a class="menu-link" href="{{ route('users.index', $currentAccount->id) }}">
@@ -165,16 +124,62 @@
                         <span class="menu-title">{{ __('Account Users') }}</span>
                     </a>
                 </div>
-                <div class="menu-item"><a class="menu-link"
-                                          href="{{ route('contacts.index', $currentAccount->id) }}"><span
-                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ __('Techincal Contacts') }}</span></a>
+                <div class="menu-item">
+                    <a class="menu-link" href="{{ route('contacts.index', $currentAccount->id) }}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">{{ __('Techincal Contacts') }}</span>
+                    </a>
                 </div>
-                <div class="menu-item"><a class="menu-link" href="{{ route('logs.index', $currentAccount->id) }}"><span
-                            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ __('Activity Log') }}</span></a>
+                <div class="menu-item">
+                    <a class="menu-link" href="{{ route('logs.index', $currentAccount->id) }}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">{{ __('Activity Log') }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @endif
+
+
+
+        @if(!Gate::allows('isAdmin'))
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <span class="menu-link">
+                <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
+                <span class="svg-icon svg-icon-2">
+                    {!! get_svg_icon('skin/media/icons/duotune/finance/fin002.svg') !!}
+                </span>
+                        <!--end::Svg Icon-->
+                </span>
+                <span class="menu-title">{{ __('Billing') }}</span>
+                <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion menu-active-bg">
+                <div class="menu-item">
+                    <a class="menu-link" href="{{ route('billing.index', $currentAccount->id) }}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">{{ __('Invoices') }}</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">{{ __('Modify Subscriptions') }}</span>
+                    </a>
                 </div>
             </div>
         </div>
         @endif
+       
     </div>
     {{--end::Menu--}}
 </div>

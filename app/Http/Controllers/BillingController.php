@@ -9,8 +9,16 @@ use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PaymentController extends Controller
+class BillingController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function index(Account $account)
+    {
+        return view('billing.index');
+    }
+
     /**
      * @return \Illuminate\Contracts\View\View
      */
