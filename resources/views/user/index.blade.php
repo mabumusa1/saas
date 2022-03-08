@@ -8,23 +8,28 @@
                 <div class="table-responsive">
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
-                        <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th>{{ __('Full name') }}</th>
-                            <th>{{ __('Email') }}</th>
-                            <th>{{ __('Phone') }}</th>
-                            <th>{{ __('Account access') }}</th>
-                            <th>{{ __('Actions') }}</th>
-                        </tr>
+                            <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                <th>{{ __('Full name') }}</th>
+                                <th>{{ __('Email') }}</th>
+                                <th>{{ __('Phone') }}</th>
+                                <th>{{ __('Account access') }}</th>
+                                <th>{{ __('Actions') }}</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user )
-                            <tr>
-                                <td>{{ $user->fullName }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ isset(roles()[$user->pivot->role]) ? roles()[$user->pivot->role] : '' }}</td>
-                                <td><a href="{{ route('users.edit',[$currentAccount->id, $user->id]) }}">{{ __('Edit') }}</a></td>
-                            </tr>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->fullName }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ isset(roles()[$user->pivot->role]) ? roles()[$user->pivot->role] : '' }}
+                                    </td>
+                                    @if ($user->pivot->role !== 'owner' || ($user->pivot->role === 'owner' && $canEditOwner))
+                                        <td><a
+                                                href="{{ route('users.edit', [$currentAccount->id, $user->id]) }}">{{ __('Edit') }}</a>
+                                        </td>
+                                    @endif
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

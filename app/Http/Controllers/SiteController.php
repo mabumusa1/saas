@@ -67,7 +67,7 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        $installs = Install::all();
+        $installs = $account->installs;
 
         return view('sites.create', compact('installs'));
     }

@@ -23,6 +23,7 @@
                 <h5 class="text-white">{{  \Illuminate\Support\Str::words($currentAccount->name, 2, '...')   }} </h5>
             </div>
         </div>
+        @if(Auth::user()->accounts()->count() > 1)
         <!--begin::Trigger-->
         <button type="button" class="btn btn-primary w-100"
                 data-kt-menu-trigger="click"
@@ -58,6 +59,7 @@
 
             @endforeach
         </div>
+        @endif
     </div>
 
     {{--begin::Menu--}}
@@ -109,7 +111,7 @@
                 </a>
             </div>
         @endif
- 
+
         @if(!Gate::allows('isAdmin'))
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
@@ -172,7 +174,7 @@
                 </div>
             </div>
         </div>
-        @endif        
+        @endif
     </div>
     {{--end::Menu--}}
 </div>
