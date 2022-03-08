@@ -53,6 +53,11 @@ class Account extends Model
         return $this->hasMany(Site::class);
     }
 
+    public function installs()
+    {
+        return $this->hasManyThrough(Install::class, Site::class);
+    }
+
     /**
      * Get all of the Groups for the Account.
      *
