@@ -26,7 +26,7 @@ if (! function_exists('get_svg_icon')) {
 
         if (! file_exists($file_path)) {
             return '';
-        }        
+        }
         $svg_content = file_get_contents($file_path);
 
         if (empty($svg_content)) {
