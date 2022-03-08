@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
@@ -53,7 +54,12 @@ class Account extends Model
         return $this->hasMany(Site::class);
     }
 
-    public function installs()
+    /**
+     * Get all of the installs for the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function installs(): HasManyThrough
     {
         return $this->hasManyThrough(Install::class, Site::class);
     }
