@@ -121,7 +121,7 @@
                 });
                 var price = document.querySelector('[data-kt-element="price"]');
                 var purchaseButton = document.querySelector('.purchase-button');
-                if (plan) {
+                if (plan && plan.contacts <= 100000) {
                     document.querySelector('#plan-name').textContent = plan.name;
 
                     price.setAttribute('data-kt-plan-price-month', plan.monthly_price);
