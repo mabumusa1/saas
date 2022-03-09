@@ -90,21 +90,14 @@ class Account extends Model
         }));
     }
 
-    public function stripeAddress()
+    /**
+     * Get the customer name that should be synced to Stripe.
+     *
+     * @return string|null
+     */
+    public function stripeName()
     {
-        return [
-            'line1'                 => $this->line1,
-            'line2'                 => $this->line2,
-            'city'                   => $this->city,
-            'state'                => $this->state,
-            'country'           => $this->country,
-            'postal_code'   => $this->postalCode,
-        ];
-    }
-
-    public function stripePhone()
-    {
-        return $this->phone;
+        return $this->name;
     }
 
     public function stripeEmail()

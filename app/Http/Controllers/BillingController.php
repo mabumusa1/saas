@@ -16,7 +16,26 @@ class BillingController extends Controller
      */
     public function index(Account $account)
     {
-        return view('billing.index');
+        if ($account->hasDefaultPaymentMethod()) {
+            return view('billing.index');
+        } else {
+            return view('billing.index', ['intent' => $account->createSetupIntent()]);
+        }
+    }
+
+    public function store(Account $account, Request $request)
+    {
+        if ($request->has('payment_method')) {
+            $stripeCustomer = $account->createOrGetStripeCustomer(['name' => $account->name, 'email' => $account->email]);
+            $paymentMethod = $request->input('payment_method');
+            $account->addPaymentMethod($paymentMethod);
+            $account->updateDefaultPaymentMethod($paymentMethod);
+            $account->updateDefaultPaymentMethodFromStripe();
+
+            return response()->json(['message' => __('Saved Card Information')], 200);
+        } else {
+            abort(403);
+        }
     }
 
     /**
