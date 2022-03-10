@@ -23,6 +23,26 @@ class Subscription extends CashierSubscription
         return $query->has('sites', '<', DB::raw('`quantity`'));
     }
 
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class, 'name', 'name');
+    }
+
+    public function period(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                if ($this->plan->stripe_yearly_price_id === $this->stripe_price) {
+                    return 'yearly';
+                } elseif ($this->plan->stripe_monthly_price_id === $this->stripe_price) {
+                    return 'monthly';
+                }
+
+                return null;
+            }
+        );
+    }
+
     /**
      * Get User Full Name.
      *
