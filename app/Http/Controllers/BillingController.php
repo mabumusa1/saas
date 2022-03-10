@@ -42,6 +42,7 @@ class BillingController extends Controller
     public function update(UpdateBillingRequest $request, Account $account)
     {
         $account->updateStripeCustomer($request->validated());
+        $account->update($request->validated());
 
         return redirect()->back();
     }
