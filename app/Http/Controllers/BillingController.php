@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CheckoutLinkRequest;
-use App\Http\Requests\makePayLinkRequest;
 use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class BillingController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(Account $account)
+    public function index(Account $account, Request $request)
     {
-        if ($account->hasDefaultPaymentMethod()) {
+        if ($account->hasDefaultPaymentMethod() && !$request->has('update') ) {
             return view('billing.index');
         } else {
             return view('billing.index', ['intent' => $account->createSetupIntent()]);
@@ -38,50 +38,26 @@ class BillingController extends Controller
         }
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function checkout(Account $account)
+    public function manageSubscriptions(Account $account, Request $request)
     {
-        $plans = Plan::all();
-
-        return view('payment.checkout', ['plans' => $plans]);
+        $plans = Plan::where('available', true)->get();
+        return view('billing.manageSubscriptions', compact('plans'));
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function makeCheckoutLink(Account $account, CheckoutLinkRequest $request)
+    public function subscribe(Account $account, Plan $plan, Request $request)
     {
-        $plan = Plan::find($request->plan);
-        $payLink = $account
-        ->newSubscription($plan->name, ($request->get('options')['annual']) ? $plan->stripe_yearly_price_id : $plan->stripe_monthly_price_id)
-        ->quantity($request->input('options.quantity'))
-        ->allowPromotionCodes()
-        ->checkout([
-            'success_url' => route('payment.billing', $account->id),
-            'cancel_url' => route('payment.checkout', $account->id),
+        $validated = $request->validate([
+            'period' => ['required',
+            Rule::in(['year', 'month'])]
         ]);
-
-        return response()->json(['link' => $payLink]);
-    }
-
-    public function billing(Account $account)
-    {
-        $receipts = [];
-        $paymentMethods = $account->paymentMethods();
-        $intent = $account->createSetupIntent();
-        // $receipt = $receipts[0];
-        // dd($receipt->subscription->name, $receipt->quantity, $receipts[0]->amount, $receipt->tax);
-        return view('payment.billing', compact('receipts', 'paymentMethods', 'intent'));
-    }
-
-    public function billing_portal(Account $account, Request $request)
-    {
-        return view('payment.accountBillingInfo');
-        /*if($account->hasStripeId()){
-            $account->createOrGetStripeCustomer();
+        $price = null;
+        if($request->input('period') == 'month'){
+            $price = $plan->stripe_monthly_price_id;
+        }else{
+            $price = $plan->stripe_yearly_price_id;
         }
-        return $request->account->redirectToBillingPortal(route('sites.index', $account));*/
+       $account->newSubscription($plan->name, $price)->create($account->defaultPaymentMethod()->id);
+       return redirect(route('sites.index', [$account->id]))->with('status', __('New site has been added to your account') );;
     }
+
 }

@@ -21,16 +21,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::prefix('billing')->middleware('can:changeBilling,account')->group(function () {
             Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('billing.index');
             Route::put('/', [App\Http\Controllers\BillingController::class, 'store'])->name('billing.update');
+            Route::get('/mange_subscriptions', [App\Http\Controllers\BillingController::class, 'manageSubscriptions'])->name('billing.manageSubscriptions');
+            Route::post('/subscribe/{plan}', [App\Http\Controllers\BillingController::class, 'subscribe'])->name('billing.subscribe');
+            Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
+    
         });
-
-        //Route::get('checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
-        //Route::post('makeCheckoutLink', [App\Http\Controllers\PaymentController::class, 'makeCheckoutLink'])->name('payment.makeCheckoutLink');
+       
         Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
             'index', 'destroy',
         ]);
 
-        Route::get('subscriptions', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('subscriptions.index');
-        Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);

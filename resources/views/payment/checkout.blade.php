@@ -173,7 +173,6 @@
             <div class="card" id="kt_pricing">
                 <!--begin::Card body-->
                 <div class="card-body p-lg-17">
-
                     <div class="row">
                         <div class="col-8">
                             <div class="nav-group nav-group-outline mx-auto mb-15 d-flex" data-kt-buttons="true">

@@ -6,10 +6,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    @include('billing.partials.info')
+                    @include('billing.partials.billingInfo')
                 </div>
                 <div class="col-6">
                     @include('billing.partials.cards')
+                </div>
+            </div>
+            <hr class="mt-5 mb-5"/>
+            <div class="row">
+                <div class="col">
+                    @include('billing.partials.subscriptions')
                 </div>
             </div>
         </div>

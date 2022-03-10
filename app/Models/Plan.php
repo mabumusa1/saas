@@ -16,15 +16,17 @@ class Plan extends Model
      */
     protected $fillable = [
         'name',
+        'display_name',
         'short_description',
         'stripe_product_id',
         'stripe_monthly_price_id',
         'stripe_yearly_price_id',
         'monthly_price',
         'yearly_price',
-        // 'features',
+         'features',
         'contacts',
         'options',
+        'available'
     ];
 
     /**
@@ -36,4 +38,11 @@ class Plan extends Model
         'features' => 'array',
         'options' => 'array',
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['id', 'available', 'stripe_product_id', 'stripe_monthly_price_id', 'stripe_yearly_price_id', 'created_at', 'updated_at', 'archived', 'options', 'features'];    
 }

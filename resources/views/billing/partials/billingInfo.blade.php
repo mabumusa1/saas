@@ -15,7 +15,7 @@
                 <input id="billing-email" name="email" type="email" class="form-control" placeholder="{{$currentAccount->email}}" value="{{$currentAccount->email}}">
             </div>
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">{{__('Update Billing')}}</button>
+                <button type="submit" class="btn btn-primary me-2 mb-2">{{__('Update Billing')}}</button>
             </div>                                
         </form>
     </div>

@@ -4,7 +4,8 @@
 </div>    
 <div id="card-element-error" class="mt-2 mb-5 text-red" role="alert"></div>
 <div class="d-flex justify-content-end">
-    <button id="card-button" type="submit" class="btn btn-primary" data-secret="{{ $intent->client_secret }}">
+    <a href="{{ route('billing.index', $currentAccount->id) }}" class="btn btn-secondary me-2 mb-2">{{ __('Cancel') }}</a>
+    <button id="card-button" type="submit" class="btn btn-primary me-2 mb-2" data-secret="{{ $intent->client_secret }}">
         <span class="indicator-label">
             {{__('Save payment method')}}
         </span>
@@ -70,7 +71,7 @@ cardButton.addEventListener('click', async (event) => {
         axios.put('{{route("billing.update", $currentAccount->id)}}', {payment_method: setupIntent.payment_method}, {headers: {'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')}})
         .then(function(data){
             errorHandler.textContent = "";
-            location.reload();
+            window.location.href = "{{ route('billing.index', $currentAccount->id) }}"
         }).catch(function(error){
             cardElementError.innerHTML = `
             <span><i class="fas fa-exclamation-circle text-danger"></i></span>
