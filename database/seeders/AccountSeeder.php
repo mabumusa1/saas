@@ -10,7 +10,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
-
 class AccountSeeder extends Seeder
 {
     /**
@@ -30,7 +29,7 @@ class AccountSeeder extends Seeder
                     fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
                 )
             )->sequence(
-                fn($sequence) => ['stripe_id' => ($sequence->index % 2 === 0) ? Arr::random(['cus_LGPH3brjCTaQXY', 'cus_LGPH3brjCTaQOP']) : null]
+                fn ($sequence) => ['stripe_id' => ($sequence->index % 2 === 0) ? Arr::random(['cus_LGPH3brjCTaQXY', 'cus_LGPH3brjCTaQOP']) : null]
             )
             ->create();
         }

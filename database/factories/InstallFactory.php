@@ -17,7 +17,7 @@ class InstallFactory extends Factory
     public function definition()
     {
         return [
-            'name' =>  $this->faker->firstName() . " Install",
+            'name' =>  $this->faker->firstName().' Install',
             'type' => $this->faker->randomElement(['prd', 'stg', 'dev']),
         ];
     }

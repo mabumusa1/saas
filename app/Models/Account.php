@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use function Illuminate\Events\queueable;
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Cashier;
 
 class Account extends Model
 {
@@ -56,6 +58,16 @@ class Account extends Model
     }
 
     /**
+     * Get all of the installs for the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function installs(): HasManyThrough
+    {
+        return $this->hasManyThrough(Install::class, Site::class);
+    }
+
+    /**
      * Get all of the Groups for the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -79,21 +91,14 @@ class Account extends Model
         }));
     }
 
-    public function stripeAddress()
+    /**
+     * Get the customer name that should be synced to Stripe.
+     *
+     * @return string|null
+     */
+    public function stripeName()
     {
-        return [
-            'line1'                 => $this->line1,
-            'line2'                 => $this->line2,
-            'city'                   => $this->city,
-            'state'                => $this->state,
-            'country'           => $this->country,
-            'postal_code'   => $this->postalCode,
-        ];
-    }
-
-    public function stripePhone()
-    {
-        return $this->phone;
+        return $this->name;
     }
 
     public function stripeEmail()

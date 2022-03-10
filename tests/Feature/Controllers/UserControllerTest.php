@@ -115,7 +115,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_edit_displays_view()
+    public function test_edit_403_for_single_owner()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -124,6 +124,33 @@ class UserControllerTest extends TestCase
         AccountUser::factory()->create([
             'account_id' => $account->id,
             'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
+        $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
+
+        $response->assertForbidden();
+    }
+
+    /**
+     * @test
+     */
+    public function test_edit_displays_view()
+    {
+        $this->actingAs($user = User::factory()->create());
+        $user2 = User::factory()->create();
+
+        $account = Account::factory()->create();
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user2->id,
             'role' => 'owner',
         ]);
 

@@ -24,25 +24,20 @@
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th>{{ __('Log Id') }}</th>
-                            <th>{{ __('Log name') }}</th>
+                            <th>{{ __('Activity') }}</th>
                             <th>{{ __('Description') }}</th>
-                            <th>{{ __('Subject type') }}</th>
-                            <th>{{ __('Subject') }}</th>
-                            <th>{{ __('Causer type') }}</th>
-                            <th>{{ __('Causer') }}</th>
+                            <th>{{ __('By') }}</th>
+                            <th>{{ __('On') }}</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach ($activities as $activity)
                             <tr>
-                                <td>{{ $activity->id }}</td>
+
                                 <td>{{ $activity->log_name }}</td>
                                 <td>{{ $activity->description }}</td>
-                                <td>{{ $activity->subject_type }}</td>
-                                <td>{{ $activity->subject_id }}</td>
-                                <td>{{ $activity->causer_type }}</td>
-                                <td>{{ $activity->causer_id }}</td>
+                                <td>{{ $activity->causer->fullName }}</td>
+                                <td>{{ $activity->created_at }}</td>
                             </tr>
                             @endforeach
                         </tbody>

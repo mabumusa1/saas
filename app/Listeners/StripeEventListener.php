@@ -21,7 +21,7 @@ class StripeEventListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  WebhookReceived  $event
      * @return void
      */
     public function handle(WebhookReceived $event)

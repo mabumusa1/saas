@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
@@ -27,7 +28,9 @@ class UserController extends Controller
      */
     public function index(Account $account)
     {
-        return view('user.index', ['users' => $account->users]);
+        $canEditOwner = $account->users()->where('account_user.role', 'owner')->count() > 1;
+
+        return view('user.index', ['users' => $account->users, 'canEditOwner' => $canEditOwner]);
     }
 
     /**
@@ -80,6 +83,8 @@ class UserController extends Controller
      */
     public function edit(Account $account, User $user)
     {
+        abort_if($account->users()->where('account_user.role', 'owner')->count() === 1 && $user->accounts()->wherePivot('role', 'owner')->exists(), 403);
+
         return view('user.edit', compact('account', 'user'));
     }
 

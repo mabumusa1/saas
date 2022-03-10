@@ -2,22 +2,18 @@
 
 namespace App\Models\Cashier;
 
+use App\Models\Plan;
 use App\Models\Site;
 use DB;
-use Laravel\Cashier\Subscription as CashierSubscription;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use \Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription
 {
     use HasFactory;
 
-    /**
-     * Get all of the Sites for the Subscription
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function Sites(): HasMany
+    public function sites()
     {
         return $this->hasMany(Site::class);
     }
@@ -25,5 +21,19 @@ class Subscription extends CashierSubscription
     public function scopeAvailable($query)
     {
         return $query->has('sites', '<', DB::raw('`quantity`'));
+    }
+
+    /**
+     * Get User Full Name.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function displayName(): Attribute
+    {
+        $plan = Plan::where('name', $this->name)->first();
+
+        return new Attribute(
+            get: fn ($value) => $plan->display_name,
+        );
     }
 }

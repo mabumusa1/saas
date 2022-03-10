@@ -22,7 +22,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function makeCheckoutLink(Account $account, CheckoutLinkRequest $request)
     {

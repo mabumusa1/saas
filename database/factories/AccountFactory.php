@@ -26,13 +26,6 @@ class AccountFactory extends Factory
             'name' =>  $this->faker->firstName().' Account',
             'data_center_id' => 1,
             'email' => $this->faker->safeEmail(),
-            'phone' => $this->faker->phoneNumber(),
-            'line1' => $this->faker->streetAddress(),
-            'line2' => $this->faker->streetSuffix(),
-            'city'=> $this->faker->city(),
-            'state' => $this->faker->state(),
-            'country' => $this->faker->country(),
-            'postal_code' => $this->faker->postcode(),
         ];
     }
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Auth;
 use App\Models\Account;
+use Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CheckoutLinkRequest extends FormRequest
 {
@@ -15,16 +15,16 @@ class CheckoutLinkRequest extends FormRequest
      */
     public function authorize()
     {
-        
         if (Auth::check()) {
             try {
                 $allowedRoles = ['owner', 'fb', 'pb'];
                 $account = Account::find($this->account);
+
                 return $this->user()->belongToRoles($account, $allowedRoles);
             } catch (\Throwable $th) {
                 return false;
             }
-        } 
+        }
 
         return false;
     }

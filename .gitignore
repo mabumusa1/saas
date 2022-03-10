@@ -28,3 +28,4 @@ auth.json
 install_ddev.sh
 ddev/.gitignore
 .env.dusk.local
+.ddev/homeadditions/.gitconfig
