@@ -60,4 +60,12 @@ class BillingController extends Controller
        return redirect(route('sites.index', [$account->id]))->with('status', __('New site has been added to your account') );;
     }
 
+    public function invoice(Account $account, $invoiceId)
+    {
+        return $account->downloadInvoice($invoiceId, [
+            'vendor' => 'Your Company',
+            'product' => 'Your Product',
+        ]);
+    }
+
 }

@@ -7,18 +7,27 @@ if(request()->has('plan') && $plans->where('id', request()->input('plan'))->coun
 <x-base-layout>
     <div class="card">
         <div class="card-body">
-            <div class="card" id="kt_pricing">
-                <!--begin::Nav group-->
-                <div class="nav-group nav-group-outline mx-auto mb-15" data-kt-buttons="true">
-                    <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active" data-kt-plan="month">Monthly</a>
-                    <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3" data-kt-plan="annual">Annual</a>
-                </div>
-                <!--end::Nav group-->                        
-            </div>
             <div class="row">
-                <div class="col">
+                <div class="col-8">
                     <div class="card card-bordered border-gray-600 shadow-sm">
                         <div class="card-body">
+                            <h2 class="mb-4 text-center">{{ __('My Susbscriptions') }}</h2>
+                            @include('billing.partials.subscriptions')
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card card-bordered border-gray-600 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="mb-4 text-center">{{ __('Add a new subscription') }}</h2>
+                            <div class="card" id="kt_pricing">
+                                <!--begin::Nav group-->
+                                <div class="nav-group nav-group-outline mx-auto mb-15" data-kt-buttons="true">
+                                    <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active" data-kt-plan="month">Monthly</a>
+                                    <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3" data-kt-plan="annual">Annual</a>
+                                </div>
+                                <!--end::Nav group-->                        
+                            </div>
                             <label for="contactsNumber" class="form-label">{{ __('How many contacts do you have?') }}</label>                            
                             <select id="contactsNumber" class="form-select form-select-lg mb-3" aria-label="{{ __('Select your number of contacts') }}">
                                 @foreach ($plans as $plan )

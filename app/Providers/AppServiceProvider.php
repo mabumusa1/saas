@@ -34,7 +34,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Cashier::useCustomerModel(Account::class);
         Cashier::useSubscriptionModel(Subscription::class);
-        Cashier::useSubscriptionItemModel(SubscriptionItem::class);
         Paginator::useBootstrap();
         view()->composer('*', function ($view) {
             if (\Auth::check()) {

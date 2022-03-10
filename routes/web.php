@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::put('/', [App\Http\Controllers\BillingController::class, 'store'])->name('billing.update');
             Route::get('/mange_subscriptions', [App\Http\Controllers\BillingController::class, 'manageSubscriptions'])->name('billing.manageSubscriptions');
             Route::post('/subscribe/{plan}', [App\Http\Controllers\BillingController::class, 'subscribe'])->name('billing.subscribe');
+            Route::get('invoice/{invoice}', [App\Http\Controllers\BillingController::class, 'invoice'])->name('billing.invoice');
             Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
     
         });

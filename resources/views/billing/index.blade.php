@@ -15,7 +15,7 @@
             <hr class="mt-5 mb-5"/>
             <div class="row">
                 <div class="col">
-                    @include('billing.partials.subscriptions')
+                    @include('billing.partials.invoices')
                 </div>
             </div>
         </div>
