@@ -125,7 +125,7 @@ var KTSignupGeneral = function () {
                             });
                         })
                         .catch(function (error) {
-                            let dataMessage = error.response.data.message;
+                            let dataMessage = '';
                             let dataErrors = error.response.data.errors;
 
                             for (const errorsKey in dataErrors) {
@@ -134,15 +134,9 @@ var KTSignupGeneral = function () {
                             }
 
                             if (error.response) {
-                                Swal.fire({
-                                    text: dataMessage,
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
+                                const errorBag = document.querySelector('#errorBag');
+                                errorBag.classList.add('alert', 'alert-danger');
+                                errorBag.textContent = dataMessage;
                             }
                         })
                         .then(function () {

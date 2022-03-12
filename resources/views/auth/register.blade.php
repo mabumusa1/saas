@@ -4,6 +4,8 @@
     <form method="POST" action="{{ route('register') }}" class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
         @csrf
 
+
+
         <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
@@ -23,7 +25,7 @@
             <!--end::Link-->
         </div>
         <!--end::Heading-->
-
+        <div id="errorBag" class="text-center"></div>
         <!--begin::Input group-->
         <div class="row fv-row mb-7">
             <!--begin::Col-->
@@ -115,7 +117,7 @@
     </form>
     <!--end::Signup Form-->
     @push('scripts')
-        <script src="skin/js/custom/authentication/sign-up/general.js"></script>  
+        <script src="skin/js/custom/authentication/sign-up/general.js"></script>
     @endpush
 
 </x-auth-layout>
