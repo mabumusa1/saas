@@ -16,18 +16,10 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        $accounts = Account::all();
-
-        foreach ($accounts as $key => $account) {
-            if (! empty($account->stripe_id)) {
-                // Create two groups
-                if ($account->groups->count() <= 2) {
-                    Group::factory()->count(2)->create(['account_id' => $account->id]);
-                    $site = $account->sites()->first();
-                    $group = $account->groups()->first();
-                    $site->groups()->sync([$group->id]);
-                }
-            }
-        }
+        $account = Account::where('stripe_id', 'cus_LIGOOQC7OuqyAn')->first();
+        Group::factory()->count(2)->create(['account_id' => $account->id]);
+        $site = $account->sites()->first();
+        $group = $account->groups()->first();
+        $site->groups()->sync([$group->id]);
     }
 }
