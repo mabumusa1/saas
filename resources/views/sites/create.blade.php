@@ -2,11 +2,87 @@
     <div class="container mb-8">
         <div class="card">
             <div class="card-body">
-                <h2 class="text-dark mb-8">{{ __('Get Started') }}</h2>
+                <div>
+                    <h3 class="text-muted">{{ __('Add site') }}</h3>
+                    <h2 class="text-dark">{{ __('Site name and first environment') }}</h2>
+                    <p>A site is a group of up to three environments (Production, Staging, Development) under one name
+                    </p>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="sitename">Site name</label>
+                        <input name="sitename" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group mb-10">
+                        <label for="environmentname">Environment name</label>
+                        <input name="environmentname" id="environmentname" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <h3>{{ __('Environment Type') }}</h3>
+                            <p>{{ __('Create additional environments later from the site overview page') }}
+                            </p>
+                        </div>
+                        <div class="mb-5">
+                            <div class="form-check form-check-custom form-check-solid form-check-lg">
+                                <label class="form-check-label d-flex align-items-center" for="radioProduction">
+                                    <input name="environment" class="form-check-input" type="radio" value="prd"
+                                        id="radioProduction" checked>
+                                    <svg class="ms-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.9,2 C11.4522847,2 11.9,2.44771525 11.9,3 C11.9,3.55228475 11.4522847,4 10.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,16 C20,15.4477153 20.4477153,15 21,15 C21.5522847,15 22,15.4477153 22,16 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L10.9,2 Z" id="Path-57" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                        <path d="M24.0690576,13.8973499 C24.0690576,13.1346331 24.2324969,10.1246259 21.8580869,7.73659596 C20.2600137,6.12944276 17.8683518,5.85068794 15.0081639,5.72356847 L15.0081639,1.83791555 C15.0081639,1.42370199 14.6723775,1.08791555 14.2581639,1.08791555 C14.0718537,1.08791555 13.892213,1.15726043 13.7542266,1.28244533 L7.24606818,7.18681951 C6.93929045,7.46513642 6.9162184,7.93944934 7.1945353,8.24622707 C7.20914339,8.26232899 7.22444472,8.27778811 7.24039592,8.29256062 L13.7485543,14.3198102 C14.0524605,14.6012598 14.5269852,14.5830551 14.8084348,14.2791489 C14.9368329,14.140506 15.0081639,13.9585047 15.0081639,13.7695393 L15.0081639,9.90761477 C16.8241562,9.95755456 18.1177196,10.0730665 19.2929978,10.4469645 C20.9778605,10.9829796 22.2816185,12.4994368 23.2042718,14.996336 L23.2043032,14.9963244 C23.313119,15.2908036 23.5938372,15.4863432 23.9077781,15.4863432 L24.0735976,15.4863432 C24.0735976,15.0278051 24.0690576,14.3014082 24.0690576,13.8973499 Z" id="Shape" fill="#000000" fill-rule="nonzero" transform="translate(15.536799, 8.287129) scale(-1, 1) translate(-15.536799, -8.287129) "></path>
+                                    </svg>
+                                    <span class="ms-2 badge badge-success py-3 px-3">{{ __('PRD') }}</span>
+                                    <div class="ms-2">
+                                        <br />
+                                        <strong>{{ __('Production (live)') }}</strong>
+                                        <p class="mb-0">{{ __('Host a public site') }}</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div class="form-check form-check-custom form-check-solid form-check-lg">
+                                <label class="form-check-label d-flex align-items-center" for="radioProduction">
+                                    <input name="environment" class="form-check-input" type="radio" value="stg"
+                                        id="radioProduction" checked>
+                                    <svg class="ms-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.9,2 C11.4522847,2 11.9,2.44771525 11.9,3 C11.9,3.55228475 11.4522847,4 10.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,16 C20,15.4477153 20.4477153,15 21,15 C21.5522847,15 22,15.4477153 22,16 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L10.9,2 Z" id="Path-57" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                        <path d="M24.0690576,13.8973499 C24.0690576,13.1346331 24.2324969,10.1246259 21.8580869,7.73659596 C20.2600137,6.12944276 17.8683518,5.85068794 15.0081639,5.72356847 L15.0081639,1.83791555 C15.0081639,1.42370199 14.6723775,1.08791555 14.2581639,1.08791555 C14.0718537,1.08791555 13.892213,1.15726043 13.7542266,1.28244533 L7.24606818,7.18681951 C6.93929045,7.46513642 6.9162184,7.93944934 7.1945353,8.24622707 C7.20914339,8.26232899 7.22444472,8.27778811 7.24039592,8.29256062 L13.7485543,14.3198102 C14.0524605,14.6012598 14.5269852,14.5830551 14.8084348,14.2791489 C14.9368329,14.140506 15.0081639,13.9585047 15.0081639,13.7695393 L15.0081639,9.90761477 C16.8241562,9.95755456 18.1177196,10.0730665 19.2929978,10.4469645 C20.9778605,10.9829796 22.2816185,12.4994368 23.2042718,14.996336 L23.2043032,14.9963244 C23.313119,15.2908036 23.5938372,15.4863432 23.9077781,15.4863432 L24.0735976,15.4863432 C24.0735976,15.0278051 24.0690576,14.3014082 24.0690576,13.8973499 Z" id="Shape" fill="#000000" fill-rule="nonzero" transform="translate(15.536799, 8.287129) scale(-1, 1) translate(-15.536799, -8.287129) "></path>
+                                    </svg>
+                                    <span class="ms-2 badge badge-light-success py-3 px-3">{{ __('STG') }}</span>
+                                    <div class="ms-2">
+                                        <br />
+                                        <strong>{{ __('Staging (optional sandbox)') }}</strong>
+                                        <p class="mb-0">{{ __('Review and test before deploying to Production') }}</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div class="form-check form-check-custom form-check-solid form-check-lg">
+                                <label class="form-check-label d-flex align-items-center" for="radioProduction">
+                                    <input name="environment" class="form-check-input" type="radio" value="dev"
+                                        id="radioProduction" checked>
+                                    <svg class="ms-2" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.9,2 C11.4522847,2 11.9,2.44771525 11.9,3 C11.9,3.55228475 11.4522847,4 10.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,16 C20,15.4477153 20.4477153,15 21,15 C21.5522847,15 22,15.4477153 22,16 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L10.9,2 Z" id="Path-57" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                        <path d="M24.0690576,13.8973499 C24.0690576,13.1346331 24.2324969,10.1246259 21.8580869,7.73659596 C20.2600137,6.12944276 17.8683518,5.85068794 15.0081639,5.72356847 L15.0081639,1.83791555 C15.0081639,1.42370199 14.6723775,1.08791555 14.2581639,1.08791555 C14.0718537,1.08791555 13.892213,1.15726043 13.7542266,1.28244533 L7.24606818,7.18681951 C6.93929045,7.46513642 6.9162184,7.93944934 7.1945353,8.24622707 C7.20914339,8.26232899 7.22444472,8.27778811 7.24039592,8.29256062 L13.7485543,14.3198102 C14.0524605,14.6012598 14.5269852,14.5830551 14.8084348,14.2791489 C14.9368329,14.140506 15.0081639,13.9585047 15.0081639,13.7695393 L15.0081639,9.90761477 C16.8241562,9.95755456 18.1177196,10.0730665 19.2929978,10.4469645 C20.9778605,10.9829796 22.2816185,12.4994368 23.2042718,14.996336 L23.2043032,14.9963244 C23.313119,15.2908036 23.5938372,15.4863432 23.9077781,15.4863432 L24.0735976,15.4863432 C24.0735976,15.0278051 24.0690576,14.3014082 24.0690576,13.8973499 Z" id="Shape" fill="#000000" fill-rule="nonzero" transform="translate(15.536799, 8.287129) scale(-1, 1) translate(-15.536799, -8.287129) "></path>
+                                    </svg>
+                                    <span class="ms-2 badge badge-light-dark py-3 px-3">{{ __('DEV') }}</span>
+                                    <div class="ms-2">
+                                        <br />
+                                        <strong>{{ __('Development (optional sandbox)') }}</strong>
+                                        <p class="mb-0">{{ __('Build and experiment before deploying to Staging or Production') }}</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--begin::Stepper-->
                 <div class="stepper stepper-pills stepper-column d-flex flex-column flex-lg-row" id="create_stepper">
                     <!--begin::Aside-->
-                    <div class="d-flex flex-row-auto w-100 w-lg-300px">
+                    {{-- <div class="d-flex flex-row-auto w-100 w-lg-300px">
                         <!--begin::Nav-->
                         <div class="stepper-nav flex-cente">
                             <!--begin::Step 1-->
@@ -64,12 +140,12 @@
                             <!--end::Step 2-->
                         </div>
                         <!--end::Nav-->
-                    </div>
+                    </div> --}}
 
                     <!--begin::Content-->
                     <div class="flex-row-fluid">
                         <!--begin::Form-->
-                        <form id="site-form" class="form w-lg-500px mx-auto" novalidate="novalidate" autocomplete="off">
+                        <form id="site-form" class="form mx-auto" novalidate="novalidate" autocomplete="off">
                             @csrf
                             <!--begin::Group-->
                             <div class="mb-5">
@@ -80,12 +156,18 @@
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-solid form-check-lg">
                                             <input name="type" class="form-check-input" type="radio" value="mine"
-                                                id="radioMine" @if(!$subscriptions->count()) disabled @endif>
+                                                id="radioMine" @if (!$subscriptions->count()) disabled @endif>
                                             <label class="form-check-label" for="radioMine">
                                                 {{ __('This site is mine; it will count towards my site allowance') }}
                                                 <br />
-                                                You have {{ $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }} of {{ $count }} sites available. @if(!$subscriptions->count()) Delete site or <a href="{{ route('payment.checkout', [$account]) }}">Upgrade your
-                                                    plan</a> @endif
+                                                You have
+                                                {{ $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }}
+                                                of {{ $count }} sites available. @if (!$subscriptions->count())
+                                                    Delete site or <a
+                                                        href="{{ route('payment.checkout', [$account]) }}">Upgrade
+                                                        your
+                                                        plan</a>
+                                                @endif
                                             </label>
                                         </div>
                                     </div>
@@ -143,14 +225,16 @@
                                         <div class="mt-5">
                                             <h3 class="text-dark">{{ __('Select Install to use') }}</h3>
                                             <select class="form-select" name="install_id" required>
-                                                <option value="" disabled selected>{{ __('Please select an install') }}</option>
+                                                <option value="" disabled selected>
+                                                    {{ __('Please select an install') }}</option>
                                                 @foreach ($installs as $install)
-                                                    <option value="{{ $install->id }}">{{ $install->name }}</option>
+                                                    <option value="{{ $install->id }}">{{ $install->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             <div class="invalid-feedback">
                                                 {{ __('Please select a valid Install.') }}
-                                              </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +243,8 @@
                                 <!--begin::Step 2-->
                                 <div class="flex-column" data-kt-stepper-element="content">
                                     <h3>{{ __('Site name and first environment') }}</h3>
-                                    <p>{{ __('A site is a group of up to three environments (Production, Staging, Development) under one name') }}</p>
+                                    <p>{{ __('A site is a group of up to three environments (Production, Staging, Development) under one name') }}
+                                    </p>
                                     <div class="mb-10">
                                         <div class="form-group fv-row">
                                             <label>{{ __('Site Name') }}</label>
@@ -185,41 +270,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="mb-10">
-                                        <h3>{{ __('Environment Type') }}</h3>
-                                        <p>{{ __('Create additional environments later from the site overview page') }}</p>
-                                    </div>
-                                    <div class="mb-10">
-                                        <div class="form-check form-check-custom form-check-solid form-check-lg">
-                                            <input name="environment" class="form-check-input" type="radio" value="prd"
-                                                id="radioProduction" checked>
-                                            <label class="form-check-label" for="radioProduction">
-                                                <strong><span class="badge badge-success">{{ __('PRD') }}</span>{{ __('Production (live)') }} </strong><br />
-                                                <p>{{ __('Host a public site') }}</p>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-10">
-                                        <div class="form-check form-check-custom form-check-solid form-check-lg">
-                                            <input name="environment" class="form-check-input" type="radio" value="stg"
-                                                id="radioStaging">
-                                            <label class="form-check-label" for="radioStaging">
-                                                <strong><span class="badge badge-light-success">{{ __('STG') }}</span> {{ __('Staging (optional sandbox)') }} </strong><br />
-                                                <p> {{ __('Review and test before deploying to Production') }}</p>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-10">
-                                        <div class="form-check form-check-custom form-check-solid form-check-lg">
-                                            <input name="environment" class="form-check-input" type="radio" value="dev"
-                                                id="radioDev">
-                                            <label class="form-check-label" for="radioDev">
-                                                <strong><span class="badge badge-light-dark">{{ __('DEV') }}</span>
-                                                    {{ __('Development (optional sandbox)') }}</strong><br />
-                                                <p>{{ __('Build and experiment before deploying to Staging or Production') }}</p>
-                                            </label>
-                                        </div>
-                                    </div>
+
 
                                 </div>
                                 <!--begin::Step 2-->
@@ -264,6 +315,7 @@
                 <!--end::Stepper-->
             </div>
         </div>
+
     </div>
 
     @push('scripts')
@@ -284,7 +336,7 @@
         </style>
         <script>
             var installId = document.querySelector('[name="install_id"]');
-            installId.addEventListener('change', function(){
+            installId.addEventListener('change', function() {
                 installId.classList.remove('is-invalid');
             })
             var element = document.querySelector("#create_stepper");
@@ -294,9 +346,10 @@
             // Handle next step
             stepper.on("kt.stepper.next", function(stepper) {
 
-                if(['copyEnv', 'moveEnv'].includes(document.querySelector('[name="start"]:checked').value) && !installId.value){
+                if (['copyEnv', 'moveEnv'].includes(document.querySelector('[name="start"]:checked').value) && !
+                    installId.value) {
                     installId.classList.add('is-invalid');
-                }else{
+                } else {
                     stepper.goNext();
                 }
             });
@@ -382,7 +435,8 @@
                             // Disable button to avoid multiple click
                             submitButton.disabled = true;
 
-                            axios.post('{{ route('sites.store', $account->id) }}', $('#site-form').serialize())
+                            axios.post('{{ route('sites.store', $account->id) }}', $('#site-form')
+                                .serialize())
 
                             // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             setTimeout(function() {
@@ -412,9 +466,9 @@
 
             document.querySelectorAll('[name="start"]').forEach(function(el) {
                 el.addEventListener('change', function() {
-                    if(el.value === 'copyEnv' || el.value === 'moveEnv'){
+                    if (el.value === 'copyEnv' || el.value === 'moveEnv') {
                         document.querySelector('.installs').classList.remove('d-none');
-                    }else{
+                    } else {
                         document.querySelector('.installs').classList.add('d-none');
                     }
                 });
