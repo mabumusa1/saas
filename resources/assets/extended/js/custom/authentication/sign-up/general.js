@@ -98,6 +98,9 @@ var KTSignupGeneral = function () {
             // Validate form
             validator.validate().then(function (status) {
                 if (status === 'Valid') {
+                    const errorBag = document.querySelector('#errorBag');
+                    errorBag.classList.remove('alert', 'alert-danger');
+                    errorBag.textContent = "";
                     // Show loading indication
                     submitButton.setAttribute('data-kt-indicator', 'on');
 
@@ -134,15 +137,9 @@ var KTSignupGeneral = function () {
                             }
 
                             if (error.response) {
-                                Swal.fire({
-                                    text: dataMessage,
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
+                                const errorBag = document.querySelector('#errorBag');
+                                errorBag.classList.add('alert', 'alert-danger')
+                                errorBag.textContent = dataMessage;
                             }
                         })
                         .then(function () {
@@ -155,15 +152,9 @@ var KTSignupGeneral = function () {
                         });
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                    Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
+                    const errorBag = document.querySelector('#errorBag');
+                                errorBag.classList.add('alert', 'alert-danger')
+                                errorBag.textContent = "Sorry, looks like there are some errors detected, please try again.";
                 }
             });
         });

@@ -24,6 +24,8 @@
         </div>
         <!--end::Heading-->
 
+        <div id="errorBag"></div>
+
         <!--begin::Input group-->
         <div class="row fv-row mb-7">
             <!--begin::Col-->
@@ -115,7 +117,7 @@
     </form>
     <!--end::Signup Form-->
     @push('scripts')
-        <script src="skin/js/custom/authentication/sign-up/general.js"></script>  
+        <script src="skin/js/custom/authentication/sign-up/general.js"></script>
     @endpush
 
 </x-auth-layout>
