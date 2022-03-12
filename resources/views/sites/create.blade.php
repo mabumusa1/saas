@@ -80,11 +80,12 @@
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-solid form-check-lg">
                                             <input name="type" class="form-check-input" type="radio" value="mine"
-                                                id="radioMine" disabled>
+                                                id="radioMine" @if(!$subscriptions->count()) disabled @endif>
                                             <label class="form-check-label" for="radioMine">
                                                 {{ __('This site is mine; it will count towards my site allowance') }}
                                                 <br />
-                                                {{ __('You have 0 of 1 sites available. Delete site or') }}<a href="#">{{ __('Upgrade your plan') }}</a>
+                                                You have {{ $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }} of {{ $count }} sites available. @if(!$subscriptions->count()) Delete site or <a href="{{ route('payment.checkout', [$account]) }}">Upgrade your
+                                                    plan</a> @endif
                                             </label>
                                         </div>
                                     </div>
@@ -380,6 +381,8 @@
 
                             // Disable button to avoid multiple click
                             submitButton.disabled = true;
+
+                            axios.post('{{ route('sites.store', $account->id) }}', $('#site-form').serialize())
 
                             // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             setTimeout(function() {

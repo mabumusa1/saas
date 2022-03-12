@@ -8,6 +8,7 @@ use App\Models\Site;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class AccountSeeder extends Seeder
 {
@@ -27,7 +28,9 @@ class AccountSeeder extends Seeder
                 ->sequence(
                     fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
                 )
-            )//->has(->has(Install::factory()->count(2)))
+            )->sequence(
+                fn ($sequence) => ['stripe_id' => ($sequence->index % 2 === 0) ? Arr::random(['cus_LGPH3brjCTaQXY', 'cus_LGPH3brjCTaQOP']) : null]
+            )
             ->create();
         }
     }
