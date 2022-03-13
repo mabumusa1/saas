@@ -19,9 +19,9 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-                    'first_name' =>  'admin',
-                    'last_name' => 'admin',
-                    'email' =>  'admin@gmail.com',
+                    'first_name' =>  'Mohammad',
+                    'last_name' => 'AbuM Musa',
+                    'email' =>  'm.abumusa@gmail.com',
                     'email_verified_at' => now(),
                     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                     'remember_token' => Str::random(10),
@@ -37,10 +37,6 @@ class AdminSeeder extends Seeder
                     'name' => 'Admin',
                     ]);
 
-        AccountUser::create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'admin',
-        ]);
+        $user->accounts()->attach($account->id, ['role' => 'admin']);
     }
 }

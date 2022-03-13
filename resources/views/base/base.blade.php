@@ -30,7 +30,6 @@
 
 <script src="{{ asset('skin/plugins/global/plugins.bundle.js') }}" type="application/javascript"></script>
 <script src="{{ asset('skin/js/scripts.bundle.js') }}" type="application/javascript"></script>
-<script src="{{ asset('skin/js/custom/widgets.js') }}" type="application/javascript"></script>
 
 {{-- end::Javascript --}}
 

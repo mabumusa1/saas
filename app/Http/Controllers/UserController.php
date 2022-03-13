@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreated;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
-use App\Models\AccountUser;
 use App\Models\User;
-use DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Session;
 
 class UserController extends Controller
@@ -24,7 +23,7 @@ class UserController extends Controller
 
     /**
      * @param Account $account
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Account $account)
     {
@@ -35,7 +34,7 @@ class UserController extends Controller
 
     /**
      * @param Account $account
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
@@ -50,28 +49,19 @@ class UserController extends Controller
     public function store(Account $account, StoreUserRequest $request)
     {
         $data = $request->all();
-
+        $password = Str::random(16);
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
         ]);
 
-        AccountUser::create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => $data['role'],
-        ]);
+        $user->accounts()->attach($account, ['role' => $data['role']]);
 
-        $authUser = Auth::user();
-        activity('User created')
-            ->performedOn($user)
-            ->causedBy($authUser)
-            ->withProperties(['account_id' => $account->id])
-            ->log('User created by '.$authUser->getFullNameAttribute());
+        UserCreated::dispatch($user, $password);
 
-        Session::flash('status', 'User successfully created!');
+        Session::flash('status', __('User successfully created!'));
 
         return redirect()->route('users.index', $account);
     }
@@ -79,12 +69,10 @@ class UserController extends Controller
     /**
      * @param Account $account
      * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, User $user)
     {
-        abort_if($account->users()->where('account_user.role', 'owner')->count() === 1 && $user->accounts()->wherePivot('role', 'owner')->exists(), 403);
-
         return view('user.edit', compact('account', 'user'));
     }
 
@@ -97,20 +85,7 @@ class UserController extends Controller
     public function update(Account $account, UpdateUserRequest $request, User $user)
     {
         $data = $request->all();
-        $accountUser = AccountUser::where('user_id', $user->id)->first();
-        $accountUser->update([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => $data['role'],
-        ]);
-
-        $user->update([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make('password'),
-        ]);
-
+        $account->users()->updateExistingPivot($user->id, ['role' => $data['role']]);
         Session::flash('status', 'User successfully updated!');
 
         return redirect()->route('users.index', $account);
