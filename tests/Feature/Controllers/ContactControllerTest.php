@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\AccountUser;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
@@ -27,11 +26,7 @@ class ContactControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('contacts.index', $account));
 
@@ -48,11 +43,7 @@ class ContactControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
@@ -90,11 +81,7 @@ class ContactControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
@@ -134,11 +121,7 @@ class ContactControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $site = Site::factory()->create([
             'account_id' => $account->id,

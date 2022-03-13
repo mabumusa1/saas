@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\AccountUser;
 use App\Models\Group;
 use App\Models\Site;
 use App\Models\User;
@@ -24,11 +23,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         Group::factory()->create([
             'name' => 'test',
@@ -54,11 +49,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $response = $this->get(route('groups.create', $account));
         $response->assertOk();
         $response->assertViewIs('groups.create');
@@ -72,11 +63,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $data = [
             'name'=>'admin',
             'notes'=>122,
@@ -93,11 +80,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $data = [];
         $response = $this->post(route('groups.store', $account), $data);
 
@@ -112,11 +95,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $response = $this->get(route('groups.edit', [$account, $group]))
         ->assertOk()
@@ -134,11 +113,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $site = Site::factory()->for($account)->create();
         $group = Group::factory()->for($account)->create();
         $data = [
@@ -159,11 +134,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $data = [
             'name'=>'test group',
@@ -182,11 +153,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $data = [];
         $response = $this->put(route('groups.update', [$account, $group]), $data);
@@ -201,11 +168,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $response = $this->delete(route('groups.destroy', [$account, $group]))
         ->assertStatus(302);

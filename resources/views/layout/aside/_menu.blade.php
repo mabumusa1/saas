@@ -28,7 +28,7 @@
         <button type="button" class="btn btn-primary w-100"
                 data-kt-menu-trigger="click"
                 data-kt-menu-placement="bottom-start">
-            Switch Accounts
+            {{ __('Switch Accounts') }}
             <span class="svg-icon svg-icon-5 rotate-180 ms-3 me-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
@@ -67,18 +67,18 @@
         class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
         id="#kt_aside_menu" data-kt-menu="true">
         @if(Gate::allows('isAdmin'))
-            <div class="menu-item">
-                <a class="menu-link" href="{{ route('dashboard.index', $currentAccount->id) }}">
-                  <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
-                      <span class="svg-icon svg-icon-2">
-                        {!! get_svg_icon('skin/media/icons/duotune/abstract/abs046.svg') !!}
-                      </span>
-                      <!--end::Svg Icon-->
-                </span>
-                    <span class="menu-title">{{ __('Accounts') }}</span>
-                </a>
-            </div>
-        @else
+        <div class="menu-item">
+            <a class="menu-link" href="{{ route('admin.dashboard', $currentAccount->id) }}">
+              <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
+                  <span class="svg-icon svg-icon-2">
+                    {!! get_svg_icon('skin/media/icons/duotune/abstract/abs046.svg') !!}
+                  </span>
+                  <!--end::Svg Icon-->
+            </span>
+                <span class="menu-title">{{ __('Accounts') }}</span>
+            </a>
+        </div>
+        @endif
             <!-- Dashboard -->
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('dashboard', $currentAccount->id) }}">
@@ -142,12 +142,6 @@
                 </div>
             </div>
         </div>
-
-        @endif
-
-
-
-        @if(!Gate::allows('isAdmin'))
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
             <span class="menu-link">
                 <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
@@ -178,8 +172,6 @@
                 </div>
             </div>
         </div>
-        @endif
-       
     </div>
     {{--end::Menu--}}
 </div>

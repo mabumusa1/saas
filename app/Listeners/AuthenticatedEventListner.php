@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SuccessfulAuthenticatedListener
+class AuthenticatedEventListner
 {
     /**
      * Create the event listener.
@@ -21,16 +21,15 @@ class SuccessfulAuthenticatedListener
     /**
      * Handle the event.
      *
-     * @param  \Illuminate\Auth\Events\Authenticated  $event
+     * @param  object  $event
      * @return void
      */
     public function handle(Authenticated $event)
     {
-        /*
-         $user = $event->user;
-        dd($user->accounts->first()->id);
-        $accountId = $user->accounts()->wherePivot('role', 'owner')->get()->first()->id;
-        session(['deafultAccountId' => $accountId]);
-        */
+        $user = $event->user;
+        activity('user.authenticated')
+            ->performedOn($user)
+            ->causedBy($user)
+            ->log($user->fullName.__(' had a successful login'));
     }
 }

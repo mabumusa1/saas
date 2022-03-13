@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -18,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Impersonate;
 
     /**
      * The attributes that are mass assignable.
@@ -66,12 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function Accounts(): BelongsToMany
     {
-        return $this->belongsToMany(Account::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
-    }
-
-    public function accountUser(): HasOne
-    {
-        return $this->hasOne(AccountUser::class);
+        return $this->belongsToMany(Account::class)->withTimestamps()->withPivot('role');
     }
 
     /**
@@ -87,7 +84,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Check if the user has many roles.
+     * Check if the user has one of the roles.
      *
      * @return  bool
      */
@@ -97,5 +94,24 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->accounts()->get()->where('id', $account->id)->first()->pivot->role,  /* @phpstan-ignore-line */
             $roles
         );
+    }
+
+    /**
+     * Return the role of the user.
+     *
+     * @return  string
+     */
+    public function role(Account $account)
+    {
+        return $account->users()->where('users.id', $this->id)->first()->pivot->role;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canImpersonate()
+    {
+        // For example
+        return $this->accounts()->first()->pivot->role === 'admin';
     }
 }

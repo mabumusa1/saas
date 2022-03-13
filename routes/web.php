@@ -13,14 +13,37 @@
 
 use App\Http\Controllers\BillingController;
 
-Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
-Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::impersonate();
+
+    /*
+     * General route that redirect to the first account
+     */
+    Route::get('/', function () {
+        return redirect(route('dashboard', request()->user()->accounts()->first()->id));
+    })->name('home');
+
     Route::get('site_search', App\Http\Controllers\SearchController::class)->name('site.search');
-    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
-        Route::prefix('billing')->middleware('can:changeBilling,account')->group(function () {
+        /*
+         * Account dashboard, accessed by all the users on that account
+         */
+
+        Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+        /*
+         * The admin dashboard that allows the admin to impersonate other users
+         * This route is accessible for admins only
+         */
+        Route::prefix('admin')->middleware('can:isAdmin,user')->group(function () {
+            Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+        });
+
+        /*
+         * Billing Routes
+         */
+        Route::prefix('billing')->middleware(['can:changeBilling,account', 'impersonate.protect'])->group(function () {
             Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('billing.index');
             Route::put('/info', [BillingController::class, 'update'])->name('billing.info.update');
             Route::put('/', [App\Http\Controllers\BillingController::class, 'store'])->name('billing.update');
@@ -29,7 +52,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('invoice/{invoice}', [App\Http\Controllers\BillingController::class, 'invoice'])->name('billing.invoice');
             Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
         });
-        Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
+
+        Route::resource('logs', App\Http\Controllers\LogController::class)->only([
             'index', 'destroy',
         ]);
 
@@ -48,13 +72,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'index', 'edit', 'update',
         ]);
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
-    });
-
-    Route::prefix('{account}/admin')->middleware('admin')->group(function () {
-        Route::resource('dashboard', App\Http\Controllers\Admin\AdminController::class)->only([
-            'index',
-        ]);
-
-        Route::get('/login-as-client', [App\Http\Controllers\Admin\LoginAsClient::class, 'loginAsClient'])->name('login.as.client');
     });
 });

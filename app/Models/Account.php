@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\AccountUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,7 +43,7 @@ class Account extends Model
      */
     public function Users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role');
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\AccountUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -24,11 +23,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.index', $account));
 
@@ -46,11 +41,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.create', $account));
 
@@ -68,11 +59,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->post(route('users.store', $account), [
             'first_name' => 'First Name',
@@ -94,11 +81,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->post(route('users.store', $account), [
             'first_name' => 'First Name',
@@ -121,11 +104,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
 
@@ -142,17 +121,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user2->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
 
@@ -171,11 +140,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
             'first_name' => 'First Name',
@@ -197,19 +162,9 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userLogin->id,
-            'role' => 'owner',
-        ]);
-
         $user = User::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
             'first_name' => 'First Name',
@@ -231,21 +186,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($userLogin = User::factory()->create());
 
         $account = Account::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userLogin->id,
-            'role' => 'owner',
-        ]);
-
-        $user = User::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'pb',
-        ]);
-
+        $account->users()->attach($user->id, ['role' => 'pb']);
         $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $userLogin]));
 
         $this->assertEquals($response->getStatusCode(), 302);
@@ -261,27 +202,12 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userLogin->id,
-            'role' => 'owner',
-        ]);
-
         $user = User::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $userSecond = User::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userSecond->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($userSecond->id, ['role' => 'owner']);
 
         $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
         $this->assertEquals($response->getStatusCode(), 302);
