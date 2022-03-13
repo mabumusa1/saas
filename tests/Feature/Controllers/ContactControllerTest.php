@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
+use App\Models\Cashier\Subscription;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
@@ -22,12 +23,11 @@ class ContactControllerTest extends TestCase
      */
     public function test_index_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
-
+        $user = User::factory()->create();
         $account->users()->attach($user->id, ['role' => 'owner']);
 
+        $this->actingAs($user);
         $response = $this->get(route('contacts.index', $account));
 
         $response->assertOk();
@@ -39,14 +39,24 @@ class ContactControllerTest extends TestCase
      */
     public function test_edit_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
-
+        $user = User::factory()->create();
         $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
 
@@ -55,6 +65,8 @@ class ContactControllerTest extends TestCase
             'name' => 'Install test name',
             'type' => 'dev',
         ]);
+
+        $this->actingAs($user);
 
         $contact = Contact::factory()->create([
             'install_id' => $install->id,
@@ -77,14 +89,24 @@ class ContactControllerTest extends TestCase
      */
     public function test_contact_update_fail_without_last_name()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
-
+        $user = User::factory()->create();
         $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
 
@@ -101,6 +123,8 @@ class ContactControllerTest extends TestCase
             'email' => 'example@gmail.com',
             'phone' => '12345678',
         ]);
+
+        $this->actingAs($user);
 
         $response = $this->put(route('contacts.update', ['account' => $account, 'contact' => $contact]), [
             'first_name' => 'First Name',
@@ -117,14 +141,24 @@ class ContactControllerTest extends TestCase
      */
     public function test_contact_update()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
-
+        $user = User::factory()->create();
         $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
 
@@ -141,6 +175,8 @@ class ContactControllerTest extends TestCase
             'email' => 'example@gmail.com',
             'phone' => '12345678',
         ]);
+
+        $this->actingAs($user);
 
         $response = $this->put(route('contacts.update', ['account' => $account, 'contact' => $contact]), [
             'first_name' => 'First Name',
