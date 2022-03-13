@@ -25,7 +25,7 @@ class ContactPolicy
      */
     public function viewAny(User $user)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -39,7 +39,7 @@ class ContactPolicy
      */
     public function update(User $user, Contact $contact)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }

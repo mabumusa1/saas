@@ -24,7 +24,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -37,7 +37,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -51,7 +51,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
         //$account->users()->where('account_user.role', 'owner')->count() === 1 && $user->accounts()->wherePivot('role', 'owner')->exists()
 
         return $user->belongToRoles($this->account, $allowedRoles);
@@ -66,7 +66,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }

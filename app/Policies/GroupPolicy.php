@@ -25,7 +25,7 @@ class GroupPolicy
      */
     public function viewAny(User $user)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -38,7 +38,7 @@ class GroupPolicy
      */
     public function create(User $user)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -52,7 +52,7 @@ class GroupPolicy
      */
     public function update(User $user, Group $group)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -66,7 +66,7 @@ class GroupPolicy
      */
     public function delete(User $user, Group $group)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }

@@ -90,9 +90,7 @@ class SiteController extends Controller
             'subscription_id' => $subscription->id,
         ]);
 
-        Session::flash('status', 'Site is under creation, we will send you an update once it is done!');
-
-        return redirect(route('sites.index', $account->id));
+        return redirect(route('sites.index', $account->id))->with('status', 'Site is under creation, we will send you an update once it is done!');
     }
 
     /**
@@ -124,9 +122,7 @@ class SiteController extends Controller
         ]);
         $site->groups()->sync($request->input('groups'));
 
-        Session::flash('status', 'Site successfully updated!');
-
-        return to_route('sites.index', compact('account'));
+        return to_route('sites.index', compact('account'))->with('status', 'Site successfully updated!');
     }
 
     /**
@@ -158,8 +154,6 @@ class SiteController extends Controller
         $site->installs()->delete();
         $site->delete();
 
-        Session::flash('status', 'Site successfully deleted!');
-
-        return redirect(route('sites.index', $account->id));
+        return redirect(route('sites.index', $account->id))->with('status', 'Site successfully deleted!');
     }
 }

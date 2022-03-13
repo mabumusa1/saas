@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
+use App\Models\Cashier\Subscription;
 use App\Models\Group;
 use App\Models\Site;
 use App\Models\User;
@@ -21,9 +22,22 @@ class GroupControllerTest extends TestCase
      */
     public function index_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
+        $user = User::factory()->create();
         $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
         Group::factory()->create([
             'name' => 'test',
@@ -33,6 +47,7 @@ class GroupControllerTest extends TestCase
 
         Site::factory()->create([
             'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
             'name' => 'test',
         ]);
 
@@ -114,7 +129,22 @@ class GroupControllerTest extends TestCase
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
         $account->users()->attach($user->id, ['role' => 'owner']);
-        $site = Site::factory()->for($account)->create();
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+
+        $site = Site::factory()->for($account)->create([
+            'subscription_id' => $subscription->id,
+        ]);
+
         $group = Group::factory()->for($account)->create();
         $data = [
             'name'=>'test group',
