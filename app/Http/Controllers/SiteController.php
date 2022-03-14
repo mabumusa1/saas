@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ActivityLoggerEvent;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
@@ -9,7 +10,6 @@ use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Events\ActivityLoggerEvent;
 use Session;
 
 class SiteController extends Controller
@@ -121,7 +121,7 @@ class SiteController extends Controller
         $site->update([
             'name' => $request->input('name'),
         ]);
-        
+
         $site->groups()->sync($request->input('groups'));
 
         return to_route('sites.index', compact('account'))->with('status', __('Site successfully updated!'));
@@ -136,7 +136,7 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        
+        $authUser = Auth::user();
         $site->groups()->detach();
         $site->installs->each(function ($install) use ($authUser, $account) {
             activity('Install deleted')
@@ -147,11 +147,12 @@ class SiteController extends Controller
             $install->contact()->delete();
         });
         $site->delete();
-      activity('Site deleted')
+        activity('Site deleted')
             ->performedOn($site)
             ->causedBy($authUser)
             ->withProperties(['account_id' => $account->id])
             ->log('Site deleted by '.$authUser->fullName);
+
         return redirect(route('sites.index', $account->id))->with('status', 'Site successfully deleted!');
     }
 }
