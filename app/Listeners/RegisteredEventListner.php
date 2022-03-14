@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Events\ActivityLoggerEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Events\ActivityLoggerEvent;
 
 class RegisteredEventListner
 {
@@ -31,7 +31,7 @@ class RegisteredEventListner
             'performedOn' => $event->user,
             'causedBy' => $event->user,
             'withProperties' => [],
-            'log' => $user->fullName . __(' Registered')
+            'log' => $event->user->fullName.__(' Registered'),
         ]);
     }
 }

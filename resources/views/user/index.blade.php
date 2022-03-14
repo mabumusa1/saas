@@ -22,13 +22,13 @@
                                     <td>{{ $user->fullName }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
-                                    <td>{{ isset(roles()[$user->pivot->role]) ? roles()[$user->pivot->role] : '' }}
+                                    <td>{{ roles()[$user->pivot->role] }}
                                     </td>
-                                    @if ($user->pivot->role !== 'owner' || ($user->pivot->role === 'owner' && $canEditOwner))
-                                        <td><a
-                                                href="{{ route('users.edit', [$currentAccount->id, $user->id]) }}">{{ __('Edit') }}</a>
-                                        </td>
-                                    @endif
+                                    @can('update', request()->user())
+                                    <td>
+                                        <a href="{{ route('users.edit', [$currentAccount->id, $user->id]) }}">{{ __('Edit') }}</a>
+                                    </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>

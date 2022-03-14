@@ -41,6 +41,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
 
         /*
+         * The Users Route
+         * manages the users and their accesses
+         */
+        Route::resource('users', App\Http\Controllers\UserController::class)->except([
+            'show',
+        ]);
+
+        /*
          * Billing Routes
          */
         Route::prefix('billing')->middleware(['can:changeBilling,account', 'impersonate.protect'])->group(function () {
@@ -63,9 +71,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'show',
         ]);
         Route::resource('groups', App\Http\Controllers\GroupController::class)->except([
-            'show',
-        ]);
-        Route::resource('users', App\Http\Controllers\UserController::class)->except([
             'show',
         ]);
         Route::resource('contacts', App\Http\Controllers\ContactController::class)->only([

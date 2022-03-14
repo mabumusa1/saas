@@ -4,6 +4,7 @@ if (! function_exists('roles')) {
     function roles()
     {
         $roles = [
+            'admin' => 'Admin',
             'owner' => 'Owner',
             'fb'    => 'Full (with Billing)',
             'fnb'   => 'Full (without Billing)',

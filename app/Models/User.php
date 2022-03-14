@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AccountUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,8 +13,9 @@ use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Contracts\Activity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -66,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function Accounts(): BelongsToMany
     {
-        return $this->belongsToMany(Account::class)->withTimestamps()->withPivot('role');
+        return $this->belongsToMany(Account::class)->using(AccountUser::class)->withPivot('role');
     }
 
     /**
@@ -101,6 +103,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function role(Account $account)
     {
+        /* @phpstan-ignore-next-line */
         return $account->users()->where('users.id', $this->id)->first()->pivot->role;
     }
 
@@ -109,11 +112,21 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function canImpersonate()
     {
+        /* @phpstan-ignore-next-line */
         return $this->accounts()->first()->pivot->role === 'admin';
     }
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('system');
-    }        
+    }
+
+    public function tapActivity(Activity $activity)
+    {
+        // TODO: Add the custom properites for the account id
+        /* @phpstan-ignore-next-line */
+        $activity->properties = $activity->properties->merge([
+            'account_id' => 'value of custom property',
+        ]);
+    }
 }

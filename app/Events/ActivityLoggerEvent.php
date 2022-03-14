@@ -17,7 +17,7 @@ class ActivityLoggerEvent
     /**
      * The order instance.
      *
-     * @var \App\Models\Order
+     * @var array
      */
     public $activity;
 
@@ -26,7 +26,7 @@ class ActivityLoggerEvent
      *
      * @return void
      */
-    public function __construct(Array $activity)
+    public function __construct(array $activity)
     {
         $this->activity = $activity;
     }

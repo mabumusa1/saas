@@ -91,6 +91,7 @@
                     <span class="menu-title">{{ __('Dashboard') }}</span>
                 </a>
             </div>
+            @can('viewAny', \App\Models\Site::class)
             <!-- Sites -->
             <div class="menu-item">
                 <a class="menu-link" href="{{ route('sites.index', $currentAccount->id) }}">
@@ -104,6 +105,8 @@
                     <span class="menu-title">{{ __('Sites') }}</span>
                 </a>
             </div>
+            @endcan
+            @can('viewAny', \App\Models\User::class)
             <!-- Users -->
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion"><span class="menu-link">
                 <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
@@ -142,6 +145,8 @@
                 </div>
             </div>
         </div>
+        @endcan
+        @can('changeBilling', $currentAccount)
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
             <span class="menu-link">
                 <span class="menu-icon"><!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com006.svg-->
@@ -172,6 +177,7 @@
                 </div>
             </div>
         </div>
+        @endcan
     </div>
     {{--end::Menu--}}
 </div>
