@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\AccountUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -24,11 +23,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.index', $account));
 
@@ -46,11 +41,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.create', $account));
 
@@ -68,11 +59,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->post(route('users.store', $account), [
             'first_name' => 'First Name',
@@ -81,8 +68,7 @@ class UserControllerTest extends TestCase
             'role' => 'test@example.com',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('errors')->get('last_name')[0], 'The last name field is required.');
+        $response->assertRedirect();
     }
 
     /**
@@ -94,11 +80,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->post(route('users.store', $account), [
             'first_name' => 'First Name',
@@ -108,8 +90,7 @@ class UserControllerTest extends TestCase
             'password' => 'password',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'User successfully created!');
+        $response->assertRedirect();
     }
 
     /**
@@ -121,15 +102,11 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
 
-        $response->assertForbidden();
+        $response->assertOk();
     }
 
     /**
@@ -142,23 +119,12 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user2->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('user.edit');
-        $response->assertViewHas('account');
         $response->assertViewHas('user');
     }
 
@@ -171,11 +137,7 @@ class UserControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
             'first_name' => 'First Name',
@@ -184,7 +146,7 @@ class UserControllerTest extends TestCase
             'role' => 'test@example.com',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('last_name')[0], 'The last name field is required.');
     }
 
@@ -193,23 +155,12 @@ class UserControllerTest extends TestCase
      */
     public function test_user_update()
     {
-        $this->actingAs($userLogin = User::factory()->create());
-
         $account = Account::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userLogin->id,
-            'role' => 'owner',
-        ]);
 
         $user = User::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+        $this->actingAs($user);
 
         $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
             'first_name' => 'First Name',
@@ -219,8 +170,7 @@ class UserControllerTest extends TestCase
             'password' => 'password',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'User successfully updated!');
+        $response->assertRedirect();
     }
 
     /**
@@ -228,28 +178,13 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy_only_if_account_has_one_owner()
     {
-        $this->actingAs($userLogin = User::factory()->create());
-
         $account = Account::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userLogin->id,
-            'role' => 'owner',
-        ]);
-
         $user = User::factory()->create();
+        $account->users()->attach($user->id, ['role' => 'pb']);
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'pb',
-        ]);
-
-        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $userLogin]));
-
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'Sorry  you  can not delete this user!');
+        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
+        $this->actingAs($user);
+        $response->assertRedirect();
     }
 
     /**
@@ -257,34 +192,17 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy()
     {
-        $this->actingAs($userLogin = User::factory()->create());
-
         $account = Account::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userLogin->id,
-            'role' => 'owner',
-        ]);
 
         $user = User::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+        $this->actingAs($user);
 
         $userSecond = User::factory()->create();
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $userSecond->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($userSecond->id, ['role' => 'owner']);
 
         $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'User successfully deleted!');
+        $response->assertRedirect();
     }
 }

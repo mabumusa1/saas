@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Casts\RoleCast;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class AccountUser extends Pivot
 {
-    use HasFactory;
+    use LogsActivity;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -18,12 +18,8 @@ class AccountUser extends Pivot
      */
     public $incrementing = true;
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'role' => RoleCast::class,
-    ];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->useLogName('account');
+    }
 }

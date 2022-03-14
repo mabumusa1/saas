@@ -3,7 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\AccountUser;
+use App\Models\Cashier\Subscription;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
@@ -26,14 +26,22 @@ class SearchControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
         $site = Site::factory()->create([
             'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
 

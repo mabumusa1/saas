@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use function Illuminate\Events\queueable;
 use Laravel\Cashier\Billable;
 use Laravel\Cashier\Cashier;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes, Billable;
+    use HasFactory, SoftDeletes, Billable, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,19 @@ class Account extends Model
      */
     protected $fillable = [
         'name',
+        'email',
+    ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $guarded = [
+        'stripe_id',
+        'pm_type',
+        'pm_last_four',
+        'trial_ends_at',
     ];
 
     /**
@@ -44,7 +59,7 @@ class Account extends Model
      */
     public function Users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
+        return $this->belongsToMany(User::class)->using(AccountUser::class)->withPivot('role');
     }
 
     /**
@@ -104,5 +119,11 @@ class Account extends Model
     public function stripeEmail()
     {
         return $this->email;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('account');
     }
 }

@@ -41,9 +41,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        /* define a owner user role */
-        Gate::define('isAdmin', function ($user) {
-            return $user->accountUser->role == 'admin';
+        Gate::define('isAdmin', function (User $user) {
+            /* @phpstan-ignore-next-line */
+            return $user->accounts()->first()->pivot->role === 'admin';
         });
     }
 }

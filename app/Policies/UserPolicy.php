@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -24,7 +25,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -37,7 +38,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -51,7 +52,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -65,8 +66,21 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
-        return $user->belongToRoles($this->account, $allowedRoles);
+        return $user->belongToRoles($this->account, $allowedRoles) && $this->account->users()->wherePivot('role', 'owner')->count() > 1;
+    }
+
+    /**
+     * Determine whether the user can change the role of the owenr.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function changeOwner(User $user)
+    {
+        $allowedRoles = ['admin', 'owner'];
+
+        return $user->belongToRoles($this->account, $allowedRoles) && $this->account->users()->wherePivot('role', 'owner')->count() > 1;
     }
 }

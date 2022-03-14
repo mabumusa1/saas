@@ -23,14 +23,8 @@
                                             <label class="form-check-label" for="radioMine">
                                                 {{ __('This site is mine; it will count towards my site allowance') }}
                                                 <br />
-                                                You have
-                                                {{ $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }}
-                                                of {{ $count }} sites available. @if (!$subscriptions->count())
-                                                    Delete site or <a
-                                                        href="{{ route('payment.checkout', [$account]) }}">Upgrade
-                                                        your
-                                                        plan</a>
-                                                @endif
+                                                You have {{ $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }} of {{ $count }} sites available. @if(!$subscriptions->count()) Delete site or <a href="{{ route('billing.index', [$account]) }}">Upgrade your
+                                                    plan</a> @endif
                                             </label>
                                         </div>
                                     </div>

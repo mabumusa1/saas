@@ -26,14 +26,14 @@ class SitePolicy
      */
     public function viewAny(User $user)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
 
     public function view(User $user, Site $site)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -46,7 +46,7 @@ class SitePolicy
      */
     public function create(User $user)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -60,7 +60,7 @@ class SitePolicy
      */
     public function update(User $user, Site $site)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -74,7 +74,7 @@ class SitePolicy
      */
     public function delete(User $user, Site $site)
     {
-        $allowedRoles = ['owner'];
+        $allowedRoles = ['admin', 'owner'];
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }

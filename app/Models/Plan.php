@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Plan extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -45,4 +47,10 @@ class Plan extends Model
      * @var array
      */
     protected $hidden = ['id', 'available', 'stripe_product_id', 'stripe_monthly_price_id', 'stripe_yearly_price_id', 'created_at', 'updated_at', 'archived', 'options', 'features'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('system');
+    }        
 }

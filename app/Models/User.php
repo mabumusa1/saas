@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AccountUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,15 +10,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable, Impersonate, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -66,12 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function Accounts(): BelongsToMany
     {
-        return $this->belongsToMany(Account::class)->using(AccountUser::class)->withTimestamps()->withPivot('role');
-    }
-
-    public function accountUser(): HasOne
-    {
-        return $this->hasOne(AccountUser::class);
+        return $this->belongsToMany(Account::class)->using(AccountUser::class)->withPivot('role');
     }
 
     /**
@@ -87,7 +84,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Check if the user has many roles.
+     * Check if the user has one of the roles.
      *
      * @return  bool
      */
@@ -97,5 +94,39 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->accounts()->get()->where('id', $account->id)->first()->pivot->role,  /* @phpstan-ignore-line */
             $roles
         );
+    }
+
+    /**
+     * Return the role of the user.
+     *
+     * @return  string
+     */
+    public function role(Account $account)
+    {
+        /* @phpstan-ignore-next-line */
+        return $account->users()->where('users.id', $this->id)->first()->pivot->role;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canImpersonate()
+    {
+        /* @phpstan-ignore-next-line */
+        return $this->accounts()->first()->pivot->role === 'admin';
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->useLogName('system');
+    }
+
+    public function tapActivity(Activity $activity)
+    {
+        // TODO: Add the custom properites for the account id
+        /* @phpstan-ignore-next-line */
+        $activity->properties = $activity->properties->merge([
+            'account_id' => 'value of custom property',
+        ]);
     }
 }

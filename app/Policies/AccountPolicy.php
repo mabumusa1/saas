@@ -39,7 +39,7 @@ class AccountPolicy
      */
     public function changeBilling(User $user, Account $account)
     {
-        $allowedRoles = ['owner', 'fb', 'fnb'];
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
         return $user->belongToRoles($account, $allowedRoles);
     }

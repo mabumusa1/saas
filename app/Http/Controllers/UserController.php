@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ActivityLoggerEvent;
+use App\Events\UserCreatedEvent;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
-use App\Models\AccountUser;
+use App\Models\DataCenter;
 use App\Models\User;
 use DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Session;
 
 class UserController extends Controller
@@ -24,18 +26,16 @@ class UserController extends Controller
 
     /**
      * @param Account $account
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Account $account)
     {
-        $canEditOwner = $account->users()->where('account_user.role', 'owner')->count() > 1;
-
-        return view('user.index', ['users' => $account->users, 'canEditOwner' => $canEditOwner]);
+        return view('user.index', ['users' => $account->users]);
     }
 
     /**
      * @param Account $account
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
@@ -49,43 +49,38 @@ class UserController extends Controller
      */
     public function store(Account $account, StoreUserRequest $request)
     {
-        $data = $request->all();
+        $input = $request->all();
+        $password = Str::random(16);
+        DB::transaction(function () use ($input, $account, $password) {
+            return tap(User::create([
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'email' => $input['email'],
+                'password' => Hash::make($password),
+            ]), function (User $user) use ($input, $account, $password) {
+                $ownAccount = new Account();
+                $dataCenter = DataCenter::first();
+                $ownAccount->name = $user->first_name.' Account';
+                $ownAccount->data_center_id = $dataCenter->id;
+                $ownAccount->email = $user->email;
+                $ownAccount->save();
+                $ownAccount->users()->sync([$user->id => ['role' => 'owner']]);
+                $account->users()->syncWithoutDetaching([$user->id => ['role' => $input['role']]]);
+                UserCreatedEvent::dispatch($user, $password);
+            });
+        });
 
-        $user = User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make('password'),
-        ]);
-
-        AccountUser::create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => $data['role'],
-        ]);
-
-        $authUser = Auth::user();
-        activity('User created')
-            ->performedOn($user)
-            ->causedBy($authUser)
-            ->withProperties(['account_id' => $account->id])
-            ->log('User created by '.$authUser->getFullNameAttribute());
-
-        Session::flash('status', 'User successfully created!');
-
-        return redirect()->route('users.index', $account);
+        return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
     }
 
     /**
      * @param Account $account
      * @param User $user
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, User $user)
     {
-        abort_if($account->users()->where('account_user.role', 'owner')->count() === 1 && $user->accounts()->wherePivot('role', 'owner')->exists(), 403);
-
-        return view('user.edit', compact('account', 'user'));
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -97,23 +92,11 @@ class UserController extends Controller
     public function update(Account $account, UpdateUserRequest $request, User $user)
     {
         $data = $request->all();
-        $accountUser = AccountUser::where('user_id', $user->id)->first();
-        $accountUser->update([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => $data['role'],
-        ]);
 
-        $user->update([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make('password'),
-        ]);
+        $user->update($data);
+        $account->users()->updateExistingPivot($user->id, ['role' => $data['role']]);
 
-        Session::flash('status', 'User successfully updated!');
-
-        return redirect()->route('users.index', $account);
+        return redirect()->route('users.index', $account)->with('status', __('User successfully updated!'));
     }
 
     /**
@@ -123,27 +106,13 @@ class UserController extends Controller
      */
     public function destroy(Account $account, User $user)
     {
-        $accountUser = AccountUser::where('account_id', $account->id)->where('role', 'owner')->get();
+        /*
+         * We only remove the user from the account
+         * Do not remove the user
+         */
 
-        if ($user->accountUser()->first()->role == 'owner' && count($accountUser) == 1) {
-            Session::flash('status', 'Sorry  you  can not delete this user!');
+        $account->users()->detach($user->id);
 
-            return redirect()->route('users.index', $account);
-        }
-
-        AccountUser::where('user_id', $user->id)->delete();
-        $user = User::find($user->id);
-        $user->delete();
-
-        Session::flash('status', 'User successfully deleted!');
-
-        $authUser = Auth::user();
-        activity('User deleted')
-            ->performedOn($user)
-            ->causedBy($authUser)
-            ->withProperties(['account_id' => $account->id])
-            ->log('User deleted by '.$authUser->getFullNameAttribute());
-
-        return redirect()->route('users.index', $account);
+        return redirect()->route('users.index', $account)->with('status', __('User successfully deleted!'));
     }
 }

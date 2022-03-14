@@ -6,13 +6,10 @@ use App\Models\Plan;
 use App\Models\Site;
 use DB;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription
 {
-    use HasFactory;
-
     public function sites()
     {
         return $this->hasMany(Site::class);
@@ -32,9 +29,9 @@ class Subscription extends CashierSubscription
     {
         return new Attribute(
             get: function () {
-                if ($this->plan->stripe_yearly_price_id === $this->stripe_price) {
+                if ($this->plan()->stripe_yearly_price_id === $this->stripe_price) {
                     return 'yearly';
-                } elseif ($this->plan->stripe_monthly_price_id === $this->stripe_price) {
+                } elseif ($this->plan()->stripe_monthly_price_id === $this->stripe_price) {
                     return 'monthly';
                 }
 

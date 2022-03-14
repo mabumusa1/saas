@@ -23,25 +23,29 @@ class SiteControllerTest extends TestCase
      */
     public function test_index_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
+        $user = User::factory()->create();
 
-        $subscription = Subscription::factory()->create([
-            'account_id' => $account->id,
-        ]);
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
-        Site::factory()->create([
+        $subscription = $subscription;
+        $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
 
         $response = $this->call('GET', route('sites.index', $account), ['q'=>'test']);
 
@@ -69,6 +73,7 @@ class SiteControllerTest extends TestCase
             'user_id' => $user->id,
             'role' => 'owner',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('sites.create', $account));
 
@@ -82,23 +87,36 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_store()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
+        $user = User::factory()->create();
 
-        AccountUser::factory()->create([
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+
+        $subscription = $subscription;
+        $site = Site::factory()->create([
             'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
+            'subscription_id' => $subscription->id,
+            'name' => 'Site test name',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
 
         $response = $this->post(route('sites.store', $account), [
             'sitename' => 'test name',
             'environmentname' => 123,
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        // $response->assertSessionHas('status');
+        $response->assertRedirect();
     }
 
     /**
@@ -106,25 +124,27 @@ class SiteControllerTest extends TestCase
      */
     public function test_edit_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
+        $user = User::factory()->create();
 
-        $subscription = Subscription::factory()->create([
-            'account_id' => $account->id,
-        ]);
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
 
         $response = $this->get(route('sites.edit', ['account' => $account, 'site' => $site]));
 
@@ -138,33 +158,35 @@ class SiteControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_site_update_fail_without_last_name()
+    public function test_site_update_fail_without_name()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
+        $user = User::factory()->create();
 
-        $subscription = Subscription::factory()->create([
-            'account_id' => $account->id,
-        ]);
-
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
 
         $response = $this->put(route('sites.update', ['account' => $account, 'site' => $site]), [
             'name' => '',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('name')[0], 'The name field is required.');
     }
 
@@ -173,31 +195,33 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_update()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
-        $subscription = Subscription::factory()->create([
-            'account_id' => $account->id,
-        ]);
+        $user = User::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
             'name' => 'Site test name',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
 
         $response = $this->put(route('sites.update', ['account' => $account, 'site' => $site]), [
             'name' => 'test name',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'Site successfully updated!');
+        $response->assertRedirect();
     }
 
     /**
@@ -205,34 +229,29 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_destroy()
     {
-        $this->actingAs($user = User::factory()->create());
-
         $account = Account::factory()->create();
+        $user = User::factory()->create();
 
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
-
-        $subscription = Subscription::factory()->create([
-            'account_id' => $account->id,
-        ]);
-
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
         $site = Site::factory()->create([
             'account_id' => $account->id,
-            'subscription_id' =>    $subscription->id,
-            'name' => 'test',
+            'subscription_id' => $subscription->id,
+            'name' => 'Site test name',
         ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
 
-        Install::factory()->create([
-            'site_id' => $site->id,
-            'name' => 'test',
-            'type' => 'dev',
-        ]);
+        $this->actingAs($user);
 
         $response = $this->delete(route('sites.destroy', ['account' => $account, 'site' => $site]));
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'Site successfully deleted!');
+        $response->assertRedirect();
     }
 }

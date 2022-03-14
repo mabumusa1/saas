@@ -128,7 +128,7 @@ var KTSignupGeneral = function () {
                             });
                         })
                         .catch(function (error) {
-                            let dataMessage = error.response.data.message;
+                            let dataMessage = '';
                             let dataErrors = error.response.data.errors;
 
                             for (const errorsKey in dataErrors) {
@@ -138,8 +138,7 @@ var KTSignupGeneral = function () {
 
                             if (error.response) {
                                 const errorBag = document.querySelector('#errorBag');
-                                errorBag.classList.add('alert', 'alert-danger')
-                                errorBag.textContent = dataMessage;
+                                errorBag.classList.add('alert', 'alert-danger');
                             }
                         })
                         .then(function () {

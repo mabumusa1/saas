@@ -3,7 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\AccountUser;
+use App\Models\Cashier\Subscription;
 use App\Models\Group;
 use App\Models\Site;
 use App\Models\User;
@@ -22,13 +22,22 @@ class GroupControllerTest extends TestCase
      */
     public function index_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $user = User::factory()->create();
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
 
         Group::factory()->create([
             'name' => 'test',
@@ -38,6 +47,7 @@ class GroupControllerTest extends TestCase
 
         Site::factory()->create([
             'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
             'name' => 'test',
         ]);
 
@@ -54,11 +64,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $response = $this->get(route('groups.create', $account));
         $response->assertOk();
         $response->assertViewIs('groups.create');
@@ -72,11 +78,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $data = [
             'name'=>'admin',
             'notes'=>122,
@@ -93,15 +95,11 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $data = [];
         $response = $this->post(route('groups.store', $account), $data);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('name')[0], 'The name field is required.');
     }
 
@@ -112,11 +110,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $response = $this->get(route('groups.edit', [$account, $group]))
         ->assertOk()
@@ -134,12 +128,23 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+
+        $site = Site::factory()->for($account)->create([
+            'subscription_id' => $subscription->id,
         ]);
-        $site = Site::factory()->for($account)->create();
+
         $group = Group::factory()->for($account)->create();
         $data = [
             'name'=>'test group',
@@ -159,11 +164,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $data = [
             'name'=>'test group',
@@ -182,15 +183,11 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $data = [];
         $response = $this->put(route('groups.update', [$account, $group]), $data);
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('name')[0], 'The name field is required.');
     }
 
@@ -201,11 +198,7 @@ class GroupControllerTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
         $account = Account::factory()->create();
-        AccountUser::factory()->create([
-            'account_id' => $account->id,
-            'user_id' => $user->id,
-            'role' => 'owner',
-        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
         $group = Group::factory()->for($account)->create();
         $response = $this->delete(route('groups.destroy', [$account, $group]))
         ->assertStatus(302);
