@@ -11,17 +11,33 @@
 |
 */
 
+use App\Http\Controllers\BillingController;
+
+Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@authenticate')->name('post.login');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('site_search', App\Http\Controllers\SearchController::class)->name('site.search');
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
+        Route::prefix('billing')->middleware('can:changeBilling,account')->group(function () {
+            Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('billing.index');
+            Route::put('/info', [BillingController::class, 'update'])->name('billing.info.update');
+            Route::put('/', [App\Http\Controllers\BillingController::class, 'store'])->name('billing.update');
+            Route::get('/mange_subscriptions', [App\Http\Controllers\BillingController::class, 'manageSubscriptions'])->name('billing.manageSubscriptions');
+            Route::post('/subscribe/{plan}', [App\Http\Controllers\BillingController::class, 'subscribe'])->name('billing.subscribe');
+            Route::get('invoice/{invoice}', [App\Http\Controllers\BillingController::class, 'invoice'])->name('billing.invoice');
+            Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
+        });
         Route::resource('logs', App\Http\Controllers\Log\LogController::class)->only([
             'index', 'destroy',
         ]);
 
-        Route::resource('sites', App\Http\Controllers\SiteController::class);
+        Route::get('subscriptions', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('subscriptions.index');
+        Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
+        Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
+            'show',
+        ]);
         Route::resource('groups', App\Http\Controllers\GroupController::class)->except([
             'show',
         ]);

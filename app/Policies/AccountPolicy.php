@@ -30,4 +30,17 @@ class AccountPolicy
     {
         return ($account->users()->find($user->id)) ? true : false;
     }
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function changeBilling(User $user, Account $account)
+    {
+        $allowedRoles = ['owner', 'fb', 'fnb'];
+
+        return $user->belongToRoles($account, $allowedRoles);
+    }
 }

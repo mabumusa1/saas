@@ -10,10 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function Illuminate\Events\queueable;
+use Laravel\Cashier\Billable;
+use Laravel\Cashier\Cashier;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -72,5 +75,34 @@ class Account extends Model
     public function Groups(): HasMany
     {
         return $this->hasMany(Group::class);
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updated(queueable(function ($customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
+    }
+
+    /**
+     * Get the customer name that should be synced to Stripe.
+     *
+     * @return string|null
+     */
+    public function stripeName()
+    {
+        return $this->name;
+    }
+
+    public function stripeEmail()
+    {
+        return $this->email;
     }
 }
