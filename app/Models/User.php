@@ -12,14 +12,12 @@ use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-    use Impersonate;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable, Impersonate, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -111,7 +109,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function canImpersonate()
     {
-        // For example
         return $this->accounts()->first()->pivot->role === 'admin';
     }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->useLogName('system');
+    }        
 }

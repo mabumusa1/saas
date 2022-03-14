@@ -9,6 +9,7 @@ use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\ActivityLoggerEvent;
 use Session;
 
 class SiteController extends Controller
@@ -90,7 +91,7 @@ class SiteController extends Controller
             'subscription_id' => $subscription->id,
         ]);
 
-        return redirect(route('sites.index', $account->id))->with('status', 'Site is under creation, we will send you an update once it is done!');
+        return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }
 
     /**
@@ -120,9 +121,10 @@ class SiteController extends Controller
         $site->update([
             'name' => $request->input('name'),
         ]);
+        
         $site->groups()->sync($request->input('groups'));
 
-        return to_route('sites.index', compact('account'))->with('status', 'Site successfully updated!');
+        return to_route('sites.index', compact('account'))->with('status', __('Site successfully updated!'));
     }
 
     /**
@@ -134,26 +136,10 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        $authUser = Auth::user();
+        
         $site->groups()->detach();
-        $site->installs->each(function ($install) use ($authUser, $account) {
-            activity('Install deleted')
-                ->performedOn($install)
-                ->causedBy($authUser)
-                ->withProperties(['account_id' => $account->id])
-                ->log('User created by '.$authUser->fullName);
-            $install->contact()->delete();
-        });
-
-        activity('Site deleted')
-            ->performedOn($site)
-            ->causedBy($authUser)
-            ->withProperties(['account_id' => $account->id])
-            ->log('Site deleted by '.$authUser->fullName);
-
         $site->installs()->delete();
         $site->delete();
-
         return redirect(route('sites.index', $account->id))->with('status', 'Site successfully deleted!');
     }
 }

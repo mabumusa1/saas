@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ActivityLoggerEvent;
 
 class AuthenticatedEventListner
 {
@@ -26,10 +27,12 @@ class AuthenticatedEventListner
      */
     public function handle(Authenticated $event)
     {
-        $user = $event->user;
-        activity('user.authenticated')
-            ->performedOn($user)
-            ->causedBy($user)
-            ->log($user->fullName.__(' had a successful login'));
+        ActivityLoggerEvent::dispatch([
+            'name' =>  __('User Authenticated'),
+            'performedOn' => $event->user,
+            'causedBy' => $event->user,
+            'withProperties' => [],
+            'log' => $event->user->fullName . __(' Logged In Successfully')
+        ]);
     }
 }
