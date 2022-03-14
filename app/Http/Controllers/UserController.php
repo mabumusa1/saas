@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\UserCreatedEvent;
+use App\Events\ActivityLoggerEvent;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
@@ -48,19 +49,26 @@ class UserController extends Controller
      */
     public function store(Account $account, StoreUserRequest $request)
     {
-        $data = $request->all();
+        $input = $request->all();
         $password = Str::random(16);
-        $user = User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($password),
-        ]);
-
-        $user->accounts()->attach($account, ['role' => $data['role']]);
+        DB::transaction(function () use ($input, $account) {
+            return tap(User::create([
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'email' => $input['email'],
+                'password' => Hash::make($input['password']),
+            ]), function (User $user) {
+                $ownAccount = new Account();
+                $dataCenter = DataCenter::first();
+                $ownAccount->name = $user->first_name.' Account';
+                $ownAccount->data_center_id = $dataCenter->id;
+                $ownAccount->email = $user->email;
+                $ownAccount->save();
+                $account->users()->sync([$user->id => ['role' => 'owner']]);
+            });
+        });
 
         UserCreatedEvent::dispatch($user, $password);
-
         return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
     }
 
@@ -106,12 +114,6 @@ class UserController extends Controller
          */
 
         $account->users()->detach($user->id);
-
-        activity('User deleted')
-            ->performedOn($user)
-            ->causedBy(request()->user())
-            ->withProperties(['account_id' => $account->id])
-            ->log('User deleted by '.request()->user()->fullName);
 
         return redirect()->route('users.index', $account)->with('status', __('User successfully deleted!'));
     }

@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use function Illuminate\Events\queueable;
 use Laravel\Cashier\Billable;
 use Laravel\Cashier\Cashier;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes, Billable;
+    use HasFactory, SoftDeletes, Billable, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +26,19 @@ class Account extends Model
      */
     protected $fillable = [
         'name',
+        'email'
+    ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'stripe_id',
+        'pm_type',
+        'pm_last_four',
+        'trial_ends_at'
     ];
 
     /**
@@ -104,4 +119,11 @@ class Account extends Model
     {
         return $this->email;
     }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('account');
+    }    
+
 }

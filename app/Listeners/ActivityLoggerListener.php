@@ -4,9 +4,8 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Events\ActivityLoggerEvent;
 
-class VerifiedEventListner
+class ActivityLoggerListener
 {
     /**
      * Create the event listener.
@@ -26,12 +25,10 @@ class VerifiedEventListner
      */
     public function handle($event)
     {
-        ActivityLoggerEvent::dispatch([
-            'name' =>  __('User Email Verified'),
-            'performedOn' => $event->user,
-            'causedBy' => $event->user,
-            'withProperties' => [],
-            'log' => $user->fullName . __(' Verified')
-        ]);        
+        activity($event->activity['name'])
+            ->performedOn($event->activity['user'])
+            ->causedBy($event->activity['causedBy'])
+            ->withProperties($event->activity['withProperties'])
+            ->log($event->activity['log']);        
     }
 }

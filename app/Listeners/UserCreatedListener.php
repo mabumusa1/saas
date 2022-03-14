@@ -29,11 +29,5 @@ class UserCreatedListener
     public function handle(UserCreatedEvent $event)
     {
         $event->user->notify(new UserCreatedNotification($event->password));
-        $authUser = Auth::user();
-        activity(__('New User Added'))
-            ->performedOn($event->user)
-            ->causedBy($authUser)
-            ->withProperties(['account_id' => $account->id])
-            ->log('User created by '.$authUser->fullName);
     }
 }

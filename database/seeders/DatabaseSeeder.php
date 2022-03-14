@@ -14,12 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            AccountSeeder::class,
-            RoleSeeder::class,
-            InstallSeeder::class,
-            ContactSeeder::class,
-            GroupSeeder::class,
             AdminSeeder::class,
+            UsersSeeder::class,
+            AccountWithBillingSeeder::class,
+            AccountWithoutBillingSeeder::class,
         ]);
     }
 }

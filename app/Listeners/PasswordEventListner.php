@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ActivityLoggerEvent;
 
 class PasswordEventListner
 {
@@ -25,6 +26,12 @@ class PasswordEventListner
      */
     public function handle($event)
     {
-        //
+        ActivityLoggerEvent::dispatch([
+            'name' =>  __('User Password Reset'),
+            'performedOn' => $event->user,
+            'causedBy' => $event->user,
+            'withProperties' => [],
+            'log' => $user->fullName . __(' Reset Password Successfully')
+        ]);
     }
 }
