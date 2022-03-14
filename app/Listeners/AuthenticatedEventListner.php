@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Events\ActivityLoggerEvent;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Events\ActivityLoggerEvent;
 
 class AuthenticatedEventListner
 {
@@ -22,7 +22,7 @@ class AuthenticatedEventListner
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  \Illuminate\Auth\Events\Authenticated  $event
      * @return void
      */
     public function handle(Authenticated $event)
@@ -32,7 +32,8 @@ class AuthenticatedEventListner
             'performedOn' => $event->user,
             'causedBy' => $event->user,
             'withProperties' => [],
-            'log' => $event->user->fullName . __(' Logged In Successfully')
+            /* @phpstan-ignore-next-line */
+            'log' => $event->user->fullName.__(' Logged In Successfully'),
         ]);
     }
 }

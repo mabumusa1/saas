@@ -45,8 +45,8 @@ class UserCreatedNotification extends Notification
         return (new MailMessage)
                 ->greeting(__('Hello!'))
                 ->line(__('You  have been invited to use Steer Campaign to Manage Mautic installations'))
-                ->line(__('Please login with your email and this '.$password))
-                ->action(__('Please visit '.route('login')));
+                ->line(__('Please login with your email and this '.$this->password))
+                ->action(__('Please visit '), route('login'));
     }
 
     /**

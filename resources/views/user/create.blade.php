@@ -39,10 +39,13 @@
                         </div>
                         <div class="form-group fv-row my-4">
                             <label class="required text-lg-start">{{ __('Account access') }}</label>
+                           
                             <a href="#" class="float-end">{{ __('View access type definitions') }}</a>
                             <select  name="role" class="form-select form-select-solid" aria-label="Select example">
-                                <option value="">{{ __('Open this select menu') }}</option>
                                 @foreach(roles() as $roleKey => $roleValue)
+                                    @if($roleKey === 'admin' && $currentAccount->users()->where('users.id', request()->user()->id)->first()->pivot->role !== 'admin')
+                                    @continue
+                                    @endif                                
                                     <option value="{{$roleKey}}">{{$roleValue}}</option>
                                 @endforeach
                             </select>

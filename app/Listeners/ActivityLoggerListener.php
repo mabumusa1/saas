@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Spatie\Activitylog\Facades\CauserResolver;
 
 class ActivityLoggerListener
 {
@@ -25,10 +26,11 @@ class ActivityLoggerListener
      */
     public function handle($event)
     {
-        activity($event->activity['name'])
+        CauserResolver::setCauser($event->user);
+        activity('account')
             ->performedOn($event->activity['user'])
             ->causedBy($event->activity['causedBy'])
             ->withProperties($event->activity['withProperties'])
-            ->log($event->activity['log']);        
+            ->log($event->activity['log']);
     }
 }

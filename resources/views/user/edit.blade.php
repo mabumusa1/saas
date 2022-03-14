@@ -40,13 +40,15 @@
                             @endif
                         </div>
                     </div>
+                    @can('changeOwner', request()->user())
                     <div class="form-group fv-row col-5 my-4">
                         <label class="required text-lg-start">{{ __('Account access') }}</label>
                         <a href="#" class="float-end">{{ __('View access type definitions') }}</a>
                         <select name="role" class="form-select form-select-solid" aria-label="Select example">
-                            <option value="">{{ __('Open this select menu') }}</option>
                             @foreach(roles() as $roleKey => $roleValue)
-
+                                @if($roleKey === 'admin')
+                                @continue
+                                @endif                                
                                 <option @if($currentAccount->users()->where('users.id', $user->id)->first()->pivot->role == $roleKey) selected @endif value="{{$roleKey}}">{{$roleValue}}</option>
                             @endforeach
                         </select>
@@ -54,12 +56,15 @@
                             <span class="help-block"><strong>{{ $errors->first('role') }}</strong></span>
                         @endif
                     </div>
+                    @endcan
                     <div class="separator mb-5"></div>
                     <div class="my-4">
+                        @can('delete', request()->user())
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_1">
                             <i class="bi bi-dash-circle fs-4 me-2"></i>{{ __('Remove user') }}
                         </button>
+                        @endcan                        
                         <button type="submit" class="btn btn-bg-info float-end text-white">{{ __('Update user') }}</button>
                         <a href="{{route('users.index', $currentAccount)}}"
                            class="btn btn-outline btn-outline-solid btn-outline-default float-end mx-3">{{ __('Cancel') }}</a>
@@ -71,6 +76,7 @@
             </div>
         </div>
     </div>
+    @can('delete', request()->user())
     <div class="modal fade" tabindex="-1" id="kt_modal_1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -99,5 +105,5 @@
             </div>
         </div>
     </div>
-
+    @endcan
 </x-base-layout>

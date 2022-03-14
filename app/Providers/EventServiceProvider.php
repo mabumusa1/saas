@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\UserCreated;
+use App\Events\UserCreatedEvent;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
