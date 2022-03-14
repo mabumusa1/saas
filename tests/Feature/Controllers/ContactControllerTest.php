@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
+use App\Models\Cashier\Subscription;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
@@ -54,6 +55,9 @@ class ContactControllerTest extends TestCase
             'role' => 'owner',
         ]);
 
+        $subscription = Subscription::factory()->create([
+
+        ]);
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'name' => 'Site test name',
