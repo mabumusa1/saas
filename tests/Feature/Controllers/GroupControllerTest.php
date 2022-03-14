@@ -99,7 +99,7 @@ class GroupControllerTest extends TestCase
         $data = [];
         $response = $this->post(route('groups.store', $account), $data);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('name')[0], 'The name field is required.');
     }
 
@@ -187,7 +187,7 @@ class GroupControllerTest extends TestCase
         $group = Group::factory()->for($account)->create();
         $data = [];
         $response = $this->put(route('groups.update', [$account, $group]), $data);
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('name')[0], 'The name field is required.');
     }
 

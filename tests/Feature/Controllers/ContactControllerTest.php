@@ -132,7 +132,7 @@ class ContactControllerTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('last_name')[0], 'The last name field is required.');
     }
 
@@ -184,7 +184,7 @@ class ContactControllerTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('status'), 'Contact has been updated!');
     }
 }

@@ -141,7 +141,7 @@ class SiteController extends Controller
                 ->performedOn($install)
                 ->causedBy($authUser)
                 ->withProperties(['account_id' => $account->id])
-                ->log('User created by '.$authUser->getFullNameAttribute());
+                ->log('User created by '.$authUser->fullName);
             $install->contact()->delete();
         });
 
@@ -149,7 +149,7 @@ class SiteController extends Controller
             ->performedOn($site)
             ->causedBy($authUser)
             ->withProperties(['account_id' => $account->id])
-            ->log('Site deleted by '.$authUser->getFullNameAttribute());
+            ->log('Site deleted by '.$authUser->fullName);
 
         $site->installs()->delete();
         $site->delete();

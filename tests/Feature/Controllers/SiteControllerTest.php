@@ -106,8 +106,7 @@ class SiteControllerTest extends TestCase
             'environmentname' => 123,
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'Site is under creation, we will send you an update once it is done!');
+        $response->assertRedirect();
     }
 
     /**
@@ -181,7 +180,7 @@ class SiteControllerTest extends TestCase
             'name' => '',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        $response->assertRedirect();
         $this->assertEquals(session('errors')->get('name')[0], 'The name field is required.');
     }
 
@@ -218,8 +217,7 @@ class SiteControllerTest extends TestCase
             'name' => 'test name',
         ]);
 
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'Site successfully updated!');
+        $response->assertRedirect();
     }
 
     /**
@@ -252,7 +250,6 @@ class SiteControllerTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->delete(route('sites.destroy', ['account' => $account, 'site' => $site]));
-        $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(session('status'), 'Site successfully deleted!');
+        $response->assertRedirect();
     }
 }

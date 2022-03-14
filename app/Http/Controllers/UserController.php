@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserCreated;
+use App\Events\UserCreatedEvent;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
@@ -59,11 +59,9 @@ class UserController extends Controller
 
         $user->accounts()->attach($account, ['role' => $data['role']]);
 
-        UserCreated::dispatch($user, $password);
+        UserCreatedEvent::dispatch($user, $password);
 
-        Session::flash('status', __('User successfully created!'));
-
-        return redirect()->route('users.index', $account);
+        return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
     }
 
     /**
@@ -73,7 +71,7 @@ class UserController extends Controller
      */
     public function edit(Account $account, User $user)
     {
-        return view('user.edit', compact('account', 'user'));
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -85,10 +83,10 @@ class UserController extends Controller
     public function update(Account $account, UpdateUserRequest $request, User $user)
     {
         $data = $request->all();
+        $user->update($data);
         $account->users()->updateExistingPivot($user->id, ['role' => $data['role']]);
-        Session::flash('status', 'User successfully updated!');
 
-        return redirect()->route('users.index', $account);
+        return redirect()->route('users.index', $account)->with('status', __('User successfully updated!'));
     }
 
     /**
@@ -98,27 +96,23 @@ class UserController extends Controller
      */
     public function destroy(Account $account, User $user)
     {
-        $accountUser = AccountUser::where('account_id', $account->id)->where('role', 'owner')->get();
-
-        if ($user->accountUser()->first()->role == 'owner' && count($accountUser) == 1) {
-            Session::flash('status', 'Sorry  you  can not delete this user!');
-
-            return redirect()->route('users.index', $account);
+        if ($account->users()->wherePivot('role', 'owner')->count() == 1) {
+            return redirect()->route('users.index', $account)->with('status', 'Sorry  you  can not delete this user!');
         }
 
-        AccountUser::where('user_id', $user->id)->delete();
-        $user = User::find($user->id);
-        $user->delete();
+        /*
+         * We only remove the user from the account
+         * Do not remove the user
+         */
 
-        Session::flash('status', 'User successfully deleted!');
+        $account->users()->detach($user->id);
 
-        $authUser = Auth::user();
         activity('User deleted')
             ->performedOn($user)
-            ->causedBy($authUser)
+            ->causedBy(request()->user())
             ->withProperties(['account_id' => $account->id])
-            ->log('User deleted by '.$authUser->getFullNameAttribute());
+            ->log('User deleted by '.request()->user()->fullName);
 
-        return redirect()->route('users.index', $account);
+        return redirect()->route('users.index', $account)->with('status', __('User successfully deleted!'));
     }
 }

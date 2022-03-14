@@ -3,10 +3,10 @@
         <div class="card">
             <div class="card-body">
                 <div class=" mb-5">
-                    <h1>Edit user</h1>
+                    <h1>{{ __('Edit user') }}</h1>
                     <div class="separator mb-5"></div>
                 </div>
-                <form action="{{ route('users.update', ['account' => $account, 'user' => $user])}}" method="post">
+                <form action="{{ route('users.update', ['account' => $currentAccount, 'user' => $user])}}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="mb-10 col-12 border p-10">
@@ -47,7 +47,7 @@
                             <option value="">{{ __('Open this select menu') }}</option>
                             @foreach(roles() as $roleKey => $roleValue)
 
-                                <option @if($user->accountUser->role == $roleKey) selected @endif value="{{$roleKey}}">{{$roleValue}}</option>
+                                <option @if($currentAccount->users()->where('users.id', $user->id)->first()->pivot->role == $roleKey) selected @endif value="{{$roleKey}}">{{$roleValue}}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('role'))
@@ -61,7 +61,7 @@
                             <i class="bi bi-dash-circle fs-4 me-2"></i>{{ __('Remove user') }}
                         </button>
                         <button type="submit" class="btn btn-bg-info float-end text-white">{{ __('Update user') }}</button>
-                        <a href="{{route('users.index', $account)}}"
+                        <a href="{{route('users.index', $currentAccount)}}"
                            class="btn btn-outline btn-outline-solid btn-outline-default float-end mx-3">{{ __('Cancel') }}</a>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <form action="{{ route('users.destroy', ['account' => $account, 'user' => $user])}}" method="post">
+                    <form action="{{ route('users.destroy', ['account' => $currentAccount, 'user' => $user])}}" method="post">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Close') }}</button>
