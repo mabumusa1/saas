@@ -16,6 +16,20 @@ class StoreSiteRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'environmentname' => "https://{$this->environmentname}.steercampaign.com",
+        ]);
+    }
+
+    /* public function withValidator($validator){
+        $validator->after(function ($validator) {
+            if($validator->errors()->any() && $this->has('isValidation')){
+
+            }
+        });
+    } */
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,9 +39,9 @@ class StoreSiteRequest extends FormRequest
     {
         return [
             'sitename' => 'required|min:1|max:40',
-            'environmentname' => 'required|regex:/^[a-bA-B0-9 ]+$/|min:3|max:14|unique:installs,name',
+            'environmentname' => 'required|url|min:3|unique:installs,name',
             'type' => 'required|in:mine,transferable',
-            'isValidation' => 'sometimes|boolean'        
+            'isValidation' => 'sometimes|boolean',
         ];
     }
 }

@@ -19,24 +19,30 @@
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="type" class="form-check-input" type="radio" value="mine"
-                                                id="radioMine" @if ($subscriptions->count() === 0) disabled @else checked @endif>
+                                                id="radioMine"
+                                                @if ($subscriptions->count() === 0) disabled @else checked @endif>
                                             <label class="form-check-label" for="radioMine">
                                                 {{ __('This site is mine; it will count towards my site allowance') }}
                                                 <br />
-                                                {{ __('You have ') . $subscriptions->sum('quantity') - $subscriptions->sum('sites_count')  }} {{ $totalActiveSubscriptions }} {{ __('sites available.') }} 
-                                                @if($subscriptions->count() === 0) 
-                                                    {{ __('Delete site or ') }} <a class="text-primary" href="{{ route('billing.index', [$currentAccount]) }}"> {{ __('Upgrade your plan') }}</a> 
+                                                {{ __('You have ') . $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }}
+                                                of {{ $totalActiveSubscriptions }} {{ __('sites available.') }}
+                                                @if ($subscriptions->count() === 0)
+                                                    {{ __('Delete site or ') }} <a class="text-primary"
+                                                        href="{{ route('billing.index', [$currentAccount]) }}">
+                                                        {{ __('Upgrade your plan') }}</a>
                                                 @endif
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="mb-10 d-none" id="subscriptions">
+                                    <div class="mb-10 @if ($subscriptions->count() === 0) d-none @endif"
+                                        id="subscriptions">
                                         <div class="form-group">
                                             <select name="subscription_id" id="subscription_id" class="form-control">
                                                 @foreach ($subscriptions as $subscription)
                                                     <option value="{{ $subscription->id }}"
                                                         @if ($subscription->id == $currentAccount->subscription_id) selected @endif>
-                                                        {{ $subscription->name }}
+
+                                                        {{ $subscription->displayName }}
                                                         @if ($subscription->quantity - $subscription->sites_count > 0)
                                                             ({{ $subscription->quantity - $subscription->sites_count }}
                                                             sites available)
@@ -50,7 +56,8 @@
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="type" class="form-check-input" type="radio"
-                                                value="transferable" id="radioTransferable" @if ($subscriptions->count() === 0) checked @endif>
+                                                value="transferable" id="radioTransferable"
+                                                @if ($subscriptions->count() === 0) checked @endif>
                                             <label class="form-check-label" for="radioTransferable">
                                                 {{ __('This site is transferable; it will be moved to someone elses account.') }}
                                                 <br />
@@ -72,9 +79,10 @@
                                                     class="btn btn-outline btn-active-light-primary btn-outline-primary p-7 d-flex align-items-center mb-5"
                                                     for="start_blank">
                                                     <span class="d-block fw-bold text-center">
-                                                        <span class="text-dark fw-bolder d-block fs-3">{{ __('Start with a blank site') }}</span>
+                                                        <span
+                                                            class="text-dark fw-bolder d-block fs-3">{{ __('Start with a blank site') }}</span>
                                                         <span class="text-muted fw-bold fs-6">
-                                                            {{ __('Add an empty Mautic') }} 
+                                                            {{ __('Add an empty Mautic') }}
                                                         </span>
                                                     </span>
                                                 </label>
@@ -154,7 +162,7 @@
                                                             class="w-50 form-control form-control-solid"
                                                             placeholder="{{ __('Environment Name') }}" />
                                                         <p class="m-0">.steercampaign.com</p>
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -162,21 +170,21 @@
                                     </div>
                                     <div>
                                         <h3>{{ __('Environment type') }}</h3>
-                                        <p>{{ __('Create additional environments later from the Site Overview page.') }}</p>
+                                        <p>{{ __('Create additional environments later from the Site Overview page.') }}
+                                        </p>
                                         <label class="d-block">
                                             <!--end::Description-->
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
-                                                <div
-                                                    class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="environmenttype" value="prd" checked />
+                                                <div class="form-check-custom form-check-solid form-check-primary me-2">
+                                                    <input class="form-check-input" type="radio" name="environmenttype"
+                                                        value="prd" checked />
                                                 </div>
                                                 <!--end::Radio-->
 
                                                 <!--begin::Price-->
                                                 <div class="ms-2">
-                                                    {!! get_svg_icon("skin/media/icons/duotone/Communication/Share.svg") !!}
+                                                    {!! get_svg_icon('skin/media/icons/duotone/Communication/Share.svg') !!}
                                                     <div class="badge badge-primary ms-2">{{ __('PRD') }}</div>
                                                     <div class="d-flex d-inline-flex flex-column">
                                                         <p class="mb-0">{{ __('Production (live)') }}</p>
@@ -191,20 +199,21 @@
                                             <!--end::Description-->
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
-                                                <div
-                                                    class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="environmenttype" value="stg"/>
+                                                <div class="form-check-custom form-check-solid form-check-primary me-2">
+                                                    <input class="form-check-input" type="radio" name="environmenttype"
+                                                        value="stg" />
                                                 </div>
                                                 <!--end::Radio-->
 
                                                 <!--begin::Price-->
                                                 <div class="ms-2">
-                                                    {!! get_svg_icon("skin/media/icons/duotone/Communication/Share.svg") !!}
+                                                    {!! get_svg_icon('skin/media/icons/duotone/Communication/Share.svg') !!}
                                                     <div class="badge badge-warning ms-2">{{ __('STG') }}</div>
                                                     <div class="d-flex d-inline-flex flex-column">
-                                                        <p class="mb-0">{{ __('Staging (optional sandbox)') }}</p>
-                                                        <p>{{ __('Review and test before deploying to Production.') }}</p>
+                                                        <p class="mb-0">
+                                                            {{ __('Staging (optional sandbox)') }}</p>
+                                                        <p>{{ __('Review and test before deploying to Production.') }}
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <!--end::Price-->
@@ -215,20 +224,22 @@
                                             <!--end::Description-->
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
-                                                <div
-                                                    class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="environmenttype" value="dev"  disabled/>
+                                                <div class="form-check-custom form-check-solid form-check-primary me-2">
+                                                    <input class="form-check-input" type="radio" name="environmenttype"
+                                                        value="dev" disabled />
                                                 </div>
                                                 <!--end::Radio-->
 
                                                 <!--begin::Price-->
                                                 <div class="ms-2">
-                                                    {!! get_svg_icon("skin/media/icons/duotone/Communication/Share.svg") !!}
-                                                    <div class="badge border border-1 border-primary text-primary ms-2">{{ __('DEV') }}</div>
+                                                    {!! get_svg_icon('skin/media/icons/duotone/Communication/Share.svg') !!}
+                                                    <div class="badge border border-1 border-primary text-primary ms-2">
+                                                        {{ __('DEV') }}</div>
                                                     <div class="d-flex d-inline-flex flex-column">
-                                                        <p class="mb-0">{{ __('Development (optional sandbox)') }}</p>
-                                                        <p>{{ __('Build and experiment before deploying to Staging or Production.') }}</p>
+                                                        <p class="mb-0">
+                                                            {{ __('Development (optional sandbox)') }}</p>
+                                                        <p>{{ __('Build and experiment before deploying to Staging or Production.') }}
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <!--end::Price-->
@@ -250,11 +261,11 @@
 
                                 <!--begin::Wrapper-->
                                 <div>
-                                    <a href="{{ route('sites.index', $currentAccount) }}" type="button" class="btn btn-secondary btn-cancel">
+                                    <a href="{{ route('sites.index', $currentAccount) }}" type="button"
+                                        class="btn btn-secondary btn-cancel">
                                         {{ __('Cancel') }}
                                     </a>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-kt-stepper-action="previous">
+                                    <button type="button" class="btn btn-secondary" data-kt-stepper-action="previous">
                                         {{ __('Back') }}
                                     </button>
                                     <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
@@ -285,21 +296,21 @@
     </div>
 
     @push('styles')
-    <style>
-        .form-control.is-valid {
-            border-color: #50CD89 !important;
-        }
+        <style>
+            .form-control.is-valid {
+                border-color: #50CD89 !important;
+            }
 
-        .form-control.is-invalid {
-            border-color: #F1416C !important;
-        }
+            .form-control.is-invalid {
+                border-color: #F1416C !important;
+            }
 
-        .fv-plugins-icon[data-field='sitename'],
-        .fv-plugins-icon[data-field='environmentname'] {
-            top: 22px !important;
-        }
+            .fv-plugins-icon[data-field='sitename'],
+            .fv-plugins-icon[data-field='environmentname'] {
+                top: 22px !important;
+            }
 
-    </style>
+        </style>
     @endpush
     @push('scripts')
         <script>
@@ -342,124 +353,132 @@
                 })
             })
 
-// Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-const form = document.getElementById('site-form')
-var validator = FormValidation.formValidation(
-        form, {
-        fields: {
-            'sitename': {
-                validators: {
-                    notEmpty: {
-                        message: 'Site name is required'
-                    },
-                    stringLength: {
-                        min: 3,
-                        max: 40,
-                        message: 'Site name should be at least three characters'
-                    }
-                }
-            },
-            'environmentname': {
-                validators: {
-                    notEmpty: {
-                        message: 'Environment name is required',
-                    },
-                    stringLength: {
-                        min: 3,
-                        max: 14,
-                        message: '3 to 14 characters'
-                    },
-                    regexp: {
-                        regexp: /^([a-zA-Z0-9][a-zA-Z0-9-_])*/igm,
-                        message: 'It should be made only by numbers and characters'
-                    },
-                    remote: {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            'Content-Type': 'application/json'
-                        },
-                        url: '{{ route("sites.store", $currentAccount->id) }}',
-                        data: function() {
-                            return {
-                                environmentname: form.querySelector['[name="environmentname"]'].value,
-                                isValidation: true
+            // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+            const form = document.getElementById('site-form')
+            var validator = FormValidation.formValidation(
+                form, {
+                    fields: {
+                        'sitename': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Site name is required'
+                                },
+                                stringLength: {
+                                    min: 3,
+                                    max: 40,
+                                    message: 'Site name should be at least three characters'
+                                }
                             }
                         },
-                        message: 'Name is not available',
-                    }
-                }
-            }
-        },
-        plugins: {
-            trigger: new FormValidation.plugins.Trigger({
-                event: {
-                    environmentname: 'blur change'
-                },
-                threshold: {
-                    environmentname: 5
-                }
-            }),
-            submitButton: new FormValidation.plugins.SubmitButton(),
-            icon: new FormValidation.plugins.Icon({
-                valid: 'fa fa-check',
-                invalid: 'fa fa-times',
-                validating: 'fa fa-refresh',
-            }),
-            bootstrap: new FormValidation.plugins.Bootstrap5({
-                rowSelector: '.fv-row',
-                eleInvalidClass: 'is-invalid',
-                eleValidClass: 'is-valid'
-            })
-        },
-    });
+                        'environmentname': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Environment name is required',
+                                },
+                                stringLength: {
+                                    min: 3,
+                                    max: 14,
+                                    message: '3 to 14 characters'
+                                },
+                                uri: {
+                                    message: 'The environment name should be a valid URL'
+                                },
+                                remote: {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                            'content'),
+                                        'Content-Type': 'application/json'
+                                    },
+                                    url: '{{ route('sites.store', $currentAccount->id) }}',
+                                    data: function() {
+                                        return {
+                                            environmentname: form.querySelector['[name="environmentname"]'].value,
+                                            isValidation: true
+                                        }
+                                    },
+                                    delay: 100,
+                                    message: 'Name is not available',
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        trnsformer: new FormValidation.plugins.Transformer({
+                            environmentname: {
+                                uri: function(field, element, validator) {
+                                    var value = element.value;
+                                    var uri = 'https://' + value + '.steercampaign.com';
+                                    return uri;
+                                }
+                            }
+                        }),
+                        trigger: new FormValidation.plugins.Trigger({
+                            event: {
+                                environmentname: 'blur change'
+                            },
+                            threshold: {
+                                environmentname: 5
+                            }
+                        }),
+                        submitButton: new FormValidation.plugins.SubmitButton(),
+                        icon: new FormValidation.plugins.Icon({
+                            valid: 'fa fa-check',
+                            invalid: 'fa fa-times',
+                            validating: 'fa fa-refresh',
+                        }),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: '.fv-row',
+                            eleInvalidClass: 'is-invalid',
+                            eleValidClass: 'is-valid'
+                        })
+                    },
+                });
 
-// Submit button handler
-const submitButton = document.getElementById('btn-submit');
-submitButton.addEventListener('click', function(e) {
-    // Prevent default button action
-    e.preventDefault();
-    // Validate form before submit
-    if (validator) {
-        validator.validate().then(function(status) {
+            // Submit button handler
+            const submitButton = document.getElementById('btn-submit');
+            submitButton.addEventListener('click', function(e) {
+                // Prevent default button action
+                e.preventDefault();
+                // Validate form before submit
+                if (validator) {
+                    validator.validate().then(function(status) {
 
-            if (status == 'Valid') {
-                // Show loading indication
-                submitButton.setAttribute('data-kt-indicator', 'on');
+                        if (status == 'Valid') {
+                            // Show loading indication
+                            submitButton.setAttribute('data-kt-indicator', 'on');
 
-                // Disable button to avoid multiple click
-                submitButton.disabled = true;
+                            // Disable button to avoid multiple click
+                            submitButton.disabled = true;
 
-                axios.post('{{ route('sites.store', $currentAccount->id) }}', $('#site-form')
-                    .serialize())
+                            axios.post('{{ route('sites.store', $currentAccount->id) }}', $('#site-form')
+                                .serialize())
 
-                // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                setTimeout(function() {
-                    // Remove loading indication
-                    submitButton.removeAttribute('data-kt-indicator');
+                            // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            setTimeout(function() {
+                                // Remove loading indication
+                                submitButton.removeAttribute('data-kt-indicator');
 
-                    // Enable button
-                    submitButton.disabled = false;
+                                // Enable button
+                                submitButton.disabled = false;
 
-                    // Show popup confirmation
-                    Swal.fire({
-                        text: "Form has been successfully submitted!",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
+                                // Show popup confirmation
+                                Swal.fire({
+                                    text: "Form has been successfully submitted!",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok, got it!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+
+                                //form.submit(); // Submit form
+                            }, 2000);
                         }
                     });
-
-                    //form.submit(); // Submit form
-                }, 2000);
-            }
-        });
-    }
-});
-
-
+                }
+            });
         </script>
     @endpush
 </x-base-layout>

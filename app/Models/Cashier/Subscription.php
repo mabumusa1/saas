@@ -29,9 +29,10 @@ class Subscription extends CashierSubscription
     {
         return new Attribute(
             get: function () {
-                if ($this->plan()->stripe_yearly_price_id === $this->stripe_price) {
+                $plan = $this->plan;
+                if ($plan->stripe_yearly_price_id === $this->stripe_price) {
                     return 'yearly';
-                } elseif ($this->plan()->stripe_monthly_price_id === $this->stripe_price) {
+                } elseif ($plan->stripe_monthly_price_id === $this->stripe_price) {
                     return 'monthly';
                 }
 

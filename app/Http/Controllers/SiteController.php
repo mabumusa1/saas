@@ -75,15 +75,18 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
-        if($request->has('isValidation')){
+        if ($request->has('isValidation')) {
             response()->json(['valid' => true]);
         }
         $subscription = $account->subscriptions()->active()->available()->first();
-
-        $account->sites()->create([
+        $data = [
             'name' => $request->sitename,
-            'subscription_id' => $subscription->id,
-        ]);
+        ];
+        if ($subscription) {
+            $data['subscription_id'] = $subscription->id;
+        }
+
+        $account->sites()->create($data);
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }
