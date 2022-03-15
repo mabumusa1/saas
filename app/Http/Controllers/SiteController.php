@@ -22,15 +22,6 @@ class SiteController extends Controller
         $this->authorizeResource(Site::class, 'site');
     }
 
-    public function formValidation()
-    {
-        echo json_encode(
-            [
-                'valid' => true,
-            ]
-        );
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +41,7 @@ class SiteController extends Controller
         $sites->orderBy('name', $order);
         $sites = $sites->get();
 
-        if (! count($sites)) {
+        if ($sites->count() === 0) {
             return view('sites.empty');
         }
 
@@ -68,11 +59,11 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        $installs = Install::all();
+        $installs = $account->installs()->get();
         $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
-        $count = $account->subscriptions()->active()->sum('quantity');
+        $totalActiveSubscriptions = $account->subscriptions()->active()->sum('quantity');
 
-        return view('sites.create', compact('installs', 'account', 'subscriptions', 'count'));
+        return view('sites.create', compact('installs', 'subscriptions', 'totalActiveSubscriptions'));
     }
 
     /**
@@ -84,6 +75,9 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
+        if($request->has('isValidation')){
+            response()->json(['valid' => true]);
+        }
         $subscription = $account->subscriptions()->active()->available()->first();
 
         $account->sites()->create([
@@ -136,23 +130,9 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        $authUser = Auth::user();
         $site->groups()->detach();
-        $site->installs->each(function ($install) use ($authUser, $account) {
-            activity('Install deleted')
-                ->performedOn($install)
-                ->causedBy($authUser)
-                ->withProperties(['account_id' => $account->id])
-                ->log('User created by '.$authUser->fullName);
-            $install->contact()->delete();
-        });
         $site->delete();
-        activity('Site deleted')
-            ->performedOn($site)
-            ->causedBy($authUser)
-            ->withProperties(['account_id' => $account->id])
-            ->log('Site deleted by '.$authUser->fullName);
 
-        return redirect(route('sites.index', $account->id))->with('status', 'Site successfully deleted!');
+        return redirect(route('sites.index', $account->id))->with('status', __('Site successfully deleted!'));
     }
 }

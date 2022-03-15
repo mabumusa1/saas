@@ -78,7 +78,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
      */
-    public function subscriptions()
+    public function Subscriptions()
     {
         return $this->hasMany(Subscription::class);
     }
@@ -88,7 +88,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function installs(): HasManyThrough
+    public function Installs(): HasManyThrough
     {
         return $this->hasManyThrough(Install::class, Site::class);
     }

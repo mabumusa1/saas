@@ -58,24 +58,36 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('/mange_subscriptions', [App\Http\Controllers\BillingController::class, 'manageSubscriptions'])->name('billing.manageSubscriptions');
             Route::post('/subscribe/{plan}', [App\Http\Controllers\BillingController::class, 'subscribe'])->name('billing.subscribe');
             Route::get('invoice/{invoice}', [App\Http\Controllers\BillingController::class, 'invoice'])->name('billing.invoice');
-            Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
         });
 
+        /**
+         * Sites route
+         */
+        Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
+            'show',
+        ]);
+
+        /**
+        * Logs route
+        */
         Route::resource('logs', App\Http\Controllers\LogController::class)->only([
             'index', 'destroy',
         ]);
 
-        Route::get('subscriptions', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('subscriptions.index');
-        Route::put('subscriptions/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
-        Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
-            'show',
-        ]);
+        /**
+         * Groups Route
+         */
         Route::resource('groups', App\Http\Controllers\GroupController::class)->except([
             'show',
         ]);
+
+        /**
+         * Contacts Route
+         */
         Route::resource('contacts', App\Http\Controllers\ContactController::class)->only([
             'index', 'edit', 'update',
         ]);
+        
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
     });
 });

@@ -25,9 +25,9 @@ class StoreSiteRequest extends FormRequest
     {
         return [
             'sitename' => 'required|min:1|max:40',
-            'environmentname' => 'required|min:3|max:14',
+            'environmentname' => 'required|regex:/^[a-bA-B0-9 ]+$/|min:3|max:14|unique:installs,name',
             'type' => 'required|in:mine,transferable',
-            // 'environmentname' => 'required|regex:/^[a-bA-B0-9 ]+$/|min:3|max:14',
+            'isValidation' => 'sometimes|boolean'        
         ];
     }
 }
