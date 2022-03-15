@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::resource('contacts', App\Http\Controllers\ContactController::class)->only([
             'index', 'edit', 'update',
         ]);
+        Route::get('installs/{install}', [App\Http\Controllers\InstallController::class, 'show'])->name('installs.show');
         Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
     });
 });

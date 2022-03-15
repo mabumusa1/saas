@@ -19,7 +19,6 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        
         $admin = User::factory()->create(['email' => 'm.abumusa@gmail.com']);
         CauserResolver::setCauser(User::find(1));
         $adminAccount = Account::create(['name'=>'Admin Account', 'data_center_id' => 1]);

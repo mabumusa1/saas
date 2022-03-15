@@ -38,9 +38,8 @@ class AdminControllerTest extends TestCase
     {
         $normalAccount = Account::factory()->create();
         $normalUser = User::factory()->create();
-        $normalAccount->users()->attach($normalUser->id, ['role' => 'owner']);        
+        $normalAccount->users()->attach($normalUser->id, ['role' => 'owner']);
 
-        
         $adminAccount = Account::factory()->create();
         $adminUser = User::factory()->create();
         $adminAccount->users()->attach($adminUser->id, ['role' => 'admin']);
@@ -57,6 +56,5 @@ class AdminControllerTest extends TestCase
         $response->assertStatus(302);
 
         $response = $this->get(route('admin.dashboard', $adminAccount));
-       
     }
 }
