@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\BillingController;
-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::impersonate();
 
@@ -88,6 +86,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'index', 'edit', 'update',
         ]);
         
-        Route::post('/form-validation', [App\Http\Controllers\SiteController::class, 'formValidation'])->name('validation');
     });
 });
