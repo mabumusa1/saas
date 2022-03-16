@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\AccountUser;
+use App\Models\Cashier\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -73,11 +74,21 @@ class Account extends Model
     }
 
     /**
+     * Get all of the subscriptions for the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
+     */
+    public function Subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    /**
      * Get all of the installs for the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function installs(): HasManyThrough
+    public function Installs(): HasManyThrough
     {
         return $this->hasManyThrough(Install::class, Site::class);
     }

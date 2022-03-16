@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ActivityLoggerEvent;
+use App\Events\CreateInstallEvent;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
@@ -9,7 +11,6 @@ use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Events\ActivityLoggerEvent;
 use Session;
 
 class SiteController extends Controller
@@ -20,15 +21,6 @@ class SiteController extends Controller
     public function __construct()
     {
         $this->authorizeResource(Site::class, 'site');
-    }
-
-    public function formValidation()
-    {
-        echo json_encode(
-            [
-                'valid' => true,
-            ]
-        );
     }
 
     /**
@@ -50,7 +42,7 @@ class SiteController extends Controller
         $sites->orderBy('name', $order);
         $sites = $sites->get();
 
-        if (! count($sites)) {
+        if ($sites->count() === 0) {
             return view('sites.empty');
         }
 
@@ -68,11 +60,11 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        $installs = Install::all();
+        $installs = $account->installs()->get();
         $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
-        $count = $account->subscriptions()->active()->sum('quantity');
+        $totalActiveSubscriptions = $account->subscriptions()->active()->sum('quantity');
 
-        return view('sites.create', compact('installs', 'account', 'subscriptions', 'count'));
+        return view('sites.create', compact('installs', 'subscriptions', 'totalActiveSubscriptions'));
     }
 
     /**
@@ -84,12 +76,33 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
-        $subscription = $account->subscriptions()->active()->available()->first();
+        $validated = $request->safe()->all();
 
-        $account->sites()->create([
-            'name' => $request->sitename,
-            'subscription_id' => $subscription->id,
+        if (isset($validated['isValidation'])) {
+            return response()->json(['valid' => true]);
+        }
+        $data = [];
+
+        $data['account_id'] = $account->id;
+        $data['name'] = $validated['sitename'];
+
+        if (isset($validated['subscription_id'])) {
+            $subscription = $account->subscriptions()->active()->available()->where('id', $validated['subscription_id'])->first();
+            if ($subscription) {
+                $data['subscription_id'] = $subscription->id;
+            }
+        }
+
+        $site = $account->sites()->create($data);
+
+        $install = Install::create([
+            'site_id' => $site->id,
+            'name' => $validated['environmentname'],
+            'type' => $validated['type'],
+            'owner' => $validated['owner'],
         ]);
+
+        CreateInstallEvent::dispatch($install, $validated['start']);
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }
@@ -121,7 +134,7 @@ class SiteController extends Controller
         $site->update([
             'name' => $request->input('name'),
         ]);
-        
+
         $site->groups()->sync($request->input('groups'));
 
         return to_route('sites.index', compact('account'))->with('status', __('Site successfully updated!'));
@@ -136,10 +149,9 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        
         $site->groups()->detach();
-        $site->installs()->delete();
         $site->delete();
-        return redirect(route('sites.index', $account->id))->with('status', 'Site successfully deleted!');
+
+        return redirect(route('sites.index', $account->id))->with('status', __('Site successfully deleted!'));
     }
 }

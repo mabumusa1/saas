@@ -7,7 +7,7 @@
         {
             "url": "heroku/nodejs"
         }
-    ],    
+    ],
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
@@ -17,7 +17,7 @@
         "prod": "npm run production",
         "production": "mix --production",
         "heroku-prebuild": "npm install",
-        "postinstall": "npm run prod"        
+        "postinstall": "npm run prod"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^31.1.0",

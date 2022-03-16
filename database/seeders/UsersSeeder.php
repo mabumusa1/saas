@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
 
 class UsersSeeder extends Seeder
 {
@@ -19,6 +19,5 @@ class UsersSeeder extends Seeder
         ->sequence(
             fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
         )->create();
-
     }
 }

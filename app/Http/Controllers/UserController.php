@@ -49,27 +49,32 @@ class UserController extends Controller
      */
     public function store(Account $account, StoreUserRequest $request)
     {
-        $input = $request->all();
-        $password = Str::random(16);
-        DB::transaction(function () use ($input, $account, $password) {
-            return tap(User::create([
-                'first_name' => $input['first_name'],
-                'last_name' => $input['last_name'],
-                'email' => $input['email'],
-                'password' => Hash::make($password),
-            ]), function (User $user) use ($input, $account, $password) {
-                $ownAccount = new Account();
-                $dataCenter = DataCenter::first();
-                $ownAccount->name = $user->first_name.' Account';
-                $ownAccount->data_center_id = $dataCenter->id;
-                $ownAccount->email = $user->email;
-                $ownAccount->save();
-                $ownAccount->users()->sync([$user->id => ['role' => 'owner']]);
-                $account->users()->syncWithoutDetaching([$user->id => ['role' => $input['role']]]);
-                UserCreatedEvent::dispatch($user, $password);
+        $input = $request->validated();
+        try {
+            $found = User::where('email', '=', $input['email'])->firstOrFail();
+            $account->users()->syncWithoutDetaching([$found->id => ['role' => $input['role']]]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            $password = Str::random(16);
+            DB::transaction(function () use ($input, $account, $password) {
+                return tap(User::create([
+                    'first_name' => $input['first_name'],
+                    'last_name' => $input['last_name'],
+                    'email' => $input['email'],
+                    'password' => Hash::make($password),
+                ]), function (User $user) use ($input, $account, $password) {
+                    $ownAccount = new Account();
+                    $dataCenter = DataCenter::first();
+                    $ownAccount->name = $user->first_name.' Account';
+                    $ownAccount->data_center_id = $dataCenter->id;
+                    $ownAccount->email = $user->email;
+                    $ownAccount->save();
+                    $ownAccount->users()->sync([$user->id => ['role' => 'owner']]);
+                    $account->users()->syncWithoutDetaching([$user->id => ['role' => $input['role']]]);
+                    UserCreatedEvent::dispatch($user, $password);
+                });
             });
-        });
-
+   
+        }
         return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
     }
 

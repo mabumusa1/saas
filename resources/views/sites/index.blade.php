@@ -53,13 +53,14 @@
                                                 @endforeach
                                             </td>
                                             <td class="text-center">
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a class="btn btn-warning btn-sm"
-                                                        href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a>
-                                                    <button class="btn btn-danger btn-sm btn-delete"
-                                                        data-target=".delete_form{{ $site->id }}">Delete</button>
+                                                
+                                                    <a class="btn btn-icon btn-primary me-2 mb-2 btn-sm" href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">
+                                                        {!! get_svg_icon("icons/duotune/general/gen055.svg") !!}
+                                                    </a>
+                                                    <a class="btn btn-icon btn-danger me-2 mb-2 btn-sm btn-delete" data-target=".delete_form{{ $site->id }}">
+                                                        {!! get_svg_icon("icons/duotune/general/gen034.svg") !!}
+                                                    </a>
 
-                                                </div>
                                                 <form
                                                     action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
                                                     class="delete_form{{ $site->id }}" method="post">
@@ -129,22 +130,6 @@
         </div>
     </div>
     @push('scripts')
-        <style>
-            .form-control:focus+.input-group-text {
-                border-color: #B5B5C3
-            }
-
-            #sortable {
-                cursor: pointer;
-            }
-            #sortable:hover {
-                background-color: lightgray;
-            }
-            .btn-delete {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
-        </style>
         <script>
             var showEnv = document.getElementById('show_env');
 
