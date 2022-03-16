@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ActivityLoggerEvent;
+use App\Events\CreateInstallEvent;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
@@ -75,18 +76,33 @@ class SiteController extends Controller
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
-        if ($request->has('isValidation')) {
-            response()->json(['valid' => true]);
+        $validated = $request->safe()->all();
+
+        if (isset($validated['isValidation'])) {
+            return response()->json(['valid' => true]);
         }
-        $subscription = $account->subscriptions()->active()->available()->first();
-        $data = [
-            'name' => $request->sitename,
-        ];
-        if ($subscription) {
-            $data['subscription_id'] = $subscription->id;
+        $data = [];
+
+        $data['account_id'] = $account->id;
+        $data['name'] = $validated['sitename'];
+
+        if (isset($validated['subscription_id'])) {
+            $subscription = $account->subscriptions()->active()->available()->where('id', $validated['subscription_id'])->first();
+            if ($subscription) {
+                $data['subscription_id'] = $subscription->id;
+            }
         }
 
-        $account->sites()->create($data);
+        $site = $account->sites()->create($data);
+
+        $install = Install::create([
+            'site_id' => $site->id,
+            'name' => $validated['environmentname'],
+            'type' => $validated['type'],
+            'owner' => $validated['owner'],
+        ]);
+
+        CreateInstallEvent::dispatch($install, $validated['start']);
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }

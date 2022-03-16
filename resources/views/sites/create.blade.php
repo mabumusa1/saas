@@ -8,7 +8,7 @@
                     <!--begin::Content-->
                     <div class="flex-row-fluid">
                         <!--begin::Form-->
-                        <form id="site-form" class="form mx-auto" novalidate="novalidate" autocomplete="off">
+                        <form method="post" action="{{ route('sites.store', $currentAccount->id) }}" id="site-form" class="form mx-auto" novalidate="novalidate" autocomplete="off">
                             @csrf
                             <!--begin::Group-->
                             <div class="mb-5">
@@ -18,7 +18,7 @@
                                     <!-- Begin Site Type -->
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
-                                            <input name="type" class="form-check-input" type="radio" value="mine"
+                                            <input name="owner" class="form-check-input" type="radio" value="mine"
                                                 id="radioMine"
                                                 @if ($subscriptions->count() === 0) disabled @else checked @endif>
                                             <label class="form-check-label" for="radioMine">
@@ -34,28 +34,9 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="mb-10 @if ($subscriptions->count() === 0) d-none @endif"
-                                        id="subscriptions">
-                                        <div class="form-group">
-                                            <select name="subscription_id" id="subscription_id" class="form-control">
-                                                @foreach ($subscriptions as $subscription)
-                                                    <option value="{{ $subscription->id }}"
-                                                        @if ($subscription->id == $currentAccount->subscription_id) selected @endif>
-
-                                                        {{ $subscription->displayName }}
-                                                        @if ($subscription->quantity - $subscription->sites_count > 0)
-                                                            ({{ $subscription->quantity - $subscription->sites_count }}
-                                                            sites available)
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
-                                            <input name="type" class="form-check-input" type="radio"
+                                            <input name="owner" class="form-check-input" type="radio"
                                                 value="transferable" id="radioTransferable"
                                                 @if ($subscriptions->count() === 0) checked @endif>
                                             <label class="form-check-label" for="radioTransferable">
@@ -145,6 +126,26 @@
                                     <h3>{{ __('Site name and first environment') }}</h3>
                                     <p>{{ __('A site is a group of up to three environments (Production, Staging, Development) under one name') }}
                                     </p>
+                                    @if ($subscriptions->count() > 0)
+                                    <div class="mb-10" id="subscriptions">
+                                        <div class="form-group fv-row">
+                                            <label>{{ __('Subscription Type') }}</label>
+                                            <select name="subscription_id" id="subscription_id" class="form-control form-control-solid">
+                                                @foreach ($subscriptions as $subscription)
+                                                    <option value="{{ $subscription->id }}"
+                                                        @if ($subscription->id == $currentAccount->subscription_id) selected @endif>
+                                                        {{ $subscription->displayName }}
+                                                        @if ($subscription->quantity - $subscription->sites_count > 0)
+                                                            ({{ $subscription->quantity - $subscription->sites_count }}
+                                                            sites available)
+                                                        @endif
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
+
                                     <div class="mb-10">
                                         <div class="form-group fv-row">
                                             <label>{{ __('Site Name') }}</label>
@@ -177,8 +178,8 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="environmenttype"
-                                                        value="prd" checked />
+                                                    <input class="form-check-input" type="radio" name="type"
+                                                        value="prd" @if ($subscriptions->count() > 0) checked @else disabled @endif />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -200,8 +201,8 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="environmenttype"
-                                                        value="stg" />
+                                                    <input class="form-check-input" type="radio" name="type"
+                                                        value="stg" @if ($subscriptions->count() === 0) checked @endif />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -225,7 +226,7 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="environmenttype"
+                                                    <input class="form-check-input" type="radio" name="type"
                                                         value="dev" disabled />
                                                 </div>
                                                 <!--end::Radio-->
@@ -343,7 +344,7 @@
                 document.querySelector('.btn-cancel').classList.remove('d-none');
             });
 
-            document.querySelectorAll('[name="type"]').forEach(function(el) {
+            document.querySelectorAll('[name="owner"]').forEach(function(el) {
                 el.addEventListener('change', function() {
                     if (el.value === 'mine') {
                         document.querySelector('#subscriptions').classList.remove('d-none');
@@ -386,15 +387,13 @@
                                 remote: {
                                     method: 'POST',
                                     headers: {
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                            'content'),
-                                        'Content-Type': 'application/json'
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')                                        
                                     },
                                     url: '{{ route('sites.store', $currentAccount->id) }}',
-                                    data: function() {
+                                    data: function(val) {
                                         return {
-                                            environmentname: form.querySelector['[name="environmentname"]'].value,
-                                            isValidation: true
+                                            environmentname: val,
+                                            isValidation: 1
                                         }
                                     },
                                     delay: 100,
@@ -408,17 +407,19 @@
                             environmentname: {
                                 uri: function(field, element, validator) {
                                     var value = element.value;
-                                    var uri = 'https://' + value + '.steercampaign.com';
+                                    var uri = 'https://' + value + '.steercampaign.com';                                    
                                     return uri;
                                 }
                             }
                         }),
                         trigger: new FormValidation.plugins.Trigger({
                             event: {
-                                environmentname: 'blur change'
+                                sitename: 'blur change keyup',
+                                environmentname: 'blur change keyup'
                             },
                             threshold: {
-                                environmentname: 5
+                                sitename: 1,
+                                environmentname: 1
                             }
                         }),
                         submitButton: new FormValidation.plugins.SubmitButton(),
@@ -438,6 +439,7 @@
             // Submit button handler
             const submitButton = document.getElementById('btn-submit');
             submitButton.addEventListener('click', function(e) {
+                const form = document.getElementById('site-form')
                 // Prevent default button action
                 e.preventDefault();
                 // Validate form before submit
@@ -450,31 +452,7 @@
 
                             // Disable button to avoid multiple click
                             submitButton.disabled = true;
-
-                            axios.post('{{ route('sites.store', $currentAccount->id) }}', $('#site-form')
-                                .serialize())
-
-                            // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                            setTimeout(function() {
-                                // Remove loading indication
-                                submitButton.removeAttribute('data-kt-indicator');
-
-                                // Enable button
-                                submitButton.disabled = false;
-
-                                // Show popup confirmation
-                                Swal.fire({
-                                    text: "Form has been successfully submitted!",
-                                    icon: "success",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
-
-                                //form.submit(); // Submit form
-                            }, 2000);
+                            form.submit();
                         }
                     });
                 }
