@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
+use App\Models\AccountUser;
 use App\Models\Cashier\Subscription;
 use App\Models\Contact;
 use App\Models\Install;
@@ -54,6 +55,9 @@ class ContactControllerTest extends TestCase
         $subscription->ends_at = now();
         $subscription->save();
 
+        $subscription = Subscription::factory()->create([
+
+        ]);
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,

@@ -80,7 +80,6 @@ class UserController extends Controller
                 UserCreatedEvent::dispatch($user, $password);
             });
         }); */
-
         return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
     }
 

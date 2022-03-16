@@ -27,7 +27,9 @@ class SitePolicy
     public function viewAny(User $user)
     {
         $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
-
+        if(is_null($this->account)){
+            $this->account = $user->accounts()->first();
+        }
         return $user->belongToRoles($this->account, $allowedRoles);
     }
 

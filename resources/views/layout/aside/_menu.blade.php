@@ -9,12 +9,13 @@
     data-kt-scroll-wrappers="#kt_aside_menu"
     data-kt-scroll-offset="0"
 >
-
     <div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <p class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-                    <span class="symbol-label font-size-h5 font-weight-bold">C</span>
+                    <span class="symbol-label font-size-h5 font-weight-bold">
+                        {{ substr($currentAccount->name, 0, 1) }}
+                    </span>
                 </p>
             </div>
         </div>
