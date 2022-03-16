@@ -2,17 +2,16 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Spatie\Activitylog\Facades\CauserResolver;
-use App\Models\Contact;
-use App\Models\Install;
 use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Group;
+use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
-use App\Models\Group;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-
+use Illuminate\Database\Seeder;
+use Spatie\Activitylog\Facades\CauserResolver;
 
 class AccountWithBillingSeeder extends Seeder
 {
@@ -35,7 +34,7 @@ class AccountWithBillingSeeder extends Seeder
             if ($site->installs->count() < 2) {
                 Install::factory()->count(2)->create(['site_id' => $site->id]);
             }
-        } 
+        }
         $installs = Install::all();
         foreach ($installs as $key => $install) {
             if (empty($install->contact)) {
@@ -47,6 +46,5 @@ class AccountWithBillingSeeder extends Seeder
         $site = $account->sites()->first();
         $group = $account->groups()->first();
         $site->groups()->sync([$group->id]);
-       
     }
 }

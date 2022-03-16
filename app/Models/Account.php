@@ -63,6 +63,16 @@ class Account extends Model
     }
 
     /**
+     * The Sites that belong to the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
+     */
+    public function invites(): HasMany
+    {
+        return $this->hasMany(Invite::class);
+    }
+
+    /**
      * Get all of the sites for the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

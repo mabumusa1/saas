@@ -39,14 +39,14 @@
 
                 <!--begin::Wrapper-->
                 <div data-bs-toggle="tooltip" data-bs-placement="left">
-                    <a href="{{ route('users.create', $currentAccount->id) }}" class="btn btn-sm btn-primary fw-bolder">
+                    <button class="btn btn-sm btn-primary fw-bolder" data-bs-toggle="modal" data-bs-target="#add_user_modal">
                         {{ __('Add User') }}
                     </a>
                 </div>
                 <!--end::Wrapper-->
             </div>
             <!--end::Actions-->
-            @endcan            
+            @endcan
                 @break
             @default
 

@@ -8,11 +8,15 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
 use App\Models\DataCenter;
+use App\Models\Invite;
 use App\Models\User;
+use App\Notifications\InviteNotification;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Notification;
 use Session;
+use URL;
 
 class UserController extends Controller
 {
@@ -49,9 +53,16 @@ class UserController extends Controller
      */
     public function store(Account $account, StoreUserRequest $request)
     {
-        $input = $request->all();
-        $password = Str::random(16);
-        DB::transaction(function () use ($input, $account, $password) {
+        $token = Str::random(20);
+        $account->invites()->create([...$request->validated(), 'token' => $token]);
+        $url = URL::temporarySignedRoute(
+            'invites.index',
+            now()->addMinutes(300),
+            ['invite' => $token]
+        );
+        Notification::route('mail', $request->input('email'))->notify(new InviteNotification($url));
+
+        /* DB::transaction(function () use ($input, $account, $password) {
             return tap(User::create([
                 'first_name' => $input['first_name'],
                 'last_name' => $input['last_name'],
@@ -68,7 +79,7 @@ class UserController extends Controller
                 $account->users()->syncWithoutDetaching([$user->id => ['role' => $input['role']]]);
                 UserCreatedEvent::dispatch($user, $password);
             });
-        });
+        }); */
 
         return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
     }

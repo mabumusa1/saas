@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Invite;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -24,11 +27,21 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'  => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
+            'email' => ['required', 'string', 'email', 'max:255'],
             'role'  => 'required',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (Invite::where('email', $this->input('email'))->where('account_id', $this->account->id)->exists()) {
+                $validator->errors()->add('email', __('There exists an invite with this email!'));
+            }
+            if (User::where('email', $this->input('email'))->whereHas('accounts', fn ($query) => $query->where('accounts.id', $this->account->id))->exists()) {
+                $validator->errors()->add('email', __('There exists a user with this email!'));
+            }
+        });
     }
 
     public function messages()

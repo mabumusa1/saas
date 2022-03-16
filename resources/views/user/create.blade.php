@@ -13,7 +13,7 @@
                         <div class="mb-10">
                             <div class="form-group fv-row">
                                 <label class="required">{{ __('First Name') }}</label>
-                                <input name="first_name" type="text" class="form-control form-control-solid" placeholder="{{ __('First Name') }}"/>
+                                <input name="first_name" type="text" class="form-control form-control-solid" placeholder="{{ __('First Name') }}" value="{{ old('first_name') }}"/>
                                 @if ($errors->has('first_name'))
                                     <span class="help-block"><strong>{{ $errors->first('first_name') }}</strong></span>
                                 @endif
@@ -22,7 +22,7 @@
                         <div class="mb-10">
                             <div class="form-group fv-row">
                                 <label class="required">{{ __('Last Name') }}</label>
-                                <input name="last_name" type="text" class="form-control form-control-solid" placeholder="{{ __('Last Name') }}"/>
+                                <input name="last_name" type="text" class="form-control form-control-solid" placeholder="{{ __('Last Name') }}"  value="{{ old('last_name') }}"/>
                                 @if ($errors->has('last_name'))
                                     <span class="help-block"><strong>{{ $errors->first('last_name') }}</strong></span>
                                 @endif
@@ -31,7 +31,7 @@
                         <div class="mb-10">
                             <div class="form-group fv-row">
                                 <label class="required">{{ __('Email') }}</label>
-                                <input name="email" type="text" class="form-control form-control-solid" placeholder="{{ __('Email') }}"/>
+                                <input name="email" type="text" class="form-control form-control-solid" placeholder="{{ __('Email') }}"  value="{{ old('email') }}"/>
                                 @if ($errors->has('email'))
                                     <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                                 @endif
@@ -39,13 +39,13 @@
                         </div>
                         <div class="form-group fv-row my-4">
                             <label class="required text-lg-start">{{ __('Account access') }}</label>
-                           
+
                             <a href="#" class="float-end">{{ __('View access type definitions') }}</a>
                             <select  name="role" class="form-select form-select-solid" aria-label="Select example">
                                 @foreach(roles() as $roleKey => $roleValue)
                                     @if($roleKey === 'admin' && $currentAccount->users()->where('users.id', request()->user()->id)->first()->pivot->role !== 'admin')
                                     @continue
-                                    @endif                                
+                                    @endif
                                     <option value="{{$roleKey}}">{{$roleValue}}</option>
                                 @endforeach
                             </select>

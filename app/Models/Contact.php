@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Contact extends Model
 {
@@ -48,5 +48,5 @@ class Contact extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('account');
-    }        
+    }
 }
