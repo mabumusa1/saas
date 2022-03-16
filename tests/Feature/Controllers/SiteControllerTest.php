@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
+use App\Models\AccountUser;
 use App\Models\Cashier\Subscription;
 use App\Models\Install;
 use App\Models\Site;
@@ -63,6 +64,15 @@ class SiteControllerTest extends TestCase
 
         $account = Account::factory()->create();
 
+        Subscription::factory()->create([
+            'account_id' => $account->id,
+        ]);
+
+        AccountUser::factory()->create([
+            'account_id' => $account->id,
+            'user_id' => $user->id,
+            'role' => 'owner',
+        ]);
         $account->users()->attach($user->id, ['role' => 'owner']);
 
         $response = $this->get(route('sites.create', $account));
@@ -127,8 +137,6 @@ class SiteControllerTest extends TestCase
         $subscription->trial_ends_at = null;
         $subscription->ends_at = now();
         $subscription->save();
-
-        $subscription = $subscription;
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
@@ -165,8 +173,6 @@ class SiteControllerTest extends TestCase
         $subscription->trial_ends_at = null;
         $subscription->ends_at = now();
         $subscription->save();
-
-        $subscription = $subscription;
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
@@ -202,8 +208,6 @@ class SiteControllerTest extends TestCase
         $subscription->trial_ends_at = null;
         $subscription->ends_at = now();
         $subscription->save();
-
-        $subscription = $subscription;
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,
@@ -238,8 +242,6 @@ class SiteControllerTest extends TestCase
         $subscription->trial_ends_at = null;
         $subscription->ends_at = now();
         $subscription->save();
-
-        $subscription = $subscription;
         $site = Site::factory()->create([
             'account_id' => $account->id,
             'subscription_id' => $subscription->id,

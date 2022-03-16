@@ -23,6 +23,7 @@ class Site extends Model
     protected $fillable = [
         'name',
         'subscription_id',
+        'account_id',
     ];
 
     /**
