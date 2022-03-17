@@ -101,10 +101,7 @@ class UserController extends Controller
      */
     public function update(Account $account, UpdateUserRequest $request, User $user)
     {
-        $data = $request->all();
-
-        $user->update($data);
-        $account->users()->updateExistingPivot($user->id, ['role' => $data['role']]);
+        $account->users()->updateExistingPivot($user->id, ['role' => $request->input('role')]);
 
         return redirect()->route('users.index', $account)->with('status', __('User successfully updated!'));
     }

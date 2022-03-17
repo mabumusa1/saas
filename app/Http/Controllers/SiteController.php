@@ -72,7 +72,7 @@ class SiteController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \App\Http\Requests\StoreSiteRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
@@ -102,7 +102,7 @@ class SiteController extends Controller
             'owner' => $validated['owner'] ?? null,
         ]);
 
-        CreateInstallEvent::dispatch($install, $validated['start']);
+        CreateInstallEvent::dispatch($install, $validated['start'] ?? '');
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }
