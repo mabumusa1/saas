@@ -38,18 +38,16 @@
                         <div class="d-flex align-items-center py-1">
                             <!--begin::Wrapper-->
                             <!--end::Wrapper-->
-
-                            <!--begin::Wrapper-->
-                            <div data-bs-toggle="tooltip" data-bs-placement="left">
-                                <a href="{{ route('users.create', $currentAccount->id) }}"
-                                    class="btn btn-sm btn-primary fw-bolder">
-                                    {{ __('Add User') }}
-                                </a>
-                            </div>
-                            <!--end::Wrapper-->
-                        </div>
-                        <!--end::Actions-->
-                    @endcan
+                <!--begin::Wrapper-->
+                <div data-bs-toggle="tooltip" data-bs-placement="left">
+                    <button class="btn btn-sm btn-primary fw-bolder" data-bs-toggle="modal" data-bs-target="#add_user_modal">
+                        {{ __('Add User') }}
+                    </a>
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Actions-->
+            @endcan
                 @break
 
                 @default

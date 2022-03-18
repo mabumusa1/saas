@@ -114,6 +114,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $account), [
             'sitename' => 'test name',
             'environmentname' => 123,
+            'type' => 'stg',
         ]);
 
         $response->assertRedirect();
