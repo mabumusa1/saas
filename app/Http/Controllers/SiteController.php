@@ -99,10 +99,10 @@ class SiteController extends Controller
             'site_id' => $site->id,
             'name' => $validated['environmentname'],
             'type' => $validated['type'],
-            'owner' => $validated['owner'],
+            'owner' => $validated['owner'] ?? null,
         ]);
 
-        CreateInstallEvent::dispatch($install, $validated['start']);
+        CreateInstallEvent::dispatch($install, $validated['start'] ?? null);
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }
