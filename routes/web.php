@@ -51,35 +51,35 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
          */
         Route::prefix('billing')->middleware(['can:changeBilling,account', 'impersonate.protect'])->group(function () {
             Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('billing.index');
-            Route::put('/info', [BillingController::class, 'update'])->name('billing.info.update');
+            Route::put('/info', [App\Http\Controllers\BillingController::class, 'update'])->name('billing.info.update');
             Route::put('/', [App\Http\Controllers\BillingController::class, 'store'])->name('billing.update');
             Route::get('/mange_subscriptions', [App\Http\Controllers\BillingController::class, 'manageSubscriptions'])->name('billing.manageSubscriptions');
             Route::post('/subscribe/{plan}', [App\Http\Controllers\BillingController::class, 'subscribe'])->name('billing.subscribe');
             Route::get('invoice/{invoice}', [App\Http\Controllers\BillingController::class, 'invoice'])->name('billing.invoice');
         });
 
-        /**
+        /*
          * Sites route
          */
         Route::resource('sites', App\Http\Controllers\SiteController::class)->except([
             'show',
         ]);
 
-        /**
+        /*
         * Logs route
         */
         Route::resource('logs', App\Http\Controllers\LogController::class)->only([
             'index', 'destroy',
         ]);
 
-        /**
+        /*
          * Groups Route
          */
         Route::resource('groups', App\Http\Controllers\GroupController::class)->except([
             'show',
         ]);
 
-        /**
+        /*
          * Contacts Route
          */
         Route::resource('contacts', App\Http\Controllers\ContactController::class)->only([
