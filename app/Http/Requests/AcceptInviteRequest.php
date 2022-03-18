@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class AcceptInviteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'role'  => 'required',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'role.required' => 'The account access field is required.',
+            'token' => 'required|string|exists:invites,token',
         ];
     }
 }

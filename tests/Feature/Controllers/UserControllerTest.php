@@ -131,7 +131,7 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_user_update_fail_without_last_name()
+    /* public function test_user_update_fail_without_last_name()
     {
         $this->actingAs($user = User::factory()->create());
 
@@ -148,7 +148,7 @@ class UserControllerTest extends TestCase
 
         $response->assertRedirect();
         $this->assertEquals(session('errors')->get('last_name')[0], 'The last name field is required.');
-    }
+    } */
 
     /**
      * @test

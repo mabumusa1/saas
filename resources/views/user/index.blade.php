@@ -1,4 +1,9 @@
 <x-base-layout>
+    @error('email')
+        <div class="alert alert-danger">
+            {{ $message }}
+        </div>
+    @enderror
     <div class="container mb-8">
         <div class="card">
             <div class="card-body">
@@ -25,9 +30,11 @@
                                     <td>{{ roles()[$user->pivot->role] }}
                                     </td>
                                     @can('update', request()->user())
-                                    <td>
-                                        <a href="{{ route('users.edit', [$currentAccount->id, $user->id]) }}">{{ __('Edit') }}</a>
-                                    </td>
+                                        <td>
+                                            <button data-id="{{ $user->id }}" data-bs-toggle="modal"
+                                                data-bs-target="#edit_user_modal"
+                                                class="btn btn-link btn-sm btn-active-color-primary btn-edit">{{ __('Edit') }}</button>
+                                        </td>
                                     @endcan
                                 </tr>
                             @endforeach
@@ -37,4 +44,17 @@
             </div>
         </div>
     </div>
+    @include('user.models')
+    @push('scripts')
+        <script>
+            document.querySelectorAll('.btn-edit').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    var form = document.querySelector('#edit_form')
+                    form.action =
+                        "{{ route('users.update', ['account' => $currentAccount->id, 'user' => '__user__']) }}"
+                        .replace('__user__', el.dataset.id)
+                })
+            })
+        </script>
+    @endpush
 </x-base-layout>

@@ -67,7 +67,7 @@ class SiteController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \App\Http\Requests\StoreSiteRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
