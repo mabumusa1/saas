@@ -49,11 +49,6 @@ class SiteController extends Controller
         return view('sites.index', compact('sites', 'order'));
     }
 
-    public function show(Account $account, Site $site)
-    {
-        return view('sites.show', compact('site'));
-    }
-
     /**
      * @param Account $account
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -98,11 +93,11 @@ class SiteController extends Controller
         $install = Install::create([
             'site_id' => $site->id,
             'name' => $validated['environmentname'],
-            'type' => $validated['type'] ?? null,
+            'type' => $validated['type'],
             'owner' => $validated['owner'] ?? null,
         ]);
 
-        CreateInstallEvent::dispatch($install, $validated['start'] ?? '');
+        CreateInstallEvent::dispatch($install, $validated['start'] ?? null);
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }

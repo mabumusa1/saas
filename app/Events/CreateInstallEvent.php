@@ -34,7 +34,7 @@ class CreateInstallEvent
      *
      * @return void
      */
-    public function __construct(Install $install, String $operation)
+    public function __construct(Install $install, String $operation = null)
     {
         $this->install = $install;
         $this->operation = $operation;
