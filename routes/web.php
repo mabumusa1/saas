@@ -55,7 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
          */
         Route::prefix('billing')->middleware(['can:changeBilling,account', 'impersonate.protect'])->group(function () {
             Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('billing.index');
-            Route::put('/info', [BillingController::class, 'update'])->name('billing.info.update');
+            Route::put('/info', [App\Http\Controllers\BillingController::class, 'update'])->name('billing.info.update');
             Route::put('/', [App\Http\Controllers\BillingController::class, 'store'])->name('billing.update');
             Route::get('/mange_subscriptions', [App\Http\Controllers\BillingController::class, 'manageSubscriptions'])->name('billing.manageSubscriptions');
             Route::post('/subscribe/{plan}', [App\Http\Controllers\BillingController::class, 'subscribe'])->name('billing.subscribe');
