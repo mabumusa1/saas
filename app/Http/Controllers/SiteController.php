@@ -49,11 +49,6 @@ class SiteController extends Controller
         return view('sites.index', compact('sites', 'order'));
     }
 
-    public function show(Account $account, Site $site)
-    {
-        return view('sites.show', compact('site'));
-    }
-
     /**
      * @param Account $account
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View

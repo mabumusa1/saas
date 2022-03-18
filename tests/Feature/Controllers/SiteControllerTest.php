@@ -55,6 +55,33 @@ class SiteControllerTest extends TestCase
         $response->assertViewHas('order');
     }
 
+    public function test_index_displays_empty_with_no_sites()
+    {
+        $account = Account::factory()->create();
+        $user = User::factory()->create();
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+
+        $subscription = $subscription;
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
+
+        $response = $this->call('GET', route('sites.index', $account), ['q'=>'test']);
+
+        $response->assertOk();
+        $response->assertViewIs('sites.empty');
+    }
+
     /**
      * @test
      */
@@ -114,10 +141,47 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $account), [
             'sitename' => 'test name',
             'environmentname' => 123,
+            'subscription_id' => $subscription->id,
             'type' => 'stg',
         ]);
 
         $response->assertRedirect();
+    }
+
+    public function test_show_returns_json_with_validation()
+    {
+        $account = Account::factory()->create();
+        $user = User::factory()->create();
+
+        $subscription = new Subscription();
+        $subscription->account_id = $account->id;
+        $subscription->name = 'test';
+        $subscription->stripe_id = 'test';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+
+        $subscription = $subscription;
+        $site = Site::factory()->create([
+            'account_id' => $account->id,
+            'subscription_id' => $subscription->id,
+            'name' => 'Site test name',
+        ]);
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $this->actingAs($user);
+
+        $response = $this->post(route('sites.store', $account), [
+            'sitename' => 'test name',
+            'environmentname' => 123,
+            'type' => 'stg',
+            'isValidation' => true,
+        ]);
+
+        $response->assertJson(['valid' => true]);
     }
 
     /**
