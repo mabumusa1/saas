@@ -9,6 +9,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use Spatie\Activitylog\ActivityLogger;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(\Amirami\Localizator\ServiceProvider::class);
         }
+        ActivityLogger::macro('onAccount', function ($accountId) {
+            /* @var mixin $this */
+            $this->getActivity()->account()->associate($accountId);
+
+            return $this;
+        });
     }
 
     /**

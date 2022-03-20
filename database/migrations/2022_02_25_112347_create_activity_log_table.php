@@ -14,6 +14,7 @@ class CreateActivityLogTable extends Migration
             $table->text('description');
             $table->nullableMorphs('subject', 'subject');
             $table->nullableMorphs('causer', 'causer');
+            $table->foreignId('account_id')->nullable()->constrained()->references('id')->on('accounts');
             $table->json('properties')->nullable();
             $table->timestamps();
             $table->index('log_name');
