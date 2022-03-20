@@ -11,16 +11,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserCreatedEvent
+class UserInvitedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * The user instance.
      *
-     * @var \App\Models\User
+     * @var array
      */
-    public $user;
+    public $params;
 
     public $password;
 
@@ -29,9 +29,8 @@ class UserCreatedEvent
      *
      * @return void
      */
-    public function __construct(User $user, String $password)
+    public function __construct(array $params)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->params = $params;
     }
 }

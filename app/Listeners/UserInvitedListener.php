@@ -2,13 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Events\UserCreatedEvent;
+use App\Events\UserInvitedEvent;
+use App\Notifications\InviteNotification;
 use App\Notifications\UserCreatedNotification;
 use Auth;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Notification;
 
-class UserCreatedListener
+class UserInvitedListener
 {
     /**
      * Create the event listener.
@@ -23,11 +25,11 @@ class UserCreatedListener
     /**
      * Handle the event.
      *
-     * @param  \App\Events\UserCreatedEvent  $event
+     * @param  \App\Events\UserInvitedEvent  $event
      * @return void
      */
-    public function handle(UserCreatedEvent $event)
+    public function handle(UserInvitedEvent $event)
     {
-        $event->user->notify(new UserCreatedNotification($event->password));
+        Notification::route('mail', $event->params['email'])->notify(new InviteNotification($event->params['url']));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\UserCreatedEvent;
+use App\Events\UserInvitedEvent;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
@@ -40,8 +40,8 @@ class EventServiceProvider extends ServiceProvider
         WebhookReceived::class => [
             \App\Listeners\StripeEventListener::class,
         ],
-        UserCreatedEvent::class => [
-            \App\Listeners\UserCreatedListener::class,
+        UserInvitedEvent::class => [
+            \App\Listeners\UserInvitedListener::class,
         ],
 
     ];
