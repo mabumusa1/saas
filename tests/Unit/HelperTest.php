@@ -40,5 +40,12 @@ class HelperTest extends TestCase
 
         $img = get_svg_icon('file.svg', 'class', 'svgclass');
         $this->assertEquals($img, $expected);
+
+        $file = '';
+        file_put_contents(public_path('skin/media/file.svg'), $file);
+        $img = get_svg_icon('file.svg', 'class', 'svgclass');
+        $this->assertEquals($img, '');
+
+        unlink(public_path('skin/media/file.svg'));
     }
 }
