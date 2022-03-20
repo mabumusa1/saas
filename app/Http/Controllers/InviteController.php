@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserCreatedEvent;
 use App\Http\Requests\AcceptInviteRequest;
 use App\Models\Account;
 use App\Models\DataCenter;
 use App\Models\Invite;
 use App\Models\User;
 use Auth;
-use DB;
-use Hash;
 use Illuminate\Http\Request;
 
 class InviteController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth')->except('index');
     }
 
     public function index(Invite $invite)

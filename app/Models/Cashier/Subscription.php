@@ -29,6 +29,7 @@ class Subscription extends CashierSubscription
     {
         return new Attribute(
             get: function () {
+                /* @phpstan-ignore-next-line */
                 $plan = $this->plan;
                 if ($plan->stripe_yearly_price_id === $this->stripe_price) {
                     return 'yearly';
