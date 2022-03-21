@@ -21,6 +21,7 @@ class Install extends Model
      */
     protected $fillable = [
         'site_id',
+        'account_id',
         'name',
         'type',
         'status',

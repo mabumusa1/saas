@@ -22,6 +22,7 @@ class BillingControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->mockStripe();
         $this->account = Account::factory()->create([
             'name' => 'test',
             'email' => 'test@a.com',
@@ -31,7 +32,7 @@ class BillingControllerTest extends TestCase
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
         $this->account->createOrGetStripeCustomer(['name' => $this->account->name, 'email' => $this->account->email]);
-        $this->paymentMethod = $this->account->addPaymentMethod('pm_card_visa');
+        $this->paymentMethod = $this->account->defaultPaymentMethod();
         $this->actingAs($this->user);
 
         $this->subscription = new Subscription();
@@ -61,8 +62,8 @@ class BillingControllerTest extends TestCase
 
     public function test_index_displays_view_without_payment_method()
     {
-        $this->account->update(['pm_type' => null]);
-        $response = $this->get(route('billing.index', $this->account));
+        $this->account->deletePaymentMethods();
+        $response = $this->get(route('billing.index', $this->account).'?update');
 
         $response->assertStatus(200);
         $response->assertViewIs('billing.index');
