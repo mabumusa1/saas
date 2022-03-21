@@ -22,7 +22,6 @@ class BillingControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->mockStripe();
         $this->account = Account::factory()->create([
             'name' => 'test',
             'email' => 'test@a.com',
