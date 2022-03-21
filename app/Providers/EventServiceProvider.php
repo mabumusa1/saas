@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\AccountUpdatedEvent;
 use App\Events\UserInvitedEvent;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Logout;
@@ -42,6 +43,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserInvitedEvent::class => [
             \App\Listeners\UserInvitedListener::class,
+        ],
+        AccountUpdatedEvent::class => [
+            \App\Listeners\AccountUpdatedListener::class,
         ],
 
     ];
