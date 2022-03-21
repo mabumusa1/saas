@@ -36,7 +36,7 @@
 
                                 <td>{{ $activity->log_name }}</td>
                                 <td>{{ $activity->description }}</td>
-                                <td>{{ $activity->causer->fullName }}</td>
+                                <td>{{ $activity->causer?->fullName }}</td>
                                 <td>{{ $activity->created_at }}</td>
                             </tr>
                             @endforeach
