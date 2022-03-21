@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\AccountUpdatedEvent;
 use App\Models\AccountUser;
 use App\Models\Cashier\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,15 @@ class Account extends Model
     protected $fillable = [
         'name',
         'email',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => AccountUpdatedEvent::class,
     ];
 
     /**
@@ -111,20 +121,6 @@ class Account extends Model
     public function Groups(): HasMany
     {
         return $this->hasMany(Group::class);
-    }
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::updated(queueable(function ($customer) {
-            if ($customer->hasStripeId()) {
-                $customer->syncStripeCustomerDetails();
-            }
-        }));
     }
 
     /**
