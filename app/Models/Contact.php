@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -26,11 +26,11 @@ class Contact extends Model
     ];
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function Install(): HasOne
+    public function Install(): BelongsTo
     {
-        return $this->hasOne(Install::class);
+        return $this->belongsTo(Install::class);
     }
 
     /**
@@ -41,7 +41,7 @@ class Contact extends Model
     public function fullName(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
+            get: fn ($value) => ucfirst("{$this->first_name} ").ucfirst("{$this->last_name}"),
         );
     }
 

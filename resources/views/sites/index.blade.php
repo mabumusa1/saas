@@ -95,7 +95,7 @@
                                                         <span class="badge badge-light-dark">{{ __('DEV') }}</span>
                                                     @break
                                                 @endswitch
-                                                <p class="d-inline">{{ $install->name }}</p>
+                                                <a href="{{ route('installs.show', [$currentAccount->id, $install->id]) }}" class="d-inline">{{ $install->name }}</p>
                                             </td>
                                             <td class="table-light"></td>
 
