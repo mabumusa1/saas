@@ -52,7 +52,9 @@ class LogControllerTest extends TestCase
             ->assertOk()
             ->assertViewIs('log.index')
             ->assertViewHas('activities', function (Collection $activities) {
-                return $activities->intersect(Activity::onAccount($this->account->id)->get())->count() === $this->activities->count();
+                $acts = Activity::onAccount($this->account->id)->get();
+
+                return $activities->intersect($acts)->count() === $acts->count();
             });
     }
 }
