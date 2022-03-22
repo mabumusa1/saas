@@ -74,6 +74,10 @@ services:
            - sail
        ports:
            - "4444:4444"
+    stripemock:
+      image: 'stripemock/stripemock:latest'
+      networks:
+          - sail
 networks:
     sail:
         driver: bridge

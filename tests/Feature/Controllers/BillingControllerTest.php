@@ -10,6 +10,7 @@ use GuzzleHttp\ClientInterface;
 use Http;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Cashier\Cashier;
 use Mockery;
 use Str;
 use Stripe\ApiRequestor;
@@ -31,7 +32,16 @@ class BillingControllerTest extends TestCase
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
         $this->account->createOrGetStripeCustomer(['name' => $this->account->name, 'email' => $this->account->email]);
-        $this->paymentMethod = $this->account->addPaymentMethod('pm_card_visa');
+        $this->paymentMethod = Cashier::stripe()->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => '5555555555554444',
+                'exp_month' => 3,
+                'exp_year' => 2023,
+                'cvc' => '314',
+            ],
+        ]);
+        $this->account->addPaymentMethod($this->paymentMethod);
         $this->actingAs($this->user);
 
         $this->subscription = new Subscription();
@@ -53,7 +63,6 @@ class BillingControllerTest extends TestCase
      */
     public function test_index_displays_view()
     {
-        $this->account->updateDefaultPaymentMethod($this->paymentMethod->id);
         $response = $this->get(route('billing.index', $this->account));
         $response->assertStatus(200);
         $response->assertViewIs('billing.index');
@@ -61,8 +70,8 @@ class BillingControllerTest extends TestCase
 
     public function test_index_displays_view_without_payment_method()
     {
-        $this->account->update(['pm_type' => null]);
-        $response = $this->get(route('billing.index', $this->account));
+        $this->account->deletePaymentMethods();
+        $response = $this->get(route('billing.index', $this->account).'?update');
 
         $response->assertStatus(200);
         $response->assertViewIs('billing.index');
@@ -79,7 +88,7 @@ class BillingControllerTest extends TestCase
     public function test_store_success()
     {
         $response = $this->put(route('billing.update', $this->account), [
-            'payment_method' => 'pm_card_visa',
+            'payment_method' => $this->account->defaultPaymentMethod()->id,
         ]);
 
         $response->assertStatus(200);
@@ -107,7 +116,6 @@ class BillingControllerTest extends TestCase
 
     public function test_subscribe_with_monthly_subscription()
     {
-        $this->account->updateDefaultPaymentMethod($this->paymentMethod->id);
         $response = $this->post(route('billing.subscribe', ['account' => $this->account, 'plan' => $this->plan]), [
             'period' => 'month',
         ]);
@@ -118,7 +126,6 @@ class BillingControllerTest extends TestCase
 
     public function test_subscribe_with_yearly_subscription()
     {
-        $this->account->updateDefaultPaymentMethod($this->paymentMethod->id);
         $response = $this->post(route('billing.subscribe', ['account' => $this->account, 'plan' => $this->plan]), [
             'period' => 'year',
         ]);

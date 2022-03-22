@@ -1,0 +1,6 @@
+version: '3.6'
+services:
+  stripemock:
+    image: 'stripemock/stripe-mock:latest'
+    ports:
+      - 12111
