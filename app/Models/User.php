@@ -120,13 +120,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return LogOptions::defaults()->useLogName('system');
     }
-
-    public function tapActivity(Activity $activity)
-    {
-        // TODO: Add the custom properites for the account id
-        /* @phpstan-ignore-next-line */
-        $activity->properties = $activity->properties->merge([
-            'account_id' => 'value of custom property',
-        ]);
-    }
 }

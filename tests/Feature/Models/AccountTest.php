@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Models;
 
 use App\Events\AccountUpdatedEvent;
 use App\Jobs\SyncStripe;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-class ModelsTest extends TestCase
+class AccountTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -35,7 +35,7 @@ class ModelsTest extends TestCase
             AccountUpdatedEvent::class,
         ]);
         $account = Account::factory()->create();
-        $account->name = 'ss';
+        $account->name = 'Test';
         $account->save();
         Event::assertDispatched(AccountUpdatedEvent::class);
 
@@ -53,5 +53,15 @@ class ModelsTest extends TestCase
         $listener->handle(new AccountUpdatedEvent($account));
         $spy->shouldHaveReceived('hasStripeId');
         $spy->shouldNotHaveReceived('syncStripeCustomerDetails');
+    }
+
+    public function test_stripe_public_properties()
+    {
+        $account = Account::factory()->create();
+        $account->name = 'Test';
+        $account->save();
+
+        $this->assertEquals($account->name, $account->stripeName());
+        $this->assertEquals($account->email, $account->stripeEmail());
     }
 }
