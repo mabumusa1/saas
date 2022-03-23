@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Facades\AccountResolver;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Group;
@@ -26,6 +27,7 @@ class AccountWithBillingSeeder extends Seeder
         $account = Account::factory()->state(new Sequence(
             ['stripe_id' => 'cus_LIGOOQC7OuqyAn', 'pm_type' => 'visa', 'pm_last_four' => 4242],
         ))->create();
+        AccountResolver::setAccount($account);
 
         $account1Roles = [2=>['role'=>'owner'], 3 => ['role'=>'fb'], 4 => ['role'=>'fnb'], 5 => ['role'=>'pb'], 6 => ['role'=>'pnb']];
         $account->users()->sync($account1Roles);

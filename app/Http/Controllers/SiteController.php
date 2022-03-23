@@ -83,7 +83,9 @@ class SiteController extends Controller
 
         if (isset($validated['subscription_id'])) {
             $subscription = $account->subscriptions()->active()->available()->where('id', $validated['subscription_id'])->first();
-            if ($subscription) {
+            if (is_null($subscription)) {
+                return redirect(route('sites.index', $account->id))->with('status', __('Subscription not found, site was not created'));
+            } else {
                 $data['subscription_id'] = $subscription->id;
             }
         }

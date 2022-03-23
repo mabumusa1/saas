@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Facades\AccountResolver;
 use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\User;
@@ -19,9 +20,11 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        $adminAccount = Account::create(['name'=>'Admin Account', 'data_center_id' => 1]);
+        AccountResolver::setAccount($adminAccount);
         $admin = User::factory()->create(['email' => 'm.abumusa@gmail.com']);
         CauserResolver::setCauser(User::find(1));
-        $adminAccount = Account::create(['name'=>'Admin Account', 'data_center_id' => 1]);
+
         $admin->accounts()->attach($adminAccount->id, ['role' => 'admin']);
     }
 }

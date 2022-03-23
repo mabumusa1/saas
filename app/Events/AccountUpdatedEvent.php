@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Account;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,27 +11,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserCreatedEvent
+class AccountUpdatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * The user instance.
-     *
-     * @var \App\Models\User
-     */
-    public $user;
-
-    public $password;
+    public $account;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, String $password)
+    public function __construct(Account $account)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->account = $account;
     }
 }

@@ -32,6 +32,7 @@ class BillingControllerTest extends TestCase
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
         $this->account->createOrGetStripeCustomer(['name' => $this->account->name, 'email' => $this->account->email]);
+
         $this->paymentMethod = Cashier::stripe()->paymentMethods->create([
             'type' => 'card',
             'card' => [
@@ -42,6 +43,9 @@ class BillingControllerTest extends TestCase
             ],
         ]);
         $this->account->addPaymentMethod($this->paymentMethod);
+
+        $this->paymentMethod = $this->account->defaultPaymentMethod();
+
         $this->actingAs($this->user);
 
         $this->subscription = new Subscription();

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Classes\ActivityLogger as GlobalActivityLogger;
 use App\Models\Account;
 use App\Models\Cashier\Subscription;
 use App\Models\Cashier\SubscriptionItem;
+use App\Resolvers\AccountResolver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -20,10 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(AccountResolver::class);
         if ($this->app->isLocal()) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(\Amirami\Localizator\ServiceProvider::class);
         }
+        $this->app->bind(ActivityLogger::class, GlobalActivityLogger::class);
+        // $this->app->singleton(AccountResoler)
         ActivityLogger::macro('onAccount', function ($accountId) {
             /* @var mixin $this */
             $this->getActivity()->account()->associate($accountId);

@@ -16,6 +16,9 @@
         <include>
             <directory suffix=".php">./app</directory>
         </include>
+        <exclude>
+            <file>./app/Http/Middleware/TrustHosts.php</file>
+        </exclude>
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>

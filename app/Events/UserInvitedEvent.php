@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,24 +11,26 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ActivityLoggerEvent
+class UserInvitedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * The order instance.
+     * The user instance.
      *
      * @var array
      */
-    public $activity;
+    public $params;
+
+    public $password;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(array $activity)
+    public function __construct(array $params)
     {
-        $this->activity = $activity;
+        $this->params = $params;
     }
 }

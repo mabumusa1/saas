@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Events\ActivityLoggerEvent;
-use App\Events\UserCreatedEvent;
+use App\Events\UserInvitedEvent;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Account;
-use App\Models\DataCenter;
 use App\Models\Invite;
 use App\Models\User;
-use App\Notifications\InviteNotification;
-use DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Notification;
 use Session;
 use URL;
 
@@ -60,27 +55,10 @@ class UserController extends Controller
             now()->addMinutes(300),
             ['invite' => $token]
         );
-        Notification::route('mail', $request->input('email'))->notify(new InviteNotification($url));
 
-        /* DB::transaction(function () use ($input, $account, $password) {
-            return tap(User::create([
-                'first_name' => $input['first_name'],
-                'last_name' => $input['last_name'],
-                'email' => $input['email'],
-                'password' => Hash::make($password),
-            ]), function (User $user) use ($input, $account, $password) {
-                $ownAccount = new Account();
-                $dataCenter = DataCenter::first();
-                $ownAccount->name = $user->first_name.' Account';
-                $ownAccount->data_center_id = $dataCenter->id;
-                $ownAccount->email = $user->email;
-                $ownAccount->save();
-                $ownAccount->users()->sync([$user->id => ['role' => 'owner']]);
-                $account->users()->syncWithoutDetaching([$user->id => ['role' => $input['role']]]);
-                UserCreatedEvent::dispatch($user, $password);
-            });
-        }); */
-        return redirect()->route('users.index', $account)->with('status', __('User successfully created!'));
+        UserInvitedEvent::dispatch(['email' =>  $request->input('email'), 'url' => $url]);
+
+        return redirect()->route('users.index', $account)->with('status', __('User successfully invited!'));
     }
 
     /**

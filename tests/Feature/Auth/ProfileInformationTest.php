@@ -48,4 +48,25 @@ class ProfileInformationTest extends TestCase
         $this->assertEquals('First Last', $user->fresh()->fullname);
         $this->assertEquals('test@example.com', $user->fresh()->email);
     }
+
+    public function test_profile_information_can_be_updated_same_email()
+    {
+        $this->actingAs($user = User::factory()->create(['email' => 'test@example.com']));
+
+        Livewire::test(UpdateProfileInformationForm::class)
+                ->set('state', [
+                    'first_name' => 'First',
+                    'last_name' => 'Last',
+                    'email' => 'test@example.com',
+                    'phone' => '1234567',
+                    'job_title' => 'Developer',
+                    'employer' => 'Myself, full-time',
+                    'experince' => 'I am a beginner',
+                    'company_name' => 'test company',
+                ])
+                ->call('updateProfileInformation');
+
+        $this->assertEquals('First Last', $user->fresh()->fullname);
+        $this->assertEquals('test@example.com', $user->fresh()->email);
+    }
 }
