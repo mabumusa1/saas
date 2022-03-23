@@ -33,9 +33,6 @@ jobs:
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
       TELESCOPE_ENABLED: false            
-      STRIPE_KEY: "test"            
-      STRIPE_SECRET: "test"            
-      STRIPE_WEBHOOK_SECRET: "test"                  
     services:
       stripemock:
         image: stripemock/stripe-mock:latest
@@ -103,7 +100,10 @@ jobs:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
         STRIPE_API_BASE: "127.0.0.1:${{ job.services.stripemock.ports[12111] }}"
-
+        STRIPE_KEY: "pk_test_123"            
+        STRIPE_SECRET: "pk_test_123"            
+        STRIPE_WEBHOOK_SECRET: "pk_test_123"
+        
     - name: Save Clover
       uses: actions/upload-artifact@v2
       if: success()
