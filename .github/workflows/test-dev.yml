@@ -32,8 +32,7 @@ jobs:
       MAIL_MAILER: array
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
-      TELESCOPE_ENABLED: false      
-      STRIPE_API_BASE: "127.0.0.1:${{ job.services.stripemock.ports[12111] }}"
+      TELESCOPE_ENABLED: false            
     services:
       stripemock:
         image: stripemock/stripe-mock:latest
@@ -100,6 +99,7 @@ jobs:
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+        STRIPE_API_BASE: "127.0.0.1:${{ job.services.stripemock.ports[12111] }}"
         
 
     - name: Save Clover
