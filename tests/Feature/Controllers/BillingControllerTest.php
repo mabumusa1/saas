@@ -11,19 +11,22 @@ use Http;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Cashier\Cashier;
+use Laravel\Cashier\PaymentMethod;
 use Mockery;
 use Str;
 use Stripe\ApiRequestor;
 use Tests\TestCase;
-use Laravel\Cashier\PaymentMethod;
 
 class BillingControllerTest extends TestCase
 {
     use RefreshDatabase;
 
     private Account $account;
+
     private User $user;
+
     private Plan $plan;
+
     private $paymentMethod;
 
     public function setUp(): void
@@ -31,7 +34,7 @@ class BillingControllerTest extends TestCase
         parent::setUp();
         $this->account = Account::factory()->create([
             'name' => 'Test Account',
-            'email' => 'test@domain.com'
+            'email' => 'test@domain.com',
         ]);
         $this->user = User::factory()->create();
         $this->plan = Plan::first();
@@ -62,20 +65,19 @@ class BillingControllerTest extends TestCase
     }
 
     public function test_index_displays_view_with_default_payment()
-    {  
+    {
         $x = $this->account->createOrGetStripeCustomer([
             'name' => 'Test Account',
-            'email' => 'test@domain.com'
-        ]);        
-        
+            'email' => 'test@domain.com',
+        ]);
+
         $this->account->addPaymentMethod($this->paymentMethod->id);
         $this->account->updateDefaultPaymentMethod($this->paymentMethod->id);
-        
+
         $response = $this->get(route('billing.index', $this->account));
         $response->assertStatus(200);
         $response->assertViewIs('billing.index');
         $response->assertViewMissing('intent');
-        
     }
 
     public function test_index_displays_view_without_payment_method()
