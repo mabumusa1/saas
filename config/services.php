@@ -36,6 +36,6 @@ return [
         'webhook' => [
             'secret' => env('STRIPE_WEBHOOK_SECRET'),
         ],
-        'api_base' => env('STRIPE_API_BASE'), // <-- Add this
+        'api_base' => env('STRIPE_API_BASE'),
     ],
 ];

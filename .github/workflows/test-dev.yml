@@ -33,7 +33,12 @@ jobs:
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
       TELESCOPE_ENABLED: false      
+      STRIPE_API_BASE: "127.0.0.1:${{ job.services.stripemock.ports[12111] }}"
     services:
+      stripemock:
+        image: stripemock/stripe-mock:latest
+        ports:
+          - 12111
       mysql:
         image: mysql:latest
         env:

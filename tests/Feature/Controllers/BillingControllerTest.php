@@ -53,7 +53,7 @@ class BillingControllerTest extends TestCase
         $this->subscription->quantity = 1;
         $this->subscription->trial_ends_at = null;
         $this->subscription->ends_at = now();
-        $this->subscription->save();
+        $this->subscription->save();        
     }
 
     /**
