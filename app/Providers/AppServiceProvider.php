@@ -58,8 +58,8 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('currentAccount', $account);
             }
         });
-        if ($stripeApiBase = config('services.stripe.api_base')) {            
-            \Stripe\Stripe::$apiBase = $stripeApiBase;
+        if ($stripeApiBase = config('services.stripe.api_base')) {
+            Cashier::$apiBaseUrl = $stripeApiBase;
         }
     }
 }

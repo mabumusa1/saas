@@ -31,5 +31,8 @@
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="STRIPE_API_BASE" value="stripemock:12111"/>
+        <server name="STRIPE_KEY" value="pk_test_123"/>
+        <server name="STRIPE_SECRET" value="sk_test_123"/>
+        <server name="STRIPE_WEBHOOK_SECRET" value="sk_test_123"/>
     </php>
 </phpunit>
