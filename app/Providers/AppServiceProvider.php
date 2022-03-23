@@ -60,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         });
         if ($stripeApiBase = config('services.stripe.api_base')) {
             Cashier::$apiBaseUrl = $stripeApiBase;
+            \Stripe\Stripe::$apiBase = $stripeApiBase;
         }
     }
 }

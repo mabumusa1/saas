@@ -15,23 +15,28 @@ use Mockery;
 use Str;
 use Stripe\ApiRequestor;
 use Tests\TestCase;
+use Laravel\Cashier\PaymentMethod;
 
 class BillingControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private Account $account;
+    private User $user;
+    private Plan $plan;
+    private $paymentMethod;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->account = Account::factory()->create([
-            'name' => 'test',
-            'email' => 'test@a.com',
-            'stripe_id' => 'cus_LLPXDw7ATzNcRX',
+            'name' => 'Test Account',
+            'email' => 'test@domain.com'
         ]);
         $this->user = User::factory()->create();
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
-        $this->account->createOrGetStripeCustomer(['name' => $this->account->name, 'email' => $this->account->email]);
+        $this->actingAs($this->user);
 
         $this->paymentMethod = Cashier::stripe()->paymentMethods->create([
             'type' => 'card',
@@ -42,22 +47,6 @@ class BillingControllerTest extends TestCase
                 'cvc' => '314',
             ],
         ]);
-        $this->account->addPaymentMethod($this->paymentMethod);
-
-        $this->paymentMethod = $this->account->defaultPaymentMethod();
-
-        $this->actingAs($this->user);
-
-        $this->subscription = new Subscription();
-        $this->subscription->account_id = $this->account->id;
-        $this->subscription->name = $this->plan->name;
-        $this->subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
-        $this->subscription->stripe_status = 'test';
-        $this->subscription->stripe_price = 'test';
-        $this->subscription->quantity = 1;
-        $this->subscription->trial_ends_at = null;
-        $this->subscription->ends_at = now();
-        $this->subscription->save();        
     }
 
     /**
@@ -65,11 +54,28 @@ class BillingControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_index_displays_view()
+    public function test_index_displays_view_without_default_payment()
     {
         $response = $this->get(route('billing.index', $this->account));
         $response->assertStatus(200);
         $response->assertViewIs('billing.index');
+    }
+
+    public function test_index_displays_view_with_default_payment()
+    {  
+        $x = $this->account->createOrGetStripeCustomer([
+            'name' => 'Test Account',
+            'email' => 'test@domain.com'
+        ]);        
+        
+        $this->account->addPaymentMethod($this->paymentMethod->id);
+        $this->account->updateDefaultPaymentMethod($this->paymentMethod->id);
+        
+        $response = $this->get(route('billing.index', $this->account));
+        $response->assertStatus(200);
+        $response->assertViewIs('billing.index');
+        $response->assertViewMissing('intent');
+        
     }
 
     public function test_index_displays_view_without_payment_method()

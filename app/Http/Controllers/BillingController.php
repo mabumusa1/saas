@@ -16,7 +16,7 @@ class BillingController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Account $account, Request $request)
-    {
+    {        
         if ($account->hasDefaultPaymentMethod() && ! $request->has('update')) {
             return view('billing.index');
         } else {

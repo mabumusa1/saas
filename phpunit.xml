@@ -22,6 +22,9 @@
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>
+        <server name="APP_KEY" value="base64:YDLaFvN8fTX8yOAnYcw4OJWFyLq4R9yBZqNdEldw6Wk="/>
+        <server name="APP_DEBUG" value="true"/>
+        <server name="APP_URL" value="https://sc.ddev.site"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
         <!--<server name="DB_CONNECTION" value="sqlite"/>-->
@@ -30,9 +33,5 @@
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
-        <server name="STRIPE_API_BASE" value="stripemock:12111"/>
-        <server name="STRIPE_KEY" value="pk_test_123"/>
-        <server name="STRIPE_SECRET" value="sk_test_123"/>
-        <server name="STRIPE_WEBHOOK_SECRET" value="sk_test_123"/>
     </php>
 </phpunit>
