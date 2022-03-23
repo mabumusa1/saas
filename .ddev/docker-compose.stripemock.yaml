@@ -1,0 +1,10 @@
+version: '3.6'
+services:
+  stripemock:
+    image: 'stripemock/stripe-mock:latest'
+    container_name: ddev-${DDEV_SITENAME}-stripe-mock
+    networks:
+      ddev_default: null
+      default: null
+    ports:
+      - "12111:12111"      
