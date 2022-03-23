@@ -1,7 +1,7 @@
 <x-auth-layout>
 
     <!--begin::Signup Form-->
-    <form method="POST" action="{{ route('register') }}" class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
+    <form method="POST" action="{{ route('register') }}" class="form w-100" novalidate="novalidate">
         @csrf
 
 
@@ -31,14 +31,26 @@
             <!--begin::Col-->
             <div class="col-xl-6">
                 <label class="form-label fw-bolder text-dark fs-6">{{ __('First Name') }}</label>
-                <input class="form-control form-control-lg form-control-solid" type="text" name="first_name" autocomplete="off" value="{{ old('first_name') }}" />
+                <input class="form-control form-control-lg form-control-solid @error('first_name') is-invalid @enderror"
+                    type="text" name="first_name" autocomplete="off" value="{{ old('first_name') }}" />
+                @error('first_name')
+                    <span class="invalid-feedback" role="alert">
+                        {{ $message }}
+                    </span>
+                @enderror
             </div>
             <!--end::Col-->
 
             <!--begin::Col-->
             <div class="col-xl-6">
                 <label class="form-label fw-bolder text-dark fs-6">{{ __('Last Name') }}</label>
-                <input class="form-control form-control-lg form-control-solid" type="text" name="last_name" autocomplete="off" value="{{ old('last_name') }}" />
+                <input class="form-control form-control-lg form-control-solid @error('last_name') is-invalid @enderror"
+                    type="text" name="last_name" autocomplete="off" value="{{ old('last_name') }}" />
+                @error('last_name')
+                    <span class="invalid-feedback" role="alert">
+                        {{ $message }}
+                    </span>
+                @enderror
             </div>
             <!--end::Col-->
         </div>
@@ -47,7 +59,13 @@
         <!--begin::Input group-->
         <div class="fv-row mb-7">
             <label class="form-label fw-bolder text-dark fs-6">{{ __('Email') }}</label>
-            <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" value="{{ old('email') }}" />
+            <input class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror"
+                type="email" name="email" autocomplete="off" value="{{ old('email') }}" />
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <!--begin::Input group-->
         <div class="mb-10 fv-row" data-kt-password-meter="true">
@@ -61,12 +79,20 @@
 
                 <!--begin::Input wrapper-->
                 <div class="position-relative mb-3">
-                    <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="new-password" />
+                    <input
+                        class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror"
+                        type="password" name="password" autocomplete="new-password" />
 
-                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                        data-kt-password-meter-control="visibility">
                         <i class="bi bi-eye-slash fs-2"></i>
                         <i class="bi bi-eye fs-2 d-none"></i>
                     </span>
+                    @error('password')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
                 </div>
                 <!--end::Input wrapper-->
 
@@ -86,24 +112,39 @@
                 {{ __('Use 8 or more characters with a mix of letters, numbers & symbols.') }}
             </div>
             <!--end::Hint-->
+
         </div>
         <!--end::Input group--->
 
         <!--begin::Input group-->
         <div class="fv-row mb-5">
             <label class="form-label fw-bolder text-dark fs-6">{{ __('Confirm Password') }}</label>
-            <input class="form-control form-control-lg form-control-solid" type="password" name="password_confirmation" autocomplete="off" />
+            <input
+                class="form-control form-control-lg form-control-solid @error('password_confirmation') is-invalid @enderror"
+                type="password" name="password_confirmation" autocomplete="off" />
+            @error('password_confirmation')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <!--end::Input group-->
 
         <!--begin::Input group-->
         <div class="fv-row mb-10">
-            <label class="form-check form-check-custom form-check-solid form-check-inline">
+            <label
+                class="form-check form-check-custom form-check-solid form-check-inline @error('terms') is-invalid @enderror">
                 <input class="form-check-input" type="checkbox" name="terms" value="1" />
                 <span class="form-check-label fw-bold text-gray-700 fs-6">
-                    {{ __('I Agree &') }} <a href="#" class="ms-1 link-primary">{{ __('Terms and conditions') }}</a>.
+                    {{ __('I Agree &') }} <a href="#"
+                        class="ms-1 link-primary">{{ __('Terms and conditions') }}</a>.
                 </span>
             </label>
+            @error('terms')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <!--end::Input group-->
 
