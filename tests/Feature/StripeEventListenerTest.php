@@ -25,10 +25,8 @@ class StripeEventListenerTest extends TestCase
         $this->user = User::factory()->create();
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
-        $this->account->createOrGetStripeCustomer(['name' => $this->account->name, 'email' => $this->account->email]);
-        $this->paymentMethod = $this->account->addPaymentMethod('pm_card_visa');
-        $this->actingAs($this->user);
 
+        $this->actingAs($this->user);
         $this->subscription = new Subscription();
         $this->subscription->account_id = $this->account->id;
         $this->subscription->name = $this->plan->name;
