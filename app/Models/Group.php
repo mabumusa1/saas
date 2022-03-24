@@ -32,11 +32,6 @@ class Group extends Model
         return $this->belongsToMany(Site::class);
     }
 
-    public function hasSite($site)
-    {
-        return $this->Sites->contains($site);
-    }
-
     /**
      * Get the Account that owns the Group.
      *
