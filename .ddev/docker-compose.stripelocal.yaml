@@ -4,7 +4,6 @@ services:
     image: adrienverge/localstripe:latest
     container_name: ddev-${DDEV_SITENAME}-local-stripe
     networks:
-      ddev_default: null
       default: null
     ports:
       - "8420:8420"
