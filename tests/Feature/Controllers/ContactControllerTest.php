@@ -19,17 +19,44 @@ class ContactControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::setUpAccount();
+        $this->subscription = Subscription::factory()->create([
+            'account_id' => $this->account->id,
+        ]);
+
+        $this->site = Site::factory()
+        ->for($this->account)
+        ->for($this->subscription)
+        ->create([
+            'name' => 'Site test name',
+        ]);
+
+        $this->install = Install::factory()
+        ->for($this->site)
+        ->create([
+            'name' => 'Install test name',
+            'type' => 'dev',
+        ]);
+
+        $this->contact = Contact::factory()
+        ->for($this->install)
+        ->create([
+            'first_name' => 'First name',
+            'last_name' => 'Last name',
+            'email' => 'example@gmail.com',
+            'phone' => '12345678',
+        ]);
+    }
+
     /**
      * @test
      */
     public function test_index_displays_view()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $this->actingAs($user);
-        $response = $this->get(route('contacts.index', $account));
+        $response = $this->get(route('contacts.index', $this->account));
 
         $response->assertOk();
         $response->assertViewIs('contact.index');
@@ -40,47 +67,7 @@ class ContactControllerTest extends TestCase
      */
     public function test_edit_displays_view()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $subscription = new Subscription();
-        $subscription->account_id = $account->id;
-        $subscription->name = 'test';
-        $subscription->stripe_id = 'test';
-        $subscription->stripe_status = 'test';
-        $subscription->stripe_price = 'test';
-        $subscription->quantity = 1;
-        $subscription->trial_ends_at = null;
-        $subscription->ends_at = now();
-        $subscription->save();
-
-        $subscription = Subscription::factory()->create([
-
-        ]);
-        $site = Site::factory()->create([
-            'account_id' => $account->id,
-            'subscription_id' => $subscription->id,
-            'name' => 'Site test name',
-        ]);
-
-        $install = Install::factory()->create([
-            'site_id' => $site->id,
-            'name' => 'Install test name',
-            'type' => 'dev',
-        ]);
-
-        $this->actingAs($user);
-
-        $contact = Contact::factory()->create([
-            'install_id' => $install->id,
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
-            'email' => 'example@gmail.com',
-            'phone' => '12345678',
-        ]);
-
-        $response = $this->get(route('contacts.edit', ['account' => $account, 'contact' => $contact]));
+        $response = $this->get(route('contacts.edit', ['account' => $this->account, 'contact' => $this->contact]));
 
         $response->assertOk();
         $response->assertViewIs('contact.edit');
@@ -93,44 +80,7 @@ class ContactControllerTest extends TestCase
      */
     public function test_contact_update_fail_without_last_name()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $subscription = new Subscription();
-        $subscription->account_id = $account->id;
-        $subscription->name = 'test';
-        $subscription->stripe_id = 'test';
-        $subscription->stripe_status = 'test';
-        $subscription->stripe_price = 'test';
-        $subscription->quantity = 1;
-        $subscription->trial_ends_at = null;
-        $subscription->ends_at = now();
-        $subscription->save();
-
-        $site = Site::factory()->create([
-            'account_id' => $account->id,
-            'subscription_id' => $subscription->id,
-            'name' => 'Site test name',
-        ]);
-
-        $install = Install::factory()->create([
-            'site_id' => $site->id,
-            'name' => 'Install test name',
-            'type' => 'dev',
-        ]);
-
-        $contact = Contact::factory()->create([
-            'install_id' => $install->id,
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
-            'email' => 'example@gmail.com',
-            'phone' => '12345678',
-        ]);
-
-        $this->actingAs($user);
-
-        $response = $this->put(route('contacts.update', ['account' => $account, 'contact' => $contact]), [
+        $response = $this->put(route('contacts.update', ['account' => $this->account, 'contact' => $this->contact]), [
             'first_name' => 'First Name',
             'last_name' => '',
             'email' => 'test@example.com',
@@ -145,44 +95,7 @@ class ContactControllerTest extends TestCase
      */
     public function test_contact_update()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $subscription = new Subscription();
-        $subscription->account_id = $account->id;
-        $subscription->name = 'test';
-        $subscription->stripe_id = 'test';
-        $subscription->stripe_status = 'test';
-        $subscription->stripe_price = 'test';
-        $subscription->quantity = 1;
-        $subscription->trial_ends_at = null;
-        $subscription->ends_at = now();
-        $subscription->save();
-
-        $site = Site::factory()->create([
-            'account_id' => $account->id,
-            'subscription_id' => $subscription->id,
-            'name' => 'Site test name',
-        ]);
-
-        $install = Install::factory()->create([
-            'site_id' => $site->id,
-            'name' => 'Install test name',
-            'type' => 'dev',
-        ]);
-
-        $contact = Contact::factory()->create([
-            'install_id' => $install->id,
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
-            'email' => 'example@gmail.com',
-            'phone' => '12345678',
-        ]);
-
-        $this->actingAs($user);
-
-        $response = $this->put(route('contacts.update', ['account' => $account, 'contact' => $contact]), [
+        $response = $this->put(route('contacts.update', ['account' => $this->account, 'contact' => $this->contact]), [
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'email' => 'test@example.com',

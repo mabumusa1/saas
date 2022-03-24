@@ -18,13 +18,11 @@ class LogControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->account = Account::factory()->create();
-
-        $this->user = User::factory()->create();
-        $this->activities = Activity::factory()->count(5)->create([
+        parent::setUpAccount();
+        $this->activities = Activity::factory()->for($this->account)->count(5)->create([
             'account_id' => $this->account->id,
         ]);
-        $this->actingAs($this->user);
+        $this->account->users()->detach();
     }
 
     /**

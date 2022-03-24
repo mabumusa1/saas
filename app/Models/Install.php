@@ -37,6 +37,16 @@ class Install extends Model
         return $this->hasOne(Contact::class);
     }
 
+    /**
+     * Get the Site that owns the Install.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function Site(): BelongsTo
+    {
+        return $this->belongsTo(Site::class);
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('account');
