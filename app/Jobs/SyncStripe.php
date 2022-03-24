@@ -21,12 +21,6 @@ class SyncStripe implements ShouldQueue
      */
     protected $account;
 
-    /**
-     * Create a new job instance.
-     * @param \App\Models\Account
-     *
-     * @return void
-     */
     public function __construct(Account $account)
     {
         $this->account = $account;

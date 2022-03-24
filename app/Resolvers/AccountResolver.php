@@ -4,6 +4,7 @@ namespace App\Resolvers;
 
 use Closure;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 
 class AccountResolver
@@ -16,7 +17,7 @@ class AccountResolver
 
     protected Closure | null $resolverOverride = null;
 
-    public function __construct(AuthManager $authManager)
+    public function __construct(Repository $config, AuthManager $authManager)
     {
         $this->authManager = $authManager;
 
