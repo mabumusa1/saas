@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Models\Activity;
 use App\Resolvers\AccountResolver;
 use Illuminate\Contracts\Config\Repository;
 use Spatie\Activitylog\ActivityLogger as SpatieActivityLogger;
@@ -38,6 +39,7 @@ class ActivityLogger extends SpatieActivityLogger
                 ->onAccount($this->accountResolver->resolve())
                 ->causedBy($this->causerResolver->resolve());
 
+            /* @phpstan-ignore-next-line */
             $this->activity->batch_uuid = $this->batch->getUuid();
         }
 

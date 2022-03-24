@@ -28,9 +28,8 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Amirami\Localizator\ServiceProvider::class);
         }
         $this->app->bind(ActivityLogger::class, GlobalActivityLogger::class);
-        // $this->app->singleton(AccountResoler)
         ActivityLogger::macro('onAccount', function ($accountId) {
-            /* @var mixin $this */
+            /* @phpstan-ignore-next-line */
             $this->getActivity()->account()->associate($accountId);
 
             return $this;
