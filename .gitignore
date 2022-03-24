@@ -24,8 +24,6 @@ _ide_helper_models.php
 /draft.yaml
 /.blueprint
 auth.json
-.env.testing
 install_ddev.sh
 ddev/.gitignore
-.env.dusk.local
 .ddev/homeadditions/.gitconfig
