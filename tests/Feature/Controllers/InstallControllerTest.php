@@ -12,6 +12,12 @@ use Tests\TestCase;
 
 class InstallControllerTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::setUpAccount();
+    }
+
     /**
      * A basic feature test example.
      *
@@ -19,17 +25,13 @@ class InstallControllerTest extends TestCase
      */
     public function test_show_displays_view()
     {
-        $account = Account::factory()->create();
         $site = Site::factory()->create([
-            'account_id' => $account->id,
+            'account_id' => $this->account->id,
         ]);
-        $install = Install::factory()->create([
-            'site_id' => $site->id,
-        ]);
-        $this->user = User::factory()->create();
-        $account->users()->attach($this->user->id, ['role' => 'owner']);
-        $this->actingAs($this->user);
-        $this->get(route('installs.show', ['account' => $account, 'install' => $install]))
+        $install = Install::factory()
+        ->for($site)
+        ->create();
+        $this->get(route('installs.show', ['account' => $this->account, 'install' => $install]))
             ->assertOk()
             ->assertViewIs('installs.show');
     }

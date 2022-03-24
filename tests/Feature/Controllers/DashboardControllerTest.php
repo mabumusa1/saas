@@ -14,18 +14,18 @@ class DashboardControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::setUpAccount();
+    }
+
     /**
      * @test
      */
     public function test_index()
     {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->get(route('dashboard', $account));
+        $response = $this->get(route('dashboard', $this->account));
 
         $response->assertOk();
         $response->assertViewIs('dashboard');

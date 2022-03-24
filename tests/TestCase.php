@@ -5,6 +5,8 @@ namespace Tests;
 use App\Models\Account;
 use App\Models\Cashier\Subscription;
 use App\Models\Plan;
+use App\Models\Site;
+use App\Models\User;
 use Event;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Cashier\Subscription as CashierSubscription;
@@ -29,5 +31,13 @@ abstract class TestCase extends BaseTestCase
         });
         // by default active subscription
         return $sub;
+    }
+
+    protected function setUpAccount()
+    {
+        $this->account = Account::factory()->create();
+        $this->user = User::factory()->create();
+        $this->account->users()->attach($this->user->id, ['role' => 'owner']);
+        $this->actingAs($this->user);
     }
 }
