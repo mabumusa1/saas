@@ -23,6 +23,6 @@ class GroupTest extends TestCase
         $group = Group::factory()->create(['account_id' => $account->id]);
         $site = Site::factory()->create(['account_id' => $account->id]);
         $site->groups()->sync([$group->id]);
-        $this->asserTrue(true);
+        $this->assertTrue(true);
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\PaymentMethod;
+use Laravel\Cashier\SubscriptionBuilder;
 use Mockery;
 use Str;
 use Stripe\ApiRequestor;
@@ -29,27 +30,49 @@ class BillingControllerTest extends TestCase
 
     private $paymentMethod;
 
-    public function setUp(): void
+    private $stripeProduct;
+
+    private $stripeInvoice;
+
+    public function setUp():void
     {
         parent::setUp();
+
+        /**
+         * Clear the Mock Server first before any test.
+         */
+        $response = Http::delete(config('services.stripe.api_base').'/_config/data');
+        if ($response->status() !== 200) {
+            $this->fail('Could not mock stripe local');
+        }
+
+        $this->paymentMethod = Cashier::stripe()->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 3,
+                'exp_year' => 2050,
+                'cvc' => '314',
+            ],
+        ]);
+        $this->stripeProduct = Cashier::stripe()->products->create([
+            'id' => 'prod_LF6rlbuqYaz6k1',
+            'name' => 'Small - 2500 Leads',
+            'description' => 'Small Mautic installation supports up to 2500 leads',
+            'type' =>  'service',
+
+        ]);
+
         $this->account = Account::factory()->create([
             'name' => 'Test Account',
             'email' => 'test@domain.com',
         ]);
         $this->user = User::factory()->create();
         $this->plan = Plan::first();
+
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
         $this->account->createOrGetStripeCustomer();
 
-        $this->paymentMethod = Cashier::stripe()->paymentMethods->create([
-            'type' => 'card',
-            'card' => [
-                'number' => '5555555555554444',
-                'exp_month' => 3,
-                'exp_year' => 2023,
-                'cvc' => '314',
-            ],
-        ]);
         $this->account->addPaymentMethod($this->paymentMethod);
         $this->account->updateDefaultPaymentMethod($this->paymentMethod);
 
@@ -130,22 +153,47 @@ class BillingControllerTest extends TestCase
 
     public function test_subscribe_with_monthly_subscription()
     {
-        $response = $this->post(route('billing.subscribe', ['account' => $this->account, 'plan' => $this->plan]), [
+        /**
+         * This test is using Mock because localstripe does not support prices
+         * Once it support prices this test should be changed.
+         */
+        $builderMock = \Mockery::mock(SubscriptionBuilder::class);
+        $builderMock->shouldReceive('create')->andReturn(true);
+
+        $accountMock = \Mockery::mock($this->account);
+        $accountMock->shouldReceive('newSubscription')
+        ->andReturn($builderMock);
+
+        $request = \Request::create(route('billing.subscribe', ['account' => $accountMock, 'plan' => $this->plan]), 'POST', [
             'period' => 'month',
         ]);
 
-        $response->assertStatus(302);
-        $response->assertRedirect(route('sites.index', $this->account));
+        $controller = new \App\Http\Controllers\BillingController();
+        $response = $controller->subscribe($accountMock, $this->plan, $request);
+        $this->assertEquals(302, $response->getStatusCode());
     }
 
     public function test_subscribe_with_yearly_subscription()
     {
-        $response = $this->post(route('billing.subscribe', ['account' => $this->account, 'plan' => $this->plan]), [
+
+        /**
+         * This test is using Mock because localstripe does not support prices
+         * Once it support prices this test should be changed.
+         */
+        $builderMock = \Mockery::mock(SubscriptionBuilder::class);
+        $builderMock->shouldReceive('create')->andReturn(true);
+
+        $accountMock = \Mockery::mock($this->account);
+        $accountMock->shouldReceive('newSubscription')
+        ->andReturn($builderMock);
+
+        $request = \Request::create(route('billing.subscribe', ['account' => $accountMock, 'plan' => $this->plan]), 'POST', [
             'period' => 'year',
         ]);
 
-        $response->assertStatus(302);
-        $response->assertRedirect(route('sites.index', $this->account));
+        $controller = new \App\Http\Controllers\BillingController();
+        $response = $controller->subscribe($accountMock, $this->plan, $request);
+        $this->assertEquals(302, $response->getStatusCode());
     }
 
     public function test_invoice_returns_404_with_wrong_invoice()
@@ -157,9 +205,18 @@ class BillingControllerTest extends TestCase
 
     public function test_invoice_success()
     {
-        $invoice = $this->account->invoices()->first();
-        $response = $this->get(route('billing.invoice', ['account' => $this->account, 'invoice' => $invoice->id]));
+        $accountMock = \Mockery::mock($this->account);
+        $accountMock->shouldReceive('downloadInvoice')
+           ->andReturn(\Response([], 200, [
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => 'attachment; filename=file.pdf"',
+            'Content-Transfer-Encoding' => 'binary',
+            'Content-Type' => 'application/pdf',
+            'X-Vapor-Base64-Encode' => 'True',
+        ]));
 
-        $response->assertStatus(200);
+        $controller = new \App\Http\Controllers\BillingController();
+        $response = $controller->invoice($accountMock, 1);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }
