@@ -39,7 +39,7 @@ class BillingControllerTest extends TestCase
         $this->user = User::factory()->create();
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
-        $this->actingAs($this->user);
+        $this->account->createOrGetStripeCustomer();
 
         $this->paymentMethod = Cashier::stripe()->paymentMethods->create([
             'type' => 'card',
@@ -50,6 +50,10 @@ class BillingControllerTest extends TestCase
                 'cvc' => '314',
             ],
         ]);
+        $this->account->addPaymentMethod($this->paymentMethod);
+        $this->account->updateDefaultPaymentMethod($this->paymentMethod);
+
+        $this->actingAs($this->user);
     }
 
     /**
@@ -71,7 +75,6 @@ class BillingControllerTest extends TestCase
             'email' => 'test@domain.com',
         ]);
 
-        $this->account->addPaymentMethod($this->paymentMethod->id);
         $this->account->updateDefaultPaymentMethod($this->paymentMethod->id);
 
         $response = $this->get(route('billing.index', $this->account));
@@ -82,7 +85,6 @@ class BillingControllerTest extends TestCase
 
     public function test_index_displays_view_without_payment_method()
     {
-        $this->account->deletePaymentMethods();
         $response = $this->get(route('billing.index', $this->account).'?update');
 
         $response->assertStatus(200);
