@@ -53,49 +53,6 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_user_store_fail_without_last_name()
-    {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->post(route('users.store', $account), [
-            'first_name' => 'First Name',
-            'last_name' => '',
-            'email' => 'test@example.com',
-            'role' => 'test@example.com',
-        ]);
-
-        $response->assertRedirect();
-    }
-
-    /**
-     * @test
-     */
-    public function test_user_store()
-    {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->post(route('users.store', $account), [
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'email' => 'test@example.com',
-            'role' => 'owner',
-            'password' => 'password',
-        ]);
-
-        $response->assertRedirect();
-    }
-
-    /**
-     * @test
-     */
     public function test_edit_403_for_single_owner()
     {
         $this->actingAs($user = User::factory()->create());
@@ -127,28 +84,6 @@ class UserControllerTest extends TestCase
         $response->assertViewIs('user.edit');
         $response->assertViewHas('user');
     }
-
-    /**
-     * @test
-     */
-    /* public function test_user_update_fail_without_last_name()
-    {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
-            'first_name' => 'First Name',
-            'last_name' => '',
-            'email' => 'test@example.com',
-            'role' => 'test@example.com',
-        ]);
-
-        $response->assertRedirect();
-        $this->assertEquals(session('errors')->get('last_name')[0], 'The last name field is required.');
-    } */
 
     /**
      * @test
