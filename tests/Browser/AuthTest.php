@@ -29,12 +29,12 @@ class AuthTest extends DuskTestCase
         $user = User::where('email', 'email0@domain.com')->first();
 
         $this->browse(function ($browser) use ($user) {
-            $browser->screenshot('filename');
             $browser->visit('/login')
                     ->type('email', $user->email)
                     ->type('password', 'password')
                     ->press('Continue')
                     ->assertPathIs('/1');
+            $browser->screenshot('filename');
         });
     }
 }
