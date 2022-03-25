@@ -36,8 +36,9 @@ class HelperTest extends TestCase
         </svg></span>
         <!--end::Svg Icon-->
         EOF;
+
         if (! is_dir(public_path('skin/media/'))) {
-            mkdir(public_path('skin/media/'));
+            mkdir(public_path('skin/media/'), 0755, true);
         }
 
         file_put_contents(public_path('skin/media/file.svg'), $file);
