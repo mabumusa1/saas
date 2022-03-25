@@ -16,8 +16,7 @@ env:
   DB_USERNAME: db
   DB_PASSWORD: db
   STRIPE_KEY: "sk_test_4eC39HqLyjWDarjtT1zdp7af"            
-  STRIPE_SECRET: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"            
-  STRIPE_WEBHOOK_SECRET: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+  STRIPE_SECRET: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"  
   APP_ENV: testing
   APP_KEY: base64:YDLaFvN8fTX8yOAnYcw4OJWFyLq4R9yBZqNdEldw6Wk=
   APP_DEBUG: true
