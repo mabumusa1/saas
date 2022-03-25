@@ -35,6 +35,22 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
+    public function test_index_displays_view_without_account_set()
+    {
+        $this->actingAs($user = User::factory()->create());
+
+        $account = Account::factory()->create();
+
+        $account->users()->attach($user->id, ['role' => 'owner']);
+
+        $view = $this->view('layout.aside._menu');
+
+        $view->assertSee($account->name);
+    }
+
+    /**
+     * @test
+     */
     public function test_create_displays_view()
     {
         $this->actingAs($user = User::factory()->create());

@@ -34,13 +34,6 @@ class SitePolicy
         return $user->belongToRoles($this->account, $allowedRoles);
     }
 
-    public function view(User $user, Site $site)
-    {
-        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
-    }
-
     /**
      * Determine whether the user can create models.
      *

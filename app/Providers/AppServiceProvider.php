@@ -23,10 +23,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(AccountResolver::class);
+
+        // @codeCoverageIgnoreStart
         if ($this->app->isLocal()) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(\Amirami\Localizator\ServiceProvider::class);
-        }
+        }// @codeCoverageIgnoreEnd
+
         $this->app->bind(ActivityLogger::class, GlobalActivityLogger::class);
         ActivityLogger::macro('onAccount', function ($accountId) {
             /* @phpstan-ignore-next-line */
