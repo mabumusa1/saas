@@ -288,12 +288,6 @@ jobs:
     - name: Clear Config
       run: php artisan config:clear
 
-    - name: Run Migration
-      run: php artisan migrate -v
-      env:
-        DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-
-
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
