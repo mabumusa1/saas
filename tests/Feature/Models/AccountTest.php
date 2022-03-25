@@ -6,6 +6,7 @@ use App\Events\AccountUpdatedEvent;
 use App\Jobs\SyncStripe;
 use App\Listeners\AccountUpdatedListener;
 use App\Models\Account;
+use App\Models\Invite;
 use App\Service;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -45,16 +46,6 @@ class AccountTest extends TestCase
         \Bus::assertDispatched(SyncStripe::class);
     }
 
-    public function test_account_with_stripe()
-    {
-        $account = Account::factory()->create(['stripe_id' => 'test']);
-        $spy = $this->spy(Account::class);
-        $listener = new AccountUpdatedListener();
-        $listener->handle(new AccountUpdatedEvent($account));
-        $spy->shouldHaveReceived('hasStripeId');
-        $spy->shouldNotHaveReceived('syncStripeCustomerDetails');
-    }
-
     public function test_stripe_public_properties()
     {
         $account = Account::factory()->create();
@@ -63,5 +54,13 @@ class AccountTest extends TestCase
 
         $this->assertEquals($account->name, $account->stripeName());
         $this->assertEquals($account->email, $account->stripeEmail());
+    }
+
+    public function test_invites()
+    {
+        $account = Account::factory()->create();
+        $invite = Invite::factory()->create(['account_id' => $account->id]);
+
+        $this->assertEquals($account->invites->count(), 1);
     }
 }

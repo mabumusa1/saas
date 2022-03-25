@@ -13,15 +13,14 @@ class SubscriptionTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @dataProvider planProvider
-     * check account with datacenter.
-     *
-     * @return void
-     */
-    public function test_subscription_period(string $expectedOutput, string $input):void
+    private Plan $plan;
+
+    private Account $account;
+
+    public function setUp():void
     {
-        $plan = new Plan([
+        parent::setUp();
+        $this->plan = new Plan([
             'name' => 's1',
             'display_name' => 'Small - 2,500 Leads',
             'short_description' => 'Small Mautic installation supports up to 2,500 leads',
@@ -36,11 +35,20 @@ class SubscriptionTest extends TestCase
             'archived' => false,
             'available' => true,
         ]);
-        $account = Account::factory()->create();
+        $this->account = Account::factory()->create();
+    }
 
+    /**
+     * @dataProvider planProvider
+     * check account with datacenter.
+     *
+     * @return void
+     */
+    public function test_subscription_period(string $expectedOutput, string $input):void
+    {
         $subscription = new Subscription();
-        $subscription->account_id = $account->id;
-        $subscription->name = $plan->name;
+        $subscription->account_id = $this->account->id;
+        $subscription->name = $this->plan->name;
         $subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
         $subscription->stripe_status = 'test';
         $subscription->stripe_price = $input;
@@ -49,6 +57,36 @@ class SubscriptionTest extends TestCase
         $subscription->ends_at = now();
         $subscription->save();
         $this->assertEquals($subscription->period, $expectedOutput);
+    }
+
+    public function test_subscription_wrong_period():void
+    {
+        $subscription = new Subscription();
+        $subscription->account_id = $this->account->id;
+        $subscription->name = $this->plan->name;
+        $subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'wrong';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+        $this->assertNull($subscription->period);
+    }
+
+    public function test_subscription_displayName()
+    {
+        $subscription = new Subscription();
+        $subscription->account_id = $this->account->id;
+        $subscription->name = $this->plan->name;
+        $subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
+        $subscription->stripe_status = 'test';
+        $subscription->stripe_price = 'test';
+        $subscription->quantity = 1;
+        $subscription->trial_ends_at = null;
+        $subscription->ends_at = now();
+        $subscription->save();
+        $this->assertEquals($subscription->displayName, $this->plan->display_name);
     }
 
     /**

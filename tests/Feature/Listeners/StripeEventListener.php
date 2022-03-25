@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Listeners;
 
 use App\Models\Account;
 use App\Models\Cashier\Subscription;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class StripeEventListenerTest extends TestCase
+class StripeEventListener extends TestCase
 {
     use RefreshDatabase;
 

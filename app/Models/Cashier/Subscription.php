@@ -35,9 +35,9 @@ class Subscription extends CashierSubscription
                     return 'yearly';
                 } elseif ($plan->stripe_monthly_price_id === $this->stripe_price) {
                     return 'monthly';
+                } else {
+                    return null;
                 }
-
-                return null;
             }
         );
     }

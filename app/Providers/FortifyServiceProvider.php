@@ -23,30 +23,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
-            public function toResponse($request)
-            {
-                if (session()->has('url.intended')) {
-                    return redirect()->intended(session()->pull('url.intended'));
-                }
-
-                return $request->wantsJson()
-                    ? response()->json(['two_factor' => false])
-                    : redirect()->intended(Fortify::redirects('login'));
-            }
-        });
-        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
-            public function toResponse($request)
-            {
-                if (session()->has('url.intended')) {
-                    return redirect()->intended(session()->pull('url.intended'));
-                }
-
-                return $request->wantsJson()
-                    ? response()->json(['two_factor' => false])
-                    : redirect()->intended(Fortify::redirects('register'));
-            }
-        });
+        //
     }
 
     /**
@@ -62,7 +39,9 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            return Limit::perMinute(5)->by($request->email.$request->ip());
+            $email = (string) $request->email;
+
+            return Limit::perMinute(5)->by($email.$request->ip());
         });
 
         RateLimiter::for('two-factor', function (Request $request) {
