@@ -2,9 +2,15 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Events\UserInvitedEvent;
+use App\Listeners\UserInvitedListener;
 use App\Models\Account;
 use App\Models\User;
+use App\Notifications\InviteNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 /**
