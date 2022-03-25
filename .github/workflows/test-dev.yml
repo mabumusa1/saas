@@ -175,6 +175,8 @@ jobs:
       fail-fast: true
       matrix:
         php-versions: ['8.0']
+    env:
+      SESSION_DRIVER: database
 
     name: Coverage
     needs: ['phpunit', 'misc']
@@ -285,9 +287,6 @@ jobs:
     - name: Prepare the application
       run: chmod -R 777 storage bootstrap/cache
  
-    - name: Clear Config
-      run: php artisan config:clear
-
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
