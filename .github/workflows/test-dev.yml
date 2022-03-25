@@ -309,7 +309,7 @@ jobs:
         APP_URL: "http://127.0.0.1:8000"
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"       
-        DUSK_DRIVER_URL: "http://127.0.0.1:9515/wd/hub"
+        DUSK_DRIVER_URL: "http://127.0.0.1:9515"
 
     - name: Upload Screenshots
       if: failure()
