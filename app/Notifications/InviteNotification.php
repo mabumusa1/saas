@@ -10,7 +10,7 @@ class InviteNotification extends Notification
 {
     use Queueable;
 
-    protected $notification_url;
+    public $notification_url;
 
     /**
      * Create a new notification instance.
