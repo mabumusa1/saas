@@ -2,18 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\AccountUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Activitylog\Contracts\Activity;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -36,13 +33,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'employer',
         'experince',
         'company_name',
-
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -55,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array <string,string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -66,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function Accounts(): BelongsToMany
+    public function accounts(): BelongsToMany
     {
         return $this->belongsToMany(Account::class)->using(AccountUser::class)->withPivot('role');
     }
@@ -79,7 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function fullName(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ucfirst("{$this->first_name} {$this->last_name}"),
+            get: fn () => ucfirst("{$this->first_name} {$this->last_name}"),
         );
     }
 
@@ -116,6 +112,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->accounts()->first()->pivot->role === 'admin';
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('system');

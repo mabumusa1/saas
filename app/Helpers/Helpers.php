@@ -3,16 +3,14 @@
 if (! function_exists('roles')) {
     function roles()
     {
-        $roles = [
+        return [
             'admin' => 'Admin',
             'owner' => 'Owner',
-            'fb'    => 'Full (with Billing)',
-            'fnb'   => 'Full (without Billing)',
-            'pb'    => 'Partial (with Billing)',
-            'pnb'   => 'Partial (without Billing)',
+            'fb' => 'Full (with Billing)',
+            'fnb' => 'Full (without Billing)',
+            'pb' => 'Partial (with Billing)',
+            'pnb' => 'Partial (without Billing)',
         ];
-
-        return $roles;
     }
 }
 
@@ -37,9 +35,6 @@ if (! function_exists('get_svg_icon')) {
         $dom = new DOMDocument();
         $dom->loadXML($svg_content);
 
-        // remove unwanted comments
-        $xpath = new DOMXPath($dom);
-
         // add class to svg
         if (! empty($svgClass)) {
             foreach ($dom->getElementsByTagName('svg') as $element) {
@@ -63,7 +58,7 @@ if (! function_exists('get_svg_icon')) {
             $path = 'assets/media/'.$asd[1];
         }
 
-        $output = "<!--begin::Svg Icon | path: $path-->\n";
+        $output = "<!--begin::Svg Icon | path: ${path}-->\n";
         $output .= '<span class="'.implode(' ', $cls).'">'.$string.'</span>';
         $output .= "\n<!--end::Svg Icon-->";
 

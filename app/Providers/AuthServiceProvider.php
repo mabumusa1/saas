@@ -5,13 +5,11 @@ namespace App\Providers;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Group;
-use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
 use App\Policies\AccountPolicy;
 use App\Policies\ContactPolicy;
 use App\Policies\GroupPolicy;
-use App\Policies\InstallPolicy;
 use App\Policies\SitePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -22,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * The policy mappings for the application.
      *
-     * @var array
+     * @var array<class-string, class-string>
      */
     protected $policies = [
         Account::class => AccountPolicy::class,

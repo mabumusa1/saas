@@ -16,24 +16,26 @@ class DataCenter extends Model
      *
      * @var array<string>
      */
-    protected $fillable = [
-        'label',
-        'region',
-    ];
+    protected $fillable = ['label', 'region'];
 
     /**
      * Get all of the Accounts for the Data Center.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Accounts(): HasMany
+    public function accounts(): HasMany
     {
         return $this->hasMany(Account::class);
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('system');
+            ->useLogName('system');
     }
 }

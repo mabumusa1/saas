@@ -15,13 +15,13 @@ class UserInvitedListener
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Handle the event.
      *
      * @param  \App\Events\UserInvitedEvent  $event
+     *
      * @return void
      */
     public function handle(UserInvitedEvent $event)

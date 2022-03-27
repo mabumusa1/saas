@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AcceptInviteRequest;
-use App\Models\Account;
-use App\Models\DataCenter;
 use App\Models\Invite;
 use App\Models\User;
 use Auth;
-use Illuminate\Http\Request;
 
 class InviteController extends Controller
 {
@@ -19,16 +16,16 @@ class InviteController extends Controller
     public function index(Invite $invite)
     {
         if (Auth::check()) {
-            return view('auth.invitation', compact('invite'));
+            return view('auth.invitation', ['invite' => $invite]);
         }
 
         if (User::where('email', $invite->email)->exists()) {
             session()->put('url.intended', route('invites.index', ['invite' => $invite->token]));
 
             return redirect()->route('login')->with('error', 'Please Login First');
-        } else {
-            return redirect()->route('register');
         }
+
+        return redirect()->route('register');
     }
 
     public function accept(AcceptInviteRequest $request)

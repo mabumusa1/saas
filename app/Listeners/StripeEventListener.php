@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Models\Cashier\Subscription;
 use Laravel\Cashier\Events\WebhookReceived;
-use Log;
 
 class StripeEventListener
 {
@@ -15,13 +14,13 @@ class StripeEventListener
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Handle the event.
      *
      * @param  WebhookReceived  $event
+     *
      * @return void
      */
     public function handle(WebhookReceived $event)

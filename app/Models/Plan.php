@@ -25,7 +25,7 @@ class Plan extends Model
         'stripe_yearly_price_id',
         'monthly_price',
         'yearly_price',
-         'features',
+        'features',
         'contacts',
         'options',
         'available',
@@ -34,7 +34,7 @@ class Plan extends Model
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'features' => 'array',
@@ -44,13 +44,29 @@ class Plan extends Model
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $hidden = ['id', 'available', 'stripe_product_id', 'stripe_monthly_price_id', 'stripe_yearly_price_id', 'created_at', 'updated_at', 'archived', 'options', 'features'];
+    protected $hidden = [
+        'id',
+        'available',
+        'stripe_product_id',
+        'stripe_monthly_price_id',
+        'stripe_yearly_price_id',
+        'created_at',
+        'updated_at',
+        'archived',
+        'options',
+        'features',
+    ];
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('system');
+            ->useLogName('system');
     }
 }

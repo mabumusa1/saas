@@ -17,24 +17,25 @@ class AccountPolicy
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user, Account $account)
     {
-        return ($account->users()->find($user->id)) ? true : false;
+        return $account->users()->find($user->id) ? true : false;
     }
 
     /**
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function changeBilling(User $user, Account $account)

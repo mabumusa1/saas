@@ -10,6 +10,11 @@ class Invite extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
     protected $fillable = [
         'first_name',
         'last_name',

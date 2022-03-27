@@ -32,7 +32,7 @@ class Install extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function Contact(): HasOne
+    public function contact(): HasOne
     {
         return $this->hasOne(Contact::class);
     }
@@ -42,11 +42,16 @@ class Install extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Site(): BelongsTo
+    public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class);
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('account');

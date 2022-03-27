@@ -37,7 +37,9 @@ class AccountResolver
             return $this->accountOverride;
         }
 
-        return $this->getAccount($subject);
+        if ($this->resolverOverride !== null) {
+            return ($this->resolverOverride)($subject);
+        }
     }
 
     protected function getDefaultAccount(): ?Model
