@@ -5,10 +5,8 @@ namespace App\Providers;
 use App\Classes\ActivityLogger as GlobalActivityLogger;
 use App\Models\Account;
 use App\Models\Cashier\Subscription;
-use App\Models\Cashier\SubscriptionItem;
 use App\Resolvers\AccountResolver;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 use Spatie\Activitylog\ActivityLogger;
@@ -60,9 +58,9 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('currentAccount', $account);
             }
         });
-        if ($stripeApiBase = config('services.stripe.api_base')) {
-            Cashier::$apiBaseUrl = $stripeApiBase;
-            \Stripe\Stripe::$apiBase = $stripeApiBase;
+        if (config('services.stripe.api_base')) {
+            Cashier::$apiBaseUrl = config('services.stripe.api_base');
+            \Stripe\Stripe::$apiBase = config('services.stripe.api_base');
         }
     }
 }

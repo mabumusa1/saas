@@ -29,6 +29,7 @@
         "nascent-africa/jetstrap": "^2.4",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
+        "nunomaduro/phpinsights": "^2.2",
         "php-coveralls/php-coveralls": "^2.4",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0"
@@ -86,7 +87,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CreateInstallListener extends TestCase
+class CreateInstallListenerTest extends TestCase
 {
     use RefreshDatabase;
 }

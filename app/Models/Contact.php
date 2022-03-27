@@ -28,7 +28,7 @@ class Contact extends Model
     /**
      * @return BelongsTo
      */
-    public function Install(): BelongsTo
+    public function install(): BelongsTo
     {
         return $this->belongsTo(Install::class);
     }
@@ -41,10 +41,15 @@ class Contact extends Model
     public function fullName(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ucfirst("{$this->first_name} ").ucfirst("{$this->last_name}"),
+            get: fn () => ucfirst("{$this->first_name} ").ucfirst("{$this->last_name}"),
         );
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('account');

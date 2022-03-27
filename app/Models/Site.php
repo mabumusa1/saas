@@ -32,7 +32,7 @@ class Site extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Account(): BelongsTo
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
@@ -42,7 +42,7 @@ class Site extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Installs(): HasMany
+    public function installs(): HasMany
     {
         return $this->hasMany(Install::class);
     }
@@ -52,7 +52,7 @@ class Site extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function Groups(): BelongsToMany
+    public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class);
     }
@@ -67,6 +67,11 @@ class Site extends Model
         return $this->belongsTo(Subscription::class);
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('account');

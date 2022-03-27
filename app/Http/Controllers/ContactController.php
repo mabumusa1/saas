@@ -18,10 +18,9 @@ class ContactController extends Controller
     }
 
     /**
-     * @param Account $account
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Account $account)
+    public function index()
     {
         return view('contact.index');
     }
@@ -29,17 +28,19 @@ class ContactController extends Controller
     /**
      * @param Account $account
      * @param Contact $contact
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Contact $contact)
     {
-        return view('contact.edit', compact('account', 'contact'));
+        return view('contact.edit', ['account' => $account, 'contact' => $contact]);
     }
 
     /**
      * @param Account $account
      * @param UpdateContactRequest $request
      * @param Contact $contact
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Account $account, UpdateContactRequest $request, Contact $contact)
@@ -50,7 +51,7 @@ class ContactController extends Controller
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'phone' => isset($data['phone']) ? $data['phone'] : null,
+            'phone' => $data['phone'] ?? null,
         ]);
         Session::flash('status', 'Contact has been updated!');
 

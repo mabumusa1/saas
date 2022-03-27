@@ -33,11 +33,12 @@ class Subscription extends CashierSubscription
                 $plan = $this->plan;
                 if ($plan->stripe_yearly_price_id === $this->stripe_price) {
                     return 'yearly';
-                } elseif ($plan->stripe_monthly_price_id === $this->stripe_price) {
-                    return 'monthly';
-                } else {
-                    return null;
                 }
+                if ($plan->stripe_monthly_price_id === $this->stripe_price) {
+                    return 'monthly';
+                }
+
+                return null;
             }
         );
     }
@@ -52,7 +53,7 @@ class Subscription extends CashierSubscription
         $plan = Plan::where('name', $this->name)->first();
 
         return new Attribute(
-            get: fn ($value) => $plan->display_name,
+            get: fn () => $plan->display_name,
         );
     }
 }

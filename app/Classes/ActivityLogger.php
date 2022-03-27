@@ -2,7 +2,6 @@
 
 namespace App\Classes;
 
-use App\Models\Activity;
 use App\Resolvers\AccountResolver;
 use Illuminate\Contracts\Config\Repository;
 use Spatie\Activitylog\ActivityLogger as SpatieActivityLogger;
