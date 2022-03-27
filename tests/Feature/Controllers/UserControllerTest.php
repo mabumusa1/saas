@@ -117,7 +117,6 @@ class UserControllerTest extends TestCase
             'email' => 'test@a.com',
             'role' => 'owner',
         ]);
-        dd($response);
 
         $response->assertRedirect(route('users.index', $this->account));
         $this->assertDatabaseHas('invites', [

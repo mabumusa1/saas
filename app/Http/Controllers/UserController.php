@@ -49,7 +49,7 @@ class UserController extends Controller
     public function store(Account $account, StoreUserRequest $request)
     {
         $token = Str::random(20);
-        $account->invites()->create([...$request->validated(), 'token' => $token]);
+        $account->invites()->create(array_merge($request->validated(), ['token' => $token]));
         $url = URL::temporarySignedRoute(
             'invites.index',
             now()->addMinutes(300),
