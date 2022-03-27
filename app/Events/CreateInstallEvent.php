@@ -3,11 +3,7 @@
 namespace App\Events;
 
 use App\Models\Install;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -34,7 +30,7 @@ class CreateInstallEvent
      *
      * @return void
      */
-    public function __construct(Install $install, String $operation = null)
+    public function __construct(Install $install, ?string $operation = null)
     {
         $this->install = $install;
         $this->operation = $operation;

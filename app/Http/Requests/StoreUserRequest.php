@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -28,7 +27,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email', 'max:255'],
-            'role'  => 'required',
+            'role' => 'required',
         ];
     }
 

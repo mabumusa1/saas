@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ActivityLoggerEvent;
 use App\Events\CreateInstallEvent;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
@@ -10,8 +9,6 @@ use App\Models\Account;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
 
 class SiteController extends Controller
 {
@@ -27,6 +24,7 @@ class SiteController extends Controller
      * Display a listing of the resource.
      *
      * @param \App\Models\Account $account
+     *
      * @return \Illuminate\View\View
      */
     public function index(Account $account, Request $request)
@@ -46,11 +44,12 @@ class SiteController extends Controller
             return view('sites.empty');
         }
 
-        return view('sites.index', compact('sites', 'order'));
+        return view('sites.index', ['sites' => $sites, 'order' => $order]);
     }
 
     /**
      * @param Account $account
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Account $account)
@@ -59,7 +58,7 @@ class SiteController extends Controller
         $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
         $totalActiveSubscriptions = $account->subscriptions()->active()->sum('quantity');
 
-        return view('sites.create', compact('installs', 'subscriptions', 'totalActiveSubscriptions'));
+        return view('sites.create', ['installs' => $installs, 'subscriptions' => $subscriptions, 'totalActiveSubscriptions' => $totalActiveSubscriptions]);
     }
 
     /**
@@ -67,30 +66,31 @@ class SiteController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \App\Http\Requests\StoreSiteRequest  $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function store(Account $account, StoreSiteRequest $request)
     {
         $validated = $request->safe()->all();
 
-        if (isset($validated['isValidation'])) {
+        if ($request->has('isValidation')) {
             return response()->json(['valid' => true]);
         }
-        $data = [];
 
-        $data['account_id'] = $account->id;
-        $data['name'] = $validated['sitename'];
+        $siteData = [];
 
-        if (isset($validated['subscription_id'])) {
+        if ($validated['subscription_id']) {
             $subscription = $account->subscriptions()->active()->available()->where('id', $validated['subscription_id'])->first();
             if (is_null($subscription)) {
                 return redirect(route('sites.index', $account->id))->with('status', __('Subscription not found, site was not created'));
-            } else {
-                $data['subscription_id'] = $subscription->id;
             }
+            $siteData['subscription_id'] = $subscription->id;
         }
 
-        $site = $account->sites()->create($data);
+        $siteData['account_id'] = $account->id;
+        $siteData['name'] = $validated['sitename'];
+
+        $site = $account->sites()->create($siteData);
 
         $install = Install::create([
             'site_id' => $site->id,
@@ -109,13 +109,14 @@ class SiteController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \App\Models\Site  $site
+     *
      * @return \Illuminate\View\View
      */
     public function edit(Account $account, Site $site)
     {
         $groups = $account->groups;
 
-        return view('sites.edit', compact('site', 'account', 'groups'));
+        return view('sites.edit', ['site' => $site, 'account' => $account, 'groups' => $groups]);
     }
 
     /**
@@ -124,6 +125,7 @@ class SiteController extends Controller
      * @param \App\Models\Account $account
      * @param  \App\Http\Requests\UpdateSiteRequest  $request
      * @param  \App\Models\Site  $site
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Account $account, Site $site, UpdateSiteRequest $request)
@@ -134,7 +136,7 @@ class SiteController extends Controller
 
         $site->groups()->sync($request->input('groups'));
 
-        return to_route('sites.index', compact('account'))->with('status', __('Site successfully updated!'));
+        return to_route('sites.index', ['account' => $account])->with('status', __('Site successfully updated!'));
     }
 
     /**
@@ -142,6 +144,7 @@ class SiteController extends Controller
      *
      * @param \App\Models\Account $account
      * @param  \App\Models\Site  $site
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Site $site)

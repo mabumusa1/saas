@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\BillingController;
-
 Route::get('/invite/{invite:token}', 'InviteController@index')->name('invites.index');
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/invite', 'InviteController@accept')->middleware('auth:sanctum')->name('invites.accept');

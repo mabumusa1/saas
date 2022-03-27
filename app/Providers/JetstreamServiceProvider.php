@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Http\Livewire\ProfileContactInformationForm;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
-use Livewire\Livewire;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -16,7 +14,6 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**

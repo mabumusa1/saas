@@ -21,6 +21,7 @@ class GroupController extends Controller
     /**
      * @param Account $account
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Account $account, Request $request)
@@ -37,16 +38,18 @@ class GroupController extends Controller
 
     /**
      * @param Account $account
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create(Account $account)
     {
-        return view('groups.create', compact('account'));
+        return view('groups.create', ['account' => $account]);
     }
 
     /**
      * @param Account $account
      * @param StoreGroupRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, StoreGroupRequest $request)
@@ -55,12 +58,13 @@ class GroupController extends Controller
 
         session()->flash('success', 'Group created successfully.');
 
-        return to_route('groups.edit', compact('account', 'group'));
+        return to_route('groups.edit', ['account' => $account, 'group' => $group]);
     }
 
     /**
      * @param Account $account
      * @param Group $group
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Account $account, Group $group)
@@ -68,13 +72,19 @@ class GroupController extends Controller
         $sites = $account->sites;
         $groups = $account->groups;
 
-        return view('groups.edit', compact('account', 'group', 'sites', 'groups'));
+        return view('groups.edit', [
+            'account' => $account,
+            'group' => $group,
+            'sites' => $sites,
+            'groups' => $groups,
+        ]);
     }
 
     /**
      * @param Account $account
      * @param Group $group
      * @param UpdateGroupRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Account $account, Group $group, UpdateGroupRequest $request)
@@ -90,12 +100,13 @@ class GroupController extends Controller
         }
         session()->flash('success', 'Group updated successfully.');
 
-        return to_route('groups.edit', compact('account', 'group'));
+        return to_route('groups.edit', ['account' => $account, 'group' => $group]);
     }
 
     /**
      * @param Account $account
      * @param Group $group
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Group $group)
@@ -104,6 +115,6 @@ class GroupController extends Controller
         $group->delete();
         session()->flash('success', 'Group deleted successfully.');
 
-        return to_route('groups.index', compact('account'));
+        return to_route('groups.index', ['account' => $account]);
     }
 }

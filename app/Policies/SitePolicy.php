@@ -2,8 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Account;
-use App\Models\Site;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -22,6 +20,7 @@ class SitePolicy
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user)
@@ -38,6 +37,7 @@ class SitePolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
@@ -51,10 +51,10 @@ class SitePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Site $site)
+    public function update(User $user)
     {
         $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
 
@@ -65,10 +65,10 @@ class SitePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Site $site)
+    public function delete(User $user)
     {
         $allowedRoles = ['admin', 'owner'];
 

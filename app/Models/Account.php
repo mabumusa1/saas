@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Events\AccountUpdatedEvent;
-use App\Models\AccountUser;
 use App\Models\Cashier\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use function Illuminate\Events\queueable;
 use Laravel\Cashier\Billable;
-use Laravel\Cashier\Cashier;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -68,7 +65,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function Users(): BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->using(AccountUser::class)->withPivot('role');
     }
@@ -88,7 +85,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Sites(): HasMany
+    public function sites(): HasMany
     {
         return $this->hasMany(Site::class);
     }
@@ -98,7 +95,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
      */
-    public function Subscriptions()
+    public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
     }
@@ -108,7 +105,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function Installs(): HasManyThrough
+    public function installs(): HasManyThrough
     {
         return $this->hasManyThrough(Install::class, Site::class);
     }
@@ -118,7 +115,7 @@ class Account extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Groups(): HasMany
+    public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
     }
@@ -133,14 +130,24 @@ class Account extends Model
         return $this->name;
     }
 
+    /**
+     * Get the customer email that should be synced to Stripe.
+     *
+     * @return string|null
+     */
     public function stripeEmail()
     {
         return $this->email;
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('account');
+            ->useLogName('account');
     }
 }

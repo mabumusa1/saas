@@ -18,21 +18,24 @@ class Group extends Model
      *
      * @var array<string>
      */
-    protected $fillable = [
-        'name', 'notes',
-    ];
+    protected $fillable = ['name', 'notes'];
 
     /**
      * Get all of the sites for the Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function Sites(): BelongsToMany
+    public function sites(): BelongsToMany
     {
         return $this->belongsToMany(Site::class);
     }
 
-    public function hasSite($site)
+    /**
+     * Check if the site belongs to this group.
+     *
+     * @return bool
+     */
+    public function hasSite($site): bool
     {
         return $this->Sites->contains($site);
     }
@@ -42,11 +45,16 @@ class Group extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Account(): BelongsTo
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('account');
