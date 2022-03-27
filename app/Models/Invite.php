@@ -32,4 +32,16 @@ class Invite extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('account')
+        ->setDescriptionForEvent(fn (string $eventName) =>  __('User Invite :Action', ['action' => $eventName]));
+    }
 }

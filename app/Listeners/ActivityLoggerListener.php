@@ -28,7 +28,6 @@ class ActivityLoggerListener
         activity('account')
             ->performedOn($event->activity['performedOn'])
             ->causedBy($event->activity['causedBy'])
-            ->withProperties($event->activity['withProperties'])
             ->log($event->activity['log']);
     }
 }

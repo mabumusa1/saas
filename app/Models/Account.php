@@ -148,6 +148,7 @@ class Account extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->useLogName('account');
+            ->useLogName('account')
+            ->setDescriptionForEvent(fn (string $eventName) =>  __('Account :Action', ['action' => $eventName]));
     }
 }

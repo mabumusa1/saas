@@ -16,6 +16,8 @@ class AccountUpdatedEvent
     /**
      * Create a new event instance.
      *
+     * @param Account $account
+     *
      * @return void
      */
     public function __construct(Account $account)

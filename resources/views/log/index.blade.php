@@ -25,18 +25,17 @@
                         <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th>{{ __('Activity') }}</th>
-                            <th>{{ __('Description') }}</th>
                             <th>{{ __('By') }}</th>
                             <th>{{ __('On') }}</th>
+                            <th>{{ __('At') }}</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach ($activities as $activity)
                             <tr>
-
-                                <td>{{ $activity->log_name }}</td>
                                 <td>{{ $activity->description }}</td>
                                 <td>{{ $activity->causer?->fullName }}</td>
+                                <td>{{ $activity->subject?->fullName }}</td>
                                 <td>{{ $activity->created_at }}</td>
                             </tr>
                             @endforeach

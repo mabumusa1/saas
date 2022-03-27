@@ -28,6 +28,9 @@ class CreateInstallEvent
     /**
      * Create a new event instance.
      *
+     *  @param Install $install
+     *
+     *  @param string $operation
      * @return void
      */
     public function __construct(Install $install, ?string $operation = null)

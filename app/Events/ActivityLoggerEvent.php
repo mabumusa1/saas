@@ -19,6 +19,7 @@ class ActivityLoggerEvent
 
     /**
      * Create a new event instance.
+     * @param array $activity
      *
      * @return void
      */

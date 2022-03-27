@@ -54,6 +54,8 @@ class Install extends Model
      */
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->useLogName('account');
+        return LogOptions::defaults()
+        ->useLogName('account')
+        ->setDescriptionForEvent(fn (string $eventName) =>  __('Install :Action', ['action' => $eventName]));
     }
 }

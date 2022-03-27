@@ -25,11 +25,9 @@ class PasswordEventListner
     public function handle($event)
     {
         ActivityLoggerEvent::dispatch([
-            'name' => __('User Password Reset'),
             'performedOn' => $event->user,
             'causedBy' => $event->user,
-            'withProperties' => [],
-            'log' => $event->user->fullName.__(' Reset Password Successfully'),
+            'log' => __('Password Reset'),
         ]);
     }
 }

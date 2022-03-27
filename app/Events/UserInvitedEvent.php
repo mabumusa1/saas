@@ -22,6 +22,8 @@ class UserInvitedEvent
     /**
      * Create a new event instance.
      *
+     * @param array $params
+     *
      * @return void
      */
     public function __construct(array $params)

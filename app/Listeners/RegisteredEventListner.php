@@ -25,11 +25,9 @@ class RegisteredEventListner
     public function handle($event)
     {
         ActivityLoggerEvent::dispatch([
-            'name' => __('User Registered'),
             'performedOn' => $event->user,
             'causedBy' => $event->user,
-            'withProperties' => [],
-            'log' => $event->user->fullName.__(' Registered'),
+            'log' => __('User Registered'),
         ]);
     }
 }

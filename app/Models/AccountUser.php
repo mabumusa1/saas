@@ -25,6 +25,8 @@ class AccountUser extends Pivot
      */
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->useLogName('account');
+        return LogOptions::defaults()
+                ->useLogName('account')
+                ->setDescriptionForEvent(fn (string $eventName) =>  __('User association with account :Action', ['action' => $eventName]));
     }
 }
