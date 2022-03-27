@@ -20,9 +20,9 @@ class LogController extends Controller
         if (Gate::allows('isAdmin')) {
             $activities = Activity::all();
         } else {
-            $activities = Activity::onAccount($account->id)->get();
+            $activities = Activity::onAccount($account->id)->get()->sortByDesc('created_at');
         }
 
-        return view('log.index', ['activities' => $activities, 'account' => $account]);
+        return view('log.index', ['activities' => $activities]);
     }
 }

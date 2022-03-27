@@ -36,6 +36,7 @@ class DataCenter extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->useLogName('system');
+            ->useLogName('system')
+            ->setDescriptionForEvent(fn (string $eventName) =>  __('Data Center :Action', ['action' => $eventName]));
     }
 }

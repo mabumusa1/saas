@@ -67,6 +67,7 @@ class Plan extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->useLogName('system');
+            ->useLogName('system')
+            ->setDescriptionForEvent(fn (string $eventName) =>  __('Plan :Action', ['action' => $eventName]));
     }
 }

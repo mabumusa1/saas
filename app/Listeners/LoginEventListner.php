@@ -3,9 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\ActivityLoggerEvent;
-use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Login;
 
-class AuthenticatedEventListner
+class LoginEventListner
 {
     /**
      * Create the event listener.
@@ -19,19 +19,16 @@ class AuthenticatedEventListner
     /**
      * Handle the event.
      *
-     * @param  \Illuminate\Auth\Events\Authenticated  $event
+     * @param  \Illuminate\Auth\Events\Login  $event
      *
      * @return void
      */
-    public function handle(Authenticated $event)
+    public function handle(Login $event)
     {
         ActivityLoggerEvent::dispatch([
-            'name' => __('User Authenticated'),
             'performedOn' => $event->user,
             'causedBy' => $event->user,
-            'withProperties' => [],
-            /* @phpstan-ignore-next-line */
-            'log' => $event->user->fullName.__(' Logged In Successfully'),
+            'log' => __('User Login'),
         ]);
     }
 }

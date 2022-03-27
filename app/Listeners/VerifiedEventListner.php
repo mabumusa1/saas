@@ -25,11 +25,9 @@ class VerifiedEventListner
     public function handle($event)
     {
         ActivityLoggerEvent::dispatch([
-            'name' => __('User Email Verified'),
             'performedOn' => $event->user,
             'causedBy' => $event->user,
-            'withProperties' => [],
-            'log' => $event->user->fullName.__(' Verified'),
+            'log' => __('User Verified'),
         ]);
     }
 }

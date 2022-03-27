@@ -119,6 +119,8 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->useLogName('system');
+        return LogOptions::defaults()
+            ->useLogName('system')
+            ->setDescriptionForEvent(fn (string $eventName) =>  __('User :Action', ['action' => $eventName]));
     }
 }

@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Events\AccountUpdatedEvent;
+use App\Events\ActivityLoggerEvent;
 use App\Events\UserInvitedEvent;
-use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
@@ -28,8 +29,8 @@ class EventServiceProvider extends ServiceProvider
         Verified::class => [
             \App\Listeners\VerifiedEventListner::class,
         ],
-        Authenticated::class => [
-            \App\Listeners\AuthenticatedEventListner::class,
+        Login::class => [
+            \App\Listeners\LoginEventListner::class,
         ],
         Logout::class => [
             \App\Listeners\LogoutEventListner::class,
@@ -45,6 +46,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AccountUpdatedEvent::class => [
             \App\Listeners\AccountUpdatedListener::class,
+        ],
+        ActivityLoggerEvent::class => [
+            \App\Listeners\ActivityLoggerListener::class,
         ],
 
     ];
