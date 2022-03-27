@@ -28,7 +28,7 @@ class VerifiedEventListnerTest extends TestCase
         $listener->handle($event);
 
         Event::assertDispatched(ActivityLoggerEvent::class, function ($e) use ($user) {
-            return $e->activity['log'] === $user->fullName.__(' Verified');
+            return $e->activity['log'] === __('User Verified');
         });
     }
 }

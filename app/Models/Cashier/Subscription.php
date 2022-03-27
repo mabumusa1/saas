@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription
@@ -32,6 +33,7 @@ class Subscription extends CashierSubscription
      */
     public function scopeAvailable($query): Builder
     {
+        /* @phpstan-ignore-next-line */
         return $query->has('sites', '<', DB::raw('`quantity`'));
     }
 
@@ -54,7 +56,6 @@ class Subscription extends CashierSubscription
     {
         return new Attribute(
             get: function () {
-                /* @phpstan-ignore-next-line */
                 $plan = $this->plan;
                 if ($plan->stripe_yearly_price_id === $this->stripe_price) {
                     return 'yearly';
