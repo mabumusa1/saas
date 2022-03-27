@@ -4,8 +4,10 @@ namespace App\Models\Cashier;
 
 use App\Models\Plan;
 use App\Models\Site;
+use Database\Factories\SubscriptionFactory;
 use DB;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription

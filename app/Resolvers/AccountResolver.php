@@ -37,12 +37,6 @@ class AccountResolver
             return $this->accountOverride;
         }
 
-        if ($this->resolverOverride !== null) {
-            $resultCauser = ($this->resolverOverride)($subject);
-
-            return $resultCauser;
-        }
-
         return $this->getAccount($subject);
     }
 

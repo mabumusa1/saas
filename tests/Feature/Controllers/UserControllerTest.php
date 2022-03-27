@@ -5,6 +5,7 @@ namespace Tests\Feature\Controllers;
 use App\Events\UserInvitedEvent;
 use App\Listeners\UserInvitedListener;
 use App\Models\Account;
+use App\Models\Invite;
 use App\Models\User;
 use App\Notifications\InviteNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,13 +26,8 @@ class UserControllerTest extends TestCase
      */
     public function test_index_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->get(route('users.index', $account));
+        parent::setUpAccount();
+        $response = $this->get(route('users.index', $this->account));
 
         $response->assertOk();
         $response->assertViewIs('user.index');
@@ -43,15 +39,10 @@ class UserControllerTest extends TestCase
      */
     public function test_index_displays_view_without_account_set()
     {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
+        parent::setUpAccount();
         $view = $this->view('layout.aside._menu');
 
-        $view->assertSee($account->name);
+        $view->assertSee($this->account->name);
     }
 
     /**
@@ -59,13 +50,8 @@ class UserControllerTest extends TestCase
      */
     public function test_create_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->get(route('users.create', $account));
+        parent::setUpAccount();
+        $response = $this->get(route('users.create', $this->account));
 
         $response->assertOk();
         $response->assertViewIs('user.create');
@@ -77,13 +63,8 @@ class UserControllerTest extends TestCase
      */
     public function test_edit_403_for_single_owner()
     {
-        $this->actingAs($user = User::factory()->create());
-
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
+        parent::setUpAccount();
+        $response = $this->get(route('users.edit', ['account' => $this->account, 'user' => $this->user]));
 
         $response->assertOk();
     }
@@ -93,18 +74,57 @@ class UserControllerTest extends TestCase
      */
     public function test_edit_displays_view()
     {
-        $this->actingAs($user = User::factory()->create());
+        parent::setUpAccount();
         $user2 = User::factory()->create();
 
-        $account = Account::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-
-        $response = $this->get(route('users.edit', ['account' => $account, 'user' => $user]));
+        $response = $this->get(route('users.edit', ['account' => $this->account, 'user' => $this->user]));
 
         $response->assertOk();
         $response->assertViewIs('user.edit');
         $response->assertViewHas('user');
+    }
+
+    public function test_user_store_fails_for_existing_user()
+    {
+        parent::setUpAccount();
+        $user = User::factory()->create();
+        $this->account->users()->attach($user->id, ['role' => 'owner']);
+
+        $response = $this->post(route('users.store', $this->account), [
+            'email' => $user->email,
+        ]);
+
+        $response->assertSessionHasErrors('email');
+    }
+
+    public function test_user_store_fails_for_existing_invite()
+    {
+        parent::setUpAccount();
+        $invite = Invite::factory()->for($this->account)->create();
+
+        $response = $this->post(route('users.store', $this->account), [
+            'email' => $invite->email,
+        ]);
+
+        $response->assertSessionHasErrors('email');
+    }
+
+    public function test_user_store_success()
+    {
+        Event::fake();
+        parent::setUpAccount();
+        $response = $this->post(route('users.store', $this->account), [
+            'email' => 'test@a.com',
+            'role' => 'owner',
+        ]);
+
+        $response->assertRedirect(route('users.index', $this->account));
+        $this->assertDatabaseHas('invites', [
+            'email' => 'test@a.com',
+            'role' => 'owner',
+        ]);
+
+        Event::assertDispatched(UserInvitedEvent::class);
     }
 
     /**
@@ -112,14 +132,8 @@ class UserControllerTest extends TestCase
      */
     public function test_user_update()
     {
-        $account = Account::factory()->create();
-
-        $user = User::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-        $this->actingAs($user);
-
-        $response = $this->put(route('users.update', ['account' => $account, 'user' => $user]), [
+        parent::setUpAccount();
+        $response = $this->put(route('users.update', ['account' => $this->account, 'user' => $this->user]), [
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'email' => 'test@example.com',
@@ -135,12 +149,9 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy_only_if_account_has_one_owner()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'pb']);
-
-        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
-        $this->actingAs($user);
+        parent::setUpAccount(false);
+        $response = $this->delete(route('users.destroy', ['account' => $this->account, 'user' => $this->user]));
+        $this->actingAs($this->user);
         $response->assertRedirect();
     }
 
@@ -149,17 +160,11 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy()
     {
-        $account = Account::factory()->create();
-
-        $user = User::factory()->create();
-
-        $account->users()->attach($user->id, ['role' => 'owner']);
-        $this->actingAs($user);
-
+        parent::setUpAccount();
         $userSecond = User::factory()->create();
-        $account->users()->attach($userSecond->id, ['role' => 'owner']);
+        $this->account->users()->attach($userSecond->id, ['role' => 'owner']);
 
-        $response = $this->delete(route('users.destroy', ['account' => $account, 'user' => $user]));
+        $response = $this->delete(route('users.destroy', ['account' => $this->account, 'user' => $this->user]));
         $response->assertRedirect();
     }
 }

@@ -3,7 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Jetstream\Http\Livewire\TwoFactorAuthenticationForm;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -25,6 +27,77 @@ class TwoFactorAuthenticationSettingsTest extends TestCase
 
         $this->assertNotNull($user->two_factor_secret);
         $this->assertCount(8, $user->recoveryCodes());
+    }
+
+    public function test_two_factor_authentication_attempts_are_throttled()
+    {
+        RateLimiter::spy();
+        RateLimiter::shouldReceive('tooManyAttempts')->andReturn(true);
+
+        $response = $this->postJson(route('two-factor.login'), [
+            'email' => 'taylor@laravel.com',
+            'password' => 'secret',
+        ]);
+
+        $response->assertStatus(429);
+    }
+
+    public function test_two_factor_authentication_rate_limit()
+    {
+        $this->actingAs($user = User::factory()->create());
+
+        $this->withSession(['auth.password_confirmed_at' => time()]);
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
+
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->two_factor_secret);
+        $this->assertCount(8, $user->recoveryCodes());
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
+
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->two_factor_secret);
+        $this->assertCount(8, $user->recoveryCodes());
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
+
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->two_factor_secret);
+        $this->assertCount(8, $user->recoveryCodes());
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
+
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->two_factor_secret);
+        $this->assertCount(8, $user->recoveryCodes());
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
+
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->two_factor_secret);
+        $this->assertCount(8, $user->recoveryCodes());
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
+
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->two_factor_secret);
+        $this->assertCount(8, $user->recoveryCodes());
+
+        Livewire::test(TwoFactorAuthenticationForm::class)
+                ->call('enableTwoFactorAuthentication');
     }
 
     public function test_recovery_codes_can_be_regenerated()

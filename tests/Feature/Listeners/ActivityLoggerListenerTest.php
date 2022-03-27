@@ -3,6 +3,7 @@
 namespace Tests\Feature\Listeners;
 
 use App\Events\ActivityLoggerEvent;
+use App\Facades\AccountResolver;
 use App\Listeners\ActivityLoggerListener;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,6 +12,14 @@ use Tests\TestCase;
 
 class ActivityLoggerListenerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::setUpAccount(false);
+    }
+
     /**
      * A basic feature test example.
      *
@@ -18,20 +27,18 @@ class ActivityLoggerListenerTest extends TestCase
      */
     public function test_handle()
     {
-        $user = User::factory()->create();
         $event = new ActivityLoggerEvent([
             'name' =>  __('User Logout'),
-            'performedOn' => $user,
-            'causedBy' => $user,
+            'performedOn' => $this->user,
+            'causedBy' => $this->user,
             'withProperties' => [],
-            'log' => $user->fullName.__(' Logged Out Successfully'),
+            'log' => $this->user->fullName.__(' Logged Out Successfully'),
         ]);
         $listener = new ActivityLoggerListener();
 
         $listener->handle($event);
-
         $this->assertDatabaseHas('activity_log', [
-            'description' => $user->fullName.__(' Logged Out Successfully'),
+            'description' => $this->user->fullName.__(' Logged Out Successfully'),
         ]);
     }
 }

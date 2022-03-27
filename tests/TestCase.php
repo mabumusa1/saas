@@ -33,11 +33,13 @@ abstract class TestCase extends BaseTestCase
         return $sub;
     }
 
-    protected function setUpAccount()
+    protected function setUpAccount($authenticate = true)
     {
         $this->account = Account::factory()->create();
         $this->user = User::factory()->create();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
-        $this->actingAs($this->user);
+        if ($authenticate) {
+            $this->actingAs($this->user);
+        }
     }
 }

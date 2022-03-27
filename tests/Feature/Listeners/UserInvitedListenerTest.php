@@ -8,6 +8,7 @@ use App\Notifications\InviteNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Notifications\Messages\MailMessage;
 use Notification;
 use Tests\TestCase;
 

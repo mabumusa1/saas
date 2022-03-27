@@ -4,10 +4,6 @@ namespace App\Listeners;
 
 use App\Events\UserInvitedEvent;
 use App\Notifications\InviteNotification;
-use App\Notifications\UserCreatedNotification;
-use Auth;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Notification;
 
 class UserInvitedListener
