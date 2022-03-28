@@ -13,6 +13,58 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
+/**
+ * App\Models\Cashier\Subscription.
+ *
+ * @property int $id
+ * @property int $account_id
+ * @property string $name
+ * @property string $stripe_id
+ * @property string $stripe_status
+ * @property string|null $stripe_price
+ * @property int|null $quantity
+ * @property \Illuminate\Support\Carbon|null $trial_ends_at
+ * @property \Illuminate\Support\Carbon|null $ends_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Cashier\SubscriptionItem[] $items
+ * @property-read int|null $items_count
+ * @property-read \App\Models\Account $owner
+ * @property-read Plan|null $plan
+ * @property-read \Illuminate\Database\Eloquent\Collection|Site[] $sites
+ * @property-read int|null $sites_count
+ * @property-read \App\Models\Account $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription active()
+ * @method static Builder|Subscription available()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription canceled()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription cancelled()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription ended()
+ * @method static \Laravel\Cashier\Database\Factories\SubscriptionFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription incomplete()
+ * @method static Builder|Subscription newModelQuery()
+ * @method static Builder|Subscription newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription notCanceled()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription notCancelled()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription notOnGracePeriod()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription notOnTrial()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription onGracePeriod()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription onTrial()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription pastDue()
+ * @method static Builder|Subscription query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription recurring()
+ * @method static Builder|Subscription whereAccountId($value)
+ * @method static Builder|Subscription whereCreatedAt($value)
+ * @method static Builder|Subscription whereEndsAt($value)
+ * @method static Builder|Subscription whereId($value)
+ * @method static Builder|Subscription whereName($value)
+ * @method static Builder|Subscription whereQuantity($value)
+ * @method static Builder|Subscription whereStripeId($value)
+ * @method static Builder|Subscription whereStripePrice($value)
+ * @method static Builder|Subscription whereStripeStatus($value)
+ * @method static Builder|Subscription whereTrialEndsAt($value)
+ * @method static Builder|Subscription whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Subscription extends CashierSubscription
 {
     /**
