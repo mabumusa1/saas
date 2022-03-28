@@ -28,3 +28,10 @@ else
 fi
 
 echo "php-cs-fixer pre commit hook finish"
+
+echo "generating docs"
+PHP_DOCS="build/bin/phpdoc.phar"
+chmod +x $PHP_DOCS
+$PHP_DOCS
+
+
