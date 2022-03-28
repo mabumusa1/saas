@@ -40,4 +40,3 @@ jobs:
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan view:clear
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan db:wipe --force
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan migrate --force
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan db:seed --force
