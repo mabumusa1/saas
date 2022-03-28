@@ -13,10 +13,13 @@ jobs:
     #if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Reconfigure Laravel
+        uses: webfactory/ssh-agent@v0.5.4
         env:
           GIT_SSH_COMMAND: 'ssh -vvv'
+        with: 
+          ssh-private-key: ${{ secrets.DOKKU_KEY }}
         run: |
-          ssh -i ${{ secrets.DOKKU_KEY }} dokku@dokku.steercampaign.com ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
+          ssh dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
 
 
         
