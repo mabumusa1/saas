@@ -1,4 +1,4 @@
-name: 'deploy'
+name: 'deploy staging pr'
 on:
   pull_request:
     branches:
