@@ -16,8 +16,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "heroku-prebuild": "npm install",
-        "postinstall": "npm run prod"
+        "build": "npm run production"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^31.1.0",
