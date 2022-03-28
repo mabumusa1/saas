@@ -5,14 +5,14 @@
                 <div class="d-flex justify-content-between mb-5">
                     <h1>Log</h1>
                 </div>
-                @if(Gate::allows('isAdmin'))
+                @if (Gate::allows('isAdmin'))
                     <h4 class="text-muted">{{ __('Search by account Id') }}</h4>
                     <form id="filters">
                         <div class="row">
                             <div class="col-5 mb-4">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control border-right-0" name="q"
-                                           value="{{ request()->get('q') }}" />
+                                        value="{{ request()->get('q') }}" />
                                     <span class="input-group-text bg-transparent" id="basic-addon2"><i
                                             class="bi bi-search"></i></span>
                                 </div>
@@ -23,21 +23,28 @@
                 <div class="table-responsive">
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
-                        <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                            <th>{{ __('Activity') }}</th>
-                            <th>{{ __('By') }}</th>
-                            <th>{{ __('On') }}</th>
-                            <th>{{ __('At') }}</th>
-                        </tr>
+                            <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                <th>{{ __('Activity') }}</th>
+                                <th>{{ __('At') }}</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach ($activities as $activity)
-                            <tr>
-                                <td>{{ $activity->description }}</td>
-                                <td>{{ $activity->causer?->fullName }}</td>
-                                <td>{{ $activity->subject?->fullName }}</td>
-                                <td>{{ $activity->created_at }}</td>
-                            </tr>
+                                @continue($activity->subject_type == App\Models\AccountUser::class)
+                                <tr>
+                                    <td>
+                                        {{ $activity->causer?->fullName }}
+                                        @if (strtolower($activity->description) === 'user login')
+                                            {{ __('Logged In') }}
+                                        @elseif ($activity->subject_type == App\Models\Invite::class)
+                                            {{ __('Invited') }} {{ $activity->subject->email }}
+                                        @else
+                                            {{ ucfirst($activity->description) }} {{ class_basename($activity->subject) }}
+                                            {{ $activity->subject?->fullName ?? $activity->subject?->name }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $activity->created_at }}
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
