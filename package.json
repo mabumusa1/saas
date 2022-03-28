@@ -8,6 +8,10 @@
             "url": "heroku/nodejs"
         }
     ],
+    "engines": {
+        "node": "16.x",
+        "npm": "8.x"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
