@@ -12,12 +12,13 @@ jobs:
     environment: staging
     #if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
-      - name: Reconfigure Laravel
+      - name: Add SSH Key
         uses: webfactory/ssh-agent@v0.5.4
         env:
           GIT_SSH_COMMAND: 'ssh -vvv'
         with: 
           ssh-private-key: ${{ secrets.DOKKU_KEY }}
+      - name: Reconfigure Laravel
         run: |
           ssh dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
 
