@@ -1,8 +1,5 @@
 name: 'deploy staging'
 on:
-  push:
-    branches:
-      - "fix_dokku"
   pull_request:
     branches:
       - staging      
@@ -10,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: staging
-    #if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Cloning repo
         uses: actions/checkout@v2
@@ -38,5 +35,4 @@ jobs:
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan route:clear
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan event:clear
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan view:clear
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan db:wipe --force
           ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan migrate --force
