@@ -1,8 +1,8 @@
-name: Deploy to Staging
+name: deploy staging
 
 on:
   workflow_run:
-    workflows: ["Test"]
+    workflows: ["phpunit", 'code-check', 'dusk']
     branches: [staging]
     types: 
       - completed
