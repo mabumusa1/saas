@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class StripeEventListener extends TestCase
+class StripeEventListenerTest extends TestCase
 {
     use RefreshDatabase;
 
