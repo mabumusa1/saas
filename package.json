@@ -8,6 +8,10 @@
             "url": "heroku/nodejs"
         }
     ],
+    "engines": {
+        "node": "16.x",
+        "npm": "8.x"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
@@ -16,8 +20,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "heroku-prebuild": "npm install",
-        "postinstall": "npm run prod"
+        "build": "npm run production"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^31.1.0",
