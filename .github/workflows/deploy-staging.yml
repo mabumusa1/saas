@@ -12,16 +12,11 @@ jobs:
     environment: staging
     #if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
-      - name: Cloning repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Push to dokku
-        uses: dokku/github-action@master
+      - name: Reconfigure Laravel
         env:
-          GIT_SSH_COMMAND: 'ssh -vvv'        
-        with:
-          git_push_flags: '--force -vvv'
-          git_remote_url: 'ssh://dokku@dokku.steercampaign.com:22/${{ secrets.DOKKU_STAGING_APP_NAME }}'
-          ssh_private_key: ${{ secrets.DOKKU_KEY }}
+          GIT_SSH_COMMAND: 'ssh -vvv'
+        run: |
+          ssh -i ${{ secrets.DOKKU_KEY }} dokku@dokku.steercampaign.com ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
+
+
+        
