@@ -10,7 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: staging
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Cloning repo
         uses: actions/checkout@v2
