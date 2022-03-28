@@ -15,6 +15,55 @@ use Laravel\Cashier\Billable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * App\Models\Account.
+ *
+ * @property int $id
+ * @property int $data_center_id
+ * @property string $name
+ * @property string|null $stripe_id
+ * @property string|null $pm_type
+ * @property string|null $pm_last_four
+ * @property string|null $trial_ends_at
+ * @property string|null $email
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\DataCenter $dataCenter
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read int|null $groups_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Install[] $installs
+ * @property-read int|null $installs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invite[] $invites
+ * @property-read int|null $invites_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Site[] $sites
+ * @property-read int|null $sites_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Subscription[] $subscriptions
+ * @property-read int|null $subscriptions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\AccountFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Account newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Account onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Account query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereDataCenterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account wherePmLastFour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account wherePmType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereStripeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereTrialEndsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Account withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Account withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Account extends Model
 {
     use HasFactory, SoftDeletes, Billable, LogsActivity;

@@ -7,6 +7,49 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * App\Models\Plan.
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $display_name
+ * @property string $short_description
+ * @property string|null $stripe_product_id
+ * @property string|null $stripe_monthly_price_id
+ * @property string|null $stripe_yearly_price_id
+ * @property string|null $monthly_price
+ * @property string|null $yearly_price
+ * @property int|null $contacts
+ * @property array|null $features
+ * @property array|null $options
+ * @property int $archived
+ * @property int $available
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read int|null $activities_count
+ * @method static \Database\Factories\PlanFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereArchived($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereAvailable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereContacts($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereDisplayName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereFeatures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereMonthlyPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereStripeMonthlyPriceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereStripeProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereStripeYearlyPriceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereYearlyPrice($value)
+ * @mixin \Eloquent
+ */
 class Plan extends Model
 {
     use HasFactory, LogsActivity;

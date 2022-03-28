@@ -12,6 +12,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * App\Models\Site.
+ *
+ * @property int $id
+ * @property int $account_id
+ * @property int|null $subscription_id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Account $account
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read int|null $groups_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Install[] $installs
+ * @property-read int|null $installs_count
+ * @property-read Subscription|null $subscription
+ * @method static \Database\Factories\SiteFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Site newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Site onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Site query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereSubscriptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Site withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Site withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Site extends Model
 {
     use HasFactory, SoftDeletes, LogsActivity;
