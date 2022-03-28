@@ -1,12 +1,13 @@
 name: 'deploy staging'
 on:
-  push:
+  pull_request:
     branches:
       - staging
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: staging
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && && github.event.pull_request.merged == true
     steps:
       - name: Cloning repo
         uses: actions/checkout@v2
@@ -18,7 +19,6 @@ jobs:
         env:
           GIT_SSH_COMMAND: 'ssh -vvv'        
         with:
-          command: review-apps:create
           git_push_flags: '--force -vvv'
           git_remote_url: 'ssh://dokku@dokku.steercampaign.com:22/${{ secrets.DOKKU_STAGING_APP_NAME }}'
           ssh_private_key: ${{ secrets.DOKKU_KEY }}
