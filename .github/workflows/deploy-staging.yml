@@ -2,18 +2,17 @@ name: 'deploy staging'
 on:
   pull_request:
     branches:
-      - staging
+      - staging      
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: staging
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Cloning repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
       - name: Push to dokku
         uses: dokku/github-action@master
         env:
@@ -22,3 +21,18 @@ jobs:
           git_push_flags: '--force -vvv'
           git_remote_url: 'ssh://dokku@dokku.steercampaign.com:22/${{ secrets.DOKKU_STAGING_APP_NAME }}'
           ssh_private_key: ${{ secrets.DOKKU_KEY }}
+            
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DOKKU_KEY }} 
+          name: dokku
+          known_hosts: ${{ secrets.DOKKU_HOST_SSH_KEY }}
+      - name: Configure Laravel
+        run: |
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan cache:clear
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan route:clear
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan event:clear
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan view:clear
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan migrate --force
