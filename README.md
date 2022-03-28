@@ -1,3 +1,8 @@
+[![phpunit](https://github.com/mabumusa1/saas/actions/workflows/test.yml/badge.svg)](https://github.com/mabumusa1/saas/actions/workflows/test.yml)
+[![code-check](https://github.com/mabumusa1/saas/actions/workflows/code-check.yml/badge.svg)](https://github.com/mabumusa1/saas/actions/workflows/code-check.yml)
+[![dusk](https://github.com/mabumusa1/saas/actions/workflows/dusk.yml/badge.svg)](https://github.com/mabumusa1/saas/actions/workflows/dusk.yml)
+[![Coverage Status](https://coveralls.io/repos/github/mabumusa1/saas/badge.svg?branch=dev)](https://coveralls.io/github/mabumusa1/saas?branch=dev)
+
 ## Getting Started
 We want to build a simple SaaS application to control a backend API server, as a developer we recommend that you have the folloiwng tools installed on your machine before you start writing code for the system: 
  1. Ubuntu as the OS, you can use Windows or MacOS but we recommend Ubuntu
