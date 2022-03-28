@@ -1,8 +1,11 @@
 name: 'deploy staging'
 on:
+  push:
+    branches:
+      - "fix_dokku"
   pull_request:
     branches:
-      - staging
+      - staging      
 jobs:
   deploy:
     runs-on: ubuntu-latest
