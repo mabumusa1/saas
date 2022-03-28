@@ -32,14 +32,18 @@
                             @foreach ($activities as $activity)
                                 @continue($activity->subject_type == App\Models\AccountUser::class)
                                 <tr>
-                                    @if (strtolower($activity->description) === 'user login')
-                                        <td>{{ $activity->causer?->fullName }} {{ __('Logged In') }}</td>
-                                    @else
-                                        <td>{{ $activity->causer?->fullName }} {{ $activity->description }}
-                                            {{ class_basename($activity->subject) }}
-                                            {{ $activity->subject?->fullName ?? $activity->subject?->name }}</td>
-                                    @endif
-                                    <td>{{ $activity->created_at }}</td>
+                                    <td>
+                                        {{ $activity->causer?->fullName }}
+                                        @if (strtolower($activity->description) === 'user login')
+                                            {{ __('Logged In') }}
+                                        @elseif ($activity->subject_type == App\Models\Invite::class)
+                                            {{ __('Invited') }} {{ $activity->subject->email }}
+                                        @else
+                                            {{ ucfirst($activity->description) }} {{ class_basename($activity->subject) }}
+                                            {{ $activity->subject?->fullName ?? $activity->subject?->name }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $activity->created_at }}
                                 </tr>
                             @endforeach
                         </tbody>
