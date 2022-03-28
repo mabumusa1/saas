@@ -22,7 +22,7 @@ jobs:
           command: review-apps:create
           git_push_flags: '--force -vvv'
           git_remote_url: 'ssh://dokku@dokku.steercampaign.com/${{ secrets.DOKKU_STAGING_APP_NAME }}'
-          review_app_name: review-appname-${{ github.event.pull_request.number }}
+          review_app_name: staging-${{ github.event.pull_request.number }}
           ssh_private_key: ${{ secrets.DOKKU_KEY }}
   destroy_review_app:
     runs-on: ubuntu-latest
@@ -37,5 +37,5 @@ jobs:
           command: review-apps:destroy
           git_push_flags: '--force -vvv'
           git_remote_url: 'ssh://dokku@dokku.steercampaign.com/${{ secrets.DOKKU_STAGING_APP_NAME }}'
-          review_app_name: review-appname-${{ github.event.pull_request.number }}
+          review_app_name: staging-${{ github.event.pull_request.number }}
           ssh_private_key: ${{ secrets.DOKKU_KEY }}
