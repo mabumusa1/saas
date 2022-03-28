@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Laravel\Cashier\Invoice;
+use stdClass;
+use Symfony\Component\HttpFoundation\Response;
 
 class BillingController extends Controller
 {
@@ -74,9 +77,20 @@ class BillingController extends Controller
 
     public function invoice(Account $account, $invoiceId)
     {
-        return $account->downloadInvoice($invoiceId, [
+        // return $account->subscriptions->first();
+        // return $account->subscriptions->first()->previewInvoice('price_1KYcdZJJANQIX4AvM2ySzZzb');
+        // return view('cashier::receipt', ['invoice' => $account->findInvoice($invoiceId, [
+        //     'vendor' => 'Your Company',
+        //     'product' => 'Your Product',
+        // ])]);
+        return new Response($account->findInvoice($invoiceId, [
             'vendor' => 'Your Company',
             'product' => 'Your Product',
+        ])->pdf([
+            'vendor' => 'Your Company',
+            'product' => 'Your Product',
+        ]), 200, [
+            'Content-Type' => 'application/pdf',
         ]);
     }
 }
