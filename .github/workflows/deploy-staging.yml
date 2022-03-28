@@ -17,7 +17,5 @@ jobs:
       with:
         key: ${{ secrets.DOKKU_KEY }} 
         known_hosts: ${{ secrets.DOKKU_HOST_SSH_KEY }}
-    - name: Adding Known Hosts
-      run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     - name: Configure Laravel
       run: ssh dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
