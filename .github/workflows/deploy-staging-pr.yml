@@ -6,6 +6,7 @@ on:
 jobs:
   review_app:
     runs-on: ubuntu-latest
+    environment: staging
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     steps:
       - name: Cloning repo
@@ -25,6 +26,7 @@ jobs:
           ssh_private_key: ${{ secrets.DOKKU_KEY }}
   destroy_review_app:
     runs-on: ubuntu-latest
+    environment: staging
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
       - name: Destroy the review app
