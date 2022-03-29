@@ -2,7 +2,7 @@
     <div class="container mb-8">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title mb-10">Edit Site</h5>
+                <h5 class="card-title mb-10">{{ __('Edit Site') }}</h5>
                 <div class="mb-10 col-12">
                     <div class="d-flex justify-content-between mb-5">
                         <form action="{{ route('sites.update', compact('account', 'site')) }}" method="POST"

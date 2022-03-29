@@ -63,17 +63,6 @@ class UserController extends Controller
 
     /**
      * @param Account $account
-     * @param User $user
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function edit(Account $account, User $user)
-    {
-        return view('user.edit', ['user' => $user]);
-    }
-
-    /**
-     * @param Account $account
      * @param UpdateUserRequest $request
      * @param User $user
      *

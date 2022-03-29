@@ -151,7 +151,7 @@
         <!--begin::Actions-->
         <div class="text-center">
             <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
-                @include('partials.general._button-indicator')
+                @include('partials.general._button-indicator', ['label' => __('Register')])
             </button>
         </div>
         <!--end::Actions-->

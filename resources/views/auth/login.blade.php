@@ -80,7 +80,7 @@
         <div class="text-center">
             <!--begin::Submit button-->
             <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-                @include('partials.general._button-indicator', ['label' => __('Continue')])
+                @include('partials.general._button-indicator', ['label' => __('Login')])
             </button>
             <!--end::Submit button-->
         </div>

@@ -24,27 +24,26 @@
                     <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                         <thead>
                             <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                <th>{{ __('Activity') }}</th>
-                                <th>{{ __('At') }}</th>
+                                <th>{{ __('User') }}</th>
+                                <th>{{ __('Description') }}</th>
+                                <th>{{ __('Time') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($activities as $activity)
-                                @continue($activity->subject_type == App\Models\AccountUser::class)
-                                <tr>
-                                    <td>
-                                        {{ $activity->causer?->fullName }}
-                                        @if (strtolower($activity->description) === 'user login')
-                                            {{ __('Logged In') }}
-                                        @elseif ($activity->subject_type == App\Models\Invite::class)
-                                            {{ __('Invited') }} {{ $activity->subject->email }}
-                                        @else
-                                            {{ ucfirst($activity->description) }} {{ class_basename($activity->subject) }}
-                                            {{ $activity->subject?->fullName ?? $activity->subject?->name }}
-                                        @endif
-                                    </td>
-                                    <td>{{ $activity->created_at }}
-                                </tr>
+                            <tr>
+                                <td>
+                                    @if($activity->causer_type === 'App\Models\User')
+                                        {{ $activity->causer->fullName }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $activity->description }}        
+                                </td>
+                                <td>
+                                    {{ $activity->created_at }}
+                                </td>
+                            </tr>                            
                             @endforeach
                         </tbody>
                     </table>

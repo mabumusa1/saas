@@ -13,21 +13,20 @@
                         <div class="mb-10 col-12 border p-10">
                             <div class="mb-10">
                                 <div class="form-group fv-row">
-                                    <label>{{ __('Environment Name') }}</label>
+                                    <label>{{ __('Install Name') }}</label>
                                     <h3 class="text-dark mb-8">
-                                        {{ __('Devon') }}
-{{--                                        {{ $contact->Install }}--}}
-{{--                                        @switch($contact->install()->type)--}}
-{{--                                            @case('prd')--}}
-                                        <span class="badge badge-success">{{ __('PRD') }}</span>
-{{--                                            @break--}}
-{{--                                            @case('stg')--}}
-{{--                                            <span class="badge badge-light-success">STG</span>--}}
-{{--                                            @break--}}
-{{--                                            @case('dev')--}}
-{{--                                            <span class="badge badge-light-dark">DEV</span>--}}
-{{--                                            @break--}}
-{{--                                        @endswitch--}}
+                                        {{ $contact->install->name }}
+                                        @switch($contact->install->type)
+                                            @case('prd')
+                                                <span class="badge badge-success">{{ __('PRD') }}</span>
+                                            @break
+                                            @case('stg')
+                                            <span class="badge badge-light-success">{{ __('STG') }}</span>
+                                            @break
+                                            @case('dev')
+                                            <span class="badge badge-light-dark">{{ __('DEV') }}</span>
+                                            @break
+                                        @endswitch
                                     </h3>
 
                                 </div>
@@ -67,15 +66,6 @@
 
                                     <input name="phone" value="{{ $contact->phone }}" type="tel"
                                            class="form-control form-control-solid" placeholder="{{ __('Phone Number') }}"/>
-                                    <div class="position-absolute translate-middle-y top-50 end-0 me-3">
-                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin002.svg-->
-                                        <span class="svg-icon svg-icon-2hx ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#a6a6a6">
-                                              <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </div>
                                     </div>
                                 </div>
                             </div>

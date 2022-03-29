@@ -51,28 +51,45 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
+     * 
+     * @param  \App\Models\User  $targetUser
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, User $targetUser)
     {
         $allowedRoles = ['admin', 'owner'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
+        if($user->belongToRoles($this->account, $allowedRoles)){
+            if($targetUser->role($this->account) === 'owner'){
+                return ($this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true :false;
+            }else{
+                return true;
+            }
+        }
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
+     * 
+     * @param  \App\Models\User  $targetUser
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, User $targetUser)
     {
         $allowedRoles = ['admin', 'owner'];
+        if($user->belongToRoles($this->account, $allowedRoles)){
+            if($targetUser->role($this->account) === 'owner'){
+                return ($this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true :false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
 
-        return $user->belongToRoles($this->account, $allowedRoles) && $this->account->users()->wherePivot('role', 'owner')->count() > 1;
     }
 
     /**
@@ -89,3 +106,4 @@ class UserPolicy
         return $user->belongToRoles($this->account, $allowedRoles) && $this->account->users()->wherePivot('role', 'owner')->count() > 1;
     }
 }
+

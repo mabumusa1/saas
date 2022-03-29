@@ -198,6 +198,6 @@ class Account extends Model
     {
         return LogOptions::defaults()
             ->useLogName('account')
-            ->setDescriptionForEvent(fn (string $eventName) =>  __('Account :Action', ['action' => $eventName]));
+            ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name :Action', ['name' => $this->name, 'action' => $eventName]));
     }
 }

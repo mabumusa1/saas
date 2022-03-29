@@ -85,6 +85,6 @@ class Group extends Model
     {
         return LogOptions::defaults()
         ->useLogName('account')
-        ->setDescriptionForEvent(fn (string $eventName) =>  __('Group :Action', ['action' => $eventName]));
+        ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name Group :Action', ['name'=> $this->name, 'action' => $eventName]));
     }
 }

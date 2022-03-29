@@ -33,11 +33,11 @@
 
                         </div>
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled">Add Staging environment</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled">Add Staging install</a>
                         </div>
                         <div class="menu-item bg-light-primary text-light">
                             <a class="menu-link px-3 d-flex justify-content-between disabled">Add development
-                                environment</a>
+                                install</a>
                         </div>
                         <!--end::Menu item-->
                     </div>
@@ -50,7 +50,7 @@
                         <a href="">phpMyAdmin<span
                                 class="svg-icon svg-icon-5 me-0 svg-icon-md-1">{!! get_svg_icon('skin/media/icons/duotune/arrows/arr095.svg') !!}</span></a>
                     </div>
-                    <button class="btn border border-2 border-primary text-primary">Copy environment</button>
+                    <button class="btn border border-2 border-primary text-primary">Copy install</button>
                 </div>
             </div>
             <!--end::Container-->
@@ -191,7 +191,7 @@
                 <div class="card mt-6 bg-light-primary">
                     <div class="card-body">
                         <h3 class="card-title">
-                            {{ __('Environment stats') }}
+                            {{ __('Install stats') }}
                         </h3>
                         <div>
                             <div class="d-flex justify-content-between">

@@ -92,6 +92,6 @@ class Install extends Model
     {
         return LogOptions::defaults()
         ->useLogName('account')
-        ->setDescriptionForEvent(fn (string $eventName) =>  __('Install :Action', ['action' => $eventName]));
+        ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name Install :Action', ['name' => $this->name, 'action' => $eventName]));
     }
 }
