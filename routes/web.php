@@ -105,5 +105,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::prefix('transfer')->group(function () {
             Route::post('accept', [App\Http\Controllers\TransferController::class, 'accept'])->name('transfer.accept');
         });
+        Route::get('installs/{install}', [App\Http\Controllers\InstallController::class, 'show'])->name('installs.show');
+        Route::get('installs/{install}/create', [App\Http\Controllers\InstallController::class, 'create'])->name('installs.create');
+        Route::post('installs/{install}', [App\Http\Controllers\InstallController::class, 'store'])->name('installs.store');
     });
 });
