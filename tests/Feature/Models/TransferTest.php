@@ -10,7 +10,7 @@ use App\Models\Transfer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class InstallTest extends TestCase
+class TransferTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,16 +19,7 @@ class InstallTest extends TestCase
      *
      * @return void
      */
-    public function test_contact_install():void
-    {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
-        $contact = Contact::factory()->create(['install_id' => $install->id]);
-        $this->assertEquals($contact->install->contact->id, $contact->id);
-    }
-
-    public function test_transfer_install():void
+    public function test_account_transfer():void
     {
         $account = Account::factory()->create();
         $site = Site::factory()->create(['account_id' => $account->id]);
@@ -38,6 +29,19 @@ class InstallTest extends TestCase
             'install_id' => $install->id,
             'code' => 'somecode',
         ]);
-        $this->assertEquals($install->transfer->id, $transfer->id);
+        $this->assertEquals($transfer->account->id, $account->id);
+    }
+
+    public function test_install_transfer():void
+    {
+        $account = Account::factory()->create();
+        $site = Site::factory()->create(['account_id' => $account->id]);
+        $install = Install::factory()->create(['site_id' => $site->id]);
+        $transfer = Transfer::factory()->create([
+            'account_id' => $account->id,
+            'install_id' => $install->id,
+            'code' => 'somecode',
+        ]);
+        $this->assertEquals($transfer->install->id, $install->id);
     }
 }

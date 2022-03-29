@@ -14,7 +14,7 @@
                 </div>
                 <!--end::Close-->
             </div>
-            <form action="{{ route('transfers.store', $currentAccount->id) }}" method="POST">
+            <form action="{{ route('transfer.start', [$currentAccount->id, $install->id]) }}" method="POST">
                 @csrf
                 <input type="hidden" name="install_id" value="{{ $install_id }}">
                 <div class="modal-body">

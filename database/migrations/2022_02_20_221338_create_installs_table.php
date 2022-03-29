@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->enum('type', ['prd', 'stg', 'dev']);
             $table->enum('owner', ['mine', 'transferable']);
             $table->enum('status', ['initiated', 'creating', 'created', 'ready', 'down', 'destroying', 'destroyed'])->default('initiated');
-            $table->string('transfer_key')->nullable();
             $table->foreign('site_id')->references('id')->on('sites');
             $table->timestamps();
             $table->softDeletes();

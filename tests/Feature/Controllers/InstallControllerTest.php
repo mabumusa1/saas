@@ -12,6 +12,8 @@ use Tests\TestCase;
 
 class InstallControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function setUp(): void
     {
         parent::setUp();

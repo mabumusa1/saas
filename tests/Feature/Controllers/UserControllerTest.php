@@ -110,7 +110,6 @@ class UserControllerTest extends TestCase
 
         $user = User::factory()->create();
         $this->account->users()->attach($user->id, ['role' => 'fb']);
-
         $response = $this->put(route('users.update', ['account' => $this->account, 'user' => $user]), [
             'role' => 'pb',
         ]);
@@ -121,12 +120,45 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
+    public function test_user_update_not_allowed()
+    {
+        parent::setUpAccount();
+
+        $user = User::factory()->create();
+        $this->account->users()->attach($user->id, ['role' => 'fb']);
+        $this->actingAs($user);
+
+        $response = $this->put(route('users.update', ['account' => $this->account, 'user' => $user]), [
+            'role' => 'pb',
+        ]);
+
+        $response->assertForbidden();
+    }
+
+    /**
+     * @test
+     */
+    public function test_user_destroy_not_allowed()
+    {
+        parent::setUpAccount();
+
+        $user = User::factory()->create();
+        $this->account->users()->attach($user->id, ['role' => 'fb']);
+        $this->actingAs($user);
+
+        $response = $this->delete(route('users.destroy', ['account' => $this->account, 'user' => $user]));
+
+        $response->assertForbidden();
+    }
+
+    /**
+     * @test
+     */
     public function test_user_destroy_only_if_account_has_one_owner()
     {
-        parent::setUpAccount(false);
+        parent::setUpAccount();
         $response = $this->delete(route('users.destroy', ['account' => $this->account, 'user' => $this->user]));
-        $this->actingAs($this->user);
-        $response->assertRedirect();
+        $response->assertForbidden();
     }
 
     /**
@@ -137,7 +169,7 @@ class UserControllerTest extends TestCase
         parent::setUpAccount();
         $userSecond = User::factory()->create();
         $this->account->users()->attach($userSecond->id, ['role' => 'owner']);
-
+        $this->actingAs($userSecond);
         $response = $this->delete(route('users.destroy', ['account' => $this->account, 'user' => $this->user]));
         $response->assertRedirect();
     }

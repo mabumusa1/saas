@@ -24,7 +24,7 @@ class AcceptTransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|string|size:32',
+            'code' => 'required|string|size:16',
         ];
     }
 }

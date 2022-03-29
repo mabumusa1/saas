@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Mail;
 use Notification;
 use Tests\TestCase;
 
@@ -22,6 +23,7 @@ class UserInvitedListenerTest extends TestCase
     public function test_handle()
     {
         Notification::fake();
+        Mail::fake();
 
         $event = new UserInvitedEvent([
             'email' => 'user@email.com',
@@ -35,6 +37,9 @@ class UserInvitedListenerTest extends TestCase
             new AnonymousNotifiable(),
             InviteNotification::class,
             function ($notification, $channels, $notifiable) {
+                $mailData = $notification->toMail()->toArray();
+                $this->assertEquals('Greetings!', $mailData['greeting']);
+                // TODO: Add more assertions to make sure the email is correct
                 return $notifiable->routes['mail'] == 'user@email.com';
             }
         );

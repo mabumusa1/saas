@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -22,16 +23,31 @@ class Transfer extends Model
         'code',
     ];
 
-    public function account()
+    /**
+     * Get the account that owns the Transfer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
 
-    public function install()
+    /**
+     * Get the install that uses this trnasfer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function install(): BelongsTo
     {
         return $this->belongsTo(Install::class);
     }
 
+    /**
+     * The the logs of this model.
+     *
+     * @return LogOptions
+     */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

@@ -12,24 +12,24 @@ class TransferRequestNotification extends Notification
 {
     use Queueable;
 
+    private string $code;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Account $account, $code)
+    public function __construct(string $code)
     {
-        $this->account = $account;
         $this->code = $code;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via()
     {
         return ['mail'];
     }
@@ -37,27 +37,14 @@ class TransferRequestNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail()
     {
+        // TODO: Better copywriting for the transfer message
         return (new MailMessage)
-        ->greeting('Someone sent you a shiny, ew environment!')
-        ->line("Here's your code to pick it up")
+        ->greeting(__('Someone sent you a shiny, ew environment!'))
+        ->line(__("Here's your code to pick it up"))
         ->line($this->code);
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
     }
 }

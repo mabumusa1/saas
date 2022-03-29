@@ -67,10 +67,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'show',
         ]);
 
-        Route::resource('transfers', App\Http\Controllers\TransferController::class)->except([
-            'show',
-        ]);
-
         /*
         * Logs route
         */
@@ -92,6 +88,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'index', 'edit', 'update',
         ]);
 
-        Route::get('installs/{install}', [App\Http\Controllers\InstallController::class, 'show'])->name('installs.show');
+        /*
+         * Install Routes
+         */
+        Route::prefix('{install}')->group(function () {
+            Route::get('/', [App\Http\Controllers\InstallController::class, 'show'])->name('installs.show');
+            /*
+            * Install transfer route
+            */
+            Route::post('transfer', [App\Http\Controllers\TransferController::class, 'start'])->name('transfer.start');
+        });
+
+        /*
+        * Accept Transfer
+        */
+        Route::prefix('transfer')->group(function () {
+            Route::post('accept', [App\Http\Controllers\TransferController::class, 'accept'])->name('transfer.accept');
+        });
     });
 });

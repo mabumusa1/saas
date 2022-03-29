@@ -17,7 +17,9 @@ class TransferFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'email' => $this->faker->safeEmail(),
+            'note' => $this->faker->firstName().' Note',
+            'code' => $this->faker->uuid,
         ];
     }
 }
