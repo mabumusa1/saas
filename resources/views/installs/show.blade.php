@@ -24,7 +24,7 @@
                         <div class="menu-item bg-dark text-light">
                             <a class="menu-link px-3 d-flex justify-content-between disabled">
                                 <div>
-                                    <span class="badge badge-info me-3">PRD</span>
+                                    <span class="badge badge-info me-3">{{ strtoupper($install->type) }}</span>
                                     {{ $install->name }}
                                 </div>
                                 <span
@@ -32,13 +32,21 @@
                             </a>
 
                         </div>
+                        @if(!in_array('prd', $envs))
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled">Add Staging install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'install' => $install]) }}?env=prd">Add Production install</a>
                         </div>
+                        @endif
+                        @if(!in_array('stg', $envs))
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled">Add development
-                                install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'install' => $install]) }}?env=stg">Add Staging install</a>
                         </div>
+                        @endif
+                        @if(!in_array('dev', $envs))
+                        <div class="menu-item bg-light-primary text-light">
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'install' => $install]) }}?env=dev">Add development install</a>
+                        </div>
+                        @endif
                         <!--end::Menu item-->
                     </div>
                     <!--end::Menu-->
