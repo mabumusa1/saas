@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Account;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-use App\Models\Account;
-use App\Models\User;
-use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\AccountUser.
@@ -53,7 +53,7 @@ class AccountUser extends Pivot
     {
         return LogOptions::defaults()
                 ->useLogName('account')
-                ->setDescriptionForEvent(function(string $eventName){
+                ->setDescriptionForEvent(function (string $eventName) {
                     switch ($eventName) {
                         case 'created':
                             return __(':User associated with :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
@@ -66,12 +66,11 @@ class AccountUser extends Pivot
                             $eventName;
                             break;
                     }
-
                 });
     }
 
     /**
-     * Get the user that owns the AccountUser
+     * Get the user that owns the AccountUser.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -81,7 +80,7 @@ class AccountUser extends Pivot
     }
 
     /**
-     * Get the account that owns the AccountUser
+     * Get the account that owns the AccountUser.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
