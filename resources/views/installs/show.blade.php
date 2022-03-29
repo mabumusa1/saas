@@ -57,6 +57,11 @@
         </div>
         <!--end::Toolbar-->
     @endsection
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <div class="container p-0">
         <div class="row">
             <div class="col-3">
@@ -87,8 +92,8 @@
                         <div class="d-flex">
                             <!--begin::Content-->
                             <span>{{ __('It is easy to lose track of all the required and optimal task for a site launcher. Use
-                                                                                                                                                                            our checklist for keeping track. Find it any time in your site details links on the
-                                                                                                                                                                            left.') }}</span>
+                                                                                                                                                                                                                                    our checklist for keeping track. Find it any time in your site details links on the
+                                                                                                                                                                                                                                    left.') }}</span>
                             <!--end::Content-->
                             <div class="flex-lg-row-auto ms-4">
                                 <button class="btn btn-primary">{{ __('See the checklist') }}</button>
@@ -122,6 +127,20 @@
                         <button class="btn btn-primary btn-icon">
                             {!! get_svg_icon('skin/media/icons/duotone/General/Trash.svg', 'svg-icon-2x') !!}
                         </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Transferable environment</h3>
+                        <div class="card-toolbar">
+                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                data-bs-target="#transfer_site_modal">
+                                Transfer Envoironment
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
                     </div>
                 </div>
                 <!--begin::Alert-->
@@ -257,6 +276,7 @@
 
         </div>
     </div>
+    @include('installs.models', ['install_id' => $install->id])
     @push('scripts')
         <style>
             .btn-action {

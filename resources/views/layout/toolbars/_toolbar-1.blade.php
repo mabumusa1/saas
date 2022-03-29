@@ -12,9 +12,10 @@
                             <!--begin::Wrapper-->
                             <div class="me-4">
                                 <div data-bs-toggle="tooltip" data-bs-placement="left">
-                                    <a href="#" class="btn btn-sm btn-secondary fw-bolder">
+                                    <button data-bs-toggle="modal"
+                                    data-bs-target="#accept_transfer_modal" class="btn btn-sm btn-secondary fw-bolder">
                                         {{ __('Accept Transfer') }}
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             <!--end::Wrapper-->

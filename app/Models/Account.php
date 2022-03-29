@@ -120,6 +120,16 @@ class Account extends Model
     }
 
     /**
+     * The Transfers that belong to the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<App\Models\Transfer>
+     */
+    public function transfers(): HasMany
+    {
+        return $this->hasMany(Transfer::class);
+    }
+
+    /**
      * The Sites that belong to the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>

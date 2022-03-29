@@ -67,6 +67,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'show',
         ]);
 
+        Route::resource('transfers', App\Http\Controllers\TransferController::class)->except([
+            'show',
+        ]);
+
         /*
         * Logs route
         */
