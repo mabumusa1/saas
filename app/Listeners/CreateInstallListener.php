@@ -3,8 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\CreateInstallEvent;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CreateInstallListener
+class CreateInstallListener implements ShouldQueue
 {
     /**
      * Create the event listener.

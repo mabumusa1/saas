@@ -4,9 +4,10 @@ namespace App\Listeners;
 
 use App\Events\UserInvitedEvent;
 use App\Notifications\InviteNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Notification;
 
-class UserInvitedListener
+class UserInvitedListener implements ShouldQueue
 {
     /**
      * Create the event listener.
