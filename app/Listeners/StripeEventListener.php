@@ -3,9 +3,10 @@
 namespace App\Listeners;
 
 use App\Models\Cashier\Subscription;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Cashier\Events\WebhookReceived;
 
-class StripeEventListener
+class StripeEventListener implements ShouldQueue
 {
     /**
      * Create the event listener.

@@ -3,8 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\ActivityLoggerEvent;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LogoutEventListner
+class LogoutEventListner implements ShouldQueue
 {
     /**
      * Create the event listener.

@@ -3,8 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\ActivityLoggerEvent;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class VerifiedEventListner
+class VerifiedEventListner implements ShouldQueue
 {
     /**
      * Create the event listener.

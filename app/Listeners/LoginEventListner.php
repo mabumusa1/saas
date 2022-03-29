@@ -4,8 +4,9 @@ namespace App\Listeners;
 
 use App\Events\ActivityLoggerEvent;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LoginEventListner
+class LoginEventListner implements ShouldQueue
 {
     /**
      * Create the event listener.
