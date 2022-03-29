@@ -61,7 +61,7 @@ class Activity extends SpatieActivity implements ActivityContract
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',

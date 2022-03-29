@@ -56,15 +56,17 @@ class AccountUser extends Pivot
                 ->setDescriptionForEvent(function (string $eventName) {
                     switch ($eventName) {
                         case 'created':
+                            /* @phpstan-ignore-next-line */
                             return __(':User associated with :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
-                            break;
+
                         case 'updated':
+                            /* @phpstan-ignore-next-line */
                             return __(':User changed role to :Role with :Account', ['user'=>$this->user->fullName, 'role' => roles()[$this->role], 'account' => $this->account->name]);
                         case 'deleted':
+                            /* @phpstan-ignore-next-line */
                             return __(':User removed from :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
                         default:
-                            $eventName;
-                            break;
+                            return $eventName;
                     }
                 });
     }

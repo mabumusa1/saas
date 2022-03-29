@@ -59,12 +59,14 @@ class UserPolicy
     public function update(User $user, User $targetUser)
     {
         $allowedRoles = ['admin', 'owner'];
-        if ($user->belongToRoles($this->account, $allowedRoles)) {
-            if ($targetUser->role($this->account) === 'owner') {
-                return ($this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true : false;
-            } else {
-                return true;
-            }
+        if (! $user->belongToRoles($this->account, $allowedRoles)) {
+            return false;
+        }
+
+        if ($targetUser->role($this->account) === 'owner') {
+            return ($this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true : false;
+        } else {
+            return true;
         }
     }
 
