@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
 use App\Models\Install;
+use App\Models\Site;
 use Illuminate\Http\Request;
 
 class InstallController extends Controller
 {
-    public function create(Account $account, Install $install, Request $request)
+    public function create(Account $account, Sites $site, Request $request)
     {
+        dd($site);
         $envs = array_unique($install->site->installs->pluck('type')->toArray());
         abort_if(in_array($request->query('env'), $envs), 403);
 
@@ -35,10 +37,10 @@ class InstallController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Account $account, Install $install)
+    public function show(Account $account, Site $site, Install $install)
     {
         $envs = array_unique($install->site->installs->pluck('type')->toArray());
 
-        return view('installs.show', ['account' => $account, 'install' => $install, 'envs' => $envs]);
+        return view('installs.show', ['account' => $account, 'site' => $site, 'install' => $install, 'envs' => $envs]);
     }
 }

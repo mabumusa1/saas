@@ -25,19 +25,18 @@ class TransferController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function start(Account $account, Install $install, StartTransferRequest $request)
+    public function start(Account $account, StartTransferRequest $request)
     {
         $this->authorize('start', Transfer::class);
 
         $code = Str::random(16);
         $data = $request->validated();
         $data['code'] = $code;
-        $data['install_id'] = $install->id;
         $account->transfers()->create($data);
         Notification::route('mail', $request->input('email'))
             ->notify(new TransferRequestNotification($code));
 
-        return redirect()->route('installs.show', ['account' => $account, 'install' => $install->id])->with('success', __('Transfer Request Sent'));
+        return redirect()->back()->with('success', __('Transfer Request Sent'));
     }
 
     /**
