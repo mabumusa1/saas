@@ -84,9 +84,6 @@ class SiteControllerTest extends TestCase
             'account_id' => $this->account->id,
             'quantity' => 10,
         ]);
-        // $this->createSite();
-
-        // dd($subscription->sites());
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',

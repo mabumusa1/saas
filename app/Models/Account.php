@@ -122,7 +122,7 @@ class Account extends Model
     /**
      * The Transfers that belong to the Account.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<App\Models\Transfer>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function transfers(): HasMany
     {

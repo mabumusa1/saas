@@ -135,7 +135,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Accept Site Transfer</h5>
+                    <h5 class="modal-title">{{ __('Accept Site Transfer') }}</h5>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
@@ -146,7 +146,7 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('transfers.store', $currentAccount->id) }}" method="POST">
+                <form action="{{ route('transfer.accept', [$currentAccount->id]) }}" method="POST">
                     @csrf
                     <div class="modal-body">
 
@@ -156,8 +156,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Accept</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Accept') }}</button>
                     </div>
                 </form>
             </div>

@@ -82,28 +82,10 @@ class UserPolicy
     public function delete(User $user, User $targetUser)
     {
         $allowedRoles = ['admin', 'owner'];
-        if ($user->belongToRoles($this->account, $allowedRoles)) {
-            if ($targetUser->role($this->account) === 'owner') {
-                return ($this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true : false;
-            } else {
-                return true;
-            }
-        } else {
+        if (! $user->belongToRoles($this->account, $allowedRoles)) {
             return false;
         }
-    }
 
-    /**
-     * Determine whether the user can change the role of the owenr.
-     *
-     * @param  \App\Models\User  $user
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function changeOwner(User $user)
-    {
-        $allowedRoles = ['admin', 'owner'];
-
-        return $user->belongToRoles($this->account, $allowedRoles) && $this->account->users()->wherePivot('role', 'owner')->count() > 1;
+        return ($targetUser->role($this->account) === 'owner' && $this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true : false;
     }
 }

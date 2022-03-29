@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTransferRequest extends FormRequest
+class StartTransferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class StoreTransferRequest extends FormRequest
     {
         return [
             'note' => 'nullable',
-            'install_id' => 'required|numeric|exists:installs,id',
             'email' => 'required|email',
         ];
     }
