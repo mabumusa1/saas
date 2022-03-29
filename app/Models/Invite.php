@@ -68,6 +68,6 @@ class Invite extends Model
     {
         return LogOptions::defaults()
         ->useLogName('account')
-        ->setDescriptionForEvent(fn (string $eventName) =>  __('User Invite :Action', ['action' => $eventName]));
+        ->setDescriptionForEvent(fn (string $eventName) =>  __(':First :Last invite was :Action', ['action' => $eventName]));
     }
 }

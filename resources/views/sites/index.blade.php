@@ -4,9 +4,9 @@
             <div class="card-body">
                 <div class="mb-10 col-12">
                     <div class="d-flex justify-content-between mb-5">
-                        <h1>Sites</h1>
+                        <h1>{{ __('Sites') }}</h1>
                     </div>
-                    <h4 class="text-muted">{{ __('Search for site, domain, environment') }}</h4>
+                    <h4 class="text-muted">{{ __('Search for site, domain, install') }}</h4>
                     <form id="filters">
                         <div class="row">
                             <div class="col-5 mb-4">
@@ -23,7 +23,7 @@
                                         {{ request()->has('env') ? (request()->get('env') == 1 ? 'checked' : '') : 'checked' }}
                                         id="show_env" name="env">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        {{ __('Show Environments') }}
+                                        {{ __('Show Installs') }}
                                     </label>
                                 </div>
                                 <a class="btn btn-link btn-sm ms-5"
@@ -53,10 +53,6 @@
                                             @endforeach
                                         </td>
                                         <td class="text-center">
-                                            <a class="btn btn-icon btn-info me-2 mb-2 btn-sm"
-                                                href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">
-                                                {!! get_svg_icon('icons/duotone/Communication/Dial-numbers.svg') !!}
-                                            </a>
                                             <a class="btn btn-icon btn-primary me-2 mb-2 btn-sm"
                                                 href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">
                                                 {!! get_svg_icon('icons/duotune/general/gen055.svg') !!}
@@ -71,7 +67,6 @@
                                                 class="delete_form{{ $site->id }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-
                                             </form>
                                         </td>
                                     </tr>

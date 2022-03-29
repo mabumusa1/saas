@@ -58,32 +58,6 @@ class UserControllerTest extends TestCase
         $response->assertViewHas('account');
     }
 
-    /**
-     * @test
-     */
-    public function test_edit_403_for_single_owner()
-    {
-        parent::setUpAccount();
-        $response = $this->get(route('users.edit', ['account' => $this->account, 'user' => $this->user]));
-
-        $response->assertOk();
-    }
-
-    /**
-     * @test
-     */
-    public function test_edit_displays_view()
-    {
-        parent::setUpAccount();
-        $user2 = User::factory()->create();
-
-        $response = $this->get(route('users.edit', ['account' => $this->account, 'user' => $this->user]));
-
-        $response->assertOk();
-        $response->assertViewIs('user.edit');
-        $response->assertViewHas('user');
-    }
-
     public function test_user_store_fails_for_existing_user()
     {
         parent::setUpAccount();
@@ -133,12 +107,12 @@ class UserControllerTest extends TestCase
     public function test_user_update()
     {
         parent::setUpAccount();
-        $response = $this->put(route('users.update', ['account' => $this->account, 'user' => $this->user]), [
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'email' => 'test@example.com',
-            'role' => 'owner',
-            'password' => 'password',
+
+        $user = User::factory()->create();
+        $this->account->users()->attach($user->id, ['role' => 'fb']);
+
+        $response = $this->put(route('users.update', ['account' => $this->account, 'user' => $user]), [
+            'role' => 'pb',
         ]);
 
         $response->assertRedirect();

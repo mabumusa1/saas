@@ -10,7 +10,7 @@
                         <table class="table table-rounded table-row-bordered border gy-7 gs-7">
                             <thead>
                             <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                <th>{{ __('Environment Name') }}</th>
+                                <th>{{ __('Install Name') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Phone') }}</th>

@@ -59,6 +59,15 @@ class Activity extends SpatieActivity implements ActivityContract
     use HasFactory;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+    ];
+
+    /**
      * Get the account for this activity.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

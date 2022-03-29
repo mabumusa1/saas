@@ -82,6 +82,6 @@ class Contact extends Model
     {
         return LogOptions::defaults()
                     ->useLogName('account')
-                    ->setDescriptionForEvent(fn (string $eventName) =>  __('Techincal Contact :Action', ['action' => $eventName]));
+                    ->setDescriptionForEvent(fn (string $eventName) =>  __(':email :Action as technical contact for :install', ['email' => $this->email, 'action' => $eventName, 'install' => $this->install->name]));
     }
 }

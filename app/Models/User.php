@@ -178,6 +178,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return LogOptions::defaults()
             ->useLogName('system')
-            ->setDescriptionForEvent(fn (string $eventName) =>  __('User :Action', ['action' => $eventName]));
+            /* @phpstan-ignore-next-line */
+            ->setDescriptionForEvent(fn (string $eventName) =>  __(':User :Action', ['user'=>$this->fullName, 'action' => $eventName]));
     }
 }

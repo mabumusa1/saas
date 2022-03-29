@@ -32,7 +32,7 @@ class AuthTest extends DuskTestCase
             $browser->visit('/login')
                     ->type('email', $user->email)
                     ->type('password', 'password')
-                    ->press('Continue')
+                    ->press('Login')
                     ->assertPathIs('/1');
             $browser->screenshot('filename');
         });

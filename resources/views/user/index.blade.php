@@ -29,13 +29,19 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ roles()[$user->pivot->role] }}
                                     </td>
-                                    @can('update', request()->user())
-                                        <td>
-                                            <button data-id="{{ $user->id }}" data-bs-toggle="modal"
-                                                data-bs-target="#edit_user_modal"
-                                                class="btn btn-link btn-sm btn-active-color-primary btn-edit">{{ __('Edit') }}</button>
-                                        </td>
+                                    <td>
+                                    @can('update', $user)
+                                        <button data-id="{{ $user->id }}" data-role="{{ $user->role($currentAccount) }}" data-bs-toggle="modal"
+                                            data-bs-target="#edit_user_modal"
+                                            class="btn btn-link btn-sm btn-active-color-primary btn-edit">{{ __('Edit') }}</button>
                                     @endcan
+                                    @can('delete', $user)
+                                    <button type="button" class="btn btn-link btn-sm btn-active-color-danger btn-delete" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_1">
+                                            {{ __('Remove') }}
+                                    </button>
+                                    @endcan                        
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -50,6 +56,8 @@
             document.querySelectorAll('.btn-edit').forEach(function(el) {
                 el.addEventListener('click', function() {
                     var form = document.querySelector('#edit_form')
+                    var selectRole = document.querySelector('#edit-role')
+                    selectRole.value = el.dataset.role
                     form.action =
                         "{{ route('users.update', ['account' => $currentAccount->id, 'user' => '__user__']) }}"
                         .replace('__user__', el.dataset.id)

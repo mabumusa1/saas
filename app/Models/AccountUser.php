@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Account;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -50,6 +53,41 @@ class AccountUser extends Pivot
     {
         return LogOptions::defaults()
                 ->useLogName('account')
-                ->setDescriptionForEvent(fn (string $eventName) =>  __('User association with account :Action', ['action' => $eventName]));
+                ->setDescriptionForEvent(function (string $eventName) {
+                    switch ($eventName) {
+                        case 'created':
+                            /* @phpstan-ignore-next-line */
+                            return __(':User associated with :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
+
+                        case 'updated':
+                            /* @phpstan-ignore-next-line */
+                            return __(':User changed role to :Role with :Account', ['user'=>$this->user->fullName, 'role' => roles()[$this->role], 'account' => $this->account->name]);
+                        case 'deleted':
+                            /* @phpstan-ignore-next-line */
+                            return __(':User removed from :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
+                        default:
+                            return $eventName;
+                    }
+                });
+    }
+
+    /**
+     * Get the user that owns the AccountUser.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the account that owns the AccountUser.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
     }
 }

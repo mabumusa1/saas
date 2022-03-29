@@ -78,7 +78,7 @@
                                                     for="start_copy">
                                                     <span class="d-block fw-bold text-center">
                                                         <span class="text-dark fw-bold fs-3">
-                                                            {{ __('Copy an existing environment to a new Mautic') }}
+                                                            {{ __('Copy an existing install to a new Mautic') }}
                                                         </span>
                                                     </span>
                                                 </label>
@@ -93,7 +93,7 @@
                                                     for="start_move">
                                                     <span class="d-block fw-bold text-center">
                                                         <span class="text-dark fw-bold fs-3">
-                                                            {{ __('Move an existing environment to a new Mautic') }}
+                                                            {{ __('Move an existing install to a new Mautic') }}
                                                         </span>
                                                     </span>
                                                 </label>
@@ -123,8 +123,8 @@
 
                                 <!--begin::Step 2-->
                                 <div class="flex-column" data-kt-stepper-element="content">
-                                    <h3>{{ __('Site name and first environment') }}</h3>
-                                    <p>{{ __('A site is a group of up to three environments (Production, Staging, Development) under one name') }}
+                                    <h3>{{ __('Site name and first install') }}</h3>
+                                    <p>{{ __('A site is a group of up to three installs (Production, Staging, Development) under one name') }}
                                     </p>
                                     @if ($subscriptions->count() > 0)
                                     <div class="mb-10" id="subscriptions">
@@ -157,11 +157,11 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group fv-row">
-                                                    <label>{{ __('Environment Name') }}</label>
+                                                    <label>{{ __('Install Name') }}</label>
                                                     <div class="col d-flex gap-3 align-items-center">
-                                                        <input name="environmentname" type="text"
+                                                        <input name="installname" type="text"
                                                             class="w-50 form-control form-control-solid"
-                                                            placeholder="{{ __('Environment Name') }}" />
+                                                            placeholder="{{ __('Install Name') }}" />
                                                         <p class="m-0">.steercampaign.com</p>
                                                     </div>
                                                 </div>
@@ -170,8 +170,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h3>{{ __('Environment type') }}</h3>
-                                        <p>{{ __('Create additional environments later from the Site Overview page.') }}
+                                        <h3>{{ __('Install type') }}</h3>
+                                        <p>{{ __('Create additional installs later from the Site Overview page.') }}
                                         </p>
                                         <label class="d-block">
                                             <!--end::Description-->
@@ -307,7 +307,7 @@
             }
 
             .fv-plugins-icon[data-field='sitename'],
-            .fv-plugins-icon[data-field='environmentname'] {
+            .fv-plugins-icon[data-field='installname'] {
                 top: 22px !important;
             }
 
@@ -371,10 +371,10 @@
                                 }
                             }
                         },
-                        'environmentname': {
+                        'installname': {
                             validators: {
                                 notEmpty: {
-                                    message: 'Environment name is required',
+                                    message: 'Install name is required',
                                 },
                                 stringLength: {
                                     min: 3,
@@ -382,7 +382,7 @@
                                     message: '3 to 14 characters'
                                 },
                                 uri: {
-                                    message: 'The environment name should be a valid URL'
+                                    message: 'The install name should be a valid URL'
                                 },
                                 remote: {
                                     method: 'POST',
@@ -392,7 +392,7 @@
                                     url: '{{ route('sites.store', $currentAccount->id) }}',
                                     data: function(val) {
                                         return {
-                                            environmentname: val,
+                                            installname: val,
                                             isValidation: 1
                                         }
                                     },
@@ -404,7 +404,7 @@
                     },
                     plugins: {
                         trnsformer: new FormValidation.plugins.Transformer({
-                            environmentname: {
+                            installname: {
                                 uri: function(field, element, validator) {
                                     var value = element.value;
                                     var uri = 'https://' + value + '.steercampaign.com';                                    
@@ -415,11 +415,11 @@
                         trigger: new FormValidation.plugins.Trigger({
                             event: {
                                 sitename: 'blur change keyup',
-                                environmentname: 'blur change keyup'
+                                installname: 'blur change keyup'
                             },
                             threshold: {
                                 sitename: 1,
-                                environmentname: 1
+                                installname: 1
                             }
                         }),
                         submitButton: new FormValidation.plugins.SubmitButton(),
