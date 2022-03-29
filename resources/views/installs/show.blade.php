@@ -34,17 +34,17 @@
                         </div>
                         @if(!in_array('prd', $envs))
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'install' => $install]) }}?env=prd">Add Production install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=prd">Add Production install</a>
                         </div>
                         @endif
                         @if(!in_array('stg', $envs))
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'install' => $install]) }}?env=stg">Add Staging install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg">Add Staging install</a>
                         </div>
                         @endif
                         @if(!in_array('dev', $envs))
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'install' => $install]) }}?env=dev">Add development install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev">Add development install</a>
                         </div>
                         @endif
                         <!--end::Menu item-->

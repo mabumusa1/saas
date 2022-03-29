@@ -25,6 +25,7 @@ class StartTransferRequest extends FormRequest
     {
         return [
             'note' => 'nullable',
+            'install_id' => 'required|numeric|exists:installs,id',
             'email' => 'required|email',
         ];
     }

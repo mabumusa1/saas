@@ -74,7 +74,7 @@
                                         <tr
                                             class="env {{ request()->has('env') ? (request()->get('env') == 1 ? '' : 'd-none') : '' }}">
                                             <td class="table-light">
-                                                <a href="{{ route('installs.show', ['account' => $currentAccount, 'install' => $install]) }}">
+                                                <a href="{{ route('installs.show', ['account' => $currentAccount->id, 'site' => $site->id, 'install' => $install->id]) }}">
                                                 <i class="bi bi-arrow-90deg-right"></i>
                                             </a>
                                                 @switch($install->type)
@@ -90,7 +90,7 @@
                                                         <span class="badge badge-light-dark">{{ __('DEV') }}</span>
                                                     @break
                                                 @endswitch
-                                                <a href="{{ route('installs.show', [$currentAccount->id, $install->id]) }}" class="d-inline">{{ $install->name }}</p>
+                                                <a href="{{ route('installs.show', [$currentAccount->id, $site->id, $install->id]) }}" class="d-inline">{{ $install->name }}</p>
                                             </td>
                                             <td class="table-light"></td>
 
