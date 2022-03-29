@@ -1,0 +1,5 @@
+version: '3.6'
+services:
+  web:
+    volumes:
+      - ./supervisor/laravel-worker.conf:/etc/supervisor/conf.d/laravel-worker.conf

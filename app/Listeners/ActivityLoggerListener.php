@@ -2,9 +2,10 @@
 
 namespace App\Listeners;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\Activitylog\Facades\CauserResolver;
 
-class ActivityLoggerListener
+class ActivityLoggerListener implements ShouldQueue
 {
     /**
      * Create the event listener.

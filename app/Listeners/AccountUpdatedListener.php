@@ -4,8 +4,9 @@ namespace App\Listeners;
 
 use App\Events\AccountUpdatedEvent;
 use App\Jobs\SyncStripe;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AccountUpdatedListener
+class AccountUpdatedListener implements ShouldQueue
 {
     /**
      * Create the event listener.
