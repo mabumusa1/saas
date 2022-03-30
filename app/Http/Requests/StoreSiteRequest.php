@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StoreSiteRequest extends FormRequest
 {
@@ -16,13 +17,6 @@ class StoreSiteRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation()
-    {
-        $this->merge([
-            'installname' => "https://{$this->installname}.steercampaign.com",
-        ]);
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,7 +26,13 @@ class StoreSiteRequest extends FormRequest
     {
         return [
             'sitename' => 'required_if:isValidation,null|min:1|max:40',
-            'installname' => 'required|url|min:3|unique:installs,name',
+            'installname' => ['required', 'min:3', 'unique:installs,name', function ($attribute, $value, $fail) {
+                $rules = ['name' => 'url'];
+                $input = ['name' => "https://{$attribute}.steercampaign.com"];
+                if (! Validator::make($input, $rules)->passes()) {
+                    $fail(__('Invalid Install Name'));
+                }
+            }],
             'type' => 'required_if:isValidation,null|in:dev,stg,prd',
             'owner' => 'required_if:isValidation,null|in:mine,transferable',
             'subscription_id' => 'sometimes|required_if:type,mine|exists:subscriptions,id',

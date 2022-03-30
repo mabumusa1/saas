@@ -33,7 +33,7 @@ class InstallControllerTest extends TestCase
         $install = Install::factory()
         ->for($site)
         ->create();
-        $this->get(route('installs.show', ['account' => $this->account, 'install' => $install]))
+        $this->get(route('installs.show', ['account' => $this->account, 'site' => $site, 'install' => $install]))
             ->assertOk()
             ->assertViewIs('installs.show');
     }
@@ -46,7 +46,7 @@ class InstallControllerTest extends TestCase
         $install = Install::factory()
         ->for($site)
         ->create();
-        $this->get(route('installs.create', ['account' => $this->account, 'install' => $install]))
+        $this->get(route('installs.create', ['account' => $this->account, 'site' => $site]))
             ->assertOk()
             ->assertViewIs('installs.create');
     }
@@ -61,7 +61,7 @@ class InstallControllerTest extends TestCase
         ->create([
             'type' => 'dev',
         ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'install' => $install]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
             'type' => 'dev',
         ]);
         $response->assertSessionHasErrors('type');
@@ -77,7 +77,7 @@ class InstallControllerTest extends TestCase
         ->create([
             'type' => 'dev',
         ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'install' => $install]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
             'name' => 'test',
             'type' => 'prd',
         ]);

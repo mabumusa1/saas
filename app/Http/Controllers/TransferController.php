@@ -19,8 +19,6 @@ class TransferController extends Controller
      *
      * @param  \App\Models\Account  $account
      *
-     * @param  \App\Models\Install  $install
-     *
      * @param  \App\Http\Requests\StartTransferRequest  $request
      *
      * @return \Illuminate\Http\RedirectResponse

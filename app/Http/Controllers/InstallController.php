@@ -18,12 +18,9 @@ class InstallController extends Controller
      * @param Account $account
      *
      * @param Site $site
-     *
-     * @param Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\View\View | \Illuminate\Http\RedirectResponse
      */
-    public function create(Account $account, Site $site, Request $request)
+    public function create(Account $account, Site $site)
     {
         $envs = $site->installs->pluck('type')->toArray();
         $allowed = ['prd', 'stg', 'dev'];
@@ -52,7 +49,7 @@ class InstallController extends Controller
      *
      * @param StoreInstallRequest $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, Site $site, StoreInstallRequest $request)
     {
@@ -61,16 +58,12 @@ class InstallController extends Controller
         if ($request->has('isValidation')) {
             return response()->json(['valid' => true]);
         }
-        dd($request->validated());
-        $firstInstall = $site->installs()->first();
+        $data = $request->validated();
+        $data['site_id'] = $site->id;
+        $install = Install::create($data);
+        CreateInstallEvent::dispatch($install);
 
-        $newInstall = $firstInstall->replicate();
-        $newInstall->update($request->validated());
-        $newInstall->save();
-
-        CreateInstallEvent::dispatch($newInstall);
-
-        return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $newInstall])->with('success', __('New installation is created'));
+        return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('New installation is created'));
     }
 
     /**
