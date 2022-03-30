@@ -31,13 +31,13 @@
                                                 <div class="form-group  fv-row">
                                                     <label>{{ __('Install Name') }}</label>
                                                     <div
-                                                        class="col d-flex gap-3 align-items-center @error('installname') is-invalid @enderror">
-                                                        <input name="installname" type="text"
-                                                            class="w-50 form-control form-control-solid @error('installname') is-invalid @enderror"
-                                                            placeholder="{{ __('Install Name') }}" value="{{ old('installname') }}"/>
+                                                        class="col d-flex gap-3 align-items-center @error('name') is-invalid @enderror">
+                                                        <input name="name" type="text"
+                                                            class="w-50 form-control form-control-solid @error('name') is-invalid @enderror"
+                                                            placeholder="{{ __('Install Name') }}" value="{{ old('name') }}"/>
                                                         <p class="m-0">.steercampaign.com</p>
                                                     </div>
-                                                    @error('installname')
+                                                    @error('name')
                                                         <span class="invalid-feedback">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -171,7 +171,7 @@
             }
 
             .fv-plugins-icon[data-field='sitename'],
-            .fv-plugins-icon[data-field='installname'] {
+            .fv-plugins-icon[data-field='name'] {
                 top: 22px !important;
             }
 
@@ -184,7 +184,7 @@
             var validator = FormValidation.formValidation(
                 form, {
                     fields: {
-                        'installname': {
+                        'name': {
                             validators: {
                                 notEmpty: {
                                     message: 'Install name is required'
@@ -205,7 +205,7 @@
                                     url: '{{ route('installs.store', [$currentAccount->id, $site->id]) }}',
                                     data: function(val) {
                                         return {
-                                            installname: val,
+                                            name: val,
                                             isValidation: 1,
                                             type: document.querySelector('input[name="type"]').value
                                         }
@@ -218,7 +218,7 @@
                     },
                     plugins: {
                         trnsformer: new FormValidation.plugins.Transformer({
-                            installname: {
+                            name: {
                                 uri: function(field, element, validator) {
                                     var value = element.value;
                                     var uri = 'https://' + value + '.steercampaign.com';
@@ -228,10 +228,10 @@
                         }),
                         trigger: new FormValidation.plugins.Trigger({
                             event: {
-                                installname: 'blur change keyup',
+                                name: 'blur change keyup',
                             },
                             threshold: {
-                                installname: 1,
+                                name: 1,
                             }
                         }),
                         submitButton: new FormValidation.plugins.SubmitButton(),
