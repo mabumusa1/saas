@@ -30,21 +30,64 @@
                                 <span
                                     class="svg-icon svg-icon-5 ms-3 me-0 svg-icon-md-1 svg-icon-light">{!! get_svg_icon('skin/media/icons/duotune/arrows/arr085.svg') !!}</span>
                             </a>
+                        </div>
+                        @if($site->hasInstallType('prd') )
+                        @if($install->type !== 'prd')
+                        <?php
+                            $prdInstall = $site->installs->where('type', 'prd')->first();
+                        ?>
+                        <div class="menu-item">
+                            <a href="{{ route('installs.show', ['account' => $account, 'site' => $site, 'install' => $prdInstall->id]) }}" class="menu-link px-3 d-flex justify-content-between">
+                                <div>
+                                    <span class="badge badge-primary me-3">{{ __('PRD') }}</span>
+                                    {{ $prdInstall->name }}
+                                </div>
+                            </a>
+                        </div>                        
+                        @endif
+                        @else
+                        <div class="menu-item bg-light-primary text-light">
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=prd">{{ __('Add Production install') }}</a>
+                        </div>
+                        @endif
 
-                        </div>
-                        @if(!in_array('prd', $envs))
+                        @if($site->hasInstallType('stg'))
+                        @if($install->type !== 'stg')
+                        <?php
+                            $stgInstall = $site->installs->where('type', 'stg')->first();
+                        ?>
+                        <div class="menu-item">
+                            <a href="{{ route('installs.show', ['account' => $account, 'site' => $site, 'install' => $stgInstall->id]) }}" class="menu-link px-3 d-flex justify-content-between">
+                                <div>
+                                    <span class="badge badge-warning me-3">{{ __('STG') }}</span>
+                                    {{ $stgInstall->name }}
+                                </div>
+                            </a>
+                        </div>                      
+                        @endif  
+                        @else
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=prd">Add Production install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg">{{ __('Add Staging install') }}</a>
                         </div>
                         @endif
-                        @if(!in_array('stg', $envs))
-                        <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg">Add Staging install</a>
-                        </div>
+
+                        @if($site->hasInstallType('dev'))
+                        @if($install->type !== 'dev')
+                        <?php
+                            $devInstall = $site->installs->where('type', 'dev')->first();
+                        ?>
+                        <div class="menu-item">
+                            <a href="{{ route('installs.show', ['account' => $account, 'site' => $site, 'install' => $devInstall->id]) }}" class="menu-link px-3 d-flex justify-content-between">
+                                <div>
+                                    <span class="badge badge-warning me-3">{{ __('STG') }}</span>
+                                    {{ $devInstall->name }}
+                                </div>
+                            </a>
+                        </div>                        
                         @endif
-                        @if(!in_array('dev', $envs))
+                        @else
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev">Add development install</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev">{{ __('Add Development install') }}</a>
                         </div>
                         @endif
                         <!--end::Menu item-->
@@ -74,7 +117,6 @@
         <div class="row">
             <div class="col-3">
                 <div class="card">
-
                     <div class="card-body p-0">
                         <span class="border border-left-5 border-primary d-block p-5">{{ __('Production') }}</span>
                         <span

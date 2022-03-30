@@ -16,6 +16,13 @@ class StoreInstallRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'installname' => "https://{$this->name}.steercampaign.com",
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,17 +31,17 @@ class StoreInstallRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'type' => 'required|in:stg,dev,prd',
+            'installname' => 'required|url|min:3|unique:installs,name',
+            'type' => 'required_if:isValidation,null|in:stg,dev,prd',
+            'isValidation' => 'sometimes|boolean',
         ];
     }
 
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $envs = array_unique($this->install->site->installs->pluck('type')->toArray());
-            if (in_array($this->input('type'), $envs)) {
-                $validator->errors()->add('type', 'This environment already exists.');
+            if ($this->site->hasInstallType($this->input('type'))) {
+                $validator->errors()->add('type', __('This install type already exists.'));
             }
         });
     }

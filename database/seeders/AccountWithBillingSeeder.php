@@ -34,7 +34,10 @@ class AccountWithBillingSeeder extends Seeder
         $sites = $account->sites()->get();
         foreach ($sites as $key => $site) {
             if ($site->installs->count() < 2) {
-                Install::factory()->count(2)->create(['site_id' => $site->id]);
+                Install::factory()->count(2)->state(new Sequence(
+                    ['site_id' => $site->id, 'type' => 'dev'],
+                    ['site_id' => $site->id, 'type' => 'prd']
+                ))->create();
             }
         }
         $installs = Install::all();

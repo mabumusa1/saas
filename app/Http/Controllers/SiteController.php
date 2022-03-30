@@ -94,7 +94,7 @@ class SiteController extends Controller
 
         $install = Install::create([
             'site_id' => $site->id,
-            'name' => $validated['environmentname'],
+            'name' => $validated['installname'],
             'type' => $validated['type'],
             'owner' => $validated['owner'] ?? null,
         ]);

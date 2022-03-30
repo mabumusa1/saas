@@ -19,7 +19,7 @@ class StoreSiteRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'environmentname' => "https://{$this->environmentname}.steercampaign.com",
+            'installname' => "https://{$this->installname}.steercampaign.com",
         ]);
     }
 
@@ -32,7 +32,7 @@ class StoreSiteRequest extends FormRequest
     {
         return [
             'sitename' => 'required_if:isValidation,null|min:1|max:40',
-            'environmentname' => 'required|url|min:3|unique:installs,name',
+            'installname' => 'required|url|min:3|unique:installs,name',
             'type' => 'required_if:isValidation,null|in:dev,stg,prd',
             'owner' => 'required_if:isValidation,null|in:mine,transferable',
             'subscription_id' => 'sometimes|required_if:type,mine|exists:subscriptions,id',
