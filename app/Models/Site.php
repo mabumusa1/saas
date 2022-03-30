@@ -112,4 +112,9 @@ class Site extends Model
         ->useLogName('account')
         ->setDescriptionForEvent(fn (string $eventName) =>  __('Site :Action', ['action' => $eventName]));
     }
+
+    public function hasInstallType(string $type): bool
+    {
+        return $this->installs()->where('type', $type)->count() >= 1;
+    }
 }

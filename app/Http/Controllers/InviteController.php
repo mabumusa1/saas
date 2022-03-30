@@ -22,7 +22,7 @@ class InviteController extends Controller
         if (User::where('email', $invite->email)->exists()) {
             session()->put('url.intended', route('invites.index', ['invite' => $invite->token]));
 
-            return redirect()->route('login')->with('error', 'Please Login First');
+            return redirect()->route('login')->with('error', __('Please Login First'));
         }
 
         return redirect()->route('register');

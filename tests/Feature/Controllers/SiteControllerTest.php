@@ -87,7 +87,7 @@ class SiteControllerTest extends TestCase
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
-            'environmentname' => 123,
+            'installname' => 123,
             'subscription_id' => $subscription->id,
             'type' => 'stg',
         ]);
@@ -107,7 +107,7 @@ class SiteControllerTest extends TestCase
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
-            'environmentname' => 123,
+            'installname' => 123,
             'subscription_id' => $this->subscription->id,
             'type' => 'stg',
         ]);
@@ -122,7 +122,7 @@ class SiteControllerTest extends TestCase
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
-            'environmentname' => 123,
+            'installname' => 123,
             'type' => 'stg',
             'isValidation' => true,
         ]);
