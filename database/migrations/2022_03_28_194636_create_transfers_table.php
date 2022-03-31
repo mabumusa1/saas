@@ -15,10 +15,11 @@ return new class extends Migration {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->foreignId('account_id')->references('id')->on('accounts');
+            $table->foreignId('account_id')->references('id')->on('accounts')->nullable();
             $table->foreignId('install_id')->references('id')->on('installs');
             $table->text('note')->nullable();
             $table->string('code');
+            $table->boolean('locked')->default(false);
             $table->timestamps();
         });
     }

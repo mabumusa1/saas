@@ -79,7 +79,7 @@ class SiteController extends Controller
 
         $siteData = [];
 
-        if ($validated['subscription_id']) {
+        if ($request->filled('subscription_id')) {
             $subscription = $account->subscriptions()->active()->available()->where('id', $validated['subscription_id'])->first();
             if (is_null($subscription)) {
                 return redirect(route('sites.index', $account->id))->with('status', __('Subscription not found, site was not created'));
@@ -97,6 +97,7 @@ class SiteController extends Controller
             'name' => $validated['installname'],
             'type' => $validated['type'],
             'owner' => $validated['owner'] ?? null,
+            'locked' => $validated['owner'] === 'transferable',
         ]);
 
         CreateInstallEvent::dispatch($install, $validated['start'] ?? null);
