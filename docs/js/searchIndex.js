@@ -2126,10 +2126,10 @@ Search.appendIndex(
             "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
             "url": "classes/App-Events-InstallCopyEvent.html#method___construct"
         },                {
-            "fqsen": "\\App\\Events\\InstallCopyEvent\u003A\u003AbroadcastOn\u0028\u0029",
-            "name": "broadcastOn",
-            "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
-            "url": "classes/App-Events-InstallCopyEvent.html#method_broadcastOn"
+            "fqsen": "\\App\\Events\\InstallCopyEvent\u003A\u003A\u0024install",
+            "name": "install",
+            "summary": "",
+            "url": "classes/App-Events-InstallCopyEvent.html#property_install"
         },                {
             "fqsen": "\\App\\Http\\Requests\\CopyInstallRequest",
             "name": "CopyInstallRequest",
