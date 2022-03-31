@@ -91,9 +91,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*
          * Install Routes
          */
-        Route::prefix('{site}')->group(function () {
+        Route::prefix('sites/{site}')->group(function () {
             Route::resource('installs', App\Http\Controllers\InstallController::class)->only([
                 'create', 'store', 'show',
+            ]);
+            Route::resource('{install}/domains', App\Http\Controllers\DomainController::class)->only([
+                'index', 'create', 'store', 'show',
             ]);
         });
         /*
