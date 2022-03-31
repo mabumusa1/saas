@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Domain;
 use App\Models\Install;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
@@ -104,5 +106,15 @@ class Install extends Model
         return LogOptions::defaults()
         ->useLogName('account')
         ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name Install :Action', ['name' => $this->name, 'action' => $eventName]));
+    }
+
+    /**
+     * Get all of the domain for the Install.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function domain(): HasMany
+    {
+        return $this->hasMany(Domain::class);
     }
 }
