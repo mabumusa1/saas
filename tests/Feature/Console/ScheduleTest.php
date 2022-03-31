@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Console;
 
 use Illuminate\Console\Events\ScheduledTaskFinished;
 use Illuminate\Foundation\Testing\RefreshDatabase;
