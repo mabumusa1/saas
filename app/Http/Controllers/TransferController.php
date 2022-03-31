@@ -50,9 +50,10 @@ class TransferController extends Controller
     {
         $this->authorize('accept', Transfer::class);
         try {
-            $transfer = $account->transfers()->where('code', $request->input('code'))->firstOrFail();
+            $transfer = Transfer::where('email', $account->email)->where('code', $request->input('code'))->firstOrFail();
             // TODO: Add code to move the install from one account to another
-            return redirect()->back()->with('success', __('Transfer Accepted'));
+            return view('transfers.accept', ['transfer' => $transfer]);
+            // return redirect()->back()->with('success', __('Transfer Accepted'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->with('error', __('Transfer Cannot Be Found'));
         }

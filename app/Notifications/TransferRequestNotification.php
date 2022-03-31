@@ -43,7 +43,7 @@ class TransferRequestNotification extends Notification
     {
         // TODO: Better copywriting for the transfer message
         return (new MailMessage)
-        ->greeting(__('Someone sent you a shiny, ew environment!'))
+        ->greeting(__('Someone sent you a shiny, new environment!'))
         ->line(__("Here's your code to pick it up"))
         ->line($this->code);
     }
