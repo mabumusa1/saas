@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('installs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('site_id');
-            $table->string('name')->index();
+            $table->string('name')->unique();
             $table->enum('type', ['prd', 'stg', 'dev']);
             $table->enum('owner', ['mine', 'transferable']);
             $table->enum('status', ['initiated', 'creating', 'created', 'ready', 'down', 'destroying', 'destroyed'])->default('initiated');
