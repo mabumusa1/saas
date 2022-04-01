@@ -1676,6 +1676,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Http-Controllers-DomainController.html#method_destroy"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Aredirect\u0028\u0029",
+            "name": "redirect",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_redirect"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController",
             "name": "TransferController",
             "summary": "",
@@ -1935,6 +1940,21 @@ Search.appendIndex(
             "name": "install",
             "summary": "",
             "url": "classes/App-Rules-UniqueDomainRule.html#property_install"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\DomainRedirectRequest",
+            "name": "DomainRedirectRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-DomainRedirectRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\DomainRedirectRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-DomainRedirectRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\DomainRedirectRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-DomainRedirectRequest.html#method_rules"
         },                {
             "fqsen": "\\",
             "name": "\\",
