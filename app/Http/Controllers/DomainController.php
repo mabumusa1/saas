@@ -14,11 +14,28 @@ use Illuminate\Http\Request;
 
 class DomainController extends Controller
 {
+    /**
+     * Show domains dashboard.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @return \Illuminate\View\View
+     */
     public function index(Account $account, Site $site, Install $install)
     {
         return view('installs.domains.index', ['account' => $account, 'site' => $site, 'install' => $install]);
     }
 
+    /**
+     * Store a domain.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @param StoreDomianRequest $request
+     * @return | \Illuminate\Http\RedirectResponse
+     */
     public function store(Account $account, Site $site, Install $install, StoreDomainRequest $request)
     {
         if ($request->has('isValidation')) {
@@ -35,16 +52,25 @@ class DomainController extends Controller
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Domain was added to your install'));
     }
 
+    /**
+     * delete a domain.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @param Domain $domain
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Account $account, Site $site, Install $install, Domain $domain)
     {
         /* @phpstan-ignore-next-line */
         if ($domain->isBuiltIn) {
-            abort(403, __('You can not delete the built in domain'));
+            abort(401, __('You can not delete the built in domain'));
         }
 
         if ($domain->primary) {
             /* @phpstan-ignore-next-line */
-            $newPrimary = Domain::find($install->cname)->first();
+            $newPrimary = Domain::where('name', $install->cname)->first();
             $newPrimary->primary = true;
             $newPrimary->save();
         }
@@ -54,12 +80,21 @@ class DomainController extends Controller
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Domain was deleted'));
     }
 
+    /**
+     * set redirect for a domain.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @param DomainRedirectRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function redirect(Account $account, Site $site, Install $install, DomainRedirectRequest $request)
     {
         $data = $request->validated();
         $sourceDomain = Domain::find($data['domain']);
         if (! $request->has('dest')) {
-            $sourceDomain->redirect_to = '';
+            $sourceDomain->redirect_to = null;
             $sourceDomain->save();
         } else {
             $destDomain = Domain::find($data['dest']);
@@ -72,6 +107,15 @@ class DomainController extends Controller
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Redirect is set'));
     }
 
+    /**
+     * Set domain as primary.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @param Domain $domain
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function setPrimary(Account $account, Site $site, Install $install, Domain $domain)
     {
         $oldPrimary = $install->domains->where('primary', true)->first();

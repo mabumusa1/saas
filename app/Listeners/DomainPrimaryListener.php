@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Providers\SetDomainPrimaryEvent;
+use App\Events\SetDomainPrimaryEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
