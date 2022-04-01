@@ -62,6 +62,7 @@
                                         {{ $domain->name }}
                                     </td>
                                     <td>
+                                        {{ $domain->redirect_to }}
                                     </td>
                                     <td>@include('installs.domains.partials.status', ['domain' => $domain])</td>
                                     <td><p class="text-wrap">Say if there is a proxy or not, other relvant info</p></td>
@@ -165,17 +166,31 @@
     })
 
     var redirectModal = document.getElementById('redirectModal')
+    var redirectform = document.getElementById('redirect-form')
     redirectModal.addEventListener('show.bs.modal', function (event) {
-    var button = event.relatedTarget
-    var sourceDomain = button.getAttribute('data-bs-domainName')
-    var sourceId = button.getAttribute('data-bs-domainId')
-    var source = redirectModal.querySelector('.source')
-    var dest = redirectModal.querySelector(".dest option[value='" + sourceId + "']")
-    dest.remove()
-    var sourceIdField = redirectModal.querySelector('.sourceId')
-    sourceIdField.value = sourceId
-    source.value = sourceDomain    
-    })
+        var button = event.relatedTarget
+        var sourceDomain = button.getAttribute('data-bs-domainName')
+        var sourceId = button.getAttribute('data-bs-domainId')
+        var sourceTxt = redirectModal.querySelector('.source')
+        var dest = redirectModal.querySelector(".dest option[value='" + sourceId + "']")
+        dest.remove()
+        var sourceIdField = redirectModal.querySelector('.sourceId')
+        sourceIdField.value = sourceId
+        sourceTxt.value = sourceDomain    
+        const form = document.getElementById('redirect-form')
+    })    
+    // Submit button handler
+    const submitRedirectButton = document.getElementById('btn-redirect-submit');
+    submitRedirectButton.addEventListener('click', function(e) {
+        const form = document.getElementById('site-form')
+        // Prevent default button action
+        e.preventDefault();
+        if(redirectModal.querySelector(".dest").value === 'null'){
+            redirectModal.querySelector(".dest").value=""
+        }
+        redirectform.submit();
+    });
+
 </script>
 
 

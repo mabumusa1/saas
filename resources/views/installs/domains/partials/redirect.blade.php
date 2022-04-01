@@ -12,9 +12,10 @@
                 </div>
                 <!--end::Close-->
             </div>
-            <form method="POST" action=""" id="redirect-form" class="form" novalidate="novalidate" autocomplete="off">
+            
+            <form method="POST" action="{{ route('domain.redirect', [$currentAccount->id, $site->id, $install->id]) }}" id="redirect-form" class="form" novalidate="novalidate" autocomplete="off">
                 @csrf
-                <input type="hidden" id="sourceId" name="sourceIdField">
+                <input type="hidden" id="domain" name="domain" class="sourceId">
 
                 <div class="modal-body">
                     <div class="mb-10">
@@ -37,7 +38,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="btn-submit" class="btn btn-primary">{{ __('Add redirect') }}</button>
+                    <button type="submit" id="btn-redirect-submit" class="btn btn-primary">{{ __('Add redirect') }}</button>
                 </div>
             </form>
         </div>

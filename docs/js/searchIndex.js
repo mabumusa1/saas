@@ -331,6 +331,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Http-Controllers-InstallController.html"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Create\u0020a\u0020new\u0020install.",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_create"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Astore\u0028\u0029",
+            "name": "store",
+            "summary": "Store\u0020a\u0020new\u0020install.",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_store"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Ashow\u0028\u0029",
             "name": "show",
             "summary": "Show\u0020Install\u0020dashboard.",
@@ -440,11 +450,6 @@ Search.appendIndex(
             "name": "store",
             "summary": "",
             "url": "classes/App-Http-Controllers-UserController.html#method_store"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\UserController\u003A\u003Aedit\u0028\u0029",
-            "name": "edit",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-UserController.html#method_edit"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\UserController\u003A\u003Aupdate\u0028\u0029",
             "name": "update",
@@ -610,11 +615,6 @@ Search.appendIndex(
             "name": "authorize",
             "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
             "url": "classes/App-Http-Requests-StoreSiteRequest.html#method_authorize"
-        },                {
-            "fqsen": "\\App\\Http\\Requests\\StoreSiteRequest\u003A\u003AprepareForValidation\u0028\u0029",
-            "name": "prepareForValidation",
-            "summary": "",
-            "url": "classes/App-Http-Requests-StoreSiteRequest.html#method_prepareForValidation"
         },                {
             "fqsen": "\\App\\Http\\Requests\\StoreSiteRequest\u003A\u003Arules\u0028\u0029",
             "name": "rules",
@@ -911,6 +911,11 @@ Search.appendIndex(
             "summary": "The\u0020Users\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
             "url": "classes/App-Models-Account.html#method_users"
         },                {
+            "fqsen": "\\App\\Models\\Account\u003A\u003Atransfers\u0028\u0029",
+            "name": "transfers",
+            "summary": "The\u0020Transfers\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
+            "url": "classes/App-Models-Account.html#method_transfers"
+        },                {
             "fqsen": "\\App\\Models\\Account\u003A\u003Ainvites\u0028\u0029",
             "name": "invites",
             "summary": "The\u0020Sites\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
@@ -976,6 +981,16 @@ Search.appendIndex(
             "summary": "The\u0020the\u0020logs\u0020of\u0020this\u0020model.",
             "url": "classes/App-Models-AccountUser.html#method_getActivitylogOptions"
         },                {
+            "fqsen": "\\App\\Models\\AccountUser\u003A\u003Auser\u0028\u0029",
+            "name": "user",
+            "summary": "Get\u0020the\u0020user\u0020that\u0020owns\u0020the\u0020AccountUser.",
+            "url": "classes/App-Models-AccountUser.html#method_user"
+        },                {
+            "fqsen": "\\App\\Models\\AccountUser\u003A\u003Aaccount\u0028\u0029",
+            "name": "account",
+            "summary": "Get\u0020the\u0020account\u0020that\u0020owns\u0020the\u0020AccountUser.",
+            "url": "classes/App-Models-AccountUser.html#method_account"
+        },                {
             "fqsen": "\\App\\Models\\AccountUser\u003A\u003A\u0024incrementing",
             "name": "incrementing",
             "summary": "Indicates\u0020if\u0020the\u0020IDs\u0020are\u0020auto\u002Dincrementing.",
@@ -995,6 +1010,11 @@ Search.appendIndex(
             "name": "scopeOnAccount",
             "summary": "Scope\u0020a\u0020query\u0020to\u0020only\u0020include\u0020activity\u0020for\u0020a\u0020specific\u0020account.",
             "url": "classes/App-Models-Activity.html#method_scopeOnAccount"
+        },                {
+            "fqsen": "\\App\\Models\\Activity\u003A\u003A\u0024casts",
+            "name": "casts",
+            "summary": "The\u0020attributes\u0020that\u0020should\u0020be\u0020cast.",
+            "url": "classes/App-Models-Activity.html#property_casts"
         },                {
             "fqsen": "\\App\\Models\\Cashier\\Subscription",
             "name": "Subscription",
@@ -1116,10 +1136,35 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020Site\u0020that\u0020owns\u0020the\u0020Install.",
             "url": "classes/App-Models-Install.html#method_site"
         },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003Atransfer\u0028\u0029",
+            "name": "transfer",
+            "summary": "Get\u0020the\u0020transfer\u0020associated\u0020with\u0020the\u0020Install.",
+            "url": "classes/App-Models-Install.html#method_transfer"
+        },                {
             "fqsen": "\\App\\Models\\Install\u003A\u003AgetActivitylogOptions\u0028\u0029",
             "name": "getActivitylogOptions",
             "summary": "The\u0020the\u0020logs\u0020of\u0020this\u0020model.",
             "url": "classes/App-Models-Install.html#method_getActivitylogOptions"
+        },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003Adomains\u0028\u0029",
+            "name": "domains",
+            "summary": "Get\u0020all\u0020of\u0020the\u0020domain\u0020for\u0020the\u0020Install.",
+            "url": "classes/App-Models-Install.html#method_domains"
+        },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003Acname\u0028\u0029",
+            "name": "cname",
+            "summary": "Get\u0020Install\u0020CNAME.",
+            "url": "classes/App-Models-Install.html#method_cname"
+        },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003Aip\u0028\u0029",
+            "name": "ip",
+            "summary": "Get\u0020Install\u0020IP.",
+            "url": "classes/App-Models-Install.html#method_ip"
+        },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003AprimaryDomain\u0028\u0029",
+            "name": "primaryDomain",
+            "summary": "Get\u0020Primary\u0020Domain.",
+            "url": "classes/App-Models-Install.html#method_primaryDomain"
         },                {
             "fqsen": "\\App\\Models\\Install\u003A\u003A\u0024fillable",
             "name": "fillable",
@@ -1201,6 +1246,11 @@ Search.appendIndex(
             "summary": "The\u0020the\u0020logs\u0020of\u0020this\u0020model.",
             "url": "classes/App-Models-Site.html#method_getActivitylogOptions"
         },                {
+            "fqsen": "\\App\\Models\\Site\u003A\u003AhasInstallType\u0028\u0029",
+            "name": "hasInstallType",
+            "summary": "",
+            "url": "classes/App-Models-Site.html#method_hasInstallType"
+        },                {
             "fqsen": "\\App\\Models\\Site\u003A\u003A\u0024fillable",
             "name": "fillable",
             "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
@@ -1276,45 +1326,10 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020mail\u0020representation\u0020of\u0020the\u0020notification_url.",
             "url": "classes/App-Notifications-InviteNotification.html#method_toMail"
         },                {
-            "fqsen": "\\App\\Notifications\\InviteNotification\u003A\u003AtoArray\u0028\u0029",
-            "name": "toArray",
-            "summary": "Get\u0020the\u0020array\u0020representation\u0020of\u0020the\u0020notification.",
-            "url": "classes/App-Notifications-InviteNotification.html#method_toArray"
-        },                {
             "fqsen": "\\App\\Notifications\\InviteNotification\u003A\u003A\u0024notification_url",
             "name": "notification_url",
             "summary": "",
             "url": "classes/App-Notifications-InviteNotification.html#property_notification_url"
-        },                {
-            "fqsen": "\\App\\Notifications\\UserCreatedNotification",
-            "name": "UserCreatedNotification",
-            "summary": "",
-            "url": "classes/App-Notifications-UserCreatedNotification.html"
-        },                {
-            "fqsen": "\\App\\Notifications\\UserCreatedNotification\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020a\u0020new\u0020notification\u0020instance.",
-            "url": "classes/App-Notifications-UserCreatedNotification.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Notifications\\UserCreatedNotification\u003A\u003Avia\u0028\u0029",
-            "name": "via",
-            "summary": "Get\u0020the\u0020notification\u0027s\u0020delivery\u0020channels.",
-            "url": "classes/App-Notifications-UserCreatedNotification.html#method_via"
-        },                {
-            "fqsen": "\\App\\Notifications\\UserCreatedNotification\u003A\u003AtoMail\u0028\u0029",
-            "name": "toMail",
-            "summary": "Get\u0020the\u0020mail\u0020representation\u0020of\u0020the\u0020notification.",
-            "url": "classes/App-Notifications-UserCreatedNotification.html#method_toMail"
-        },                {
-            "fqsen": "\\App\\Notifications\\UserCreatedNotification\u003A\u003AtoArray\u0028\u0029",
-            "name": "toArray",
-            "summary": "Get\u0020the\u0020array\u0020representation\u0020of\u0020the\u0020notification.",
-            "url": "classes/App-Notifications-UserCreatedNotification.html#method_toArray"
-        },                {
-            "fqsen": "\\App\\Notifications\\UserCreatedNotification\u003A\u003A\u0024password",
-            "name": "password",
-            "summary": "",
-            "url": "classes/App-Notifications-UserCreatedNotification.html#property_password"
         },                {
             "fqsen": "\\App\\Policies\\AccountPolicy",
             "name": "AccountPolicy",
@@ -1460,11 +1475,6 @@ Search.appendIndex(
             "name": "delete",
             "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020delete\u0020the\u0020model.",
             "url": "classes/App-Policies-UserPolicy.html#method_delete"
-        },                {
-            "fqsen": "\\App\\Policies\\UserPolicy\u003A\u003AchangeOwner\u0028\u0029",
-            "name": "changeOwner",
-            "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020change\u0020the\u0020role\u0020of\u0020the\u0020owenr.",
-            "url": "classes/App-Policies-UserPolicy.html#method_changeOwner"
         },                {
             "fqsen": "\\App\\Policies\\UserPolicy\u003A\u003A\u0024account",
             "name": "account",
@@ -1646,6 +1656,286 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020view\u0020\/\u0020contents\u0020that\u0020represents\u0020the\u0020component.",
             "url": "classes/App-View-Components-BaseLayout.html#method_render"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController",
+            "name": "DomainController",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Aindex\u0028\u0029",
+            "name": "index",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_index"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Astore\u0028\u0029",
+            "name": "store",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_store"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Adestroy\u0028\u0029",
+            "name": "destroy",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_destroy"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\TransferController",
+            "name": "TransferController",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-TransferController.html"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Astart\u0028\u0029",
+            "name": "start",
+            "summary": "Store\u0020a\u0020newly\u0020created\u0020resource\u0020in\u0020storage.",
+            "url": "classes/App-Http-Controllers-TransferController.html#method_start"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Aaccept\u0028\u0029",
+            "name": "accept",
+            "summary": "Accept\u0020Transfer.",
+            "url": "classes/App-Http-Controllers-TransferController.html#method_accept"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\AcceptTransferRequest",
+            "name": "AcceptTransferRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-AcceptTransferRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\AcceptTransferRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-AcceptTransferRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\AcceptTransferRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-AcceptTransferRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StartTransferRequest",
+            "name": "StartTransferRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-StartTransferRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StartTransferRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-StartTransferRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StartTransferRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-StartTransferRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreDomainRequest",
+            "name": "StoreDomainRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-StoreDomainRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreDomainRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-StoreDomainRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreDomainRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-StoreDomainRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreDomainRequest\u003A\u003Amessages\u0028\u0029",
+            "name": "messages",
+            "summary": "Get\u0020the\u0020error\u0020messages\u0020for\u0020the\u0020defined\u0020validation\u0020rules.",
+            "url": "classes/App-Http-Requests-StoreDomainRequest.html#method_messages"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreInstallRequest",
+            "name": "StoreInstallRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-StoreInstallRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreInstallRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-StoreInstallRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreInstallRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-StoreInstallRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreInstallRequest\u003A\u003AwithValidator\u0028\u0029",
+            "name": "withValidator",
+            "summary": "",
+            "url": "classes/App-Http-Requests-StoreInstallRequest.html#method_withValidator"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreTransferRequest",
+            "name": "StoreTransferRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-StoreTransferRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreTransferRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-StoreTransferRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreTransferRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-StoreTransferRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Models\\Domain",
+            "name": "Domain",
+            "summary": "",
+            "url": "classes/App-Models-Domain.html"
+        },                {
+            "fqsen": "\\App\\Models\\Domain\u003A\u003Ainstall\u0028\u0029",
+            "name": "install",
+            "summary": "Get\u0020the\u0020install\u0020that\u0020owns\u0020the\u0020Domain.",
+            "url": "classes/App-Models-Domain.html#method_install"
+        },                {
+            "fqsen": "\\App\\Models\\Domain\u003A\u003AgetActivitylogOptions\u0028\u0029",
+            "name": "getActivitylogOptions",
+            "summary": "The\u0020the\u0020logs\u0020of\u0020this\u0020model.",
+            "url": "classes/App-Models-Domain.html#method_getActivitylogOptions"
+        },                {
+            "fqsen": "\\App\\Models\\Domain\u003A\u003AisBuiltIn\u0028\u0029",
+            "name": "isBuiltIn",
+            "summary": "Check\u0020if\u0020this\u0020domain\u0020is\u0020the\u0020built\u002Din\u0020domain.",
+            "url": "classes/App-Models-Domain.html#method_isBuiltIn"
+        },                {
+            "fqsen": "\\App\\Models\\Domain\u003A\u003A\u0024fillable",
+            "name": "fillable",
+            "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
+            "url": "classes/App-Models-Domain.html#property_fillable"
+        },                {
+            "fqsen": "\\App\\Models\\Domain\u003A\u003A\u0024casts",
+            "name": "casts",
+            "summary": "The\u0020attributes\u0020that\u0020should\u0020be\u0020cast.",
+            "url": "classes/App-Models-Domain.html#property_casts"
+        },                {
+            "fqsen": "\\App\\Models\\Transfer",
+            "name": "Transfer",
+            "summary": "",
+            "url": "classes/App-Models-Transfer.html"
+        },                {
+            "fqsen": "\\App\\Models\\Transfer\u003A\u003Aaccount\u0028\u0029",
+            "name": "account",
+            "summary": "Get\u0020the\u0020account\u0020that\u0020owns\u0020the\u0020Transfer.",
+            "url": "classes/App-Models-Transfer.html#method_account"
+        },                {
+            "fqsen": "\\App\\Models\\Transfer\u003A\u003Ainstall\u0028\u0029",
+            "name": "install",
+            "summary": "Get\u0020the\u0020install\u0020that\u0020uses\u0020this\u0020trnasfer.",
+            "url": "classes/App-Models-Transfer.html#method_install"
+        },                {
+            "fqsen": "\\App\\Models\\Transfer\u003A\u003AgetActivitylogOptions\u0028\u0029",
+            "name": "getActivitylogOptions",
+            "summary": "The\u0020the\u0020logs\u0020of\u0020this\u0020model.",
+            "url": "classes/App-Models-Transfer.html#method_getActivitylogOptions"
+        },                {
+            "fqsen": "\\App\\Models\\Transfer\u003A\u003A\u0024fillable",
+            "name": "fillable",
+            "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
+            "url": "classes/App-Models-Transfer.html#property_fillable"
+        },                {
+            "fqsen": "\\App\\Notifications\\TransferRequestNotification",
+            "name": "TransferRequestNotification",
+            "summary": "",
+            "url": "classes/App-Notifications-TransferRequestNotification.html"
+        },                {
+            "fqsen": "\\App\\Notifications\\TransferRequestNotification\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020notification\u0020instance.",
+            "url": "classes/App-Notifications-TransferRequestNotification.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Notifications\\TransferRequestNotification\u003A\u003Avia\u0028\u0029",
+            "name": "via",
+            "summary": "Get\u0020the\u0020notification\u0027s\u0020delivery\u0020channels.",
+            "url": "classes/App-Notifications-TransferRequestNotification.html#method_via"
+        },                {
+            "fqsen": "\\App\\Notifications\\TransferRequestNotification\u003A\u003AtoMail\u0028\u0029",
+            "name": "toMail",
+            "summary": "Get\u0020the\u0020mail\u0020representation\u0020of\u0020the\u0020notification.",
+            "url": "classes/App-Notifications-TransferRequestNotification.html#method_toMail"
+        },                {
+            "fqsen": "\\App\\Notifications\\TransferRequestNotification\u003A\u003A\u0024code",
+            "name": "code",
+            "summary": "",
+            "url": "classes/App-Notifications-TransferRequestNotification.html#property_code"
+        },                {
+            "fqsen": "\\App\\Observers\\DomainObserver",
+            "name": "DomainObserver",
+            "summary": "",
+            "url": "classes/App-Observers-DomainObserver.html"
+        },                {
+            "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003Acreated\u0028\u0029",
+            "name": "created",
+            "summary": "Handle\u0020the\u0020Domain\u0020\u0022created\u0022\u0020event.",
+            "url": "classes/App-Observers-DomainObserver.html#method_created"
+        },                {
+            "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003Aupdated\u0028\u0029",
+            "name": "updated",
+            "summary": "Handle\u0020the\u0020Domain\u0020\u0022updated\u0022\u0020event.",
+            "url": "classes/App-Observers-DomainObserver.html#method_updated"
+        },                {
+            "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003Adeleted\u0028\u0029",
+            "name": "deleted",
+            "summary": "Handle\u0020the\u0020Domain\u0020\u0022deleted\u0022\u0020event.",
+            "url": "classes/App-Observers-DomainObserver.html#method_deleted"
+        },                {
+            "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003A\u0024afterCommit",
+            "name": "afterCommit",
+            "summary": "Handle\u0020events\u0020after\u0020all\u0020transactions\u0020are\u0020committed.",
+            "url": "classes/App-Observers-DomainObserver.html#property_afterCommit"
+        },                {
+            "fqsen": "\\App\\Policies\\TransferPolicy",
+            "name": "TransferPolicy",
+            "summary": "",
+            "url": "classes/App-Policies-TransferPolicy.html"
+        },                {
+            "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Policies-TransferPolicy.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003Astart\u0028\u0029",
+            "name": "start",
+            "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020transfer\u0020installs.",
+            "url": "classes/App-Policies-TransferPolicy.html#method_start"
+        },                {
+            "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003Aaccept\u0028\u0029",
+            "name": "accept",
+            "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020delete\u0020the\u0020model.",
+            "url": "classes/App-Policies-TransferPolicy.html#method_accept"
+        },                {
+            "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003A\u0024account",
+            "name": "account",
+            "summary": "",
+            "url": "classes/App-Policies-TransferPolicy.html#property_account"
+        },                {
+            "fqsen": "\\App\\Rules\\UniqueDomainRule",
+            "name": "UniqueDomainRule",
+            "summary": "",
+            "url": "classes/App-Rules-UniqueDomainRule.html"
+        },                {
+            "fqsen": "\\App\\Rules\\UniqueDomainRule\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020rule\u0020instance.",
+            "url": "classes/App-Rules-UniqueDomainRule.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Rules\\UniqueDomainRule\u003A\u003Apasses\u0028\u0029",
+            "name": "passes",
+            "summary": "Determine\u0020if\u0020the\u0020validation\u0020rule\u0020passes.",
+            "url": "classes/App-Rules-UniqueDomainRule.html#method_passes"
+        },                {
+            "fqsen": "\\App\\Rules\\UniqueDomainRule\u003A\u003A\u0024message",
+            "name": "message",
+            "summary": "",
+            "url": "classes/App-Rules-UniqueDomainRule.html#property_message"
+        },                {
+            "fqsen": "\\App\\Rules\\UniqueDomainRule\u003A\u003A\u0024installs",
+            "name": "installs",
+            "summary": "",
+            "url": "classes/App-Rules-UniqueDomainRule.html#property_installs"
+        },                {
+            "fqsen": "\\App\\Rules\\UniqueDomainRule\u003A\u003A\u0024install",
+            "name": "install",
+            "summary": "",
+            "url": "classes/App-Rules-UniqueDomainRule.html#property_install"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -1736,6 +2026,11 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/app-notifications.html"
         },                {
+            "fqsen": "\\App\\Observers",
+            "name": "Observers",
+            "summary": "",
+            "url": "namespaces/app-observers.html"
+        },                {
             "fqsen": "\\App\\Policies",
             "name": "Policies",
             "summary": "",
@@ -1750,6 +2045,11 @@ Search.appendIndex(
             "name": "Resolvers",
             "summary": "",
             "url": "namespaces/app-resolvers.html"
+        },                {
+            "fqsen": "\\App\\Rules",
+            "name": "Rules",
+            "summary": "",
+            "url": "namespaces/app-rules.html"
         },                {
             "fqsen": "\\App\\View\\Components",
             "name": "Components",

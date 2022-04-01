@@ -8,6 +8,7 @@ use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
+use App\Http\Requests\DomainRedirectRequest;
 
 class DomainController extends Controller
 {
@@ -47,5 +48,21 @@ class DomainController extends Controller
         $domain->delete();
 
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Domain was deleted'));
+    }
+
+
+    public function redirect(Account $account, Site $site, Install $install, DomainRedirectRequest $request)
+    {
+        $data = $request->validated();
+        $sourceDomain = Domain::find($data['domain']);
+        if(! $request->has('dest')){
+            $sourceDomain->redirect_to = "";
+            $sourceDomain->save();
+        }else{
+            $destDomain = Domain::find($data['dest']);
+            $sourceDomain->redirect_to = $destDomain->name;
+            $sourceDomain->save();
+        }
+        return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Redirect is set'));        
     }
 }
