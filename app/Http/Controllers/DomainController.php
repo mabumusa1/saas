@@ -37,11 +37,13 @@ class DomainController extends Controller
 
     public function destroy(Account $account, Site $site, Install $install, Domain $domain)
     {
+        /* @phpstan-ignore-next-line */
         if ($domain->isBuiltIn) {
             abort(403, __('You can not delete the built in domain'));
         }
 
         if ($domain->primary) {
+            /* @phpstan-ignore-next-line */
             $newPrimary = Domain::find($install->cname)->first();
             $newPrimary->primary = true;
             $newPrimary->save();

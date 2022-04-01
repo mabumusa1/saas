@@ -37,5 +37,7 @@ class VerifyDomainsCommand extends Command
             VerifyDomainsJob::dispatch($domain);
         }
         $this->info('All domains are in the queue');
+
+        return 0;
     }
 }

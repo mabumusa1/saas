@@ -64,6 +64,7 @@ class InstallController extends Controller
         $install = Install::create($data);
         Domain::create([
             'install_id' => $install->id,
+            /* @phpstan-ignore-next-line */
             'name' => $install->cname,
             'primary' => true,
             'verified' => true,

@@ -66,6 +66,8 @@ class UniqueDomainRule implements Rule
         } catch (ModelNotFoundException $e) {
             return true;
         }
+
+        return true;
     }
 
     /**

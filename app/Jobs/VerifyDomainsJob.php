@@ -61,8 +61,10 @@ class VerifyDomainsJob implements ShouldQueue
 
         if ($records) {
             foreach ($records as $record) {
+                /* @phpstan-ignore-next-line */
                 if ($record->target() === $this->domain->install->cname) {
                     $this->domain->verified = true;
+                    /* @phpstan-ignore-next-line */
                     $this->domain->verified_at = now();
                     $this->domain->save();
                 } else {

@@ -29,14 +29,14 @@ class DomainRedirectRequest extends FormRequest
             'domain' => [
                 'bail',
                 'required',
-                Rule::exists('domains', 'id')->whereIn('id', $this->install->domains->pluck('id'))
+                Rule::exists('domains', 'id')->whereIn('id', $this->install->domains->pluck('id')),
             ],
             'dest' => [
                 'bail',
-                'sometimes', 
+                'sometimes',
                 Rule::exists('domains', 'id')->whereIn('id', $this->install->domains->pluck('id')),
-                'different:domain'
-            ]
+                'different:domain',
+            ],
         ];
     }
 }
