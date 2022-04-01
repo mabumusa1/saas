@@ -28,7 +28,7 @@ class StoreDomainRequest extends FormRequest
         return [
             'name' => ['required', function ($attribute, $value, $fail) {
                 $rules = ['name' => 'url'];
-                $input = ['name' => "https://{$attribute}"];
+                $input = ['name' => "https://{$value}"];
                 if (! Validator::make($input, $rules)->passes()) {
                     $fail(__('Invalid Domain Name'));
                 }

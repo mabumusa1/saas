@@ -48,6 +48,9 @@ class UniqueDomainRule implements Rule
             } else {
                 $dns = new Dns();
                 $records = $dns->useNameserver('8.8.8.8')->getRecords($value, 'TXT');
+                if ([] === $records) {
+                    return false;
+                }
                 foreach ($records as $record) {
                     // the user managed to verify the domain, they own it
                     if ($record->txt() === "sc-verification={$this->install->name}") {
@@ -67,7 +70,7 @@ class UniqueDomainRule implements Rule
             return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
