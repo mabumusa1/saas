@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\CreateInstallEvent;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
+use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
@@ -61,6 +62,14 @@ class InstallController extends Controller
         $data = $request->validated();
         $data['site_id'] = $site->id;
         $install = Install::create($data);
+        Domain::create([
+            'install_id' => $install->id,
+            'name' => $install->cname,
+            'primary' => true,
+            'verified' => true,
+            'verified_at' => now(),
+        ]);
+
         CreateInstallEvent::dispatch($install);
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('New installation is created'));

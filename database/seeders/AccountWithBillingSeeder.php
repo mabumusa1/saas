@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Facades\AccountResolver;
 use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Domain;
 use App\Models\Group;
 use App\Models\Install;
 use App\Models\Site;
@@ -44,6 +45,15 @@ class AccountWithBillingSeeder extends Seeder
         foreach ($installs as $key => $install) {
             if (empty($install->contact)) {
                 Contact::factory()->create(['install_id' => $install->id]);
+            }
+            if ($install->domains()->count() === 0) {
+                Domain::create([
+                    'install_id' => $install->id,
+                    'name' => $install->cname,
+                    'primary' => true,
+                    'verified' => true,
+                    'verified_at' => now(),
+                ]);
             }
         }
 

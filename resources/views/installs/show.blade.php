@@ -81,10 +81,12 @@
                 <div class="row">
                     <div class="col">
                         <p class="fw-bold">{{ __('Primary domain:') }} </span> <a href="">{{ __('Set primary domain') }}</a></p>
-                        <a href="">{{ __('View DNS Details') }}</a>
+                        <p class="fw-bold">{{ __('Technical contact:') }} </span> <a href="">{{ $install->contact->fullName }}</a></p>
                     </div>
                     <div class="col">
-                        <p class="fw-bold">{{ __('Technical contact:') }} </span> <a href="">{{ $install->contact->fullName }}</a></p>
+                        <p class="fw-bold">{{ __('CNAME:') }} </span> <a href="https://{{ $install->cname }}">{{ $install->cname }}</a></p>
+                        <p class="fw-bold">{{ __('IP Address:') }} </span> {{ $install->ip }}</p>
+                        
                         <p class="fw-bold">{{ __('Created at:') }} </span> <a href="">{{ $install->created_at }}</a></p>
                     </div>
                 </div>

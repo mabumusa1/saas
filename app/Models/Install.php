@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Domain;
 use App\Models\Install;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -113,8 +114,42 @@ class Install extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function domain(): HasMany
+    public function domains(): HasMany
     {
         return $this->hasMany(Domain::class);
+    }
+
+    /**
+     * Get Install CNAME.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function cname(): Attribute
+    {
+        return new Attribute(
+            get: fn () => "{$this->name}.steercampaign.com",
+        );
+    }
+
+    /**
+     * Get Install IP.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function ip(): Attribute
+    {
+        return new Attribute(
+            get: fn () => '127.0.0.1',
+        );
+    }
+
+    /**
+     * Get Primary Domain.
+     *
+     * @return  App\Models\Domain
+     */
+    public function primaryDomain(): Domain
+    {
+        return $this->domains->where('primary', true)->first();
     }
 }

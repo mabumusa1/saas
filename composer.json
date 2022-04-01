@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
+        "spatie/dns": "^2.4",
         "spatie/laravel-activitylog": "^4.4"
     },
     "require-dev": {
