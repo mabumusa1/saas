@@ -1681,6 +1681,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Http-Controllers-DomainController.html#method_redirect"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003AsetPrimary\u0028\u0029",
+            "name": "setPrimary",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_setPrimary"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController",
             "name": "TransferController",
             "summary": "",
@@ -1955,6 +1960,96 @@ Search.appendIndex(
             "name": "rules",
             "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
             "url": "classes/App-Http-Requests-DomainRedirectRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Events\\SetDomainPrimaryEvent",
+            "name": "SetDomainPrimaryEvent",
+            "summary": "",
+            "url": "classes/App-Events-SetDomainPrimaryEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\SetDomainPrimaryEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-SetDomainPrimaryEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\SetDomainPrimaryEvent\u003A\u003A\u0024domain",
+            "name": "domain",
+            "summary": "",
+            "url": "classes/App-Events-SetDomainPrimaryEvent.html#property_domain"
+        },                {
+            "fqsen": "\\App\\Events\\SetDomainRedirectEvent",
+            "name": "SetDomainRedirectEvent",
+            "summary": "",
+            "url": "classes/App-Events-SetDomainRedirectEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\SetDomainRedirectEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-SetDomainRedirectEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\SetDomainRedirectEvent\u003A\u003A\u0024domain",
+            "name": "domain",
+            "summary": "",
+            "url": "classes/App-Events-SetDomainRedirectEvent.html#property_domain"
+        },                {
+            "fqsen": "\\App\\Listeners\\DomainPrimaryListener",
+            "name": "DomainPrimaryListener",
+            "summary": "",
+            "url": "classes/App-Listeners-DomainPrimaryListener.html"
+        },                {
+            "fqsen": "\\App\\Listeners\\DomainPrimaryListener\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020the\u0020event\u0020listener.",
+            "url": "classes/App-Listeners-DomainPrimaryListener.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Listeners\\DomainPrimaryListener\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "Handle\u0020the\u0020event.",
+            "url": "classes/App-Listeners-DomainPrimaryListener.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Listeners\\DomainRedirectListener",
+            "name": "DomainRedirectListener",
+            "summary": "",
+            "url": "classes/App-Listeners-DomainRedirectListener.html"
+        },                {
+            "fqsen": "\\App\\Listeners\\DomainRedirectListener\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020the\u0020event\u0020listener.",
+            "url": "classes/App-Listeners-DomainRedirectListener.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Listeners\\DomainRedirectListener\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "Handle\u0020the\u0020event.",
+            "url": "classes/App-Listeners-DomainRedirectListener.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Providers\\SetDomainPrimaryEvent",
+            "name": "SetDomainPrimaryEvent",
+            "summary": "",
+            "url": "classes/App-Providers-SetDomainPrimaryEvent.html"
+        },                {
+            "fqsen": "\\App\\Providers\\SetDomainPrimaryEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Providers-SetDomainPrimaryEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Providers\\SetDomainPrimaryEvent\u003A\u003AbroadcastOn\u0028\u0029",
+            "name": "broadcastOn",
+            "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
+            "url": "classes/App-Providers-SetDomainPrimaryEvent.html#method_broadcastOn"
+        },                {
+            "fqsen": "\\App\\Providers\\SetDomainRedirectEvent",
+            "name": "SetDomainRedirectEvent",
+            "summary": "",
+            "url": "classes/App-Providers-SetDomainRedirectEvent.html"
+        },                {
+            "fqsen": "\\App\\Providers\\SetDomainRedirectEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Providers-SetDomainRedirectEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Providers\\SetDomainRedirectEvent\u003A\u003AbroadcastOn\u0028\u0029",
+            "name": "broadcastOn",
+            "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
+            "url": "classes/App-Providers-SetDomainRedirectEvent.html#method_broadcastOn"
         },                {
             "fqsen": "\\",
             "name": "\\",

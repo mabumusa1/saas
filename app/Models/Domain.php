@@ -73,4 +73,16 @@ class Domain extends Model
             get: fn () => ($this->name === $this->install->cname),
         );
     }
+
+    /**
+     * Check if we tried to verifiy the domain but failed.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function isFailedVerification(): Attribute
+    {
+        return new Attribute(
+            get: fn () => ($this->verification_attempts >= 5),
+        );
+    }
 }
