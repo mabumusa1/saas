@@ -104,6 +104,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/app-observers.html" class="">Observers</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/app-policies.html" class="">Policies</a>
                 
             </li>
@@ -113,6 +117,10 @@
             </li>
                     <li>
                 <a href="namespaces/app-resolvers.html" class="">Resolvers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/app-rules.html" class="">Rules</a>
                 
             </li>
                     <li>
@@ -171,7 +179,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
@@ -192,11 +200,25 @@
 
 <dl class="phpdocumentor-table-of-contents">
                         <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_create">create()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\View\View">View</abbr>    </span>
+</dt>
+<dd>Create a new install.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Http-Controllers-InstallController.html#method_show">show()</a>
     <span>
                                 &nbsp;: <abbr title="\Illuminate\Contracts\View\View">View</abbr>    </span>
 </dt>
 <dd>Show Install dashboard.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_store">store()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\Http\JsonResponse">JsonResponse</abbr>    </span>
+</dt>
+<dd>Store a new install.</dd>
 
         </dl>
 
@@ -217,22 +239,22 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_show">
-        show()
-        <a href="classes/App-Http-Controllers-InstallController.html#method_show" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_create">
+        create()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Show Install dashboard.</p>
+        <p class="phpdocumentor-summary">Create a new install.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">show</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Contracts\View\View">View</abbr></span></code>
+                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\View\View">View</abbr></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -243,6 +265,66 @@
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\View\View">View</abbr></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>| \Illuminate\Http\RedirectResponse</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_show">
+        show()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_show" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">87</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Show Install dashboard.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">show</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Contracts\View\View">View</abbr></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$install</span>
@@ -259,6 +341,65 @@
     <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Contracts\View\View">View</abbr></span>
             &mdash;
         
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_store">
+        store()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_store" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">55</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Store a new install.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">store</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Http-Requests-StoreInstallRequest.html"><abbr title="\App\Http\Requests\StoreInstallRequest">StoreInstallRequest</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Http\JsonResponse">JsonResponse</abbr></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$request</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Http-Requests-StoreInstallRequest.html"><abbr title="\App\Http\Requests\StoreInstallRequest">StoreInstallRequest</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Http\JsonResponse">JsonResponse</abbr></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>| \Illuminate\Http\RedirectResponse</p>
+</section>
+
     
 </article>
             </section>

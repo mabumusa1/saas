@@ -104,6 +104,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/app-observers.html" class="">Observers</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/app-policies.html" class="">Policies</a>
                 
             </li>
@@ -113,6 +117,10 @@
             </li>
                     <li>
                 <a href="namespaces/app-resolvers.html" class="">Resolvers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/app-rules.html" class="">Rules</a>
                 
             </li>
                     <li>
@@ -173,7 +181,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -314,11 +322,25 @@
 <dd>The attributes that are mass assignable.</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Models-Install.html#method_cname">cname()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr>    </span>
+</dt>
+<dd>Get Install CNAME.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Install.html#method_contact">contact()</a>
     <span>
                                 &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\HasOne">HasOne</abbr>    </span>
 </dt>
 <dd>Get the contact associated with the Install.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Models-Install.html#method_domains">domains()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr>    </span>
+</dt>
+<dd>Get all of the domain for the Install.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Install.html#method_factory">factory()</a>
@@ -333,6 +355,13 @@
                                 &nbsp;: <abbr title="\Spatie\Activitylog\LogOptions">LogOptions</abbr>    </span>
 </dt>
 <dd>The the logs of this model.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Models-Install.html#method_ip">ip()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr>    </span>
+</dt>
+<dd>Get Install IP.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Install.html#method_newModelQuery">newModelQuery()</a>
@@ -356,6 +385,13 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Models-Install.html#method_primaryDomain">primaryDomain()</a>
+    <span>
+                                &nbsp;: <abbr title="\App\Models\App\Models\Domain">Domain</abbr>    </span>
+</dt>
+<dd>Get Primary Domain.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Install.html#method_query">query()</a>
     <span>
                                 &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Builder">Builder</abbr>|<a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>    </span>
@@ -368,6 +404,13 @@
                                 &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr>    </span>
 </dt>
 <dd>Get the Site that owns the Install.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Models-Install.html#method_transfer">transfer()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\HasOne">HasOne</abbr>    </span>
+</dt>
+<dd>Get the transfer associated with the Install.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Install.html#method_whereCreatedAt">whereCreatedAt()</a>
@@ -943,7 +986,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
@@ -973,6 +1016,39 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_cname">
+        cname()
+        <a href="classes/App-Models-Install.html#method_cname" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">127</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Install CNAME.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">cname</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_contact">
         contact()
         <a href="classes/App-Models-Install.html#method_contact" class="headerlink"><i class="fas fa-link"></i></a>
@@ -980,7 +1056,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -996,6 +1072,39 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasOne">HasOne</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_domains">
+        domains()
+        <a href="classes/App-Models-Install.html#method_domains" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">117</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get all of the domain for the Install.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">domains</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr></span>
             &mdash;
         
     
@@ -1056,7 +1165,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
@@ -1072,6 +1181,39 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Spatie\Activitylog\LogOptions">LogOptions</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_ip">
+        ip()
+        <a href="classes/App-Models-Install.html#method_ip" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">139</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Install IP.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">ip</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span>
             &mdash;
         
     
@@ -1176,6 +1318,39 @@
         class="phpdocumentor-element
             -method
             -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_primaryDomain">
+        primaryDomain()
+        <a href="classes/App-Models-Install.html#method_primaryDomain" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">151</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Primary Domain.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">primaryDomain</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\App\Models\App\Models\Domain">Domain</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\App\Models\App\Models\Domain">Domain</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_query">
@@ -1217,7 +1392,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -1233,6 +1408,39 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\BelongsTo">BelongsTo</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_transfer">
+        transfer()
+        <a href="classes/App-Models-Install.html#method_transfer" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Install.php"><a href="files/app-models-install.html"><abbr title="app/Models/Install.php">Install.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">95</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the transfer associated with the Install.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">transfer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasOne">HasOne</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasOne">HasOne</abbr></span>
             &mdash;
         
     
