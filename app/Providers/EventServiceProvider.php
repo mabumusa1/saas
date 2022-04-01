@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Events\AccountUpdatedEvent;
 use App\Events\ActivityLoggerEvent;
+use App\Events\SetDomainPrimaryEvent;
+use App\Events\SetDomainRedirectEvent;
 use App\Events\UserInvitedEvent;
 use App\Models\Domain;
 use App\Observers\DomainObserver;
@@ -51,6 +53,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         ActivityLoggerEvent::class => [
             \App\Listeners\ActivityLoggerListener::class,
+        ],
+        SetDomainRedirectEvent::class => [
+            \App\Listeners\DomainRedirectListener::class,
+        ],
+        SetDomainPrimaryEvent::class => [
+            \App\Listeners\DomainPrimaryListener::class,
         ],
 
     ];

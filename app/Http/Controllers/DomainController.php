@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SetDomainPrimaryEvent;
+use App\Events\SetDomainRedirectEvent;
+use App\Http\Requests\DomainRedirectRequest;
 use App\Http\Requests\StoreDomainRequest;
 use App\Models\Account;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
-use App\Http\Requests\DomainRedirectRequest;
 
 class DomainController extends Controller
 {
@@ -50,19 +52,35 @@ class DomainController extends Controller
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Domain was deleted'));
     }
 
-
     public function redirect(Account $account, Site $site, Install $install, DomainRedirectRequest $request)
     {
         $data = $request->validated();
         $sourceDomain = Domain::find($data['domain']);
-        if(! $request->has('dest')){
-            $sourceDomain->redirect_to = "";
+        if (! $request->has('dest')) {
+            $sourceDomain->redirect_to = '';
             $sourceDomain->save();
-        }else{
+        } else {
             $destDomain = Domain::find($data['dest']);
             $sourceDomain->redirect_to = $destDomain->name;
             $sourceDomain->save();
         }
-        return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Redirect is set'));        
+
+        SetDomainRedirectEvent::dispatch($sourceDomain);
+
+        return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Redirect is set'));
+    }
+
+    public function setPrimary(Account $account, Site $site, Install $install, Domain $domain)
+    {
+        $oldPrimary = $install->domains->where('primary', true)->first();
+        $oldPrimary->primary = false;
+        $oldPrimary->save();
+
+        $domain->primary = true;
+        $domain->save();
+
+        SetDomainPrimaryEvent::dispatch($domain);
+
+        return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Domain set as primary'));
     }
 }

@@ -98,7 +98,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::resource('{install}/domains', App\Http\Controllers\DomainController::class)->only([
                 'index', 'store', 'destroy',
             ]);
-            Route::post('{install}/domain/redirect', [App\Http\Controllers\DomainController::class, 'redirect'])->name('domain.redirect');
+            Route::post('{install}/domain/redirect', [App\Http\Controllers\DomainController::class, 'redirect'])->name('domains.redirect');
+            Route::post('{install}/domain/{domain}/setPrimary', [App\Http\Controllers\DomainController::class, 'setPrimary'])->name('domains.setPrimary');
         });
         /*
         * Accept Transfer

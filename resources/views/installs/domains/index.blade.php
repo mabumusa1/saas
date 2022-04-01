@@ -80,9 +80,16 @@
                                             <a href="#redirectModal" data-bs-toggle="modal" data-bs-target="#redirectModal" data-bs-domainName="{{ $domain->name }}" data-bs-domainId="{{ $domain->id }}" class="menu-link px-3">
                                                 {{ __('Add redirect') }}
                                             </a>
-                                            <a href="#" class="menu-link px-3">
+                                            <a data-target=".setprimary_form{{ $domain->id }}" class="menu-link px-3 btn-setPrimary">
                                                 {{ __('Set as primary') }}
                                             </a>
+                                            <form
+                                            action="{{ route('domains.setPrimary', [$account, $site, $install, $domain]) }}"
+                                            class="setprimary_form{{ $domain->id }}" method="post">
+                                            @csrf
+                                            @method('POST')
+                                            </form>
+
                                             @if(!$domain->isBuiltIn)
                                             <a data-target=".delete_form{{ $domain->id }}" class="menu-link px-3 btn-delete">{{ __('Delete') }}</a><br/>
                                             <form
@@ -164,6 +171,27 @@
             })
         });
     })
+
+    var btnSetPrimary = document.querySelectorAll('.btn-setPrimary');
+    btnSetPrimary.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This domain will be the primary domain, and traffice will be sent to it?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, make it primary!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.querySelector(button.getAttribute('data-target')).submit();
+                }
+            })
+        });
+    })
+
+    
 
     var redirectModal = document.getElementById('redirectModal')
     var redirectform = document.getElementById('redirect-form')

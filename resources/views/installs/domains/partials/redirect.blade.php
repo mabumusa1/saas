@@ -13,7 +13,7 @@
                 <!--end::Close-->
             </div>
             
-            <form method="POST" action="{{ route('domain.redirect', [$currentAccount->id, $site->id, $install->id]) }}" id="redirect-form" class="form" novalidate="novalidate" autocomplete="off">
+            <form method="POST" action="{{ route('domains.redirect', [$currentAccount->id, $site->id, $install->id]) }}" id="redirect-form" class="form" novalidate="novalidate" autocomplete="off">
                 @csrf
                 <input type="hidden" id="domain" name="domain" class="sourceId">
 
