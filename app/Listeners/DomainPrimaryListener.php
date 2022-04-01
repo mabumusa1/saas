@@ -21,7 +21,7 @@ class DomainPrimaryListener
     /**
      * Handle the event.
      *
-     * @param  \App\Providers\SetDomainPrimaryEvent  $event
+     * @param  \App\Events\SetDomainPrimaryEvent  $event
      * @return void
      */
     public function handle(SetDomainPrimaryEvent $event)

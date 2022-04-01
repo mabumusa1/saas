@@ -1656,36 +1656,6 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020view\u0020\/\u0020contents\u0020that\u0020represents\u0020the\u0020component.",
             "url": "classes/App-View-Components-BaseLayout.html#method_render"
         },                {
-            "fqsen": "\\App\\Http\\Controllers\\DomainController",
-            "name": "DomainController",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-DomainController.html"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Aindex\u0028\u0029",
-            "name": "index",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-DomainController.html#method_index"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Astore\u0028\u0029",
-            "name": "store",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-DomainController.html#method_store"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Adestroy\u0028\u0029",
-            "name": "destroy",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-DomainController.html#method_destroy"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Aredirect\u0028\u0029",
-            "name": "redirect",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-DomainController.html#method_redirect"
-        },                {
-            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003AsetPrimary\u0028\u0029",
-            "name": "setPrimary",
-            "summary": "",
-            "url": "classes/App-Http-Controllers-DomainController.html#method_setPrimary"
-        },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController",
             "name": "TransferController",
             "summary": "",

@@ -33,8 +33,8 @@ class DomainController extends Controller
      * @param Account $account
      * @param Site $site
      * @param Install $install
-     * @param StoreDomianRequest $request
-     * @return | \Illuminate\Http\RedirectResponse
+     * @param StoreDomainRequest $request
+     * @return \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
      */
     public function store(Account $account, Site $site, Install $install, StoreDomainRequest $request)
     {

@@ -21,7 +21,7 @@ class DomainRedirectListener
     /**
      * Handle the event.
      *
-     * @param  \App\Providers\SetDomainRedirectEvent  $event
+     * @param  \App\Events\SetDomainRedirectEvent  $event
      * @return void
      */
     public function handle(SetDomainRedirectEvent $event)
