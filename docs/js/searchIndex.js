@@ -1806,6 +1806,11 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020this\u0020domain\u0020is\u0020the\u0020built\u002Din\u0020domain.",
             "url": "classes/App-Models-Domain.html#method_isBuiltIn"
         },                {
+            "fqsen": "\\App\\Models\\Domain\u003A\u003AisFailedVerification\u0028\u0029",
+            "name": "isFailedVerification",
+            "summary": "Check\u0020if\u0020we\u0020tried\u0020to\u0020verifiy\u0020the\u0020domain\u0020but\u0020failed.",
+            "url": "classes/App-Models-Domain.html#method_isFailedVerification"
+        },                {
             "fqsen": "\\App\\Models\\Domain\u003A\u003A\u0024fillable",
             "name": "fillable",
             "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
@@ -2051,6 +2056,61 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
             "url": "classes/App-Providers-SetDomainRedirectEvent.html#method_broadcastOn"
         },                {
+            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand",
+            "name": "VerifyDomainsCommand",
+            "summary": "",
+            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html"
+        },                {
+            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "Execute\u0020the\u0020console\u0020command.",
+            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand\u003A\u003A\u0024signature",
+            "name": "signature",
+            "summary": "The\u0020name\u0020and\u0020signature\u0020of\u0020the\u0020console\u0020command.",
+            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html#property_signature"
+        },                {
+            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand\u003A\u003A\u0024description",
+            "name": "description",
+            "summary": "The\u0020console\u0020command\u0020description.",
+            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html#property_description"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob",
+            "name": "VerifyDomainsJob",
+            "summary": "",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003AretryUntil\u0028\u0029",
+            "name": "retryUntil",
+            "summary": "Determine\u0020the\u0020time\u0020at\u0020which\u0020the\u0020job\u0020should\u0020timeout.",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html#method_retryUntil"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020job\u0020instance.",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "Execute\u0020the\u0020job.",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003AfailedDomainVerification\u0028\u0029",
+            "name": "failedDomainVerification",
+            "summary": "",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html#method_failedDomainVerification"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003A\u0024maxExceptions",
+            "name": "maxExceptions",
+            "summary": "The\u0020maximum\u0020number\u0020of\u0020unhandled\u0020exceptions\u0020to\u0020allow\u0020before\u0020failing.",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html#property_maxExceptions"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003A\u0024domain",
+            "name": "domain",
+            "summary": "The\u0020account\u0020instance.",
+            "url": "classes/App-Jobs-VerifyDomainsJob.html#property_domain"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -2075,6 +2135,11 @@ Search.appendIndex(
             "name": "Classes",
             "summary": "",
             "url": "namespaces/app-classes.html"
+        },                {
+            "fqsen": "\\App\\Console\\Commands",
+            "name": "Commands",
+            "summary": "",
+            "url": "namespaces/app-console-commands.html"
         },                {
             "fqsen": "\\App\\Console",
             "name": "Console",

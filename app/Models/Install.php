@@ -146,7 +146,7 @@ class Install extends Model
     /**
      * Get Primary Domain.
      *
-     * @return  App\Models\Domain
+     * @return  \App\Models\Domain
      */
     public function primaryDomain(): Domain
     {

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
@@ -33,6 +34,9 @@ class InstallControllerTest extends TestCase
         $install = Install::factory()
         ->for($site)
         ->create();
+        $contact = Contact::factory()->create([
+            'install_id' => $install->id,
+        ]);
         $this->get(route('installs.show', ['account' => $this->account, 'site' => $site, 'install' => $install]))
             ->assertOk()
             ->assertViewIs('installs.show');

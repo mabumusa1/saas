@@ -31,7 +31,7 @@ class Domain extends Model
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string,string>
      */
     protected $casts = [
         'primary' => 'boolean',
@@ -59,7 +59,7 @@ class Domain extends Model
     {
         return LogOptions::defaults()
                     ->useLogName('account')
-                    ->setDescriptionForEvent(fn (string $eventName) =>  __(':email :Action as technical contact for :install', ['email' => $this->email, 'action' => $eventName, 'install' => $this->install->name]));
+                    ->setDescriptionForEvent(fn (string $eventName) =>  __(':domain :action to :install', ['domain' => $this->name, 'action' => $eventName, 'install' => $this->install->name]));
     }
 
     /**
@@ -70,6 +70,7 @@ class Domain extends Model
     public function isBuiltIn(): Attribute
     {
         return new Attribute(
+            /* @phpstan-ignore-next-line */
             get: fn () => ($this->name === $this->install->cname),
         );
     }
