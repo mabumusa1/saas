@@ -3,13 +3,42 @@
 namespace App\Models;
 
 use App\Models\Install;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Domain extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        'install_id',
+        'name',
+        'primary',
+        'verified',
+        'verified_at',
+        'attempts',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'primary' => 'boolean',
+        'verified' => 'boolean',
+        'verified_at' => 'timestamp',
+        'attempts' => 'integer',
+    ];
 
     /**
      * Get the install that owns the Domain.
@@ -18,7 +47,7 @@ class Domain extends Model
      */
     public function install(): BelongsTo
     {
-        return $this->belongsTo(self::class);
+        return $this->belongsTo(Install::class);
     }
 
     /**
@@ -31,5 +60,17 @@ class Domain extends Model
         return LogOptions::defaults()
                     ->useLogName('account')
                     ->setDescriptionForEvent(fn (string $eventName) =>  __(':email :Action as technical contact for :install', ['email' => $this->email, 'action' => $eventName, 'install' => $this->install->name]));
+    }
+
+    /**
+     * Check if this domain is the built-in domain.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function isBuiltIn(): Attribute
+    {
+        return new Attribute(
+            get: fn () => ($this->name === $this->install->cname),
+        );
     }
 }

@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    @include('installs.models', ['install_id' => $install->id])
+    @stack('modals')
     @push('scripts')
         <style>
             .btn-action {

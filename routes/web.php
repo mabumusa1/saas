@@ -25,7 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('site_search', App\Http\Controllers\SearchController::class)->name('site.search');
 
-    Route::prefix('{account}')->middleware('can:viewAny,account')->group(function () {
+    Route::prefix('account/{account}')->middleware('can:viewAny,account')->group(function () {
         /*
          * Account dashboard, accessed by all the users on that account
          */
@@ -96,7 +96,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
                 'create', 'store', 'show',
             ]);
             Route::resource('{install}/domains', App\Http\Controllers\DomainController::class)->only([
-                'index', 'create', 'store', 'show',
+                'index', 'store', 'show', 'destroy',
             ]);
         });
         /*

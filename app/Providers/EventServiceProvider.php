@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Events\AccountUpdatedEvent;
 use App\Events\ActivityLoggerEvent;
 use App\Events\UserInvitedEvent;
+use App\Models\Domain;
+use App\Observers\DomainObserver;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
@@ -60,5 +62,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Domain::observe(DomainObserver::class);
     }
 }
