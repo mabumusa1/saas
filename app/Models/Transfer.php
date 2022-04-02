@@ -51,7 +51,7 @@ class Transfer extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('account')
+        ->useLogName('transfer')
         ->setDescriptionForEvent(fn (string $eventName) =>  __('Transfer :Action', ['action' => $eventName]));
     }
 }

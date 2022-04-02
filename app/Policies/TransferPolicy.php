@@ -31,6 +31,13 @@ class TransferPolicy
         return $user->belongToRoles($this->account, $allowedRoles);
     }
 
+    public function show(User $user, Transfer $transfer)
+    {
+        $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
+
+        return $user->belongToRoles($this->account, $allowedRoles);
+    }
+
     /**
      * Determine whether the user can delete the model.
      *

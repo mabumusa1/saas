@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('data_center_id')->references('id')->on('data_centers');
+            $table->integer('quota')->default(0);
         });
     }
 

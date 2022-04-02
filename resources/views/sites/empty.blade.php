@@ -51,7 +51,7 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('transfer.accept', [$currentAccount->id]) }}" method="POST">
+                <form action="{{ route('transfer.check', [$currentAccount->id]) }}" method="POST">
                     @csrf
                     <div class="modal-body">
 

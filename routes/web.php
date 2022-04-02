@@ -107,7 +107,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         */
         Route::prefix('transfer')->group(function () {
             Route::post('start', [App\Http\Controllers\TransferController::class, 'start'])->name('transfer.start');
-            Route::post('accept', [App\Http\Controllers\TransferController::class, 'accept'])->name('transfer.accept');
+            Route::post('check', [App\Http\Controllers\TransferController::class, 'check'])->name('transfer.check');
+            Route::get('{transfer}', [App\Http\Controllers\TransferController::class, 'show'])->name('transfer.show');
+            Route::post('{transfer}/accept', [App\Http\Controllers\TransferController::class, 'accept'])->name('transfer.accept');
+            Route::post('create', [App\Http\Controllers\TransferController::class, 'store'])->name('transfer.store');
         });
     });
 });
