@@ -16,7 +16,7 @@
             <span>{{ __('It is easy to lose track of all the required and optimal task for a site launcher. Use our checklist for keeping track. Find it any time in your site details links on the left.') }}</span>
             <!--end::Content-->
             <div class="flex-lg-row-auto ms-4">
-                <a href="#" class="btn btn-primary">{{ __('See the checklist') }}</a>
+               <a href="#" class="btn btn-primary">{{ __('See the checklist') }}</a>
             </div>
         </div>
     </div>
