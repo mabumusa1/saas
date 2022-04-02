@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Transfer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AcceptTransferRequest extends FormRequest
@@ -31,7 +32,8 @@ class AcceptTransferRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'site.name.required_if' => 'Site name is required',
         ];

@@ -58,8 +58,10 @@ class TransferControllerTest extends TestCase
             'install_id' => $this->install->id,
             'code' => $code,
         ]);
-        $response = $this->post(route('transfer.accept', [$this->account->id]), [
-            'code' => $code,
+        $response = $this->post(route('transfer.accept', [$this->account->id, $code]), [
+            'transfer_way' => 'new',
+            'site[name]' => 'new site',
+            'site[owner]' => 'transferable',
         ]);
         $response->assertRedirect();
     }
@@ -72,8 +74,10 @@ class TransferControllerTest extends TestCase
             'install_id' => $this->install->id,
             'code' => 'somecode',
         ]);
-        $response = $this->post(route('transfer.accept', [$this->account->id]), [
-            'code' => $code,
+        $response = $this->post(route('transfer.accept', [$this->account->id, $code]), [
+            'transfer_way' => 'new',
+            'site[name]' => 'new site',
+            'site[owner]' => 'transferable',
         ]);
         $response->assertRedirect();
     }

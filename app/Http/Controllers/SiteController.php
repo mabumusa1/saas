@@ -97,7 +97,7 @@ class SiteController extends Controller
             'name' => $validated['installname'],
             'type' => $validated['type'],
             'owner' => $validated['owner'] ?? null,
-            'locked' => $validated['owner'] === 'transferable',
+            'locked' => ($validated['owner'] ?? null) === 'transferable',
         ]);
 
         CreateInstallEvent::dispatch($install, $validated['start'] ?? null);

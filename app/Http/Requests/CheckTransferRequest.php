@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Transfer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CheckTransferRequest extends FormRequest
