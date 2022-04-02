@@ -42,7 +42,7 @@
                 {!! get_svg_icon('skin/media/icons/duotone/General/Trash.svg', 'svg-icon-2x') !!}
             </a>            
         </div>        
-    </div>
+    </div>    
     <div class="card-body">
         <!--begin::Alert-->
         <div class="alert alert-dismissible bg-warning d-flex flex-column flex-sm-row p-5 mb-10">
@@ -61,6 +61,33 @@
             <!--end::Wrapper-->
         </div>
         <!--end::Alert-->
+
+        @if ($install->owner === 'transferable')
+            <div class="card card-bordered border-primary mb-5">
+                <div class="card-header bg-gray-200">
+                    <h3 class="card-title">{{ __('Transferable install') }}</h3>
+                    <div class="card-toolbar">
+                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                            data-bs-target="#transfer_site_modal">
+                            {{ __('Transfer Install') }}
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item border-0">Demo link:</li>
+                        <li class="list-group-item border-0">User: demo</li>
+                        <li class="list-group-item border-0 d-flex">Password: {!! get_svg_icon('skin/media/icons/duotone/General/Edit.svg', 'ms-2') !!}</li>
+                    </ul>
+                    <hr/>
+                    <p>
+                        {{ __('Traffic to this install is restricted and password-protected. To unlock, transfer the
+                        install to another account or convert to a billable site. Learn more about
+                        transferable sites') }}
+                    </p>
+                </div>
+            </div>
+        @endif        
 
         <div class="card card-bordered border-gray-500">
             <div class="card-header bg-gray-200">
