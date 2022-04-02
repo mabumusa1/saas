@@ -341,6 +341,11 @@ Search.appendIndex(
             "summary": "Store\u0020a\u0020new\u0020install.",
             "url": "classes/App-Http-Controllers-InstallController.html#method_store"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_copy"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Ashow\u0028\u0029",
             "name": "show",
             "summary": "Show\u0020Install\u0020dashboard.",
@@ -1656,6 +1661,36 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020view\u0020\/\u0020contents\u0020that\u0020represents\u0020the\u0020component.",
             "url": "classes/App-View-Components-BaseLayout.html#method_render"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController",
+            "name": "DomainController",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-DomainController.html"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Aindex\u0028\u0029",
+            "name": "index",
+            "summary": "Show\u0020domains\u0020dashboard.",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_index"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Astore\u0028\u0029",
+            "name": "store",
+            "summary": "Store\u0020a\u0020domain.",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_store"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Adestroy\u0028\u0029",
+            "name": "destroy",
+            "summary": "delete\u0020a\u0020domain.",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_destroy"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003Aredirect\u0028\u0029",
+            "name": "redirect",
+            "summary": "set\u0020redirect\u0020for\u0020a\u0020domain.",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_redirect"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\DomainController\u003A\u003AsetPrimary\u0028\u0029",
+            "name": "setPrimary",
+            "summary": "Set\u0020domain\u0020as\u0020primary.",
+            "url": "classes/App-Http-Controllers-DomainController.html#method_setPrimary"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController",
             "name": "TransferController",
             "summary": "",
@@ -2080,6 +2115,36 @@ Search.appendIndex(
             "name": "domain",
             "summary": "The\u0020account\u0020instance.",
             "url": "classes/App-Jobs-VerifyDomainsJob.html#property_domain"
+        },                {
+            "fqsen": "\\App\\Events\\InstallCopyEvent",
+            "name": "InstallCopyEvent",
+            "summary": "",
+            "url": "classes/App-Events-InstallCopyEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\InstallCopyEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-InstallCopyEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\InstallCopyEvent\u003A\u003AbroadcastOn\u0028\u0029",
+            "name": "broadcastOn",
+            "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
+            "url": "classes/App-Events-InstallCopyEvent.html#method_broadcastOn"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\CopyInstallRequest",
+            "name": "CopyInstallRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-CopyInstallRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\CopyInstallRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-CopyInstallRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\CopyInstallRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-CopyInstallRequest.html#method_rules"
         },                {
             "fqsen": "\\",
             "name": "\\",

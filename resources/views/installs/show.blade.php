@@ -96,3 +96,7 @@
 
 </div>
 @endsection
+
+@push('modals')
+    @include('installs.partials.modals', ['install_id' => $install->id, 'installs' => $installs])    
+@endpush
