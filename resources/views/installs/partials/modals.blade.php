@@ -14,35 +14,34 @@
                 </div>
                 <!--end::Close-->
             </div>
-            <form action="{{ route('transfer.start', [$currentAccount->id, $install->id]) }}" method="POST">
+            <form action="{{ route('transfer.start', [$currentAccount->id]) }}" method="POST">
                 @csrf
                 <input type="hidden" name="install_id" value="{{ $install_id }}">
                 <div class="modal-body">
                     <div class="form-group mb-10">
-                        <label for="email">Email</label>
+                        <label for="email">{{ __('Email') }}</label>
                         <input name="email" id="email" type="email" class="form-control" />
                     </div>
                     <div class="form-group mb-10">
-                        <label for="note">Note</label>
+                        <label for="note">{{ __('Note') }}</label>
                         <textarea name="note" id="note" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                 </div>
-
-
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Transfer</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="submit" class="btn btn-primary">__('Transfer')</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Site::CopyModal -->
 <div class="modal fade" tabindex="-1" id="copy_install_modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Copy Install</h5>
+                <h5 class="modal-title">{{ __('Copy Install') }}</h5>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
@@ -53,7 +52,8 @@
                 </div>
                 <!--end::Close-->
             </div>
-            <form action="{{ route('installs.copy', [$currentAccount->id, $install->id]) }}" method="POST">
+            <form action="{{ route('installs.copy', [$currentAccount->id, $install->id]) }}">
+                @method('PUT')
                 @csrf
                 <div class="modal-body">
                     <div class="alert alert-warning">All data and files in the destination install will be erased</div>

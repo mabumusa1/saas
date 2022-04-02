@@ -97,7 +97,7 @@
                         <a href="https://{{ $install->name }}.steercampagin.com" class="me-4">{{ __('Mautic Login') }}<span
                                 class="svg-icon svg-icon-5 me-0 svg-icon-md-1">{!! get_svg_icon('skin/media/icons/duotune/arrows/arr095.svg') !!}</span></a>
                     </div>
-                    <button class="btn border border-2 border-primary text-primary">{{ __('Copy install') }}</button>
+                    <button @if($site->installs()->count() < 2) disabled @else data-bs-toggle="modal" data-bs-target="#copy_install_modal" @endif class="btn border border-2 border-primary text-primary">{{ __('Copy install') }}</button>
                 </div>
             </div>
             <!--end::Container-->
