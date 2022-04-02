@@ -1,4 +1,7 @@
 <x-base-layout>
+    @if ($errors->any())
+        @dd($errors)
+    @endif
     <div class="container mb-8">
         <div class="card">
             <div class="card-body">
@@ -74,9 +77,10 @@
                                         <tr
                                             class="env {{ request()->has('env') ? (request()->get('env') == 1 ? '' : 'd-none') : '' }}">
                                             <td class="table-light">
-                                                <a href="{{ route('installs.show', ['account' => $currentAccount->id, 'site' => $site->id, 'install' => $install->id]) }}">
-                                                <i class="bi bi-arrow-90deg-right"></i>
-                                            </a>
+                                                <a
+                                                    href="{{ route('installs.show', ['account' => $currentAccount->id, 'site' => $site->id, 'install' => $install->id]) }}">
+                                                    <i class="bi bi-arrow-90deg-right"></i>
+                                                </a>
                                                 @switch($install->type)
                                                     @case('prd')
                                                         <span class="badge badge-success">{{ __('PRD') }}</span>
@@ -90,7 +94,8 @@
                                                         <span class="badge badge-light-dark">{{ __('DEV') }}</span>
                                                     @break
                                                 @endswitch
-                                                <a href="{{ route('installs.show', [$currentAccount->id, $site->id, $install->id]) }}" class="d-inline">{{ $install->name }}</p>
+                                                <a href="{{ route('installs.show', [$currentAccount->id, $site->id, $install->id]) }}"
+                                                    class="d-inline">{{ $install->name }}</p>
                                             </td>
                                             <td class="table-light"></td>
 
@@ -146,7 +151,7 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('transfer.accept', [$currentAccount->id]) }}" method="POST">
+                <form action="{{ route('transfer.check', [$currentAccount->id]) }}" method="POST">
                     @csrf
                     <div class="modal-body">
 
@@ -156,7 +161,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">{{ __('Close') }}</button>
                         <button type="submit" class="btn btn-primary">{{ __('Accept') }}</button>
                     </div>
                 </form>

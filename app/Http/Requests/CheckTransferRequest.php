@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AcceptTransferRequest extends FormRequest
+class CheckTransferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,7 @@ class AcceptTransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'transfer_way' => 'required|in:existing,new',
-            'site.name' => 'required_if:transfer_way,new',
-            'site.owner' => 'required_if:transfer_way,new',
-            'site_id' => 'required_if:transfer_way,existing|exists:sites,id',
-        ];
-    }
-
-    public function messages(){
-        return [
-            'site.name.required_if' => 'Site name is required',
+            'code' => 'required|string|min:16|max:16',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AcceptTransferRequest;
+use App\Http\Requests\CheckTransferRequest;
 use App\Http\Requests\StartTransferRequest;
 use App\Models\Account;
 use App\Models\Install;
@@ -37,6 +38,36 @@ class TransferController extends Controller
         return redirect()->back()->with('success', __('Transfer Request Sent'));
     }
 
+    public function check(Account $account, CheckTransferRequest $request)
+    {
+        $this->authorize('accept', Transfer::class);
+        try {
+            $transfer = Transfer::where('code', $request->input('code'))->where(function ($q) use ($account) {
+                return $q->where('email', $account->email)->orWhereNull('email');
+            })->firstOrFail();
+
+            return redirect()->route('transfer.show', [$account, $transfer->code]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', __('Transfer Cannot Be Found'));
+        }
+    }
+
+    public function show(Account $account, $transfer)
+    {
+        $transfer = Transfer::where('code', $transfer)->where(function ($q) use ($account) {
+            return $q->where('email', $account->email)->orWhereNull('email');
+        })->firstOrFail();
+
+        $this->authorize('show', $transfer);
+        $sites = $account->sites()->whereHas('installs', function ($q) use ($transfer) {
+            return $q->where('type', '!=', $transfer->install->type);
+        })->get();
+        $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
+        $totalActiveSubscriptions = $account->subscriptions()->active()->sum('quantity');
+
+        return view('transfers.show', compact('account', 'transfer', 'sites', 'subscriptions', 'totalActiveSubscriptions'));
+    }
+
     /**
      * Accept Transfer.
      *
@@ -46,16 +77,25 @@ class TransferController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function accept(Account $account, AcceptTransferRequest $request)
+    public function accept(Account $account, $transfer, AcceptTransferRequest $request)
     {
-        $this->authorize('accept', Transfer::class);
-        try {
-            $transfer = Transfer::where('email', $account->email)->where('code', $request->input('code'))->firstOrFail();
-            // TODO: Add code to move the install from one account to another
-            return view('transfers.accept', ['transfer' => $transfer]);
-            // return redirect()->back()->with('success', __('Transfer Accepted'));
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->back()->with('error', __('Transfer Cannot Be Found'));
+
+        // dd($request->all());
+        $transfer = Transfer::where('code', $transfer)->where(function ($q) use ($account) {
+            return $q->where('email', $account->email)->orWhereNull('email');
+        })->firstOrFail();
+        if ($request->input('transfer_way') == 'existing') {
+            $site = $account->sites()->findOrFail($request->input('site_id'));
+        } else {
+            $site = $account->sites()->create($request->input('site'));
         }
+        $install = Install::find($transfer->install_id);
+        $install->update([
+            'site_id' => $site->id,
+        ]);
+
+        $transfer->delete();
+
+        return redirect()->route('installs.show', ['account' => $account, 'site' => $install->site, 'install' => $install])->with('success', __('Transfer Accepted'));
     }
 }
