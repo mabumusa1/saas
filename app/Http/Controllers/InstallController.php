@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\CreateInstallEvent;
+use App\Events\InstallCopyEvent;
+use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
 use App\Models\Domain;
@@ -76,6 +78,13 @@ class InstallController extends Controller
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('New installation is created'));
     }
 
+    public function copy(Account $account, Site $site, Install $install, CopyInstallRequest $request)
+    {
+        InstallCopyEvent::dispatch($install);
+
+        return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Copy Request Sent'));
+    }
+
     /**
      * Show Install dashboard.
      *
@@ -87,6 +96,8 @@ class InstallController extends Controller
      */
     public function show(Account $account, Site $site, Install $install)
     {
-        return view('installs.show', ['account' => $account, 'site' => $site, 'install' => $install]);
+        $installs = $site->installs()->where('id', '!=', $install->id)->get();
+
+        return view('installs.show', ['account' => $account, 'site' => $site, 'install' => $install, 'installs' => $installs]);
     }
 }
