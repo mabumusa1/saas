@@ -61,12 +61,22 @@ class Install extends Model
      */
     protected $fillable = [
         'site_id',
-        'account_id',
         'name',
         'type',
+        'locked',
         'status',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'locked' => 'boolean',
+    ];   
+
+    
     /**
      * Get the contact associated with the Install.
      *

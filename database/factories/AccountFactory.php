@@ -53,7 +53,7 @@ class AccountFactory extends Factory
                     } elseif ($subscription['stripe_id'] == 'sub_1KbfwQJJANQIX4AvatnKerTc') {
                         DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ? ,?)', [$m->id, 'si_LIGTYjTvt0jSF8', 'prod_LF6rlbuqYaz6k1', 'price_1KYcdZJJANQIX4AvM2ySzZzb', 1]);
                     }
-                    Site::factory()->state(['account_id'=>$account->id, 'subscription_id' => $m->id])->create();
+                    Site::factory()->state(['account_id'=>$account->id, 'subscription_id' => $m->id, 'transferable' => false])->create();
                 }
             }
         });

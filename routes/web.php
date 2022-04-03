@@ -100,7 +100,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             ]);
             Route::post('{install}/domain/redirect', [App\Http\Controllers\DomainController::class, 'redirect'])->name('domains.redirect');
             Route::post('{install}/domain/{domain}/setPrimary', [App\Http\Controllers\DomainController::class, 'setPrimary'])->name('domains.setPrimary');
-            Route::put('copy', [App\Http\Controllers\InstallController::class, 'copy'])->name('installs.copy');
+            Route::put('{install}/copy', [App\Http\Controllers\InstallController::class, 'copy'])->name('installs.copy');
         });
         /*
         * Accept Transfer

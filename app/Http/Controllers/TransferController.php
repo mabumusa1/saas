@@ -52,6 +52,7 @@ class TransferController extends Controller
         }
     }
 
+    
     public function show(Account $account, $transfer)
     {
         $transfer = Transfer::where('code', $transfer)->where(function ($q) use ($account) {
@@ -80,7 +81,6 @@ class TransferController extends Controller
     public function accept(Account $account, $transfer, AcceptTransferRequest $request)
     {
 
-        // dd($request->all());
         $transfer = Transfer::where('code', $transfer)->where(function ($q) use ($account) {
             return $q->where('email', $account->email)->orWhereNull('email');
         })->firstOrFail();

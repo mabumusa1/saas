@@ -1701,6 +1701,16 @@ Search.appendIndex(
             "summary": "Store\u0020a\u0020newly\u0020created\u0020resource\u0020in\u0020storage.",
             "url": "classes/App-Http-Controllers-TransferController.html#method_start"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Acheck\u0028\u0029",
+            "name": "check",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-TransferController.html#method_check"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Ashow\u0028\u0029",
+            "name": "show",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-TransferController.html#method_show"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Aaccept\u0028\u0029",
             "name": "accept",
             "summary": "Accept\u0020Transfer.",
@@ -1720,6 +1730,11 @@ Search.appendIndex(
             "name": "rules",
             "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
             "url": "classes/App-Http-Requests-AcceptTransferRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\AcceptTransferRequest\u003A\u003Amessages\u0028\u0029",
+            "name": "messages",
+            "summary": "",
+            "url": "classes/App-Http-Requests-AcceptTransferRequest.html#method_messages"
         },                {
             "fqsen": "\\App\\Http\\Requests\\StartTransferRequest",
             "name": "StartTransferRequest",
@@ -1915,6 +1930,11 @@ Search.appendIndex(
             "name": "start",
             "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020transfer\u0020installs.",
             "url": "classes/App-Policies-TransferPolicy.html#method_start"
+        },                {
+            "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003Ashow\u0028\u0029",
+            "name": "show",
+            "summary": "",
+            "url": "classes/App-Policies-TransferPolicy.html#method_show"
         },                {
             "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003Aaccept\u0028\u0029",
             "name": "accept",
@@ -2145,6 +2165,21 @@ Search.appendIndex(
             "name": "rules",
             "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
             "url": "classes/App-Http-Requests-CopyInstallRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\CheckTransferRequest",
+            "name": "CheckTransferRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-CheckTransferRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\CheckTransferRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-CheckTransferRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\CheckTransferRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-CheckTransferRequest.html#method_rules"
         },                {
             "fqsen": "\\",
             "name": "\\",
