@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\AccountUpdatedEvent;
 use App\Models\Cashier\Subscription;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -76,7 +77,7 @@ class Account extends Model
     protected $fillable = [
         'name',
         'email',
-        'quota'
+        'quota',
     ];
 
     /**
@@ -171,6 +172,16 @@ class Account extends Model
     }
 
     /**
+     * The Transfers that belong to the Account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transfers(): HasMany
+    {
+        return $this->hasMany(Transfer::class);
+    }
+
+    /**
      * Get the customer name that should be synced to Stripe.
      *
      * @return string|null
@@ -200,5 +211,66 @@ class Account extends Model
         return LogOptions::defaults()
             ->useLogName('account')
             ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name :Action', ['name' => $this->name, 'action' => $eventName]));
+    }
+
+    /**
+     * Get avaialbeQouta for transferable sites.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function availableQuota(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                if ($this->quota === 0) {
+                    return $this->quota;
+                } else {
+                    return $this->quota - $this->installs()->where('owner', 'transferable')->count();
+                }
+            }
+        );
+    }
+
+    /**
+     * Get avaialbeQouta for transferable sites.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function activeSubscriptions(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                return $this->subscriptions()->active()->available()->withCount('sites')->get();
+            }
+        );
+    }
+
+    /**
+     * Get totalActiveSubscriptions for transferable sites.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function totalActiveSubscriptions(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                return $this->subscriptions()->active()->sum('quantity');
+            }
+        );
+    }
+
+    /**
+     * Get availableSubscriptions for transferable sites.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function availableSubscriptions(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                /* @phpstan-ignore-next-line */
+                return $this->activeSubscriptions->sum('quantity') - $this->activeSubscriptions->sum('sites_count');
+            }
+        );
     }
 }

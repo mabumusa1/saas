@@ -40,7 +40,7 @@ class StoreInstallRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if($this->has('type')){
+            if ($this->has('type')) {
                 if ($this->site->hasInstallType($this->input('type'))) {
                     $validator->errors()->add('type', __('This install type already exists.'));
                 }

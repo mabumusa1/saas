@@ -63,6 +63,7 @@ class Install extends Model
         'site_id',
         'name',
         'type',
+        'owner',
         'locked',
         'status',
     ];
@@ -74,9 +75,8 @@ class Install extends Model
      */
     protected $casts = [
         'locked' => 'boolean',
-    ];   
+    ];
 
-    
     /**
      * Get the contact associated with the Install.
      *

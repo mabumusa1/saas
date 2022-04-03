@@ -6,6 +6,7 @@ use App\Events\CreateInstallEvent;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
 use Illuminate\Http\Request;
@@ -55,10 +56,8 @@ class SiteController extends Controller
     public function create(Account $account)
     {
         $installs = $account->installs()->get();
-        $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
-        $totalActiveSubscriptions = $account->subscriptions()->active()->sum('quantity');
-
-        return view('sites.create', ['installs' => $installs, 'subscriptions' => $subscriptions, 'totalActiveSubscriptions' => $totalActiveSubscriptions]);
+        /* @phpstan-ignore-next-line */
+        return view('sites.create', ['installs' => $installs, 'subscriptions' => $account->subscriptions, 'totalActiveSubscriptions' => $account->totalActiveSubscriptions]);
     }
 
     /**
@@ -96,8 +95,15 @@ class SiteController extends Controller
             'site_id' => $site->id,
             'name' => $validated['installname'],
             'type' => $validated['type'],
-            'owner' => $validated['owner'] ?? null,
-            'locked' => ($validated['owner'] ?? null) === 'transferable',
+            'owner' => $validated['owner'],
+            'locked' => ($validated['owner'] === 'transferable') ? true : false,
+        ]);
+
+        $contact = Contact::create([
+            'install_id' => $install->id,
+            'first_name' => $request->user()->first_name,
+            'last_name' => $request->user()->last_name,
+            'email' => $request->user()->email,
         ]);
 
         CreateInstallEvent::dispatch($install, $validated['start'] ?? null);

@@ -47,6 +47,7 @@ class Contact extends Model
      * @var array<string>
      */
     protected $fillable = [
+        'install_id',
         'first_name',
         'last_name',
         'email',
