@@ -78,9 +78,24 @@ class InstallController extends Controller
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('New installation is created'));
     }
 
+
+    /**
+     * Copy an installation
+     *
+     * @param Account $account
+     *
+     * @param Site $site
+     *
+     * @param CopyInstallRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse | \Illuminate\Http\RedirectResponse
+     */    
     public function copy(Account $account, Site $site, Install $install, CopyInstallRequest $request)
     {
+
         InstallCopyEvent::dispatch($install);
+
+        //TODO: Add code to notify the email in the request
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Copy Request Sent'));
     }

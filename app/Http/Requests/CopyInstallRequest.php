@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CopyInstallRequest extends FormRequest
 {
@@ -13,7 +14,8 @@ class CopyInstallRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        //TODO: define the correct paramters
+        return true;
     }
 
     /**
@@ -24,8 +26,9 @@ class CopyInstallRequest extends FormRequest
     public function rules()
     {
         return [
-            'destination' => 'required|exists:installs,id',
-            'email' => 'required|string|email',
+            'destination' => ['required',
+            Rule::exists('installs', 'id')->whereIn('id', $this->account->installs->pluck('id'))],
+            'email' => 'sometimes|email',
         ];
     }
 }

@@ -24,16 +24,6 @@ class Transfer extends Model
     ];
 
     /**
-     * Get the account that owns the Transfer.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function account(): BelongsTo
-    {
-        return $this->belongsTo(Account::class);
-    }
-
-    /**
      * Get the install that uses this trnasfer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

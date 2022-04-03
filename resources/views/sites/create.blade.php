@@ -38,7 +38,7 @@
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="owner" class="form-check-input" type="radio"
                                                 value="transferable" id="radioTransferable"
-                                                @if ($subscriptions->count() === 0) checked @endif>
+                                                @if ($currentAccount->quota === 0) checked @endif>
                                             <label class="form-check-label" for="radioTransferable">
                                                 {{ __('This site is transferable; it will be moved to someone elses account.') }}
                                                 <br />

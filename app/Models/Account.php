@@ -76,6 +76,7 @@ class Account extends Model
     protected $fillable = [
         'name',
         'email',
+        'quota'
     ];
 
     /**
@@ -120,17 +121,7 @@ class Account extends Model
     }
 
     /**
-     * The Transfers that belong to the Account.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function transfers(): HasMany
-    {
-        return $this->hasMany(Transfer::class);
-    }
-
-    /**
-     * The Sites that belong to the Account.
+     * The invites that belong to the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
      */

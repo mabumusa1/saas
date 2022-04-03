@@ -59,7 +59,18 @@ class Site extends Model
         'name',
         'subscription_id',
         'account_id',
+        'transferable'
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'transferable' => 'boolean',
+    ];
+
 
     /**
      * Get the Account that owns the Site.
