@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\AccountUser;
 use App\Models\Cashier\Subscription;
 use App\Models\Install;
+use App\Models\Plan;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,6 +27,7 @@ class SiteControllerTest extends TestCase
         parent::setUpAccount();
         $this->subscription = Subscription::factory()->create([
             'account_id' => $this->account->id,
+            'name' => 's1',
         ]);
     }
 
@@ -65,10 +67,9 @@ class SiteControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_create_displays_view()
+    public function test_create_displays_view_with_subscriptions()
     {
         $response = $this->get(route('sites.create', $this->account));
-
         $response->assertOk();
         $response->assertViewIs('sites.create');
         $response->assertViewHas('installs');
@@ -77,52 +78,87 @@ class SiteControllerTest extends TestCase
     /**
      * @test
      */
-    public function test_site_store()
+    public function test_create_displays_view_with_quota()
+    {
+        $this->account->quota = 5;
+        $this->account->save();
+        $response = $this->get(route('sites.create', $this->account));
+        $response->assertOk();
+        $response->assertViewIs('sites.create');
+        $response->assertViewHas('installs');
+    }
+
+    /**
+     * @test
+     */
+    public function test_site_store_blank()
     {
         Event::fake();
         $subscription = Subscription::factory()->create([
             'account_id' => $this->account->id,
-            'quantity' => 10,
+            'quantity' => 1,
         ]);
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
-            'installname' => 123,
-            'subscription_id' => $subscription->id,
+            'installname' => 'test',
             'type' => 'stg',
+            'owner' => 'mine',
+            'subscription_id' => $subscription->id,
+            'start' => 'blank',
         ]);
-
-        Event::assertDispatched(CreateInstallEvent::class);
 
         $response->assertRedirect(route('sites.index', $this->account));
         $response->assertSessionHas('status', __('Site is under creation, we will send you an update once it is done!'));
+
+        Event::assertDispatched(CreateInstallEvent::class);
     }
 
-    public function test_site_store_fails_when_subscription_has_no_active_sites()
+    /**
+     * @test
+     */
+    public function test_site_wihtout_qouta_or_subscriptions_store()
     {
         Event::fake();
-        // $this->createSite();
-
-        // dd($subscription->sites());
+        $this->subscription->delete();
+        $this->account->quota = 0;
+        $this->account->save();
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 123,
-            'subscription_id' => $this->subscription->id,
             'type' => 'stg',
+            'owner' => 'transferable',
         ]);
 
-        $response->assertRedirect(route('sites.index', $this->account));
-        $response->assertSessionHas('status', __('Subscription not found, site was not created'));
+        Event::assertNotDispatched(CreateInstallEvent::class);
+        $response->assertForbidden();
+    }
+
+    public function test_site_store_fails_when_wrong_subscription()
+    {
+        Event::fake();
+
+        $response = $this->post(route('sites.store', $this->account), [
+            'sitename' => 'test name',
+            'installname' => 'test',
+            'type' => 'stg',
+            'owner' => 'mine',
+            'subscription_id' => 22,
+            'start' => 'blank',
+        ]);
+
+        $response->assertForbidden();
     }
 
     public function test_show_returns_json_with_validation()
     {
-        $this->createSite();
+        $this->account->quota = 1;
+        $this->account->save();
 
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
-            'installname' => 123,
+            'installname' => 'test',
             'type' => 'stg',
             'isValidation' => true,
         ]);

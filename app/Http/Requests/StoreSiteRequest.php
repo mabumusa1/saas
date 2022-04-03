@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class StoreSiteRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreSiteRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->account->availableQuota > 0 || $this->account->availableSubscriptions > 0;
     }
 
     /**
@@ -35,9 +36,13 @@ class StoreSiteRequest extends FormRequest
             }],
             'type' => 'required_if:isValidation,null|in:dev,stg,prd',
             'owner' => 'required_if:isValidation,null|in:mine,transferable',
-            'subscription_id' => 'sometimes|required_if:type,mine|exists:subscriptions,id',
+            'subscription_id' => ['sometimes', 'required_if:type,mine',
+                Rule::exists('subscriptions', 'id')->whereIn('id', $this->account->subscriptions->pluck('id')),
+            ],
             'start' => 'required_if:isValidation,null|in:blank,copyEnv,moveEnv',
-            'install_id' => 'sometimes|exists:installs,id',
+            'install_id' => ['sometimes',
+                Rule::exists('installs', 'id')->whereIn('id', $this->account->installs->pluck('id')),
+            ],
             'isValidation' => 'sometimes|boolean',
         ];
     }

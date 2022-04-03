@@ -14,9 +14,6 @@ class SitePolicy
     public function __construct()
     {
         $this->account = request()->route('account');
-        if (is_null($this->account)) {
-            $this->account = $user->accounts()->first();
-        }
     }
 
     /**
@@ -29,6 +26,9 @@ class SitePolicy
     public function viewAny(User $user)
     {
         $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
+        if (is_null($this->account)) {
+            $this->account = $user->accounts()->first();
+        }
 
         return $user->belongToRoles($this->account, $allowedRoles);
     }
@@ -43,6 +43,7 @@ class SitePolicy
     public function create(User $user)
     {
         $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
+
         return $user->belongToRoles($this->account, $allowedRoles);
     }
 

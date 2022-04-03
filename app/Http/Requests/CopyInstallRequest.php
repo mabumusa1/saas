@@ -27,7 +27,7 @@ class CopyInstallRequest extends FormRequest
     {
         return [
             'destination' => ['required',
-            Rule::exists('installs', 'id')->whereIn('id', $this->account->installs->pluck('id'))],
+            Rule::exists('installs', 'id')->whereIn('id', $this->account->installs->pluck('id')), ],
             'email' => 'sometimes|email',
         ];
     }

@@ -2,17 +2,17 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Events\InstallCopyEvent;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\Event;
-use App\Events\InstallCopyEvent;
+use Tests\TestCase;
 
 class InstallControllerTest extends TestCase
 {
@@ -77,8 +77,7 @@ class InstallControllerTest extends TestCase
             ->assertOk()
             ->assertViewIs('installs.create')
             ->assertViewHas('selectedEnv', 'dev');
-
-    }    
+    }
 
     public function test_create_displays_view()
     {
@@ -138,11 +137,10 @@ class InstallControllerTest extends TestCase
         ]);
         $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
             'name' => 'test',
-            'type' => 'dev'
+            'type' => 'dev',
         ]);
         $response->assertSessionHasErrors(['type']);
     }
-
 
     public function test_store_success()
     {
@@ -179,15 +177,13 @@ class InstallControllerTest extends TestCase
         ]);
 
         $response = $this->put(route('installs.copy', ['account' => $this->account, 'site' => $site, 'install' => $install]), [
-            'destination' => $dest->id
-            
+            'destination' => $dest->id,
+
         ]);
-        
-        
+
         Event::assertDispatched(InstallCopyEvent::class);
 
         $response->assertRedirect();
         $response->assertSessionHas('success');
-
-    }    
+    }
 }

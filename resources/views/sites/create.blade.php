@@ -15,6 +15,7 @@
                                 <!--begin::Step 1-->
                                 <div class="flex-column current" data-kt-stepper-element="content">
                                     <h3 class="text-dark mb-8">{{ __('Who owns the site?') }}</h3>
+                                    
                                     <!-- Begin Site Type -->
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
@@ -34,15 +35,22 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="mb-10">
+                                    <div class="mb-10">                                        
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="owner" class="form-check-input" type="radio"
                                                 value="transferable" id="radioTransferable"
-                                                @if ($currentAccount->quota === 0) checked @endif>
+                                                @if($currentAccount->availableQuota === 0) disabled @endif
+                                                @if ($subscriptions->count() === 0 && $currentAccount->availableQuota > 0) checked @endif>
                                             <label class="form-check-label" for="radioTransferable">
                                                 {{ __('This site is transferable; it will be moved to someone elses account.') }}
                                                 <br />
                                                 {{ __('You will be transferring the site to a client or collaborator') }}
+                                                <br />
+                                                @if($currentAccount->availableQuota === 0)
+                                                {{ __('Get unlimited transfered sites when you subscribe to one of our plans')}}
+                                                <br />
+                                                {{__('or request transferable sites without entering your billing details')}} <a href="#">{{__('Request Form')}}</a>
+                                                @endif
                                             </label>
                                         </div>
                                     </div>

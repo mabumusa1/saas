@@ -59,7 +59,7 @@ class Site extends Model
         'name',
         'subscription_id',
         'account_id',
-        'transferable'
+        'transferable',
     ];
 
     /**
@@ -70,7 +70,6 @@ class Site extends Model
     protected $casts = [
         'transferable' => 'boolean',
     ];
-
 
     /**
      * Get the Account that owns the Site.
