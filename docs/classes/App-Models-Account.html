@@ -459,7 +459,7 @@
     <span>
                                 &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr>&lt;string|int, <a href="classes/App-Models-Invite.html"><abbr title="\App\Models\Invite">Invite</abbr></a>&gt;    </span>
 </dt>
-<dd>The Sites that belong to the Account.</dd>
+<dd>The invites that belong to the Account.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Account.html#method_newModelQuery">newModelQuery()</a>
@@ -516,13 +516,6 @@
                                 &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr>&lt;string|int, <a href="classes/App-Models-Cashier-Subscription.html"><abbr title="\App\Models\Cashier\Subscription">Subscription</abbr></a>&gt;    </span>
 </dt>
 <dd>Get all of the subscriptions for the Account.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Models-Account.html#method_transfers">transfers()</a>
-    <span>
-                                &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr>    </span>
-</dt>
-<dd>The Transfers that belong to the Account.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Models-Account.html#method_users">users()</a>
@@ -1508,7 +1501,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -1551,7 +1544,7 @@
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$fillable</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;name&#039;, &#039;email&#039;]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;name&#039;, &#039;email&#039;, &#039;quota&#039;]</span></code>
 
     
     
@@ -1574,7 +1567,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">96</span>
 
     </aside>
 
@@ -1611,7 +1604,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
@@ -1687,7 +1680,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">207</span>
+    <span class="phpdocumentor-element-found-in__line">198</span>
 
     </aside>
 
@@ -1720,7 +1713,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">168</span>
 
     </aside>
 
@@ -1753,7 +1746,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">158</span>
 
     </aside>
 
@@ -1786,11 +1779,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The Sites that belong to the Account.</p>
+        <p class="phpdocumentor-summary">The invites that belong to the Account.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1947,7 +1940,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
@@ -1980,7 +1973,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">188</span>
 
     </aside>
 
@@ -2013,7 +2006,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">178</span>
 
     </aside>
 
@@ -2046,7 +2039,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">157</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -2072,39 +2065,6 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_transfers">
-        transfers()
-        <a href="classes/App-Models-Account.html#method_transfers" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">127</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">The Transfers that belong to the Account.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">transfers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Relations\HasMany">HasMany</abbr></span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_users">
         users()
         <a href="classes/App-Models-Account.html#method_users" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2112,7 +2072,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Account.php"><a href="files/app-models-account.html"><abbr title="app/Models/Account.php">Account.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 

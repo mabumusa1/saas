@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Transfer;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AcceptTransferRequest extends FormRequest
 {
@@ -26,16 +27,17 @@ class AcceptTransferRequest extends FormRequest
     {
         return [
             'transfer_way' => 'required|in:existing,new',
-            'site.name' => 'required_if:transfer_way,new',
-            'site.owner' => 'required_if:transfer_way,new',
-            'site_id' => 'required_if:transfer_way,existing|exists:sites,id',
+            'site_name' => 'required_if:transfer_way,new',
+            'site_id' => ['required_if:transfer_way,existing',
+                Rule::exists('sites', 'id')->whereIn('id', $this->account->sites->pluck('id')),
+            ],
         ];
     }
 
     public function messages()
     {
         return [
-            'site.name.required_if' => 'Site name is required',
+            'site_name.required_if' => 'Site name is required',
         ];
     }
 }

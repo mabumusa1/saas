@@ -343,7 +343,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acopy\u0028\u0029",
             "name": "copy",
-            "summary": "",
+            "summary": "Copy\u0020an\u0020installation",
             "url": "classes/App-Http-Controllers-InstallController.html#method_copy"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Ashow\u0028\u0029",
@@ -916,14 +916,9 @@ Search.appendIndex(
             "summary": "The\u0020Users\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
             "url": "classes/App-Models-Account.html#method_users"
         },                {
-            "fqsen": "\\App\\Models\\Account\u003A\u003Atransfers\u0028\u0029",
-            "name": "transfers",
-            "summary": "The\u0020Transfers\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
-            "url": "classes/App-Models-Account.html#method_transfers"
-        },                {
             "fqsen": "\\App\\Models\\Account\u003A\u003Ainvites\u0028\u0029",
             "name": "invites",
-            "summary": "The\u0020Sites\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
+            "summary": "The\u0020invites\u0020that\u0020belong\u0020to\u0020the\u0020Account.",
             "url": "classes/App-Models-Account.html#method_invites"
         },                {
             "fqsen": "\\App\\Models\\Account\u003A\u003Asites\u0028\u0029",
@@ -1176,6 +1171,11 @@ Search.appendIndex(
             "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
             "url": "classes/App-Models-Install.html#property_fillable"
         },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003A\u0024casts",
+            "name": "casts",
+            "summary": "The\u0020attributes\u0020that\u0020should\u0020be\u0020cast.",
+            "url": "classes/App-Models-Install.html#property_casts"
+        },                {
             "fqsen": "\\App\\Models\\Invite",
             "name": "Invite",
             "summary": "App\\Models\\Invite.",
@@ -1260,6 +1260,11 @@ Search.appendIndex(
             "name": "fillable",
             "summary": "The\u0020attributes\u0020that\u0020are\u0020mass\u0020assignable.",
             "url": "classes/App-Models-Site.html#property_fillable"
+        },                {
+            "fqsen": "\\App\\Models\\Site\u003A\u003A\u0024casts",
+            "name": "casts",
+            "summary": "The\u0020attributes\u0020that\u0020should\u0020be\u0020cast.",
+            "url": "classes/App-Models-Site.html#property_casts"
         },                {
             "fqsen": "\\App\\Models\\User",
             "name": "User",
@@ -1846,11 +1851,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Models-Transfer.html"
         },                {
-            "fqsen": "\\App\\Models\\Transfer\u003A\u003Aaccount\u0028\u0029",
-            "name": "account",
-            "summary": "Get\u0020the\u0020account\u0020that\u0020owns\u0020the\u0020Transfer.",
-            "url": "classes/App-Models-Transfer.html#method_account"
-        },                {
             "fqsen": "\\App\\Models\\Transfer\u003A\u003Ainstall\u0028\u0029",
             "name": "install",
             "summary": "Get\u0020the\u0020install\u0020that\u0020uses\u0020this\u0020trnasfer.",
@@ -2050,36 +2050,6 @@ Search.appendIndex(
             "name": "handle",
             "summary": "Handle\u0020the\u0020event.",
             "url": "classes/App-Listeners-DomainRedirectListener.html#method_handle"
-        },                {
-            "fqsen": "\\App\\Providers\\SetDomainPrimaryEvent",
-            "name": "SetDomainPrimaryEvent",
-            "summary": "",
-            "url": "classes/App-Providers-SetDomainPrimaryEvent.html"
-        },                {
-            "fqsen": "\\App\\Providers\\SetDomainPrimaryEvent\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
-            "url": "classes/App-Providers-SetDomainPrimaryEvent.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Providers\\SetDomainPrimaryEvent\u003A\u003AbroadcastOn\u0028\u0029",
-            "name": "broadcastOn",
-            "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
-            "url": "classes/App-Providers-SetDomainPrimaryEvent.html#method_broadcastOn"
-        },                {
-            "fqsen": "\\App\\Providers\\SetDomainRedirectEvent",
-            "name": "SetDomainRedirectEvent",
-            "summary": "",
-            "url": "classes/App-Providers-SetDomainRedirectEvent.html"
-        },                {
-            "fqsen": "\\App\\Providers\\SetDomainRedirectEvent\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
-            "url": "classes/App-Providers-SetDomainRedirectEvent.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Providers\\SetDomainRedirectEvent\u003A\u003AbroadcastOn\u0028\u0029",
-            "name": "broadcastOn",
-            "summary": "Get\u0020the\u0020channels\u0020the\u0020event\u0020should\u0020broadcast\u0020on.",
-            "url": "classes/App-Providers-SetDomainRedirectEvent.html#method_broadcastOn"
         },                {
             "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand",
             "name": "VerifyDomainsCommand",

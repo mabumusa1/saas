@@ -151,6 +151,43 @@ class SiteControllerTest extends TestCase
         $response->assertForbidden();
     }
 
+    public function test_site_store_fails_when_passing_wrong_url()
+    {
+        $subscription = Subscription::factory()->create([
+            'account_id' => $this->account->id,
+            'quantity' => 1,
+        ]);
+
+        $response = $this->post(route('sites.store', $this->account), [
+            'sitename' => 'test name',
+            'installname' => 'ss[]',
+            'type' => 'stg',
+            'owner' => 'mine',
+            'subscription_id' => $subscription->id,
+            'start' => 'blank',
+        ]);
+        $response->assertSessionHasErrors('installname');
+    }
+
+    public function test_site_store_fails_when_passing_used_subscription()
+    {
+        $subscription = Subscription::factory()->create([
+            'account_id' => $this->account->id,
+            'quantity' => 1,
+        ]);
+
+        $response = $this->post(route('sites.store', $this->account), [
+            'sitename' => 'test name',
+            'installname' => 'test',
+            'type' => 'stg',
+            'owner' => 'mine',
+            'subscription_id' => $this->subscription->id,
+            'start' => 'blank',
+        ]);
+        $response->assertRedirect(route('sites.index', $this->account));
+        $response->assertSessionHas('status', __('Subscription not found, site was not created'));
+    }
+
     public function test_show_returns_json_with_validation()
     {
         $this->account->quota = 1;
