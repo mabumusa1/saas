@@ -108,6 +108,23 @@ class InstallControllerTest extends TestCase
         $response->assertSessionHasErrors('type');
     }
 
+    public function test_store_fails_if_wrong_url()
+    {
+        $site = Site::factory()->create([
+            'account_id' => $this->account->id,
+        ]);
+        $install = Install::factory()
+        ->for($site)
+        ->create([
+            'type' => 'dev',
+        ]);
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
+            'type' => 'dev',
+            'name' => '[]',
+        ]);
+        $response->assertSessionHasErrors('name');
+    }
+
     public function test_store_validation()
     {
         $site = Site::factory()->create([

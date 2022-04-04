@@ -25,7 +25,7 @@ class CheckTransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|string|min:16|max:16',
+            'code' => 'required|string|min:16|max:16|exists:transfers,code',
         ];
     }
 }

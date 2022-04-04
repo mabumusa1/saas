@@ -172,16 +172,6 @@ class Account extends Model
     }
 
     /**
-     * The Transfers that belong to the Account.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function transfers(): HasMany
-    {
-        return $this->hasMany(Transfer::class);
-    }
-
-    /**
      * Get the customer name that should be synced to Stripe.
      *
      * @return string|null

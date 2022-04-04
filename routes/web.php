@@ -101,16 +101,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::post('{install}/domain/redirect', [App\Http\Controllers\DomainController::class, 'redirect'])->name('domains.redirect');
             Route::post('{install}/domain/{domain}/setPrimary', [App\Http\Controllers\DomainController::class, 'setPrimary'])->name('domains.setPrimary');
             Route::put('{install}/copy', [App\Http\Controllers\InstallController::class, 'copy'])->name('installs.copy');
+
+            /*
+            * Transfer Routes within an install
+            */
+            Route::prefix('{install}/transfer')->group(function () {
+                Route::post('start', [App\Http\Controllers\TransferController::class, 'start'])->name('transfer.start');
+            });
         });
+
         /*
-        * Accept Transfer
-        */
+         * Independent transfer operations
+         */
         Route::prefix('transfer')->group(function () {
-            Route::post('start', [App\Http\Controllers\TransferController::class, 'start'])->name('transfer.start');
             Route::post('check', [App\Http\Controllers\TransferController::class, 'check'])->name('transfer.check');
             Route::get('{transfer}', [App\Http\Controllers\TransferController::class, 'show'])->name('transfer.show');
             Route::post('{transfer}/accept', [App\Http\Controllers\TransferController::class, 'accept'])->name('transfer.accept');
-            Route::post('create', [App\Http\Controllers\TransferController::class, 'store'])->name('transfer.store');
         });
     });
 });

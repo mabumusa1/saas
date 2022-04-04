@@ -34,7 +34,6 @@ class InstallTest extends TestCase
         $site = Site::factory()->create(['account_id' => $account->id]);
         $install = Install::factory()->create(['site_id' => $site->id]);
         $transfer = Transfer::factory()->create([
-            'account_id' => $account->id,
             'install_id' => $install->id,
             'code' => 'somecode',
         ]);

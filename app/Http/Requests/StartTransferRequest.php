@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StartTransferRequest extends FormRequest
 {
@@ -25,7 +26,6 @@ class StartTransferRequest extends FormRequest
     {
         return [
             'note' => 'nullable',
-            'install_id' => 'required|numeric|exists:installs,id',
             'email' => 'required|email',
         ];
     }

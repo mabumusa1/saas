@@ -27,7 +27,7 @@ class StoreInstallRequest extends FormRequest
         return [
             'name' => ['required', 'min:3', 'unique:installs,name', function ($attribute, $value, $fail) {
                 $rules = ['name' => 'url'];
-                $input = ['name' => "https://{$attribute}.steercampaign.com"];
+                $input = ['name' => "https://{$value}.steercampaign.com"];
                 if (! Validator::make($input, $rules)->passes()) {
                     $fail(__('Invalid Install Name'));
                 }

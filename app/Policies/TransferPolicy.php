@@ -31,15 +31,25 @@ class TransferPolicy
         return $user->belongToRoles($this->account, $allowedRoles);
     }
 
+    /**
+     * Determine whether the user can transfer installs.
+     *
+     * @param  \App\Models\User  $user
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
     public function show(User $user, Transfer $transfer)
     {
         $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
-
-        return $user->belongToRoles($this->account, $allowedRoles);
+        if (request()->session()->has('code')) {
+            return (request()->session()->get('code') === $transfer->code) && $user->belongToRoles($this->account, $allowedRoles);
+        } else {
+            return false;
+        }
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determine whether the user can accept a transfer.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool

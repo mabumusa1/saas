@@ -7,6 +7,7 @@ use App\Http\Requests\CheckTransferRequest;
 use App\Http\Requests\StartTransferRequest;
 use App\Models\Account;
 use App\Models\Install;
+use App\Models\Site;
 use App\Models\Transfer;
 use App\Notifications\TransferRequestNotification;
 use Illuminate\Notifications\AnonymousNotifiable;
@@ -16,56 +17,64 @@ use Str;
 class TransferController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Start the transfer process.
      *
      * @param  \App\Models\Account  $account
+     *
+     * @param  \App\Models\Site  $site
+     *
+     * @param  \App\Models\Install  $install
      *
      * @param  \App\Http\Requests\StartTransferRequest  $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function start(Account $account, StartTransferRequest $request)
+    public function start(Account $account, Site $site, Install $install, StartTransferRequest $request)
     {
         $this->authorize('start', Transfer::class);
 
         $code = Str::random(16);
         $data = $request->validated();
         $data['code'] = $code;
-        $account->transfers()->create($data);
-        Notification::route('mail', $request->input('email'))
+        $install->transfer()->create($data);
+
+        Notification::route('mail', $data['email'])
             ->notify(new TransferRequestNotification($code));
 
         return redirect()->back()->with('success', __('Transfer Request Sent'));
     }
 
+    /**
+     * Check transfer key.
+     *
+     * @param  \App\Models\Account  $account
+     *
+     * @param  \App\Http\Requests\CheckTransferRequest  $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function check(Account $account, CheckTransferRequest $request)
     {
         $this->authorize('accept', Transfer::class);
-        try {
-            $transfer = Transfer::where('code', $request->input('code'))->where(function ($q) use ($account) {
-                return $q->where('email', $account->email)->orWhereNull('email');
-            })->firstOrFail();
+        $transfer = Transfer::where('code', $request->input('code'))->first();
 
-            return redirect()->route('transfer.show', [$account, $transfer->code]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->back()->with('error', __('Transfer Cannot Be Found'));
-        }
+        return redirect()->route('transfer.show', [$account, $transfer])->with('code', $transfer->code);
     }
 
-    public function show(Account $account, $transfer)
+    /**
+     * Check transfer key.
+     *
+     * @param  \App\Models\Account  $account
+     *
+     * @param  \App\Models\Transfer  $transfer
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show(Account $account, Transfer $transfer)
     {
-        $transfer = Transfer::where('code', $transfer)->where(function ($q) use ($account) {
-            return $q->where('email', $account->email)->orWhereNull('email');
-        })->firstOrFail();
-
         $this->authorize('show', $transfer);
-        $sites = $account->sites()->whereHas('installs', function ($q) use ($transfer) {
-            return $q->where('type', '!=', $transfer->install->type);
-        })->get();
-        $subscriptions = $account->subscriptions()->active()->available()->withCount('sites')->get();
-        $totalActiveSubscriptions = $account->subscriptions()->active()->sum('quantity');
-
-        return view('transfers.show', compact('account', 'transfer', 'sites', 'subscriptions', 'totalActiveSubscriptions'));
+        /* @phpstan-ignore-next-line */
+        return view('transfers.show', ['account' => $account, 'transfer' => $transfer, 'sites' => $account->sites, 'subscriptions' => $account->subscriptions, 'totalActiveSubscriptions' => $account->totalActiveSubscriptions]);
     }
 
     /**
@@ -73,23 +82,26 @@ class TransferController extends Controller
      *
      * @param  \App\Models\Account  $account
      *
+     * @param  \App\Models\Transfer  $transfer
+     *
      * @param  \App\Http\Requests\AcceptTransferRequest  $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function accept(Account $account, $transfer, AcceptTransferRequest $request)
+    public function accept(Account $account, Transfer $transfer, AcceptTransferRequest $request)
     {
-        $transfer = Transfer::where('code', $transfer)->where(function ($q) use ($account) {
-            return $q->where('email', $account->email)->orWhereNull('email');
-        })->firstOrFail();
+        $data = $request->validated();
+
         if ($request->input('transfer_way') == 'existing') {
-            $site = $account->sites()->findOrFail($request->input('site_id'));
+            $site = $account->sites()->findOrFail($data['site_id']);
         } else {
-            $site = $account->sites()->create($request->input('site'));
+            $site = $account->sites()->create(['name' => $data['site_name']]);
         }
+
         $install = Install::find($transfer->install_id);
         $install->update([
             'site_id' => $site->id,
+            'locked' => false,
         ]);
 
         $transfer->delete();
