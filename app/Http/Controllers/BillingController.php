@@ -76,11 +76,11 @@ class BillingController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function manageSubscriptions()
+    public function manageSubscriptions(Account $account)
     {
         $plans = Plan::where('available', true)->get();
 
-        return view('billing.manageSubscriptions', ['plans' => $plans]);
+        return view('billing.manageSubscriptions', ['plans' => $plans, 'intent' => $account->createSetupIntent()]);
     }
 
     /**
