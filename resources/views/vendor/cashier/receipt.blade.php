@@ -4,13 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- begin::Fonts --}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-    {{-- end::Fonts --}}
-    <link href="{{ asset('skin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <title>Invoice</title>
 
     <style>
+        * {
+            font-family: 'courier';
+        }
         .table {
             width: 100%;
         }
@@ -22,7 +21,7 @@
 
         body {
             background: #fff none;
-            font-family: DejaVu Sans, 'sans-serif';
+            font-family: 'Poppins', 'sans-serif';
             font-size: 12px;
         }
 
@@ -150,7 +149,7 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column gap-7 gap-md-10">
             <!--begin::Message-->
-            <div class="fw-bolder fs-2">Dear {{ $invoice->customer_name }}
+            <div class="fw-bolder fs-2" style="font-family: 'Poppins'">Dear {{ $invoice->customer_name }}
                 <span class="fs-6">({{ $invoice->customer_email }})</span>,
                 <br>
                 <span class="text-muted fs-5">Here are your order details. We thank you for your purchase.</span>
