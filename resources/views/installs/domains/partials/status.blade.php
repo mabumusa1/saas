@@ -1,4 +1,4 @@
-@if($domain->verified)
+@if($domain->verified_at)
 <span class="svg-icon svg-icon-2 svg-icon-success">
     {!! get_svg_icon('skin/media/icons/duotone/Navigation/Check.svg') !!}
 </span>

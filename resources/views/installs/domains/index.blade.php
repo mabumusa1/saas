@@ -32,7 +32,7 @@
                                     @include('installs.domains.partials.status', ['domain' => $install->primaryDomain()])
                                 </td>
                                 <td>
-                                    <p class="text-wrap">Say if there is a proxy or not, other relvant info</p>
+                                    <p class="text-wrap">{{ $install->status }}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -65,7 +65,7 @@
                                         {{ $domain->redirect_to }}
                                     </td>
                                     <td>@include('installs.domains.partials.status', ['domain' => $domain])</td>
-                                    <td><p class="text-wrap">Say if there is a proxy or not, other relvant info</p></td>
+                                    <td><p class="text-wrap">{{ $install->status }}</p></td>
                                     <td>
                                         <!--begin::Trigger-->
                                         <button type="button" class="btn btn-primary btn-sm btn-icon"
@@ -128,6 +128,7 @@
                                     </span>
                                 </td>
                             </tr>
+                            {{-- 
                             <tr>
                                 <td>{{ __('A') }}</td>
                                 <td>{{ $install->ip }}</td>
@@ -137,6 +138,7 @@
                                     </span>
                                 </td>
                             </tr>
+                             --}}
                         </tbody>
                     </table>
                 </div>
