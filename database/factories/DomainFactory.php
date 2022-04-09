@@ -17,11 +17,9 @@ class DomainFactory extends Factory
     public function definition()
     {
         return [
-
             'name' => $this->faker->firstName().'.steercampaign.com',
-            'primary' => false,
-            'verified' => true,
-            'verified_at' => now(),
+            'primary' => true,
+            'verified_at' => now()
         ];
     }
 }

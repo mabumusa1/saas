@@ -1,4 +1,6 @@
 <?php
+use App\Models\Domain;
+use Spatie\Dns\Dns;
 
 if (! function_exists('roles')) {
     function roles()
@@ -64,4 +66,54 @@ if (! function_exists('get_svg_icon')) {
 
         return $output;
     }
+}
+
+
+if (! function_exists('VerifyDomainHelper')) {
+    function VerifyDomainHelper(Domain $domain)
+    {
+        $dns = new Dns();
+        $dns->useNameserver('8.8.8.8');
+        $records = $dns->getRecords($domain->name, 'CNAME');
+        
+        if ($records) {
+            foreach ($records as $record) {
+                /* @phpstan-ignore-next-line */
+                if ($record->target() === $domain->install->cname) {
+                    /* @phpstan-ignore-next-line */
+                    $domain->verified_at = now();
+                    $domain->save();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+if (! function_exists('VerifyDomainOwnershipHelper')) {
+    function VerifyDomainOwnershipHelper(String $value, String $installName, Domain $domain)
+    {
+        $dns = new Dns();
+        $dns->useNameserver('8.8.8.8');
+        $records = $dns->getRecords($value, 'TXT');
+        
+        if($records){
+            foreach ($records as $record) {
+                // the user managed to verify the domain, they own it
+                if ($record->txt() === "sc-verification={$installName}") {
+                    
+                    //delete the existing domain, to add the new one
+                    $domain->delete();                    
+                    return true;
+                } else {
+                    //someone else has the domain, we check DNS TXT records
+                    return false;
+                }
+            }
+        }
+
+
+    }
+
 }

@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Jobs\VerifyDomain;
+use App\Models\Domain;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +28,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('activitylog:clean account')->quarterly();
+        $unverifiedDomains = Domain::where('verified_at', null)->get();
+        foreach ($unverifiedDomains as $domain) {
+            $schedule->job(new VerifyDomain($domain))->everyMinute();
+        }
     }
 
     /**

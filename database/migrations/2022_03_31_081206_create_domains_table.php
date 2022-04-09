@@ -18,9 +18,8 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('redirect_to')->nullable();
             $table->boolean('primary')->default(false);
-            $table->boolean('verified')->nullabl()->default(false);
             $table->timestamp('verified_at')->nullable();
-            $table->integer('verification_attempts')->default(0);
+            $table->boolean('verification_failed')->default(false);
             $table->timestamps();
         });
     }

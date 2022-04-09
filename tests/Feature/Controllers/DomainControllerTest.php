@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Mockery;
+use Spatie\Dns\Records\TXT;
 
 class DomainControllerTest extends TestCase
 {
@@ -89,6 +91,91 @@ class DomainControllerTest extends TestCase
         $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'x.steercampaign.com']);
         $response->assertSessionHasErrors(['name']);
     }
+
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function test_domains_store_validation_same_domain_verified()
+    {
+        $account = Account::factory()->create();
+        $user = User::factory()->create();
+        $account->users()->attach($user->id, ['role' => 'owner']);
+        $site = Site::factory()->for($account)->create();
+        $install = Install::factory()
+        ->for($site)
+        ->create();
+        $this->actingAs($user);
+
+        $this->dnsMock = Mockery::mock('overload:Spatie\Dns\Dns');
+        $this->dnsMock = $this->dnsMock->shouldReceive('useNameserver')
+        ->once()
+        ->andReturnSelf();
+        $dnsResponse = [
+            new TXT([
+                'host' => "m.iabaustralia.com.au",
+                'ttl' => 3600,
+                'class' => "IN",
+                'type' => "TXT",
+                'txt'=> "sc-verification={$install->name}",
+            ])
+        ];
+        $this->dnsMock->shouldReceive('getRecords')
+        ->once()
+        ->withArgs([$this->domain->name, 'TXT'])
+        ->andReturn($dnsResponse);
+                
+        $response = $this->post(route('domains.store', [$account, $site, $install]), ['name' => 'domain.steercampaign.com']);
+        $this->assertDatabaseHas('domains', [
+            'install_id' => $install->id,
+            'name' => 'domain.steercampaign.com',
+        ]);
+
+        $response->assertRedirect();
+    }    
+
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function test_domains_store_validation_same_domain_not_verified()
+    {
+        $account = Account::factory()->create();
+        $user = User::factory()->create();
+        $account->users()->attach($user->id, ['role' => 'owner']);
+        $site = Site::factory()->for($account)->create();
+        $install = Install::factory()
+        ->for($site)
+        ->create();
+        $this->actingAs($user);
+
+        $this->dnsMock = Mockery::mock('overload:Spatie\Dns\Dns');
+        $this->dnsMock = $this->dnsMock->shouldReceive('useNameserver')
+        ->once()
+        ->andReturnSelf();
+        $dnsResponse = [
+            new TXT([
+                'host' => "m.iabaustralia.com.au",
+                'ttl' => 3600,
+                'class' => "IN",
+                'type' => "TXT",
+                'txt'=> "sc-verification=notright",
+            ])
+        ];
+        $this->dnsMock->shouldReceive('getRecords')
+        ->once()
+        ->withArgs([$this->domain->name, 'TXT'])
+        ->andReturn($dnsResponse);
+                
+        $response = $this->post(route('domains.store', [$account, $site, $install]), ['name' => 'domain.steercampaign.com']);
+        $this->assertDatabaseHas('domains', [
+            'install_id' => $this->install->id,
+            'name' => 'domain.steercampaign.com',
+        ]);
+        $response->assertSessionHasErrors(['name']);
+        $response->assertRedirect();
+    }    
+
 
     public function test_domains_destroy_can_not_delete_builtin()
     {

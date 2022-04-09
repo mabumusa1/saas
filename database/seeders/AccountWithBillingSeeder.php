@@ -47,13 +47,10 @@ class AccountWithBillingSeeder extends Seeder
                 Contact::factory()->create(['install_id' => $install->id]);
             }
             if ($install->domains()->count() === 0) {
-                Domain::create([
-                    'install_id' => $install->id,
-                    'name' => $install->cname,
-                    'primary' => true,
-                    'verified' => true,
-                    'verified_at' => now(),
-                ]);
+                Domain::factory()->count(2)->state(new Sequence(
+                    ['install_id' => $install->id, 'name' => $install->cname, 'primary' => true, 'verified_at' => now()],
+                    ['install_id' => $install->id, 'primary' => false, 'verified_at' => null]
+                ))->create();
             }
         }
 

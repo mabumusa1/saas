@@ -23,9 +23,8 @@ class Domain extends Model
         'install_id',
         'name',
         'primary',
-        'verified',
         'verified_at',
-        'attempts',
+        'verification_failed',
     ];
 
     /**
@@ -35,9 +34,8 @@ class Domain extends Model
      */
     protected $casts = [
         'primary' => 'boolean',
-        'verified' => 'boolean',
         'verified_at' => 'timestamp',
-        'attempts' => 'integer',
+        'verification_failed' => 'boolean',
     ];
 
     /**
@@ -72,18 +70,6 @@ class Domain extends Model
         return new Attribute(
             /* @phpstan-ignore-next-line */
             get: fn () => ($this->name === $this->install->cname),
-        );
-    }
-
-    /**
-     * Check if we tried to verifiy the domain but failed.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    public function isFailedVerification(): Attribute
-    {
-        return new Attribute(
-            get: fn () => ($this->verification_attempts >= 5),
         );
     }
 }
