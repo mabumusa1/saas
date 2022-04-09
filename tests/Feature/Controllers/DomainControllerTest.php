@@ -9,9 +9,9 @@ use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Mockery;
 use Spatie\Dns\Records\TXT;
+use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
 {
@@ -113,18 +113,18 @@ class DomainControllerTest extends TestCase
         ->andReturnSelf();
         $dnsResponse = [
             new TXT([
-                'host' => "m.iabaustralia.com.au",
+                'host' => 'm.iabaustralia.com.au',
                 'ttl' => 3600,
-                'class' => "IN",
-                'type' => "TXT",
+                'class' => 'IN',
+                'type' => 'TXT',
                 'txt'=> "sc-verification={$install->name}",
-            ])
+            ]),
         ];
         $this->dnsMock->shouldReceive('getRecords')
         ->once()
         ->withArgs([$this->domain->name, 'TXT'])
         ->andReturn($dnsResponse);
-                
+
         $response = $this->post(route('domains.store', [$account, $site, $install]), ['name' => 'domain.steercampaign.com']);
         $this->assertDatabaseHas('domains', [
             'install_id' => $install->id,
@@ -132,7 +132,7 @@ class DomainControllerTest extends TestCase
         ]);
 
         $response->assertRedirect();
-    }    
+    }
 
     /**
      * @runInSeparateProcess
@@ -155,18 +155,18 @@ class DomainControllerTest extends TestCase
         ->andReturnSelf();
         $dnsResponse = [
             new TXT([
-                'host' => "m.iabaustralia.com.au",
+                'host' => 'm.iabaustralia.com.au',
                 'ttl' => 3600,
-                'class' => "IN",
-                'type' => "TXT",
-                'txt'=> "sc-verification=notright",
-            ])
+                'class' => 'IN',
+                'type' => 'TXT',
+                'txt'=> 'sc-verification=notright',
+            ]),
         ];
         $this->dnsMock->shouldReceive('getRecords')
         ->once()
         ->withArgs([$this->domain->name, 'TXT'])
         ->andReturn($dnsResponse);
-                
+
         $response = $this->post(route('domains.store', [$account, $site, $install]), ['name' => 'domain.steercampaign.com']);
         $this->assertDatabaseHas('domains', [
             'install_id' => $this->install->id,
@@ -174,8 +174,7 @@ class DomainControllerTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['name']);
         $response->assertRedirect();
-    }    
-
+    }
 
     public function test_domains_destroy_can_not_delete_builtin()
     {

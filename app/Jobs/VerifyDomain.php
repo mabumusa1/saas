@@ -2,17 +2,17 @@
 
 namespace App\Jobs;
 
+use App\Exceptions\DomainVerificationFailedException;
+use App\Models\Domain;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\Middleware\WithoutOverlapping;
-use App\Exceptions\DomainVerificationFailedException;
 use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
-use App\Models\Domain;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Queue\SerializesModels;
 
 class VerifyDomain implements ShouldQueue, ShouldBeUnique
 {
@@ -50,9 +50,10 @@ class VerifyDomain implements ShouldQueue, ShouldBeUnique
     public function middleware()
     {
         return [
-            new RateLimited('VerifyDomain'), 
+            new RateLimited('VerifyDomain'),
+            /* @phpstan-ignore-next-line */
             (new WithoutOverlapping($this->domain->id))->dontRelease(),
-            (new ThrottlesExceptions(5, 5))->backoff(5)
+            (new ThrottlesExceptions(5, 5))->backoff(5),
         ];
     }
 
@@ -63,19 +64,18 @@ class VerifyDomain implements ShouldQueue, ShouldBeUnique
      */
     public function retryUntil()
     {
-        return now()->addHour(1);
-    }    
+        return now()->addHour();
+    }
 
     /**
-    * Calculate the number of seconds to wait before retrying the job.
-    *
-    * @return array
-    */
+     * Calculate the number of seconds to wait before retrying the job.
+     *
+     * @return array
+     */
     public function backoff()
     {
         return [60, 3600, 36000];
     }
-
 
     /**
      * Execute the job.
@@ -84,9 +84,9 @@ class VerifyDomain implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        if(! VerifyDomainHelper($this->domain)){
+        if (! VerifyDomainHelper($this->domain)) {
             $this->fail(new DomainVerificationFailedException());
-        }            
+        }
     }
 
     /**
@@ -99,6 +99,5 @@ class VerifyDomain implements ShouldQueue, ShouldBeUnique
     {
         $this->domain->verification_failed = true;
         $this->domain->save();
-    }    
-
+    }
 }

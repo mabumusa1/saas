@@ -2,22 +2,21 @@
 
 namespace Tests\Feature\Jobs;
 
+use App\Exceptions\DomainVerificationFailedException;
 use App\Jobs\VerifyDomain;
 use App\Models\Account;
+use App\Models\Domain;
+use App\Models\Install;
+use App\Models\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use App\Models\Site;
-use App\Models\Install;
-use App\Models\Domain;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Queue;
+use Mockery;
 use Mockery\MockInterface;
 use Spatie\Dns\Dns;
 use Spatie\Dns\Records\CNAME;
-use Mockery;
-use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Queue;
-use App\Exceptions\DomainVerificationFailedException;
-
+use Tests\TestCase;
 
 class VerifyDomainTest extends TestCase
 {
@@ -30,7 +29,6 @@ class VerifyDomainTest extends TestCase
     private $domain;
 
     private $dnsMock;
-    
 
     public function setUp(): void
     {
@@ -56,15 +54,14 @@ class VerifyDomainTest extends TestCase
      */
     public function test_domain_verified()
     {
-
         $dnsResponse = [
             new CNAME([
-                'host' => "m.iabaustralia.com.au",
+                'host' => 'm.iabaustralia.com.au',
                 'ttl' => 3600,
-                'class' => "IN",
-                'type' => "CNAME",
-                'target'=> "domain.steercampaign.com",
-            ])
+                'class' => 'IN',
+                'type' => 'CNAME',
+                'target'=> 'domain.steercampaign.com',
+            ]),
         ];
 
         $this->dnsMock->shouldReceive('getRecords')
@@ -76,40 +73,41 @@ class VerifyDomainTest extends TestCase
 
         $after = $this->domain->refresh();
 
-        $this->assertNotNull($this->domain->verified_at);            
+        $this->assertNotNull($this->domain->verified_at);
     }
 
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     */    
+     */
     public function test_domain_fail_to_verify()
-    {   
+    {
         Bus::fake();
         $dnsResponse = [
             new CNAME([
-                'host' => "m.iabaustralia.com.au",
+                'host' => 'm.iabaustralia.com.au',
                 'ttl' => 3600,
-                'class' => "IN",
-                'type' => "CNAME",
-                'target'=> "start.steercampaign.com",
-            ])
+                'class' => 'IN',
+                'type' => 'CNAME',
+                'target'=> 'start.steercampaign.com',
+            ]),
         ];
 
         $this->dnsMock->shouldReceive('getRecords')
         ->once()
         ->withArgs([$this->domain->name, 'CNAME'])
-        ->andReturn($dnsResponse);        
+        ->andReturn($dnsResponse);
 
         VerifyDomain::dispatch($this->domain);
         $domain = $this->domain;
 
         Bus::assertDispatched(function (VerifyDomain $job) use ($domain) {
             $job->failed(new DomainVerificationFailedException());
+
             return $job->domain->id === $domain->id;
-        });      
-        
+        });
+
         $after = $this->domain->refresh();
-        $this->assertTrue($after->verification_failed);        
+        $this->assertTrue($after->verification_failed);
     }
 }

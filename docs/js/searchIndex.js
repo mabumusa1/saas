@@ -201,6 +201,16 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/default.html#function_get_svg_icon"
         },                {
+            "fqsen": "\\VerifyDomainHelper\u0028\u0029",
+            "name": "VerifyDomainHelper",
+            "summary": "",
+            "url": "namespaces/default.html#function_VerifyDomainHelper"
+        },                {
+            "fqsen": "\\VerifyDomainOwnershipHelper\u0028\u0029",
+            "name": "VerifyDomainOwnershipHelper",
+            "summary": "",
+            "url": "namespaces/default.html#function_VerifyDomainOwnershipHelper"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\AdminController",
             "name": "AdminController",
             "summary": "",
@@ -343,7 +353,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acopy\u0028\u0029",
             "name": "copy",
-            "summary": "Copy\u0020an\u0020installation",
+            "summary": "Copy\u0020an\u0020installation.",
             "url": "classes/App-Http-Controllers-InstallController.html#method_copy"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Ashow\u0028\u0029",
@@ -955,6 +965,26 @@ Search.appendIndex(
             "name": "getActivitylogOptions",
             "summary": "The\u0020the\u0020logs\u0020of\u0020this\u0020model.",
             "url": "classes/App-Models-Account.html#method_getActivitylogOptions"
+        },                {
+            "fqsen": "\\App\\Models\\Account\u003A\u003AavailableQuota\u0028\u0029",
+            "name": "availableQuota",
+            "summary": "Get\u0020avaialbeQouta\u0020for\u0020transferable\u0020sites.",
+            "url": "classes/App-Models-Account.html#method_availableQuota"
+        },                {
+            "fqsen": "\\App\\Models\\Account\u003A\u003AactiveSubscriptions\u0028\u0029",
+            "name": "activeSubscriptions",
+            "summary": "Get\u0020avaialbeQouta\u0020for\u0020transferable\u0020sites.",
+            "url": "classes/App-Models-Account.html#method_activeSubscriptions"
+        },                {
+            "fqsen": "\\App\\Models\\Account\u003A\u003AtotalActiveSubscriptions\u0028\u0029",
+            "name": "totalActiveSubscriptions",
+            "summary": "Get\u0020totalActiveSubscriptions\u0020for\u0020transferable\u0020sites.",
+            "url": "classes/App-Models-Account.html#method_totalActiveSubscriptions"
+        },                {
+            "fqsen": "\\App\\Models\\Account\u003A\u003AavailableSubscriptions\u0028\u0029",
+            "name": "availableSubscriptions",
+            "summary": "Get\u0020availableSubscriptions\u0020for\u0020transferable\u0020sites.",
+            "url": "classes/App-Models-Account.html#method_availableSubscriptions"
         },                {
             "fqsen": "\\App\\Models\\Account\u003A\u003A\u0024fillable",
             "name": "fillable",
@@ -1703,17 +1733,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Astart\u0028\u0029",
             "name": "start",
-            "summary": "Store\u0020a\u0020newly\u0020created\u0020resource\u0020in\u0020storage.",
+            "summary": "Start\u0020the\u0020transfer\u0020process.",
             "url": "classes/App-Http-Controllers-TransferController.html#method_start"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Acheck\u0028\u0029",
             "name": "check",
-            "summary": "",
+            "summary": "Check\u0020transfer\u0020key.",
             "url": "classes/App-Http-Controllers-TransferController.html#method_check"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Ashow\u0028\u0029",
             "name": "show",
-            "summary": "",
+            "summary": "Check\u0020transfer\u0020key.",
             "url": "classes/App-Http-Controllers-TransferController.html#method_show"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\TransferController\u003A\u003Aaccept\u0028\u0029",
@@ -1796,21 +1826,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Http-Requests-StoreInstallRequest.html#method_withValidator"
         },                {
-            "fqsen": "\\App\\Http\\Requests\\StoreTransferRequest",
-            "name": "StoreTransferRequest",
-            "summary": "",
-            "url": "classes/App-Http-Requests-StoreTransferRequest.html"
-        },                {
-            "fqsen": "\\App\\Http\\Requests\\StoreTransferRequest\u003A\u003Aauthorize\u0028\u0029",
-            "name": "authorize",
-            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
-            "url": "classes/App-Http-Requests-StoreTransferRequest.html#method_authorize"
-        },                {
-            "fqsen": "\\App\\Http\\Requests\\StoreTransferRequest\u003A\u003Arules\u0028\u0029",
-            "name": "rules",
-            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
-            "url": "classes/App-Http-Requests-StoreTransferRequest.html#method_rules"
-        },                {
             "fqsen": "\\App\\Models\\Domain",
             "name": "Domain",
             "summary": "",
@@ -1830,11 +1845,6 @@ Search.appendIndex(
             "name": "isBuiltIn",
             "summary": "Check\u0020if\u0020this\u0020domain\u0020is\u0020the\u0020built\u002Din\u0020domain.",
             "url": "classes/App-Models-Domain.html#method_isBuiltIn"
-        },                {
-            "fqsen": "\\App\\Models\\Domain\u003A\u003AisFailedVerification\u0028\u0029",
-            "name": "isFailedVerification",
-            "summary": "Check\u0020if\u0020we\u0020tried\u0020to\u0020verifiy\u0020the\u0020domain\u0020but\u0020failed.",
-            "url": "classes/App-Models-Domain.html#method_isFailedVerification"
         },                {
             "fqsen": "\\App\\Models\\Domain\u003A\u003A\u0024fillable",
             "name": "fillable",
@@ -1933,12 +1943,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003Ashow\u0028\u0029",
             "name": "show",
-            "summary": "",
+            "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020transfer\u0020installs.",
             "url": "classes/App-Policies-TransferPolicy.html#method_show"
         },                {
             "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003Aaccept\u0028\u0029",
             "name": "accept",
-            "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020delete\u0020the\u0020model.",
+            "summary": "Determine\u0020whether\u0020the\u0020user\u0020can\u0020accept\u0020a\u0020transfer.",
             "url": "classes/App-Policies-TransferPolicy.html#method_accept"
         },                {
             "fqsen": "\\App\\Policies\\TransferPolicy\u003A\u003A\u0024account",
@@ -2051,61 +2061,6 @@ Search.appendIndex(
             "summary": "Handle\u0020the\u0020event.",
             "url": "classes/App-Listeners-DomainRedirectListener.html#method_handle"
         },                {
-            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand",
-            "name": "VerifyDomainsCommand",
-            "summary": "",
-            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html"
-        },                {
-            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand\u003A\u003Ahandle\u0028\u0029",
-            "name": "handle",
-            "summary": "Execute\u0020the\u0020console\u0020command.",
-            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html#method_handle"
-        },                {
-            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand\u003A\u003A\u0024signature",
-            "name": "signature",
-            "summary": "The\u0020name\u0020and\u0020signature\u0020of\u0020the\u0020console\u0020command.",
-            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html#property_signature"
-        },                {
-            "fqsen": "\\App\\Console\\Commands\\VerifyDomainsCommand\u003A\u003A\u0024description",
-            "name": "description",
-            "summary": "The\u0020console\u0020command\u0020description.",
-            "url": "classes/App-Console-Commands-VerifyDomainsCommand.html#property_description"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob",
-            "name": "VerifyDomainsJob",
-            "summary": "",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003AretryUntil\u0028\u0029",
-            "name": "retryUntil",
-            "summary": "Determine\u0020the\u0020time\u0020at\u0020which\u0020the\u0020job\u0020should\u0020timeout.",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html#method_retryUntil"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020a\u0020new\u0020job\u0020instance.",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003Ahandle\u0028\u0029",
-            "name": "handle",
-            "summary": "Execute\u0020the\u0020job.",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html#method_handle"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003AfailedDomainVerification\u0028\u0029",
-            "name": "failedDomainVerification",
-            "summary": "",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html#method_failedDomainVerification"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003A\u0024maxExceptions",
-            "name": "maxExceptions",
-            "summary": "The\u0020maximum\u0020number\u0020of\u0020unhandled\u0020exceptions\u0020to\u0020allow\u0020before\u0020failing.",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html#property_maxExceptions"
-        },                {
-            "fqsen": "\\App\\Jobs\\VerifyDomainsJob\u003A\u003A\u0024domain",
-            "name": "domain",
-            "summary": "The\u0020account\u0020instance.",
-            "url": "classes/App-Jobs-VerifyDomainsJob.html#property_domain"
-        },                {
             "fqsen": "\\App\\Events\\InstallCopyEvent",
             "name": "InstallCopyEvent",
             "summary": "",
@@ -2151,6 +2106,56 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
             "url": "classes/App-Http-Requests-CheckTransferRequest.html#method_rules"
         },                {
+            "fqsen": "\\App\\Exceptions\\DomainVerificationFailedException",
+            "name": "DomainVerificationFailedException",
+            "summary": "",
+            "url": "classes/App-Exceptions-DomainVerificationFailedException.html"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain",
+            "name": "VerifyDomain",
+            "summary": "",
+            "url": "classes/App-Jobs-VerifyDomain.html"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020job\u0020instance.",
+            "url": "classes/App-Jobs-VerifyDomain.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003Amiddleware\u0028\u0029",
+            "name": "middleware",
+            "summary": "Get\u0020the\u0020middleware\u0020the\u0020job\u0020should\u0020pass\u0020through.",
+            "url": "classes/App-Jobs-VerifyDomain.html#method_middleware"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003AretryUntil\u0028\u0029",
+            "name": "retryUntil",
+            "summary": "Determine\u0020the\u0020time\u0020at\u0020which\u0020the\u0020job\u0020should\u0020timeout.",
+            "url": "classes/App-Jobs-VerifyDomain.html#method_retryUntil"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003Abackoff\u0028\u0029",
+            "name": "backoff",
+            "summary": "Calculate\u0020the\u0020number\u0020of\u0020seconds\u0020to\u0020wait\u0020before\u0020retrying\u0020the\u0020job.",
+            "url": "classes/App-Jobs-VerifyDomain.html#method_backoff"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "Execute\u0020the\u0020job.",
+            "url": "classes/App-Jobs-VerifyDomain.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003Afailed\u0028\u0029",
+            "name": "failed",
+            "summary": "Handle\u0020a\u0020job\u0020failure.",
+            "url": "classes/App-Jobs-VerifyDomain.html#method_failed"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003A\u0024domain",
+            "name": "domain",
+            "summary": "The\u0020account\u0020instance.",
+            "url": "classes/App-Jobs-VerifyDomain.html#property_domain"
+        },                {
+            "fqsen": "\\App\\Jobs\\VerifyDomain\u003A\u003A\u0024deleteWhenMissingModels",
+            "name": "deleteWhenMissingModels",
+            "summary": "Delete\u0020the\u0020job\u0020if\u0020its\u0020models\u0020no\u0020longer\u0020exist.",
+            "url": "classes/App-Jobs-VerifyDomain.html#property_deleteWhenMissingModels"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -2175,11 +2180,6 @@ Search.appendIndex(
             "name": "Classes",
             "summary": "",
             "url": "namespaces/app-classes.html"
-        },                {
-            "fqsen": "\\App\\Console\\Commands",
-            "name": "Commands",
-            "summary": "",
-            "url": "namespaces/app-console-commands.html"
         },                {
             "fqsen": "\\App\\Console",
             "name": "Console",

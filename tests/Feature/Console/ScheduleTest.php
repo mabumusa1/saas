@@ -2,22 +2,22 @@
 
 namespace Tests\Feature\Console;
 
+use App\Jobs\VerifyDomain;
+use App\Models\Domain;
+use App\Models\Install;
+use App\Models\Site;
 use Illuminate\Console\Events\ScheduledTaskFinished;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use App\Models\Site;
-use App\Models\Install;
-use App\Models\Domain;
 use Illuminate\Support\Facades\Queue;
-use App\Jobs\VerifyDomain;
-
+use Tests\TestCase;
 
 class ScheduleTest extends TestCase
 {
     use RefreshDatabase;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -48,7 +48,6 @@ class ScheduleTest extends TestCase
         });
     }
 
-
     public function test_domain_verification_tasks_running()
     {
         Queue::fake();
@@ -60,7 +59,6 @@ class ScheduleTest extends TestCase
 
         Queue::assertPushed(function (VerifyDomain $job) use ($domain) {
             return $job->domain->id === $domain->id;
-        });        
+        });
     }
-
 }

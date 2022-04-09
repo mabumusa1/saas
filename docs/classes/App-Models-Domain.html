@@ -236,13 +236,6 @@
 </dt>
 <dd>Check if this domain is the built-in domain.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/App-Models-Domain.html#method_isFailedVerification">isFailedVerification()</a>
-    <span>
-                                &nbsp;: <abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr>    </span>
-</dt>
-<dd>Check if we tried to verifiy the domain but failed.</dd>
-
         </dl>
 
 
@@ -271,7 +264,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Domain.php"><a href="files/app-models-domain.html"><abbr title="app/Models/Domain.php">Domain.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -281,7 +274,7 @@
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">array&lt;string, string&gt;</span>
     <span class="phpdocumentor-signature__name">$casts</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;primary&#039; =&gt; &#039;boolean&#039;, &#039;verified&#039; =&gt; &#039;boolean&#039;, &#039;verified_at&#039; =&gt; &#039;timestamp&#039;, &#039;attempts&#039; =&gt; &#039;integer&#039;]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;primary&#039; =&gt; &#039;boolean&#039;, &#039;verified_at&#039; =&gt; &#039;timestamp&#039;, &#039;verification_failed&#039; =&gt; &#039;boolean&#039;]</span></code>
 
     
     
@@ -314,7 +307,7 @@
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$fillable</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;install_id&#039;, &#039;name&#039;, &#039;primary&#039;, &#039;verified&#039;, &#039;verified_at&#039;, &#039;attempts&#039;]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;install_id&#039;, &#039;name&#039;, &#039;primary&#039;, &#039;verified_at&#039;, &#039;verification_failed&#039;]</span></code>
 
     
     
@@ -341,7 +334,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Domain.php"><a href="files/app-models-domain.html"><abbr title="app/Models/Domain.php">Domain.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -374,7 +367,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Domain.php"><a href="files/app-models-domain.html"><abbr title="app/Models/Domain.php">Domain.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -407,7 +400,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Domain.php"><a href="files/app-models-domain.html"><abbr title="app/Models/Domain.php">Domain.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
@@ -416,39 +409,6 @@
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">isBuiltIn</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_isFailedVerification">
-        isFailedVerification()
-        <a href="classes/App-Models-Domain.html#method_isFailedVerification" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/Models/Domain.php"><a href="files/app-models-domain.html"><abbr title="app/Models/Domain.php">Domain.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">83</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Check if we tried to verifiy the domain but failed.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">isFailedVerification</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Database\Eloquent\Casts\Attribute">Attribute</abbr></span></code>
 
     
     
