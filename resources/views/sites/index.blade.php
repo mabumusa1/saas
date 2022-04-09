@@ -118,7 +118,7 @@
                                                         <a href="#" class="menu-link px-3">
                                                             {{ __('Clear Cache') }}
                                                         </a>
-                                                        <a href="#" class="menu-link px-3">
+                                                        <a href="!#" data-href="{{ route('installs.destroy', ['account' => $currentAccount, 'site' => $site, 'install' => $install]) }}" class="menu-link px-3 btn-install-delete">
                                                             {{ __('Delete Install') }}
                                                         </a>
 
@@ -136,6 +136,11 @@
             </div>
         </div>
     </div>
+    <form
+    id="install_delete_form" method="post">
+        @csrf
+        @method('DELETE')
+    </form>
     <div class="modal fade" tabindex="-1" id="accept_transfer_modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -218,6 +223,28 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             document.querySelector(button.getAttribute('data-target')).submit();
+                        }
+                    })
+                });
+            })
+
+            var deleteBtn = document.querySelectorAll('.btn-install-delete');
+            deleteBtn.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var deleteForm = document.querySelector('#install_delete_form');
+                            deleteForm.action = button.getAttribute('data-href');
+                            deleteForm.submit();
                         }
                     })
                 });
