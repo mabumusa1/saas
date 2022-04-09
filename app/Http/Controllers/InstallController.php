@@ -163,7 +163,7 @@ class InstallController extends Controller
 
     public function liveCheck(Account $account, Site $site, Install $install)
     {
-        return view('installs.live-check.index', compact('account', 'site', 'install'));
+        return view('installs.live-checklist.index', compact('account', 'site', 'install'));
     }
 
     public function webRules(Account $account, Site $site, Install $install)
