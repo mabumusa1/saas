@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\CreateInstallEvent;
 use App\Events\InstallCopyEvent;
+use App\Events\InstallDeleteEvent;
 use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
@@ -112,5 +113,21 @@ class InstallController extends Controller
         $installs = $site->installs()->where('id', '!=', $install->id)->get();
 
         return view('installs.show', ['account' => $account, 'site' => $site, 'install' => $install, 'installs' => $installs]);
+    }
+
+    /**
+     * Delete an install.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Account $account, Site $site, Install $install)
+    {
+        InstallDeleteEvent::dispatch($install);
+        $install->delete();
+
+        return redirect()->back()->with('success', __('Install Deleted Successfully'));
     }
 }
