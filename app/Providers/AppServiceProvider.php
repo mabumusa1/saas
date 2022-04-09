@@ -10,6 +10,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 use Spatie\Activitylog\ActivityLogger;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -62,5 +64,11 @@ class AppServiceProvider extends ServiceProvider
             Cashier::$apiBaseUrl = config('services.stripe.api_base');
             \Stripe\Stripe::$apiBase = config('services.stripe.api_base');
         }
+
+        // Domain check rate limiter
+        RateLimiter::for('VerifyDomain', function ($job) {
+            return Limit::perHour(50)->by($job->domain->id);
+        });
+
     }
 }
