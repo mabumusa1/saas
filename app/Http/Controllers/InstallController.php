@@ -175,4 +175,20 @@ class InstallController extends Controller
     {
         return view('installs.cron.index', compact('account', 'site', 'install'));
     }
+
+    /**
+     * Delete an install.
+     *
+     * @param Account $account
+     * @param Site $site
+     * @param Install $install
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Account $account, Site $site, Install $install)
+    {
+        InstallDeleteEvent::dispatch($install);
+        $install->delete();
+
+        return redirect()->back()->with('success', __('Install Deleted Successfully'));
+    }
 }
