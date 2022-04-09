@@ -1,28 +1,30 @@
 <x-base-layout>
     <div class="container mb-8">
-        <div class="card">
-            <div class="card-body">
+
+        <div class="card overlay">
+            <div class="card-body overlay-wrapper">
                 <!--begin::Stepper-->
                 <div class="stepper stepper-pills stepper-column d-flex flex-column flex-lg-row" id="create_stepper">
                     <!--begin::Aside-->
                     <!--begin::Content-->
                     <div class="flex-row-fluid">
                         <!--begin::Form-->
-                        <form method="post" action="{{ route('sites.store', $currentAccount->id) }}" id="site-form" class="form mx-auto" novalidate="novalidate" autocomplete="off">
+                        <form method="post" action="{{ route('sites.store', $currentAccount->id) }}" id="site-form"
+                            class="form mx-auto" novalidate="novalidate" autocomplete="off">
                             @csrf
                             <!--begin::Group-->
                             <div class="mb-5">
                                 <!--begin::Step 1-->
                                 <div class="flex-column current" data-kt-stepper-element="content">
                                     <h3 class="text-dark mb-8">{{ __('Who owns the site?') }}</h3>
-                                    
+
                                     <!-- Begin Site Type -->
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="owner" class="form-check-input" type="radio" value="mine"
                                                 id="radioMine"
                                                 @if ($subscriptions->count() === 0) disabled @else checked @endif>
-                                            <label class="form-check-label" for="radioMine">
+                                            <label class="form-check-label opacity-100" for="radioMine">
                                                 {{ __('This site is mine; it will count towards my site allowance') }}
                                                 <br />
                                                 {{ __('You have ') . $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }}
@@ -35,21 +37,20 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="mb-10">                                        
+                                    <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="owner" class="form-check-input" type="radio"
                                                 value="transferable" id="radioTransferable"
-                                                @if($currentAccount->availableQuota === 0) disabled @endif
+                                                @if ($currentAccount->availableQuota === 0 && $subscriptions->count() === 0) disabled @endif
                                                 @if ($subscriptions->count() === 0 && $currentAccount->availableQuota > 0) checked @endif>
-                                            <label class="form-check-label" for="radioTransferable">
+                                            <label class="form-check-label opacity-100" for="radioTransferable">
                                                 {{ __('This site is transferable; it will be moved to someone elses account.') }}
                                                 <br />
                                                 {{ __('You will be transferring the site to a client or collaborator') }}
-                                                <br />
-                                                @if($currentAccount->availableQuota === 0)
-                                                {{ __('Get unlimited transfered sites when you subscribe to one of our plans')}}
-                                                <br />
-                                                {{__('or request transferable sites without entering your billing details')}} <a href="#">{{__('Request Form')}}</a>
+                                                @if ($currentAccount->availableQuota === 0)
+                                                    {{ __('Get unlimited transfered sites when you subscribe to one of our plans') }}
+                                                    {{ __('or request transferable sites without entering your billing details') }}
+                                                    <a href="#">{{ __('Request Form') }}</a>
                                                 @endif
                                             </label>
                                         </div>
@@ -135,23 +136,24 @@
                                     <p>{{ __('A site is a group of up to three installs (Production, Staging, Development) under one name') }}
                                     </p>
                                     @if ($subscriptions->count() > 0)
-                                    <div class="mb-10" id="subscriptions">
-                                        <div class="form-group fv-row">
-                                            <label>{{ __('Subscription Type') }}</label>
-                                            <select name="subscription_id" id="subscription_id" class="form-control form-control-solid">
-                                                @foreach ($subscriptions as $subscription)
-                                                    <option value="{{ $subscription->id }}"
-                                                        @if ($subscription->id == $currentAccount->subscription_id) selected @endif>
-                                                        {{ $subscription->displayName }}
-                                                        @if ($subscription->quantity - $subscription->sites_count > 0)
-                                                            ({{ $subscription->quantity - $subscription->sites_count }}
-                                                            sites available)
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                        <div class="mb-10" id="subscriptions">
+                                            <div class="form-group fv-row">
+                                                <label>{{ __('Subscription Type') }}</label>
+                                                <select name="subscription_id" id="subscription_id"
+                                                    class="form-control form-control-solid">
+                                                    @foreach ($subscriptions as $subscription)
+                                                        <option value="{{ $subscription->id }}"
+                                                            @if ($subscription->id == $currentAccount->subscription_id) selected @endif>
+                                                            {{ $subscription->displayName }}
+                                                            @if ($subscription->quantity - $subscription->sites_count > 0)
+                                                                ({{ $subscription->quantity - $subscription->sites_count }}
+                                                                sites available)
+                                                            @endif
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
 
                                     <div class="mb-10">
@@ -186,8 +188,8 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="type"
-                                                        value="prd" @if ($subscriptions->count() > 0) checked @else disabled @endif />
+                                                    <input class="form-check-input" type="radio" name="type" value="prd"
+                                                        @if ($subscriptions->count() > 0) checked @else disabled @endif />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -196,8 +198,9 @@
                                                     {!! get_svg_icon('skin/media/icons/duotone/Communication/Share.svg') !!}
                                                     <div class="badge badge-primary ms-2">{{ __('PRD') }}</div>
                                                     <div class="d-flex d-inline-flex flex-column">
-                                                        <p class="mb-0">{{ __('Production (live)') }}</p>
-                                                        <p>{{ __('Host a public site') }}</p>
+                                                        <p class="mb-0">{{ __('Production (live)') }}
+                                                        </p>
+                                                        <p class="mb-0">{{ __('Host a public site') }}</p>
                                                     </div>
                                                 </div>
                                                 <!--end::Price-->
@@ -209,8 +212,8 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="type"
-                                                        value="stg" @if ($subscriptions->count() === 0) checked @endif />
+                                                    <input class="form-check-input" type="radio" name="type" value="stg"
+                                                        @if ($subscriptions->count() === 0) checked @endif />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -234,8 +237,8 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="type"
-                                                        value="dev" disabled />
+                                                    <input class="form-check-input" type="radio" name="type" value="dev"
+                                                        disabled />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -300,7 +303,14 @@
                 </div>
                 <!--end::Stepper-->
             </div>
+            @if ($subscriptions->count() === 0 && $currentAccount->availableQuota === 0)
+                <div class="overlay-layer bg-dark bg-opacity-25 flex-column">
+                    <div class="alert alert-danger">You don't have active subscriptions or Quota Please Consider Adding One</div>
+                    <button class="btn btn-primary">Add Subscription</button>
+                </div>
+            @endif
         </div>
+
 
     </div>
 
@@ -395,7 +405,8 @@
                                 remote: {
                                     method: 'POST',
                                     headers: {
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')                                        
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                            'content')
                                     },
                                     url: '{{ route('sites.store', $currentAccount->id) }}',
                                     data: function(val) {
@@ -415,7 +426,7 @@
                             installname: {
                                 uri: function(field, element, validator) {
                                     var value = element.value;
-                                    var uri = 'https://' + value + '.steercampaign.com';                                    
+                                    var uri = 'https://' + value + '.steercampaign.com';
                                     return uri;
                                 }
                             }
