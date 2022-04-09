@@ -128,6 +128,6 @@ class InstallController extends Controller
         InstallDeleteEvent::dispatch($install);
         $install->delete();
 
-        return redirect()->back()->with('success', __('Install Deleted Successfully'));
+        return redirect()->route('sites.index', $account)->with('success', __('Install Deleted Successfully'));
     }
 }
