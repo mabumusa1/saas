@@ -37,19 +37,21 @@ class UniqueDomainRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        
         try {
             $domain = Domain::where('name', $value)->firstOrFail();
             if ($this->installs->contains($domain->install_id)) {
                 // This user has the domain
                 $install = Install::find($domain->install_id);
                 $this->message = __('Domain name is already configured as a domain on the install :name. Please choose a unique name.', ['name' => $install->name]);
+
                 return false;
-            } else {                         
-                if(! VerifyDomainOwnershipHelper($value, $this->install->name, $domain)){
+            } else {
+                if (! VerifyDomainOwnershipHelper($value, $this->install->name, $domain)) {
                     $this->message = __('Domain name has already been taken');
+
                     return false;
                 }
+
                 return true;
             }
         } catch (ModelNotFoundException $e) {

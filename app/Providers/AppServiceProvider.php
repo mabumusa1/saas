@@ -6,12 +6,12 @@ use App\Classes\ActivityLogger as GlobalActivityLogger;
 use App\Models\Account;
 use App\Models\Cashier\Subscription;
 use App\Resolvers\AccountResolver;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 use Spatie\Activitylog\ActivityLogger;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -69,6 +69,5 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('VerifyDomain', function ($job) {
             return Limit::perHour(50)->by($job->domain->id);
         });
-
     }
 }
