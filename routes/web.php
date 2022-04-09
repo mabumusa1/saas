@@ -95,6 +95,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::resource('installs', App\Http\Controllers\InstallController::class)->only([
                 'create', 'store', 'show', 'destroy',
             ]);
+            Route::get('{install}/cdn', [App\Http\Controllers\InstallController::class, 'cdn'])->name('installs.cdn');
+            Route::get('{install}/redirect-rules', [App\Http\Controllers\InstallController::class, 'redirectRules'])->name('installs.redirectRules');
+            Route::get('{install}/backup-points', [App\Http\Controllers\InstallController::class, 'backupPoints'])->name('installs.backupPoints');
+            Route::get('{install}/logs/access', [App\Http\Controllers\InstallController::class, 'accessLogs'])->name('installs.accessLogs');
+            Route::get('{install}/logs/error', [App\Http\Controllers\InstallController::class, 'errorLogs'])->name('installs.errorLogs');
+            Route::get('{install}/utilities', [App\Http\Controllers\InstallController::class, 'utilities'])->name('installs.utilities');
+            Route::get('{install}/caching', [App\Http\Controllers\InstallController::class, 'caching'])->name('installs.caching');
+            Route::get('{install}/migration', [App\Http\Controllers\InstallController::class, 'migration'])->name('installs.migration');
+            Route::get('{install}/live-check', [App\Http\Controllers\InstallController::class, 'liveCheck'])->name('installs.liveCheck');
+            Route::get('{install}/web-rules', [App\Http\Controllers\InstallController::class, 'webRules'])->name('installs.webRules');
+            Route::get('{install}/cron', [App\Http\Controllers\InstallController::class, 'cron'])->name('installs.cron');
+
             Route::resource('{install}/domains', App\Http\Controllers\DomainController::class)->only([
                 'index', 'store', 'destroy',
             ]);
@@ -111,6 +123,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
 
         /*
+
          * Independent transfer operations
          */
         Route::prefix('transfer')->group(function () {

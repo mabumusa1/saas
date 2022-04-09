@@ -115,19 +115,64 @@ class InstallController extends Controller
         return view('installs.show', ['account' => $account, 'site' => $site, 'install' => $install, 'installs' => $installs]);
     }
 
-    /**
-     * Delete an install.
-     *
-     * @param Account $account
-     * @param Site $site
-     * @param Install $install
-     * @return  \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Account $account, Site $site, Install $install)
-    {
-        InstallDeleteEvent::dispatch($install);
-        $install->delete();
+    /*
+    Methods at here are not in final place or shape.
+    They may get moved or deleted in future.
+    they are here until we get better place to put them in.
+    */
 
-        return redirect()->route('sites.index', $account)->with('success', __('Install Deleted Successfully'));
+    public function cdn(Account $account, Site $site, Install $install)
+    {
+        return view('installs.cdn.index', compact('account', 'site', 'install'));
+    }
+
+    public function redirectRules(Account $account, Site $site, Install $install)
+    {
+        return view('installs.redirect-rules.index', compact('account', 'site', 'install'));
+    }
+
+    public function backupPoints(Account $account, Site $site, Install $install)
+    {
+        return view('installs.backup-points.index', compact('account', 'site', 'install'));
+    }
+
+    public function accessLogs(Account $account, Site $site, Install $install)
+    {
+        return view('installs.logs.access', compact('account', 'site', 'install'));
+    }
+
+    public function errorLogs(Account $account, Site $site, Install $install)
+    {
+        return view('installs.logs.error', compact('account', 'site', 'install'));
+    }
+
+    public function utilities(Account $account, Site $site, Install $install)
+    {
+        return view('installs.utilities.index', compact('account', 'site', 'install'));
+    }
+
+    public function caching(Account $account, Site $site, Install $install)
+    {
+        return view('installs.caching.index', compact('account', 'site', 'install'));
+    }
+
+    public function migration(Account $account, Site $site, Install $install)
+    {
+        return view('installs.migration.index', compact('account', 'site', 'install'));
+    }
+
+    public function liveCheck(Account $account, Site $site, Install $install)
+    {
+        return view('installs.live-check.index', compact('account', 'site', 'install'));
+    }
+
+    public function webRules(Account $account, Site $site, Install $install)
+    {
+        return view('installs.web-rules.index', compact('account', 'site', 'install'));
+    }
+
+    public function cron(Account $account, Site $site, Install $install)
+    {
+        return view('installs.cron.index', compact('account', 'site', 'install'));
     }
 }
