@@ -2211,11 +2211,6 @@ Search.appendIndex(
             "summary": "Handle\u0020the\u0020User\u0020\u0022created\u0022\u0020event.",
             "url": "classes/App-Observers-UserObserver.html#method_created"
         },                {
-            "fqsen": "\\App\\Observers\\UserObserver\u003A\u003Adeleted\u0028\u0029",
-            "name": "deleted",
-            "summary": "Handle\u0020the\u0020User\u0020\u0022deleted\u0022\u0020event.",
-            "url": "classes/App-Observers-UserObserver.html#method_deleted"
-        },                {
             "fqsen": "\\App\\Observers\\InstallObserver",
             "name": "InstallObserver",
             "summary": "",

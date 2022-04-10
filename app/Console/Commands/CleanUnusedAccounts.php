@@ -34,12 +34,19 @@ class CleanUnusedAccounts extends Command
             ->where('created_at', '<', now()->subDays(30))
             ->get();
 
-            foreach ($toDelete as $user) {
+        foreach ($toDelete as $user) {
+            $accounts = $user->accounts()->get();
             $user->accounts()->detach();
             $user->delete();
+            if ($accounts->count() === 1) {
+                $account = $accounts->first();
+                $account->forceDelete();
+            }
         }
+
         $this->comment("Deleted {$toDelete} unverified users.");
         $this->info('All done!');
+
         return 0;
     }
 }

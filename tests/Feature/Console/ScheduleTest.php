@@ -3,11 +3,11 @@
 namespace Tests\Feature\Console;
 
 use App\Jobs\VerifyDomain;
+use App\Models\Account;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
-use App\Models\Account;
 use Illuminate\Console\Events\ScheduledTaskFinished;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
