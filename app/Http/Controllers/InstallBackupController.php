@@ -19,7 +19,7 @@ class InstallBackupController extends Controller
      */
     public function index(Account $account, Site $site, Install $install)
     {
-        $backups = $install->backups;
+        $backups = $install->backups()->orderBy('created_at', 'DESC')->get();
 
         return view('installs.backups.index', ['account' => $account, 'install' => $install, 'site' => $site, 'backups' => $backups]);
     }
