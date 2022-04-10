@@ -129,6 +129,11 @@ class Install extends Model
         return $this->hasMany(Domain::class);
     }
 
+    public function backups()
+    {
+        return $this->hasMany(InstallBackup::class);
+    }
+
     /**
      * Get Install CNAME.
      *
