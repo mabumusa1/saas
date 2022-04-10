@@ -26,7 +26,6 @@ class AdminControllerTest extends TestCase
         $this->adminUser = User::factory()->create();
         $adminAccount = $this->adminUser->accounts()->first();
         $adminAccount->users()->sync([$this->adminUser->id => ['role' => 'admin']]);
-
         $this->actingAs($this->adminUser);
     }
 

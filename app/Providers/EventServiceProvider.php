@@ -8,8 +8,12 @@ use App\Events\SetDomainPrimaryEvent;
 use App\Events\SetDomainRedirectEvent;
 use App\Events\UserInvitedEvent;
 use App\Models\Domain;
+use App\Models\Install;
+use App\Models\Site;
 use App\Models\User;
 use App\Observers\DomainObserver;
+use App\Observers\InstallObserver;
+use App\Observers\SiteObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
@@ -66,13 +70,23 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The model observers for your application.
+     *
+     * @var array
+     */
+    protected $observers = [
+        User::class => [UserObserver::class],
+        Domain::class => [DomainObserver::class],
+        Install::class => [InstallObserver::class],
+        Site::class => [SiteObserver::class],
+    ];
+
+    /**
      * Register any events for your application.
      *
      * @return void
      */
     public function boot()
     {
-        Domain::observe(DomainObserver::class);
-        User::observe(UserObserver::class);
     }
 }

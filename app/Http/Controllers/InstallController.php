@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateInstallEvent;
 use App\Events\InstallCopyEvent;
-use App\Events\InstallDeleteEvent;
 use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
@@ -73,8 +71,6 @@ class InstallController extends Controller
             'verified' => true,
             'verified_at' => now(),
         ]);
-
-        CreateInstallEvent::dispatch($install);
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('New installation is created'));
     }
@@ -190,7 +186,6 @@ class InstallController extends Controller
             return redirect()->back()->with('error', __('Any site must has at least one install, if you want to delete this install, please delete the whole site'));
         }
 
-        InstallDeleteEvent::dispatch($install);
         $install->delete();
 
         return redirect()->route('sites.index', [$account])->with('success', __('Install Deleted Successfully'));

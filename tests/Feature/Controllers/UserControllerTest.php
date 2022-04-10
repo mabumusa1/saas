@@ -21,12 +21,17 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::setUpAccount();
+    }
+
     /**
      * @test
      */
     public function test_index_displays_view()
     {
-        parent::setUpAccount();
         $response = $this->get(route('users.index', $this->account));
 
         $response->assertOk();
@@ -39,7 +44,6 @@ class UserControllerTest extends TestCase
      */
     public function test_index_displays_view_without_account_set()
     {
-        parent::setUpAccount();
         $view = $this->view('layout.aside._menu');
 
         $view->assertSee($this->account->name);
@@ -50,7 +54,6 @@ class UserControllerTest extends TestCase
      */
     public function test_create_displays_view()
     {
-        parent::setUpAccount();
         $response = $this->get(route('users.create', $this->account));
 
         $response->assertOk();
@@ -60,7 +63,6 @@ class UserControllerTest extends TestCase
 
     public function test_user_store_fails_for_existing_user()
     {
-        parent::setUpAccount();
         $user = User::factory()->create();
         $this->account->users()->attach($user->id, ['role' => 'owner']);
 
@@ -73,7 +75,6 @@ class UserControllerTest extends TestCase
 
     public function test_user_store_fails_for_existing_invite()
     {
-        parent::setUpAccount();
         $invite = Invite::factory()->for($this->account)->create();
 
         $response = $this->post(route('users.store', $this->account), [
@@ -86,7 +87,6 @@ class UserControllerTest extends TestCase
     public function test_user_store_success()
     {
         Event::fake();
-        parent::setUpAccount();
         $response = $this->post(route('users.store', $this->account), [
             'email' => 'test@a.com',
             'role' => 'owner',
@@ -106,8 +106,6 @@ class UserControllerTest extends TestCase
      */
     public function test_user_update()
     {
-        parent::setUpAccount();
-
         $user = User::factory()->create();
         $this->account->users()->attach($user->id, ['role' => 'fb']);
         $response = $this->put(route('users.update', ['account' => $this->account, 'user' => $user]), [
@@ -122,8 +120,6 @@ class UserControllerTest extends TestCase
      */
     public function test_user_update_not_allowed()
     {
-        parent::setUpAccount();
-
         $user = User::factory()->create();
         $this->account->users()->attach($user->id, ['role' => 'fb']);
         $this->actingAs($user);
@@ -140,8 +136,6 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy_not_allowed()
     {
-        parent::setUpAccount();
-
         $user = User::factory()->create();
         $this->account->users()->attach($user->id, ['role' => 'fb']);
         $this->actingAs($user);
@@ -156,7 +150,6 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy_only_if_account_has_one_owner()
     {
-        parent::setUpAccount();
         $response = $this->delete(route('users.destroy', ['account' => $this->account, 'user' => $this->user]));
         $response->assertForbidden();
     }
@@ -166,7 +159,6 @@ class UserControllerTest extends TestCase
      */
     public function test_user_destroy()
     {
-        parent::setUpAccount();
         $userSecond = User::factory()->create();
         $this->account->users()->attach($userSecond->id, ['role' => 'owner']);
         $this->actingAs($userSecond);

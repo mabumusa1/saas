@@ -179,7 +179,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -200,6 +200,34 @@
 
 <dl class="phpdocumentor-table-of-contents">
                         <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_accessLogs">accessLogs()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_backupPoints">backupPoints()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_caching">caching()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_cdn">cdn()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Http-Controllers-InstallController.html#method_copy">copy()</a>
     <span>
                                 &nbsp;: <abbr title="\Illuminate\Http\JsonResponse">JsonResponse</abbr>    </span>
@@ -214,6 +242,48 @@
 <dd>Create a new install.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_cron">cron()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_destroy">destroy()</a>
+    <span>
+                                &nbsp;: <abbr title="\Illuminate\Http\RedirectResponse">RedirectResponse</abbr>    </span>
+</dt>
+<dd>Delete an install.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_errorLogs">errorLogs()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_liveCheck">liveCheck()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_migration">migration()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_redirectRules">redirectRules()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Http-Controllers-InstallController.html#method_show">show()</a>
     <span>
                                 &nbsp;: <abbr title="\Illuminate\Contracts\View\View">View</abbr>    </span>
@@ -226,6 +296,20 @@
                                 &nbsp;: <abbr title="\Illuminate\Http\JsonResponse">JsonResponse</abbr>    </span>
 </dt>
 <dd>Store a new install.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_utilities">utilities()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/App-Http-Controllers-InstallController.html#method_webRules">webRules()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
 
         </dl>
 
@@ -246,6 +330,246 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_accessLogs">
+        accessLogs()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_accessLogs" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">139</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">accessLogs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_backupPoints">
+        backupPoints()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_backupPoints" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">134</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">backupPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_caching">
+        caching()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_caching" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">154</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">caching</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_cdn">
+        cdn()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_cdn" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">124</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">cdn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_copy">
         copy()
         <a href="classes/App-Http-Controllers-InstallController.html#method_copy" class="headerlink"><i class="fas fa-link"></i></a>
@@ -253,7 +577,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -320,7 +644,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -365,6 +689,363 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_cron">
+        cron()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_cron" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">174</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">cron</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_destroy">
+        destroy()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_destroy" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">187</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Delete an install.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">destroy</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Http\RedirectResponse">RedirectResponse</abbr></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Illuminate\Http\RedirectResponse">RedirectResponse</abbr></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_errorLogs">
+        errorLogs()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_errorLogs" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">144</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">errorLogs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_liveCheck">
+        liveCheck()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_liveCheck" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">164</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">liveCheck</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_migration">
+        migration()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_migration" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">159</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">migration</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_redirectRules">
+        redirectRules()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_redirectRules" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">129</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">redirectRules</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_show">
         show()
         <a href="classes/App-Http-Controllers-InstallController.html#method_show" class="headerlink"><i class="fas fa-link"></i></a>
@@ -372,7 +1053,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
@@ -430,7 +1111,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -474,6 +1155,126 @@
             <section class="phpdocumentor-description"><p>| \Illuminate\Http\RedirectResponse</p>
 </section>
 
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_utilities">
+        utilities()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_utilities" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">149</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">utilities</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_webRules">
+        webRules()
+        <a href="classes/App-Http-Controllers-InstallController.html#method_webRules" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Http/Controllers/InstallController.php"><a href="files/app-http-controllers-installcontroller.html"><abbr title="app/Http/Controllers/InstallController.php">InstallController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">169</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">webRules</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$account</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$site</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$install</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$account</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Account.html"><abbr title="\App\Models\Account">Account</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$site</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Site.html"><abbr title="\App\Models\Site">Site</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$install</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/App-Models-Install.html"><abbr title="\App\Models\Install">Install</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
     
 </article>
             </section>

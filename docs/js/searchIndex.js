@@ -196,6 +196,11 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/default.html#function_roles"
         },                {
+            "fqsen": "\\installType\u0028\u0029",
+            "name": "installType",
+            "summary": "",
+            "url": "namespaces/default.html#function_installType"
+        },                {
             "fqsen": "\\get_svg_icon\u0028\u0029",
             "name": "get_svg_icon",
             "summary": "",
@@ -360,6 +365,66 @@ Search.appendIndex(
             "name": "show",
             "summary": "Show\u0020Install\u0020dashboard.",
             "url": "classes/App-Http-Controllers-InstallController.html#method_show"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acdn\u0028\u0029",
+            "name": "cdn",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_cdn"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003AredirectRules\u0028\u0029",
+            "name": "redirectRules",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_redirectRules"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003AbackupPoints\u0028\u0029",
+            "name": "backupPoints",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_backupPoints"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003AaccessLogs\u0028\u0029",
+            "name": "accessLogs",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_accessLogs"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003AerrorLogs\u0028\u0029",
+            "name": "errorLogs",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_errorLogs"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Autilities\u0028\u0029",
+            "name": "utilities",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_utilities"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acaching\u0028\u0029",
+            "name": "caching",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_caching"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Amigration\u0028\u0029",
+            "name": "migration",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_migration"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003AliveCheck\u0028\u0029",
+            "name": "liveCheck",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_liveCheck"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003AwebRules\u0028\u0029",
+            "name": "webRules",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_webRules"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acron\u0028\u0029",
+            "name": "cron",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_cron"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Adestroy\u0028\u0029",
+            "name": "destroy",
+            "summary": "Delete\u0020an\u0020install.",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_destroy"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\InviteController",
             "name": "InviteController",
@@ -2156,6 +2221,61 @@ Search.appendIndex(
             "summary": "Delete\u0020the\u0020job\u0020if\u0020its\u0020models\u0020no\u0020longer\u0020exist.",
             "url": "classes/App-Jobs-VerifyDomain.html#property_deleteWhenMissingModels"
         },                {
+            "fqsen": "\\App\\Console\\Commands\\CleanUnusedAccounts",
+            "name": "CleanUnusedAccounts",
+            "summary": "",
+            "url": "classes/App-Console-Commands-CleanUnusedAccounts.html"
+        },                {
+            "fqsen": "\\App\\Console\\Commands\\CleanUnusedAccounts\u003A\u003Ahandle\u0028\u0029",
+            "name": "handle",
+            "summary": "Execute\u0020the\u0020console\u0020command.",
+            "url": "classes/App-Console-Commands-CleanUnusedAccounts.html#method_handle"
+        },                {
+            "fqsen": "\\App\\Console\\Commands\\CleanUnusedAccounts\u003A\u003A\u0024signature",
+            "name": "signature",
+            "summary": "The\u0020name\u0020and\u0020signature\u0020of\u0020the\u0020console\u0020command.",
+            "url": "classes/App-Console-Commands-CleanUnusedAccounts.html#property_signature"
+        },                {
+            "fqsen": "\\App\\Console\\Commands\\CleanUnusedAccounts\u003A\u003A\u0024description",
+            "name": "description",
+            "summary": "The\u0020console\u0020command\u0020description.",
+            "url": "classes/App-Console-Commands-CleanUnusedAccounts.html#property_description"
+        },                {
+            "fqsen": "\\App\\Events\\InstallDeleteEvent",
+            "name": "InstallDeleteEvent",
+            "summary": "",
+            "url": "classes/App-Events-InstallDeleteEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\InstallDeleteEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-InstallDeleteEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\InstallDeleteEvent\u003A\u003A\u0024install",
+            "name": "install",
+            "summary": "",
+            "url": "classes/App-Events-InstallDeleteEvent.html#property_install"
+        },                {
+            "fqsen": "\\App\\Observers\\UserObserver",
+            "name": "UserObserver",
+            "summary": "",
+            "url": "classes/App-Observers-UserObserver.html"
+        },                {
+            "fqsen": "\\App\\Observers\\UserObserver\u003A\u003Acreated\u0028\u0029",
+            "name": "created",
+            "summary": "Handle\u0020the\u0020User\u0020\u0022created\u0022\u0020event.",
+            "url": "classes/App-Observers-UserObserver.html#method_created"
+        },                {
+            "fqsen": "\\App\\Observers\\UserObserver\u003A\u003Adeleted\u0028\u0029",
+            "name": "deleted",
+            "summary": "Handle\u0020the\u0020User\u0020\u0022deleted\u0022\u0020event.",
+            "url": "classes/App-Observers-UserObserver.html#method_deleted"
+        },                {
+            "fqsen": "\\App\\Observers\\UserObserver\u003A\u003A\u0024afterCommit",
+            "name": "afterCommit",
+            "summary": "Handle\u0020events\u0020after\u0020all\u0020transactions\u0020are\u0020committed.",
+            "url": "classes/App-Observers-UserObserver.html#property_afterCommit"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -2180,6 +2300,11 @@ Search.appendIndex(
             "name": "Classes",
             "summary": "",
             "url": "namespaces/app-classes.html"
+        },                {
+            "fqsen": "\\App\\Console\\Commands",
+            "name": "Commands",
+            "summary": "",
+            "url": "namespaces/app-console-commands.html"
         },                {
             "fqsen": "\\App\\Console",
             "name": "Console",

@@ -12,6 +12,7 @@ use App\Models\Site;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 /**
@@ -93,7 +94,33 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_store_blank()
     {
-        Event::fake();
+        $subscription = Subscription::factory()->create([
+            'account_id' => $this->account->id,
+            'quantity' => 1,
+        ]);
+
+        $response = $this->post(route('sites.store', $this->account), [
+            'sitename' => 'test name',
+            'installname' => 'test',
+            'type' => 'stg',
+            'owner' => 'mine',
+            'subscription_id' => $subscription->id,
+            'start' => 'blank',
+        ]);
+        $site = $this->account->sites()->first();
+        $install = $site->installs()->first();
+        $response->assertRedirect(route('installs.show', [$this->account, $site, $install]));
+        $response->assertSessionHas('status', __('Site is under creation, we will send you an update once it is done!'));
+    }
+
+    /**
+     *  TODO: Add a test case to the exception handler.
+     */
+    public function test_site_store_blank_with_error()
+    {
+        return $this->markTestSkipped('I do not know how to test inside the exception.');
+
+        /*
         $subscription = Subscription::factory()->create([
             'account_id' => $this->account->id,
             'quantity' => 1,
@@ -108,10 +135,9 @@ class SiteControllerTest extends TestCase
             'start' => 'blank',
         ]);
 
-        $response->assertRedirect(route('sites.index', $this->account));
-        $response->assertSessionHas('status', __('Site is under creation, we will send you an update once it is done!'));
-
-        Event::assertDispatched(CreateInstallEvent::class);
+        $response->assertRedirect(route('sites.index', [$this->account]));
+        $response->assertSessionHas('status', __('An error occured, please try again in few minutes'));
+        */
     }
 
     /**
@@ -253,6 +279,7 @@ class SiteControllerTest extends TestCase
     public function test_site_destroy()
     {
         $site = $this->createSite();
+        $install = Install::factory()->for($site)->create();
         $response = $this->delete(route('sites.destroy', ['account' => $this->account, 'site' => $site]));
         $response->assertRedirect();
     }

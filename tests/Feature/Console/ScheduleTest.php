@@ -61,4 +61,16 @@ class ScheduleTest extends TestCase
             return $job->domain->id === $domain->id;
         });
     }
+
+    public function test_delete_unverified_users()
+    {
+        Event::fake();
+        $date = new \Carbon\Carbon();
+        $firstOfDay = $date->floorDay();
+        $this->travelTo($firstOfDay);
+        $this->artisan('schedule:run');
+        Event::assertDispatched(ScheduledTaskFinished::class, function ($event) {
+            return strpos($event->task->command, 'accounts:clean') !== false;
+        });
+    }
 }
