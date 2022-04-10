@@ -22,10 +22,6 @@ class BillingControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private Account $account;
-
-    private User $user;
-
     private Plan $plan;
 
     private $paymentMethod;

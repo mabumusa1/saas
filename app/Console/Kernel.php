@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('activitylog:clean account')->quarterly();
+        $schedule->command('activitylog:clean account')->daily();
         $unverifiedDomains = Domain::where('verified_at', null)->get();
         foreach ($unverifiedDomains as $domain) {
             $schedule->job(new VerifyDomain($domain))->everyMinute();

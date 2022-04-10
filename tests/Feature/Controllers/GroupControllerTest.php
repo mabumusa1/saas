@@ -17,13 +17,6 @@ class GroupControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $account;
-
-    /**
-     * @property \Illuminate\Contracts\Auth\Authenticatable $user
-     */
-    protected $user;
-
     /**
      * @property \App\Models\Subscription $subscription
      */

@@ -15,8 +15,6 @@ class SubscriptionTest extends TestCase
 
     private Plan $plan;
 
-    private Account $account;
-
     public function setUp():void
     {
         parent::setUp();
