@@ -15,7 +15,11 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function createMockedSubscription(Account $account, Plan $plan, $data = []): CashierSubscription
+    public $user;
+
+    public $account;
+
+    public function createMockedSubscription(Account $account, Plan $plan, $data = []): CashierSubscription
     {
         $sub = null;
         Event::fakeFor(function () use ($account, $plan, $data, &$sub) {
@@ -33,11 +37,10 @@ abstract class TestCase extends BaseTestCase
         return $sub;
     }
 
-    protected function setUpAccount($authenticate = true)
+    public function setUpAccount($authenticate = true)
     {
-        $this->account = Account::factory()->create();
         $this->user = User::factory()->create();
-        $this->account->users()->attach($this->user->id, ['role' => 'owner']);
+        $this->account = $this->user->accounts()->first();
         if ($authenticate) {
             $this->actingAs($this->user);
         }

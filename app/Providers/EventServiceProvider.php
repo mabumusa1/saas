@@ -8,7 +8,9 @@ use App\Events\SetDomainPrimaryEvent;
 use App\Events\SetDomainRedirectEvent;
 use App\Events\UserInvitedEvent;
 use App\Models\Domain;
+use App\Models\User;
 use App\Observers\DomainObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
@@ -71,5 +73,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Domain::observe(DomainObserver::class);
+        User::observe(UserObserver::class);
     }
 }
