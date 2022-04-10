@@ -21,6 +21,19 @@
                         <th>ID</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach($backups as $backup)
+                    <tr>
+                        <td></td>
+                        <td>
+                            {{ $backup->created_at->format('m/d/Y h:i:s A') }}
+                            <span class="text-muted">{{ $backup->created_at->diffForHumans() }}</span>
+                        </td>
+                        <td>{{ $backup->description }}</td>
+                        <td>{{ $backup->id }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
