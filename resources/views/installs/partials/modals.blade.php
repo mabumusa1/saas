@@ -52,7 +52,7 @@
                 </div>
                 <!--end::Close-->
             </div>
-            <form action="{{ route('installs.copy', [$currentAccount->id, $site->id, $install->id]) }}">
+            <form action="{{ route('installs.copy', [$currentAccount->id, $site->id, $install->id]) }}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="modal-body">
