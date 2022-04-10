@@ -15,7 +15,7 @@ class InstallBackupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index(Account $account, Site $site, Install $install)
     {
@@ -28,7 +28,7 @@ class InstallBackupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreInstallBackupRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, Site $site, Install $install, StoreInstallBackupRequest $request)
     {
