@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\InstallBackup;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,14 +15,16 @@ class RestoreBackupEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    protected $backup;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(InstallBackup $backup)
     {
-        //
+        $this->backup = $backup;
     }
 
     /**

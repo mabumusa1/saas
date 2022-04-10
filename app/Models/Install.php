@@ -130,7 +130,7 @@ class Install extends Model
     }
 
     /**
-     * Get all of the backups for the install
+     * Get all of the backups for the install.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
