@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\InstallCopyEvent;
+use App\Events\InstallDeleteEvent;
+use App\Events\SiteLockEvent;
 use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
@@ -113,6 +115,14 @@ class InstallController extends Controller
         return view('installs.show', ['account' => $account, 'site' => $site, 'install' => $install, 'installs' => $installs]);
     }
 
+    public function lock(Account $account, Site $site, Install $install)
+    {
+        $install->update(['locked' => true, 'owner' => 'transferable']);
+
+        SiteLockEvent::dispatch($install);
+
+        return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Installation is locked'));
+    }
     /*
     Methods at here are not in final place or shape.
     They may get moved or deleted in future.
