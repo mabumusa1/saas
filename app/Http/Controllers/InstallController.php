@@ -11,8 +11,10 @@ use App\Models\Account;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
+use App\Notifications\InstallCopyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Notification;
 
 class InstallController extends Controller
 {
@@ -94,7 +96,7 @@ class InstallController extends Controller
     {
         InstallCopyEvent::dispatch($install);
 
-        //TODO: Add code to notify the email in the request
+        Notification::route('mail', $request->input('email'))->notify(new InstallCopyNotification($install));
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Copy Request Sent'));
     }
