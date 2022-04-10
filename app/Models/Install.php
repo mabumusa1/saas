@@ -129,7 +129,12 @@ class Install extends Model
         return $this->hasMany(Domain::class);
     }
 
-    public function backups()
+    /**
+     * Get all of the backups for the install
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function backups(): HasMany
     {
         return $this->hasMany(InstallBackup::class);
     }
