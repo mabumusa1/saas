@@ -9,5 +9,5 @@ class InstallBackup extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['s3_url'];
+    protected $fillable = ['s3_url', 'description'];
 }
