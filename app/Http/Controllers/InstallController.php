@@ -186,9 +186,13 @@ class InstallController extends Controller
      */
     public function destroy(Account $account, Site $site, Install $install)
     {
+        if ($site->installs->count() === 1) {
+            return redirect()->back()->with('error', __('Any site must has at least one install, if you want to delete this install, please delete the whole site'));
+        }
+
         InstallDeleteEvent::dispatch($install);
         $install->delete();
 
-        return redirect()->back()->with('success', __('Install Deleted Successfully'));
+        return redirect()->route('sites.index', [$account])->with('success', __('Install Deleted Successfully'));
     }
 }

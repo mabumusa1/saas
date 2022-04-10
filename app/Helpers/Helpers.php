@@ -17,6 +17,17 @@ if (! function_exists('roles')) {
     }
 }
 
+if (! function_exists('installType')) {
+    function installType()
+    {
+        return [
+            'prd' => 'Production',
+            'stg' => 'Staging',
+            'dev' => 'Dev',
+        ];
+    }
+}
+
 if (! function_exists('get_svg_icon')) {
     function get_svg_icon($path, $class = null, $svgClass = null)
     {
