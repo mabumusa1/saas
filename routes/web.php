@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\InstallBackupController;
-
 Route::get('/invite/{invite:token}', 'InviteController@index')->name('invites.index');
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/invite', 'InviteController@accept')->middleware('auth:sanctum')->name('invites.accept');
@@ -98,12 +96,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
                 'create', 'store', 'show', 'destroy',
             ]);
 
-            Route::resource('{install}/backups', InstallBackupController::class)
+            Route::resource('{install}/backups', App\Http\Controllers\InstallBackupController::class)
             ->only([
                 'index',
                 'store',
             ]);
-            Route::post('{install}/backups/{backup}/restore', [InstallBackupController::class, 'restore'])->name('backups.restore');
+            Route::post('{install}/backups/{backup}/restore', [App\Http\Controllers\InstallBackupController::class, 'restore'])->name('backups.restore');
+            Route::post('{install}/lock', [App\Http\Controllers\InstallController::class, 'lock'])->name('installs.lock');
             Route::get('{install}/cdn', [App\Http\Controllers\InstallController::class, 'cdn'])->name('installs.cdn');
             Route::get('{install}/redirect-rules', [App\Http\Controllers\InstallController::class, 'redirectRules'])->name('installs.redirectRules');
             Route::get('{install}/backup-points', [App\Http\Controllers\InstallController::class, 'backupPoints'])->name('installs.backupPoints');
