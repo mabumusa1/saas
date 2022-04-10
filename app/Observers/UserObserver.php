@@ -9,13 +9,6 @@ use App\Models\User;
 class UserObserver
 {
     /**
-     * Handle events after all transactions are committed.
-     *
-     * @var bool
-     */
-    public $afterCommit = true;
-
-    /**
      * Handle the User "created" event.
      *
      * @param  \App\Models\User  $user

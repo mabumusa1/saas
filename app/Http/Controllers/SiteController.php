@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateInstallEvent;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
+use DB;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -88,27 +88,32 @@ class SiteController extends Controller
 
         $siteData['account_id'] = $account->id;
         $siteData['name'] = $validated['sitename'];
+        $user = $request->user();
+        try {
+            $site = DB::transaction(function () use ($siteData, $validated, $user) {
+                return tap(Site::create($siteData), function (Site $site) use ($validated, $user) {
+                    $install = Install::create([
+                        'site_id' => $site->id,
+                        'name' => $validated['installname'],
+                        'type' => $validated['type'],
+                        'owner' => $validated['owner'],
+                        'locked' => ($validated['owner'] === 'transferable') ? true : false,
+                    ]);
+                    Contact::create([
+                        'install_id' => $install->id,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'email' => $user->email,
+                    ]);
+                });
+            });
 
-        $site = $account->sites()->create($siteData);
-
-        $install = Install::create([
-            'site_id' => $site->id,
-            'name' => $validated['installname'],
-            'type' => $validated['type'],
-            'owner' => $validated['owner'],
-            'locked' => ($validated['owner'] === 'transferable') ? true : false,
-        ]);
-
-        $contact = Contact::create([
-            'install_id' => $install->id,
-            'first_name' => $request->user()->first_name,
-            'last_name' => $request->user()->last_name,
-            'email' => $request->user()->email,
-        ]);
-
-        CreateInstallEvent::dispatch($install, $validated['start'] ?? null);
-
-        return redirect(route('sites.index', $account->id))->with('status', __('Site is under creation, we will send you an update once it is done!'));
+            return redirect(route('installs.show', [$account, $site, $site->installs->first()]))->with('status', __('Site is under creation, we will send you an update once it is done!'));
+        } catch (\Throwable $th) {
+            // @codeCoverageIgnoreStart
+            return redirect(route('sites.index', $account->id))->with('status', __('An error occured, please try again in few minutes'));
+            // @codeCoverageIgnoreEnd
+        }
     }
 
     /**
@@ -156,7 +161,6 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        $site->groups()->detach();
         $site->delete();
 
         return redirect(route('sites.index', $account->id))->with('status', __('Site successfully deleted!'));
