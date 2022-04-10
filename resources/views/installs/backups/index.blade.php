@@ -4,7 +4,9 @@
         <div class="card-header">
             <h2 class="mb-0 card-title">{{ __('Backup Points') }}</h2>
             <div class="card-toolbar">
+                <form action="{{ route('backups.restore')">
                 <button class="btn btn-sm border-square btn-dark me-1">Restore</button>
+            </form>
                 <button class="btn btn-sm border-square btn-dark me-1">Download ZIP</button>
                 <button class="btn btn-sm border-square btn-primary">Back up now</button>
             </div>
