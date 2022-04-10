@@ -4,7 +4,7 @@
         ['label' => __('Domains'), 'link' => route('domains.index', [$account, $site, $install])],
         ['label' => __('CDN'), 'link' => route('installs.cdn', [$account, $site, $install])],
         ['label' => __('Redirect Rules'), 'link' => route('installs.redirectRules', [$account, $site, $install])],
-        ['label' => __('Backups'), 'link' => route('installs.backupPoints', [$account, $site, $install])],
+        ['label' => __('Backups'), 'link' => route('backups.index', [$account, $site, $install])],
         ['label' => __('Access Logs'), 'link' => route('installs.accessLogs', [$account, $site, $install])],
         ['label' => __('Error Logs'), 'link' => route('installs.errorLogs', [$account, $site, $install])],
         ['label' => __('Utilities'), 'link' => route('installs.utilities', [$account, $site, $install])],
