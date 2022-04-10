@@ -24,22 +24,4 @@ class UserObserver
         $account->save();
         $account->users()->sync([$user->id => ['role' => 'owner']]);
     }
-
-    /**
-     * Handle the User "deleted" event.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    public function deleted(User $user)
-    {
-        $accounts = $user->accounts()->get();
-        foreach ($accounts as $account) {
-            if ($account->users()->count() === 1) {
-                $account->delete();
-            } else {
-                $account->users()->detach([$user->id]);
-            }
-        }
-    }
 }

@@ -121,26 +121,6 @@ Search.appendIndex(
             "summary": "The\u0020order\u0020instance.",
             "url": "classes/App-Events-ActivityLoggerEvent.html#property_activity"
         },                {
-            "fqsen": "\\App\\Events\\CreateInstallEvent",
-            "name": "CreateInstallEvent",
-            "summary": "",
-            "url": "classes/App-Events-CreateInstallEvent.html"
-        },                {
-            "fqsen": "\\App\\Events\\CreateInstallEvent\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
-            "url": "classes/App-Events-CreateInstallEvent.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Events\\CreateInstallEvent\u003A\u003A\u0024install",
-            "name": "install",
-            "summary": "The\u0020install\u0020instance.",
-            "url": "classes/App-Events-CreateInstallEvent.html#property_install"
-        },                {
-            "fqsen": "\\App\\Events\\CreateInstallEvent\u003A\u003A\u0024operation",
-            "name": "operation",
-            "summary": "The\u0020type\u0020of\u0020the\u0020operation.",
-            "url": "classes/App-Events-CreateInstallEvent.html#property_operation"
-        },                {
             "fqsen": "\\App\\Events\\UserInvitedEvent",
             "name": "UserInvitedEvent",
             "summary": "",
@@ -855,21 +835,6 @@ Search.appendIndex(
             "name": "handle",
             "summary": "Handle\u0020the\u0020event.",
             "url": "classes/App-Listeners-ActivityLoggerListener.html#method_handle"
-        },                {
-            "fqsen": "\\App\\Listeners\\CreateInstallListener",
-            "name": "CreateInstallListener",
-            "summary": "",
-            "url": "classes/App-Listeners-CreateInstallListener.html"
-        },                {
-            "fqsen": "\\App\\Listeners\\CreateInstallListener\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020the\u0020event\u0020listener.",
-            "url": "classes/App-Listeners-CreateInstallListener.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Listeners\\CreateInstallListener\u003A\u003Ahandle\u0028\u0029",
-            "name": "handle",
-            "summary": "Handle\u0020the\u0020event.",
-            "url": "classes/App-Listeners-CreateInstallListener.html#method_handle"
         },                {
             "fqsen": "\\App\\Listeners\\LoginEventListner",
             "name": "LoginEventListner",
@@ -1631,6 +1596,11 @@ Search.appendIndex(
             "summary": "The\u0020event\u0020listener\u0020mappings\u0020for\u0020the\u0020application.",
             "url": "classes/App-Providers-EventServiceProvider.html#property_listen"
         },                {
+            "fqsen": "\\App\\Providers\\EventServiceProvider\u003A\u003A\u0024observers",
+            "name": "observers",
+            "summary": "The\u0020model\u0020observers\u0020for\u0020your\u0020application.",
+            "url": "classes/App-Providers-EventServiceProvider.html#property_observers"
+        },                {
             "fqsen": "\\App\\Providers\\FortifyServiceProvider",
             "name": "FortifyServiceProvider",
             "summary": "",
@@ -1976,20 +1946,10 @@ Search.appendIndex(
             "summary": "Handle\u0020the\u0020Domain\u0020\u0022created\u0022\u0020event.",
             "url": "classes/App-Observers-DomainObserver.html#method_created"
         },                {
-            "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003Aupdated\u0028\u0029",
-            "name": "updated",
-            "summary": "Handle\u0020the\u0020Domain\u0020\u0022updated\u0022\u0020event.",
-            "url": "classes/App-Observers-DomainObserver.html#method_updated"
-        },                {
             "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003Adeleted\u0028\u0029",
             "name": "deleted",
             "summary": "Handle\u0020the\u0020Domain\u0020\u0022deleted\u0022\u0020event.",
             "url": "classes/App-Observers-DomainObserver.html#method_deleted"
-        },                {
-            "fqsen": "\\App\\Observers\\DomainObserver\u003A\u003A\u0024afterCommit",
-            "name": "afterCommit",
-            "summary": "Handle\u0020events\u0020after\u0020all\u0020transactions\u0020are\u0020committed.",
-            "url": "classes/App-Observers-DomainObserver.html#property_afterCommit"
         },                {
             "fqsen": "\\App\\Policies\\TransferPolicy",
             "name": "TransferPolicy",
@@ -2241,21 +2201,6 @@ Search.appendIndex(
             "summary": "The\u0020console\u0020command\u0020description.",
             "url": "classes/App-Console-Commands-CleanUnusedAccounts.html#property_description"
         },                {
-            "fqsen": "\\App\\Events\\InstallDeleteEvent",
-            "name": "InstallDeleteEvent",
-            "summary": "",
-            "url": "classes/App-Events-InstallDeleteEvent.html"
-        },                {
-            "fqsen": "\\App\\Events\\InstallDeleteEvent\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
-            "url": "classes/App-Events-InstallDeleteEvent.html#method___construct"
-        },                {
-            "fqsen": "\\App\\Events\\InstallDeleteEvent\u003A\u003A\u0024install",
-            "name": "install",
-            "summary": "",
-            "url": "classes/App-Events-InstallDeleteEvent.html#property_install"
-        },                {
             "fqsen": "\\App\\Observers\\UserObserver",
             "name": "UserObserver",
             "summary": "",
@@ -2271,10 +2216,35 @@ Search.appendIndex(
             "summary": "Handle\u0020the\u0020User\u0020\u0022deleted\u0022\u0020event.",
             "url": "classes/App-Observers-UserObserver.html#method_deleted"
         },                {
-            "fqsen": "\\App\\Observers\\UserObserver\u003A\u003A\u0024afterCommit",
-            "name": "afterCommit",
-            "summary": "Handle\u0020events\u0020after\u0020all\u0020transactions\u0020are\u0020committed.",
-            "url": "classes/App-Observers-UserObserver.html#property_afterCommit"
+            "fqsen": "\\App\\Observers\\InstallObserver",
+            "name": "InstallObserver",
+            "summary": "",
+            "url": "classes/App-Observers-InstallObserver.html"
+        },                {
+            "fqsen": "\\App\\Observers\\InstallObserver\u003A\u003Acreated\u0028\u0029",
+            "name": "created",
+            "summary": "Handle\u0020the\u0020Install\u0020\u0022created\u0022\u0020event.",
+            "url": "classes/App-Observers-InstallObserver.html#method_created"
+        },                {
+            "fqsen": "\\App\\Observers\\InstallObserver\u003A\u003Aupdated\u0028\u0029",
+            "name": "updated",
+            "summary": "Handle\u0020the\u0020Install\u0020\u0022updated\u0022\u0020event.",
+            "url": "classes/App-Observers-InstallObserver.html#method_updated"
+        },                {
+            "fqsen": "\\App\\Observers\\InstallObserver\u003A\u003Adeleted\u0028\u0029",
+            "name": "deleted",
+            "summary": "Handle\u0020the\u0020Install\u0020\u0022deleted\u0022\u0020event.",
+            "url": "classes/App-Observers-InstallObserver.html#method_deleted"
+        },                {
+            "fqsen": "\\App\\Observers\\SiteObserver",
+            "name": "SiteObserver",
+            "summary": "",
+            "url": "classes/App-Observers-SiteObserver.html"
+        },                {
+            "fqsen": "\\App\\Observers\\SiteObserver\u003A\u003Adeleted\u0028\u0029",
+            "name": "deleted",
+            "summary": "Handle\u0020the\u0020Site\u0020\u0022deleted\u0022\u0020event.",
+            "url": "classes/App-Observers-SiteObserver.html#method_deleted"
         },                {
             "fqsen": "\\",
             "name": "\\",
