@@ -4,11 +4,11 @@
         <div class="card-header">
             <h2 class="mb-0 card-title">{{ __('Backup Points') }}</h2>
             <div class="card-toolbar">
-                <form action="{{ route('backups.restore')">
                 <button class="btn btn-sm border-square btn-dark me-1">Restore</button>
-            </form>
                 <button class="btn btn-sm border-square btn-dark me-1">Download ZIP</button>
-                <button class="btn btn-sm border-square btn-primary">Back up now</button>
+                <button class="btn btn-sm border-square btn-primary"
+                data-bs-toggle="modal" data-bs-target="#backup_install_modal"
+                >Back up now</button>
             </div>
         </div>
         <div class="card-body">
@@ -24,4 +24,36 @@
             </table>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" id="backup_install_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('Backup Install') }}</h5>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-2x">
+                            {!! get_svg_icon('skin/media/icons/duotone/General/Times.svg') !!}
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form action="{{ route('backups.store', ['account' => $account, 'install' => $install, 'site' => $site]) }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mb-10">
+                            <label for="description">Descriptions</label>
+                            <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Backup</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection

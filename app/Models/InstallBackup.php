@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class InstallBackup extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['s3_url'];
 }
