@@ -109,11 +109,11 @@ class SiteController extends Controller
             });
 
             return redirect(route('installs.show', [$account, $site, $site->installs->first()]))->with('status', __('Site is under creation, we will send you an update once it is done!'));
-        } catch (\Throwable $th) {
             // @codeCoverageIgnoreStart
+        } catch (\Throwable $th) {
             return redirect(route('sites.index', $account->id))->with('status', __('An error occured, please try again in few minutes'));
-            // @codeCoverageIgnoreEnd
         }
+        // @codeCoverageIgnoreEnd
     }
 
     /**
