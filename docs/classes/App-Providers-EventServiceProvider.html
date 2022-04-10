@@ -178,7 +178,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Providers/EventServiceProvider.php"><a href="files/app-providers-eventserviceprovider.html"><abbr title="app/Providers/EventServiceProvider.php">EventServiceProvider.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -204,6 +204,13 @@
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>The event listener mappings for the application.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/App-Providers-EventServiceProvider.html#property_observers">$observers</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>The model observers for your application.</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/App-Providers-EventServiceProvider.html#method_boot">boot()</a>
@@ -240,7 +247,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Providers/EventServiceProvider.php"><a href="files/app-providers-eventserviceprovider.html"><abbr title="app/Providers/EventServiceProvider.php">EventServiceProvider.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -251,6 +258,39 @@
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$listen</span>
      = <span class="phpdocumentor-signature__default-value">[\Illuminate\Auth\Events\Registered::class =&gt; [\Illuminate\Auth\Listeners\SendEmailVerificationNotification::class, \App\Listeners\RegisteredEventListner::class], \Illuminate\Auth\Events\Verified::class =&gt; [\App\Listeners\VerifiedEventListner::class], \Illuminate\Auth\Events\Login::class =&gt; [\App\Listeners\LoginEventListner::class], \Illuminate\Auth\Events\Logout::class =&gt; [\App\Listeners\LogoutEventListner::class], \Illuminate\Auth\Events\PasswordReset::class =&gt; [\App\Listeners\PasswordEventListner::class], \Laravel\Cashier\Events\WebhookReceived::class =&gt; [\App\Listeners\StripeEventListener::class], \App\Events\UserInvitedEvent::class =&gt; [\App\Listeners\UserInvitedListener::class], \App\Events\AccountUpdatedEvent::class =&gt; [\App\Listeners\AccountUpdatedListener::class], \App\Events\ActivityLoggerEvent::class =&gt; [\App\Listeners\ActivityLoggerListener::class], \App\Events\SetDomainRedirectEvent::class =&gt; [\App\Listeners\DomainRedirectListener::class], \App\Events\SetDomainPrimaryEvent::class =&gt; [\App\Listeners\DomainPrimaryListener::class]]</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_observers">
+        $observers
+        <a href="classes/App-Providers-EventServiceProvider.html#property_observers" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/Providers/EventServiceProvider.php"><a href="files/app-providers-eventserviceprovider.html"><abbr title="app/Providers/EventServiceProvider.php">EventServiceProvider.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">77</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The model observers for your application.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$observers</span>
+     = <span class="phpdocumentor-signature__default-value">[\App\Models\User::class =&gt; [\App\Observers\UserObserver::class], \App\Models\Domain::class =&gt; [\App\Observers\DomainObserver::class], \App\Models\Install::class =&gt; [\App\Observers\InstallObserver::class], \App\Models\Site::class =&gt; [\App\Observers\SiteObserver::class]]</span></code>
 
     
     
@@ -277,7 +317,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/Providers/EventServiceProvider.php"><a href="files/app-providers-eventserviceprovider.html"><abbr title="app/Providers/EventServiceProvider.php">EventServiceProvider.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 

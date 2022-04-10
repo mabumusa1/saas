@@ -30,13 +30,16 @@ class CleanUnusedAccounts extends Command
     public function handle()
     {
         $this->info('Deleting old unverified users...');
-        $count = User::query()
-            ->whereNull('email_verified_at')
+        $toDelete = User::whereNull('email_verified_at')
             ->where('created_at', '<', now()->subDays(30))
-            ->delete();
-        $this->comment("Deleted {$count} unverified users.");
-        $this->info('All done!');
+            ->get();
 
+            foreach ($toDelete as $user) {
+            $user->accounts()->detach();
+            $user->delete();
+        }
+        $this->comment("Deleted {$toDelete} unverified users.");
+        $this->info('All done!');
         return 0;
     }
 }
