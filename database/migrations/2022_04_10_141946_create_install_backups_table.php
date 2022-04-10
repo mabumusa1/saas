@@ -16,7 +16,7 @@ return new class extends Migration {
         Schema::create('install_backups', function (Blueprint $table) {
             $table->id();
             $table->foreignId('install_id')->references('id')->on('installs');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('s3_url');
             $table->timestamps();
         });

@@ -39,13 +39,13 @@ class InstallBackupController extends Controller
 
         CreateBackupEvent::dispatch($backup);
 
-        return redirect()->route('installs.backup-points.index', ['account' => $account, 'site' => $site, 'install' => $install]);
+        return redirect()->route('backups.index', ['account' => $account, 'site' => $site, 'install' => $install]);
     }
 
     public function restore(Account $account, Site $site, Install $install, InstallBackup $backup)
     {
         RestoreBackupEvent::dispatch($backup);
 
-        return redirect()->route('installs.backup-points.index', ['account' => $account, 'site' => $site, 'install' => $install]);
+        return redirect()->route('backups.index', ['account' => $account, 'site' => $site, 'install' => $install]);
     }
 }

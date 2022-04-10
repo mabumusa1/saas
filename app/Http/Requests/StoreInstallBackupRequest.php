@@ -24,7 +24,7 @@ class StoreInstallBackupRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required',
+            'description' => 'nullable',
         ];
     }
 }
