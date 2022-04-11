@@ -212,7 +212,7 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="type" value="stg"
+                                                    <input class="form-check-input" type="radio" name="type" value="stg" disabled
                                                         @if ($subscriptions->count() === 0) checked @endif />
                                                 </div>
                                                 <!--end::Radio-->
