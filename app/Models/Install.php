@@ -136,7 +136,7 @@ class Install extends Model
      */
     public function backups(): HasMany
     {
-        return $this->hasMany(InstallBackup::class);
+        return $this->hasMany(Backup::class);
     }
 
     /**

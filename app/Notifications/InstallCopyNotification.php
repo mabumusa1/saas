@@ -46,17 +46,4 @@ class InstallCopyNotification extends Notification
                     ->line("There's Copy Install done")
                     ->line('Thank you for using our application!');
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }

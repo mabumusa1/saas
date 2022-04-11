@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\CreateBackupEvent;
 use App\Events\RestoreBackupEvent;
-use App\Http\Requests\StoreInstallBackupRequest;
+use App\Http\Requests\StoreBackupRequest;
 use App\Models\Account;
+use App\Models\Backup;
 use App\Models\Install;
-use App\Models\InstallBackup;
 use App\Models\Site;
 
-class InstallBackupController extends Controller
+class BackupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,13 +27,12 @@ class InstallBackupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreInstallBackupRequest  $request
+     * @param  \App\Http\Requests\StoreBackupRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Account $account, Site $site, Install $install, StoreInstallBackupRequest $request)
+    public function store(Account $account, Site $site, Install $install, StoreBackupRequest $request)
     {
         $backup = $install->backups()->create([
-            's3_url' => '',
             'description' => $request->input('description'),
         ]);
 
@@ -42,7 +41,7 @@ class InstallBackupController extends Controller
         return redirect()->route('backups.index', ['account' => $account, 'site' => $site, 'install' => $install]);
     }
 
-    public function restore(Account $account, Site $site, Install $install, InstallBackup $backup)
+    public function restore(Account $account, Site $site, Install $install, Backup $backup)
     {
         RestoreBackupEvent::dispatch($backup);
 

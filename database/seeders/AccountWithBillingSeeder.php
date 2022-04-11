@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Facades\AccountResolver;
 use App\Models\Account;
+use App\Models\Backup;
 use App\Models\Contact;
 use App\Models\Domain;
 use App\Models\Group;
@@ -50,6 +51,15 @@ class AccountWithBillingSeeder extends Seeder
                 Domain::factory()->count(2)->state(new Sequence(
                     ['install_id' => $install->id, 'name' => $install->cname, 'primary' => true, 'verified_at' => now()],
                     ['install_id' => $install->id, 'primary' => false, 'verified_at' => null]
+                ))->create();
+            }
+
+            if ($install->backups()->count() === 0) {
+                Backup::factory()->count(2)->state(new Sequence(
+                    ['install_id' => $install->id, 'status' => 'init'],
+                    ['install_id' => $install->id, 'status' => 'creating'],
+                    ['install_id' => $install->id, 'status' => 'ready'],
+                    ['install_id' => $install->id, 'status' => 'failed']
                 ))->create();
             }
         }
