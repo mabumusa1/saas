@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Events\InstallCopyEvent;
+use App\Events\SiteLockEvent;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Install;
@@ -202,5 +203,24 @@ class InstallControllerTest extends TestCase
 
         $response->assertRedirect();
         $response->assertSessionHas('success');
+    }
+
+    public function test_lock_success()
+    {
+        Event::fake();
+        $site = Site::factory()->create([
+            'account_id' => $this->account->id,
+        ]);
+        $install = Install::factory()
+        ->for($site)
+        ->create([
+            'type' => 'dev',
+        ]);
+
+        $response = $this->post(route('installs.lock', ['account' => $this->account, 'site' => $site, 'install' => $install]));
+
+        $response->assertRedirect();
+
+        Event::assertDispatched(SiteLockEvent::class);
     }
 }
