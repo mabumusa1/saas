@@ -1,18 +1,21 @@
 name: 'deploy staging'
 on:
-  push:
-    branches:
-      - staging      
+   pull_request_review:
+    types: [submitted]
+    branches: ['staging']
+
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: staging
+    if: github.event.review.state == 'approved'
     steps:
       - name: Cloning repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Push to dokku
+      - name: Push to dokku        
         uses: dokku/github-action@master
         env:
           GIT_SSH_COMMAND: 'ssh -vvv'        

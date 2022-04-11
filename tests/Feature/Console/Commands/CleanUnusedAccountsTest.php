@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Console;
+namespace Tests\Feature\Console\Commands;
 
 use App\Jobs\VerifyDomain;
 use App\Models\Account;
