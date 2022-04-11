@@ -7,7 +7,7 @@ on:
       - staging
       - production
 env:
-  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DB_CONNECTION: mysql
   DB_HOST: 127.0.0.1
   DB_PORT: 3306
@@ -107,4 +107,4 @@ jobs:
         path: build/logs/
 
     - name: Get report
-      run: ./vendor/php-coveralls/php-coveralls/bin/php-coveralls --coverage_clover=build/logs/clover.xml
+      run: ./vendor/php-coveralls/php-coveralls/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
