@@ -1,4 +1,4 @@
-Please submit as much details about the issue/feature you want to report
+Please submit as much details about the issue you want to report
 
 <!--- Provide a general summary of the issue in the Title above -->
 
