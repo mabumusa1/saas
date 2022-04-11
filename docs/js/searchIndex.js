@@ -346,6 +346,11 @@ Search.appendIndex(
             "summary": "Show\u0020Install\u0020dashboard.",
             "url": "classes/App-Http-Controllers-InstallController.html#method_show"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Alock\u0028\u0029",
+            "name": "lock",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-InstallController.html#method_lock"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\InstallController\u003A\u003Acdn\u0028\u0029",
             "name": "cdn",
             "summary": "",
@@ -1210,6 +1215,11 @@ Search.appendIndex(
             "name": "domains",
             "summary": "Get\u0020all\u0020of\u0020the\u0020domain\u0020for\u0020the\u0020Install.",
             "url": "classes/App-Models-Install.html#method_domains"
+        },                {
+            "fqsen": "\\App\\Models\\Install\u003A\u003Abackups\u0028\u0029",
+            "name": "backups",
+            "summary": "Get\u0020all\u0020of\u0020the\u0020backups\u0020for\u0020the\u0020install.",
+            "url": "classes/App-Models-Install.html#method_backups"
         },                {
             "fqsen": "\\App\\Models\\Install\u003A\u003Acname\u0028\u0029",
             "name": "cname",
@@ -2240,6 +2250,126 @@ Search.appendIndex(
             "name": "deleted",
             "summary": "Handle\u0020the\u0020Site\u0020\u0022deleted\u0022\u0020event.",
             "url": "classes/App-Observers-SiteObserver.html#method_deleted"
+        },                {
+            "fqsen": "\\App\\Events\\CreateBackupEvent",
+            "name": "CreateBackupEvent",
+            "summary": "",
+            "url": "classes/App-Events-CreateBackupEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\CreateBackupEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-CreateBackupEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\CreateBackupEvent\u003A\u003A\u0024backup",
+            "name": "backup",
+            "summary": "",
+            "url": "classes/App-Events-CreateBackupEvent.html#property_backup"
+        },                {
+            "fqsen": "\\App\\Events\\RestoreBackupEvent",
+            "name": "RestoreBackupEvent",
+            "summary": "",
+            "url": "classes/App-Events-RestoreBackupEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\RestoreBackupEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-RestoreBackupEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\RestoreBackupEvent\u003A\u003A\u0024backup",
+            "name": "backup",
+            "summary": "",
+            "url": "classes/App-Events-RestoreBackupEvent.html#property_backup"
+        },                {
+            "fqsen": "\\App\\Events\\SiteLockEvent",
+            "name": "SiteLockEvent",
+            "summary": "",
+            "url": "classes/App-Events-SiteLockEvent.html"
+        },                {
+            "fqsen": "\\App\\Events\\SiteLockEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020event\u0020instance.",
+            "url": "classes/App-Events-SiteLockEvent.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Events\\SiteLockEvent\u003A\u003A\u0024install",
+            "name": "install",
+            "summary": "",
+            "url": "classes/App-Events-SiteLockEvent.html#property_install"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BackupController",
+            "name": "BackupController",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-BackupController.html"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BackupController\u003A\u003Aindex\u0028\u0029",
+            "name": "index",
+            "summary": "Display\u0020a\u0020listing\u0020of\u0020the\u0020resource.",
+            "url": "classes/App-Http-Controllers-BackupController.html#method_index"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BackupController\u003A\u003Astore\u0028\u0029",
+            "name": "store",
+            "summary": "Store\u0020a\u0020newly\u0020created\u0020resource\u0020in\u0020storage.",
+            "url": "classes/App-Http-Controllers-BackupController.html#method_store"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BackupController\u003A\u003Arestore\u0028\u0029",
+            "name": "restore",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-BackupController.html#method_restore"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreBackupRequest",
+            "name": "StoreBackupRequest",
+            "summary": "",
+            "url": "classes/App-Http-Requests-StoreBackupRequest.html"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreBackupRequest\u003A\u003Aauthorize\u0028\u0029",
+            "name": "authorize",
+            "summary": "Determine\u0020if\u0020the\u0020user\u0020is\u0020authorized\u0020to\u0020make\u0020this\u0020request.",
+            "url": "classes/App-Http-Requests-StoreBackupRequest.html#method_authorize"
+        },                {
+            "fqsen": "\\App\\Http\\Requests\\StoreBackupRequest\u003A\u003Arules\u0028\u0029",
+            "name": "rules",
+            "summary": "Get\u0020the\u0020validation\u0020rules\u0020that\u0020apply\u0020to\u0020the\u0020request.",
+            "url": "classes/App-Http-Requests-StoreBackupRequest.html#method_rules"
+        },                {
+            "fqsen": "\\App\\Models\\Backup",
+            "name": "Backup",
+            "summary": "",
+            "url": "classes/App-Models-Backup.html"
+        },                {
+            "fqsen": "\\App\\Models\\Backup\u003A\u003Ainstall\u0028\u0029",
+            "name": "install",
+            "summary": "Get\u0020the\u0020install\u0020that\u0020owns\u0020the\u0020Backup.",
+            "url": "classes/App-Models-Backup.html#method_install"
+        },                {
+            "fqsen": "\\App\\Models\\Backup\u003A\u003A\u0024fillable",
+            "name": "fillable",
+            "summary": "",
+            "url": "classes/App-Models-Backup.html#property_fillable"
+        },                {
+            "fqsen": "\\App\\Notifications\\InstallCopyNotification",
+            "name": "InstallCopyNotification",
+            "summary": "",
+            "url": "classes/App-Notifications-InstallCopyNotification.html"
+        },                {
+            "fqsen": "\\App\\Notifications\\InstallCopyNotification\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020notification\u0020instance.",
+            "url": "classes/App-Notifications-InstallCopyNotification.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Notifications\\InstallCopyNotification\u003A\u003Avia\u0028\u0029",
+            "name": "via",
+            "summary": "Get\u0020the\u0020notification\u0027s\u0020delivery\u0020channels.",
+            "url": "classes/App-Notifications-InstallCopyNotification.html#method_via"
+        },                {
+            "fqsen": "\\App\\Notifications\\InstallCopyNotification\u003A\u003AtoMail\u0028\u0029",
+            "name": "toMail",
+            "summary": "Get\u0020the\u0020mail\u0020representation\u0020of\u0020the\u0020notification.",
+            "url": "classes/App-Notifications-InstallCopyNotification.html#method_toMail"
+        },                {
+            "fqsen": "\\App\\Notifications\\InstallCopyNotification\u003A\u003A\u0024install",
+            "name": "install",
+            "summary": "",
+            "url": "classes/App-Notifications-InstallCopyNotification.html#property_install"
         },                {
             "fqsen": "\\",
             "name": "\\",
