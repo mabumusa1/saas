@@ -41,7 +41,7 @@
                                     {{ $prdInstall->name }}
                                 </div>
                             </a>
-                        </div>                        
+                        </div>
                         @endif
                         @else
                         <div class="menu-item bg-light-primary text-light">
@@ -61,11 +61,11 @@
                                     {{ $stgInstall->name }}
                                 </div>
                             </a>
-                        </div>                      
-                        @endif  
+                        </div>
+                        @endif
                         @else
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg">{{ __('Add Staging install') }}</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg" --}}>{{ __('Add Staging install') }}</a>
                         </div>
                         @endif
 
@@ -81,11 +81,11 @@
                                     {{ $devInstall->name }}
                                 </div>
                             </a>
-                        </div>                        
+                        </div>
                         @endif
                         @else
                         <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev">{{ __('Add Development install') }}</a>
+                            <a class="menu-link px-3 d-flex justify-content-between disabled" {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev" --}}>{{ __('Add Development install') }}</a>
                         </div>
                         @endif
                         <!--end::Menu item-->

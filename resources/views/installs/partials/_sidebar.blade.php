@@ -32,14 +32,14 @@
                 Production</a>
         @endif
         @if (!$site->hasInstallType('stg'))
-            <a href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg"
-                class="btn border-square border w-100 text-start border-primary mt-3 pb-3">{!! get_svg_icon('icons/duotone/Navigation/Plus.svg', 'svg-icon-dark svg-icon-2') !!}
+            <a {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg" --}}
+                class="btn border-square disabled border w-100 text-start border-primary mt-3 pb-3">{!! get_svg_icon('icons/duotone/Navigation/Plus.svg', 'svg-icon-dark svg-icon-2') !!}
                 {{ __('Add Staging Install') }}
             </a>
         @endif
         @if (!$site->hasInstallType('dev'))
-            <a href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev"
-                class="btn border-square border w-100 text-start border-primary">{!! get_svg_icon('icons/duotone/Navigation/Plus.svg', 'svg-icon-dark svg-icon-2') !!}
+            <a {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev" --}}
+                class="btn border-square disabled border w-100 text-start border-primary">{!! get_svg_icon('icons/duotone/Navigation/Plus.svg', 'svg-icon-dark svg-icon-2') !!}
                 {{ __('Add Dev Install') }}
             </a>
         @endif
