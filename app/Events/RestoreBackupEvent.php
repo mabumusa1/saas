@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\InstallBackup;
+use App\Models\Backup;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -22,18 +22,8 @@ class RestoreBackupEvent
      *
      * @return void
      */
-    public function __construct(InstallBackup $backup)
+    public function __construct(Backup $backup)
     {
         $this->backup = $backup;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

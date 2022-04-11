@@ -13,11 +13,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('install_backups', function (Blueprint $table) {
+        Schema::create('backups', function (Blueprint $table) {
             $table->id();
             $table->foreignId('install_id')->references('id')->on('installs');
+            $table->enum('type', ['sys', 'usr']);
+            $table->enum('status', ['init', 'creating', 'restoring', 'ready', 'failed'])->default('init');
             $table->text('description')->nullable();
-            $table->string('s3_url');
+            $table->string('s3_url')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('install_backups');
+        Schema::dropIfExists('backups');
     }
 };

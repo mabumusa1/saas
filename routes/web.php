@@ -96,37 +96,60 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
                 'create', 'store', 'show', 'destroy',
             ]);
 
-            Route::resource('{install}/backups', App\Http\Controllers\InstallBackupController::class)
-            ->only([
-                'index',
-                'store',
-            ]);
-            Route::post('{install}/backups/{backup}/restore', [App\Http\Controllers\InstallBackupController::class, 'restore'])->name('backups.restore');
-            Route::post('{install}/lock', [App\Http\Controllers\InstallController::class, 'lock'])->name('installs.lock');
-            Route::get('{install}/cdn', [App\Http\Controllers\InstallController::class, 'cdn'])->name('installs.cdn');
-            Route::get('{install}/redirect-rules', [App\Http\Controllers\InstallController::class, 'redirectRules'])->name('installs.redirectRules');
-            Route::get('{install}/backup-points', [App\Http\Controllers\InstallController::class, 'backupPoints'])->name('installs.backupPoints');
-            Route::get('{install}/logs/access', [App\Http\Controllers\InstallController::class, 'accessLogs'])->name('installs.accessLogs');
-            Route::get('{install}/logs/error', [App\Http\Controllers\InstallController::class, 'errorLogs'])->name('installs.errorLogs');
-            Route::get('{install}/utilities', [App\Http\Controllers\InstallController::class, 'utilities'])->name('installs.utilities');
-            Route::get('{install}/caching', [App\Http\Controllers\InstallController::class, 'caching'])->name('installs.caching');
-            Route::get('{install}/migration', [App\Http\Controllers\InstallController::class, 'migration'])->name('installs.migration');
-            Route::get('{install}/live-check', [App\Http\Controllers\InstallController::class, 'liveCheck'])->name('installs.liveCheck');
-            Route::get('{install}/web-rules', [App\Http\Controllers\InstallController::class, 'webRules'])->name('installs.webRules');
-            Route::get('{install}/cron', [App\Http\Controllers\InstallController::class, 'cron'])->name('installs.cron');
-
-            Route::resource('{install}/domains', App\Http\Controllers\DomainController::class)->only([
-                'index', 'store', 'destroy',
-            ]);
-            Route::post('{install}/domain/redirect', [App\Http\Controllers\DomainController::class, 'redirect'])->name('domains.redirect');
-            Route::post('{install}/domain/{domain}/setPrimary', [App\Http\Controllers\DomainController::class, 'setPrimary'])->name('domains.setPrimary');
-            Route::put('{install}/copy', [App\Http\Controllers\InstallController::class, 'copy'])->name('installs.copy');
-
             /*
-            * Transfer Routes within an install
-            */
-            Route::prefix('{install}/transfer')->group(function () {
-                Route::post('start', [App\Http\Controllers\TransferController::class, 'start'])->name('transfer.start');
+             * Specific Install Operations
+             */
+            Route::prefix('{install}')->group(function () {
+                /*
+                 * Backups
+                 */
+                Route::resource('backups', App\Http\Controllers\BackupController::class)
+                ->only([
+                    'index',
+                    'store',
+                ]);
+                Route::post('backups/{backup}/restore', [App\Http\Controllers\BackupController::class, 'restore'])->name('backups.restore');
+
+                /*
+                 * Lock/Unlock
+                 */
+                Route::post('lock', [App\Http\Controllers\InstallController::class, 'lock'])->name('installs.lock');
+
+                /*
+                 * Install Copy
+                 */
+                Route::put('copy', [App\Http\Controllers\InstallController::class, 'copy'])->name('installs.copy');
+
+                /*
+                 * Other install operations
+                 */
+                Route::get('cdn', [App\Http\Controllers\InstallController::class, 'cdn'])->name('installs.cdn');
+                Route::get('redirect-rules', [App\Http\Controllers\InstallController::class, 'redirectRules'])->name('installs.redirectRules');
+                Route::get('backup-points', [App\Http\Controllers\InstallController::class, 'backupPoints'])->name('installs.backupPoints');
+                Route::get('logs/access', [App\Http\Controllers\InstallController::class, 'accessLogs'])->name('installs.accessLogs');
+                Route::get('logs/error', [App\Http\Controllers\InstallController::class, 'errorLogs'])->name('installs.errorLogs');
+                Route::get('utilities', [App\Http\Controllers\InstallController::class, 'utilities'])->name('installs.utilities');
+                Route::get('caching', [App\Http\Controllers\InstallController::class, 'caching'])->name('installs.caching');
+                Route::get('migration', [App\Http\Controllers\InstallController::class, 'migration'])->name('installs.migration');
+                Route::get('live-check', [App\Http\Controllers\InstallController::class, 'liveCheck'])->name('installs.liveCheck');
+                Route::get('web-rules', [App\Http\Controllers\InstallController::class, 'webRules'])->name('installs.webRules');
+                Route::get('cron', [App\Http\Controllers\InstallController::class, 'cron'])->name('installs.cron');
+
+                /*
+                 * Domains operations
+                 */
+                Route::resource('domains', App\Http\Controllers\DomainController::class)->only([
+                    'index', 'store', 'destroy',
+                ]);
+                Route::post('domain/redirect', [App\Http\Controllers\DomainController::class, 'redirect'])->name('domains.redirect');
+                Route::post('domain/{domain}/setPrimary', [App\Http\Controllers\DomainController::class, 'setPrimary'])->name('domains.setPrimary');
+
+                /*
+                * Transfer Routes within an install
+                */
+                Route::prefix('transfer')->group(function () {
+                    Route::post('start', [App\Http\Controllers\TransferController::class, 'start'])->name('transfer.start');
+                });
             });
         });
 
