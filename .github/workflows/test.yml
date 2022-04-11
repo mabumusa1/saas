@@ -1,11 +1,10 @@
 name: phpunit
 
 on:
+  push: 
   pull_request:
     branches: 
-      - dev
-      - staging
-      - production
+      - dev      
 env:
   COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DB_CONNECTION: mysql

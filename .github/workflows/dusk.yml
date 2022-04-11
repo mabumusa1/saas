@@ -1,10 +1,9 @@
 name: dusk
 on:
+  push:
   pull_request:
     branches: 
       - dev
-      - staging
-      - production
 env:
   DB_CONNECTION: mysql
   DB_HOST: 127.0.0.1
