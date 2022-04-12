@@ -25,6 +25,8 @@ env:
   QUEUE_CONNECTION: sync
   SESSION_DRIVER: database
   TELESCOPE_ENABLED: false
+  NODE_ENV: development
+
   
 
 jobs:
