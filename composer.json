@@ -16,12 +16,12 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
         "spatie/dns": "^2.4",
-        "spatie/laravel-activitylog": "^4.4"
+        "spatie/laravel-activitylog": "^4.4",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "amirami/localizator": "^0.8.1@alpha",
-        "barryvdh/laravel-ide-helper": "^2.10",
-        "fakerphp/faker": "^1.9.1",
+        "barryvdh/laravel-ide-helper": "^2.10",        
         "friendsofphp/php-cs-fixer": "^3.0",
         "jasonmccreary/laravel-test-assertions": "^2.0",
         "laravel-shift/blueprint": "^2.1",

@@ -1,20 +1,18 @@
 name: 'deploy production'
 on:
-   pull_request_review:
-    types: [submitted]
+   push:
     branches: ['production']
-
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
-    if: github.event.review.state == 'approved'
     steps:
       - name: Cloning repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Push to dokku
+      - name: Push to dokku        
         uses: dokku/github-action@master
         env:
           GIT_SSH_COMMAND: 'ssh -vvv'        
@@ -31,8 +29,7 @@ jobs:
           known_hosts: ${{ secrets.DOKKU_HOST_SSH_KEY }}
       - name: Configure Laravel
         run: |
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan config:clear
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan cache:clear
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan route:clear
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan event:clear
-          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan view:clear          
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan down --message 'We are updating the app'
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan migrate --force
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan optimize
+          ssh -i ~/.ssh/dokku dokku@dokku.steercampaign.com run ${{ secrets.DOKKU_STAGING_APP_NAME }} php artisan up
