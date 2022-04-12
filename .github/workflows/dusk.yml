@@ -73,7 +73,7 @@ jobs:
         node-version: '14'
         cache: 'npm'
     - name: Complile Assets
-      run: npm install
+      run: npm ci
        
 
     - name: Install Composer dependencies
