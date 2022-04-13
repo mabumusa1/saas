@@ -11,9 +11,9 @@
 |
 */
 
-use App\Http\Controllers\WebhookController;
-
+Route::post('webhooks', App\Http\Controllers\WebhookController::class)->name('webhooks');
 Route::get('/invite/{invite:token}', 'InviteController@index')->name('invites.index');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/invite', 'InviteController@accept')->middleware('auth:sanctum')->name('invites.accept');
     Route::impersonate();
@@ -166,5 +166,3 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
     });
 });
-
-Route::post('webhooks', WebhookController::class)->name('webhooks');
