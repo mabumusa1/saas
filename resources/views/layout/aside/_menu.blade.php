@@ -50,6 +50,8 @@
                         <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
                             {{ $account->name }}
                         </a>
+                    @elseif (Route::currentRouteName() === 'installs.show')
+                        <!-- TODO: fix this -->
                     @else
                         <a href="{{ route(Route::currentRouteName(), $account->id) }}" class="menu-link px-3">
                             {{ $account->name }}

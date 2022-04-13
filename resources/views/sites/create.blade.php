@@ -141,7 +141,7 @@
                                                 <label>{{ __('Subscription Type') }}</label>
                                                 <select name="subscription_id" id="subscription_id"
                                                     class="form-control form-control-solid">
-                                                    @foreach ($subscriptions as $subscription)
+                                                    @foreach ($activeSubscriptions as $subscription)
                                                         <option value="{{ $subscription->id }}"
                                                             @if ($subscription->id == $currentAccount->subscription_id) selected @endif>
                                                             {{ $subscription->displayName }}

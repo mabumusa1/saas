@@ -77,10 +77,6 @@ class Install extends Model
         'locked' => 'boolean',
     ];
 
-    protected $dispatchesEvents = [
-        'created' => InstallCreated::class,
-    ];
-
     /**
      * Get the contact associated with the Install.
      *
