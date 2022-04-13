@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Install;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,18 +16,18 @@ class InstallCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $install;
+    public $install;
 
-    protected $user;
+    public $user;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Install $install)
+    public function __construct(Install $install, User $user)
     {
         $this->install = $install;
-        $this->user = request()->user();
+        $this->user = $user;
     }
 }

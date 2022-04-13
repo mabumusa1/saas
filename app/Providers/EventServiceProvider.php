@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\AccountUpdatedEvent;
 use App\Events\ActivityLoggerEvent;
+use App\Events\InstallCreated;
 use App\Events\SetDomainPrimaryEvent;
 use App\Events\SetDomainRedirectEvent;
 use App\Events\UserInvitedEvent;
