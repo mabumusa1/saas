@@ -67,6 +67,9 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\DomainPrimaryListener::class,
         ],
 
+        InstallCreated::class => [
+            \App\Listeners\InstallCreatedListener::class,
+        ],
     ];
 
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\InstallCreated;
 use App\Models\Domain;
-use App\Models\Install;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -75,6 +75,10 @@ class Install extends Model
      */
     protected $casts = [
         'locked' => 'boolean',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => InstallCreated::class,
     ];
 
     /**

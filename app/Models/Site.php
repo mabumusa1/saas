@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SiteCreated;
 use App\Models\Cashier\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
