@@ -2,25 +2,28 @@
 
 namespace Tests\Feature\Webhooks;
 
+use App\Jobs\Kub8WebhookJob;
+use App\Models\Install;
+use App\Models\Site;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Illuminate\Support\Facades\Bus;
-use App\Jobs\Kub8WebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
-use App\Models\Site;
-use App\Models\Install;
+use Tests\TestCase;
 
 class Kub8WebhooksTest extends TestCase
 {
     use RefreshDatabase;
 
     private array $content = [];
-    private $signKey;
-    private array $headers = [];
-    private Install $install;
-    private Site $site;
 
+    private $signKey;
+
+    private array $headers = [];
+
+    private Install $install;
+
+    private Site $site;
 
     public function setUp(): void
     {
@@ -34,7 +37,6 @@ class Kub8WebhooksTest extends TestCase
         ->create([
             'type' => 'prd',
         ]);
-        
     }
 
     private function updateReqest()
@@ -42,7 +44,6 @@ class Kub8WebhooksTest extends TestCase
         $this->signKey = env('KUB8_WEBHOOK_CLIENT_SECRET');
         $this->headers['x-signature'] = hash_hmac('sha256', json_encode($this->content), $this->signKey);
     }
-
 
     /**
      * A basic feature test example.
@@ -53,10 +54,10 @@ class Kub8WebhooksTest extends TestCase
     {
         Bus::fake();
         $this->content = [
-            "type" => "healthCheck",
-            "id" => "1",
-            "domain" => "cname.domain.com",
-            "status" => "up"
+            'type' => 'healthCheck',
+            'id' => '1',
+            'domain' => 'cname.domain.com',
+            'status' => 'up',
         ];
 
         $this->updateReqest();
@@ -72,6 +73,5 @@ class Kub8WebhooksTest extends TestCase
         Bus::assertDispatched(function (Kub8WebhookJob $job) use ($hook) {
             return $job->hook->id === $hook->id;
         });
-
     }
 }
