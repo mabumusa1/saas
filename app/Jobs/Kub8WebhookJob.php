@@ -35,6 +35,7 @@ class Kub8WebhookJob extends ProcessWebhookJob implements ShouldQueue
      */
     public function handle()
     {
+        /* @phpstan-ignore-next-line */
         $body = \json_decode($this->hook->payload, true);
         switch ($body['type']) {
             case 'healthCheck':
