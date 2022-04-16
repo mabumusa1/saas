@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('install_id')->references('id')->on('installs');
             $table->enum('type', ['sys', 'usr']);
-            $table->enum('status', ['init', 'creating', 'restoring', 'ready', 'failed'])->default('init');
+            $table->enum('status', ['creating', 'restoring', 'ready', 'failed'])->default('creating');
             $table->text('description')->nullable();
             $table->string('s3_url')->nullable();
             $table->timestamps();

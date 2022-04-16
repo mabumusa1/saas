@@ -11,7 +11,12 @@
 |
 */
 
-Route::post('webhooks', App\Http\Controllers\WebhookController::class)->name('webhooks');
+/**
+ * The name of the route is the configuration array that will be loaded
+ * App\Http\Controllers\WebhookController is the only controller needed
+ */
+Route::post('kub8', App\Http\Controllers\WebhookController::class)->name('kub8');
+
 Route::get('/invite/{invite:token}', 'InviteController@index')->name('invites.index');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

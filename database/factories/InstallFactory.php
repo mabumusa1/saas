@@ -20,7 +20,7 @@ class InstallFactory extends Factory
             'name' =>  $this->faker->firstName(),
             'type' => $this->faker->randomElement(['prd', 'stg', 'dev']),
             'locked' => false,
-            'status' => $this->faker->randomElement(['initiated', 'creating', 'created', 'ready', 'down', 'destroying', 'destroyed']),
+            'status' => $this->faker->randomElement(['creating', 'up', 'down']),
         ];
     }
 }
