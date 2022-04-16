@@ -23,13 +23,13 @@
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="owner" class="form-check-input" type="radio" value="mine"
                                                 id="radioMine"
-                                                @if ($subscriptions->count() === 0) disabled @else checked @endif>
+                                                @if ($activeSubscriptions->count() === 0) disabled @else checked @endif>
                                             <label class="form-check-label opacity-100" for="radioMine">
                                                 {{ __('This site is mine; it will count towards my site allowance') }}
                                                 <br />
                                                 {{ __('You have ') . $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }}
                                                 of {{ $totalActiveSubscriptions }} {{ __('sites available.') }}
-                                                @if ($subscriptions->count() === 0)
+                                                @if ($activeSubscriptions->count() === 0)
                                                     {{ __('Delete site or ') }} <a class="text-primary"
                                                         href="{{ route('billing.index', [$currentAccount]) }}">
                                                         {{ __('Upgrade your plan') }}</a>
@@ -41,8 +41,8 @@
                                         <div class="form-check form-check-custom form-check-lg">
                                             <input name="owner" class="form-check-input" type="radio"
                                                 value="transferable" id="radioTransferable"
-                                                @if ($currentAccount->availableQuota === 0 && $subscriptions->count() === 0) disabled @endif
-                                                @if ($subscriptions->count() === 0 && $currentAccount->availableQuota > 0) checked @endif>
+                                                @if ($currentAccount->availableQuota === 0 && $activeSubscriptions->count() === 0) disabled @endif
+                                                @if ($activeSubscriptions->count() === 0 && $currentAccount->availableQuota > 0) checked @endif>
                                             <label class="form-check-label opacity-100" for="radioTransferable">
                                                 {{ __('This site is transferable; it will be moved to someone elses account.') }}
                                                 <br />
@@ -135,7 +135,7 @@
                                     <h3>{{ __('Site name and first install') }}</h3>
                                     <p>{{ __('A site is a group of up to three installs (Production, Staging, Development) under one name') }}
                                     </p>
-                                    @if ($subscriptions->count() > 0)
+                                    @if ($activeSubscriptions->count() > 0)
                                         <div class="mb-10" id="subscriptions">
                                             <div class="form-group fv-row">
                                                 <label>{{ __('Subscription Type') }}</label>
