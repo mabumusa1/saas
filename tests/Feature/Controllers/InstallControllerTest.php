@@ -223,4 +223,87 @@ class InstallControllerTest extends TestCase
 
         Event::assertDispatched(SiteLockEvent::class);
     }
+
+    public function test_destroy_install_fail()
+    {
+        $site = Site::factory()->create([
+            'account_id' => $this->account->id,
+        ]);
+        $install = Install::factory()
+        ->for($site)
+        ->create();
+
+        $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $site, 'install' => $install]));
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+    }
+
+    public function test_destroy_install()
+    {
+        $site = Site::factory()->create([
+            'account_id' => $this->account->id,
+        ]);
+        $install1 = Install::factory()
+        ->for($site)
+        ->create();
+
+        $install2 = Install::factory()
+        ->for($site)
+        ->create();
+
+        $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $site, 'install' => $install1]));
+        $response->assertRedirect();
+        $response->assertSessionHas('success');
+        $this->assertSoftDeleted($install1);
+    }
+
+    /***
+     * Methods that show views at the moment, they should be
+     * removed to other controllers
+     */
+
+    public function test_views_install()
+    {
+        $site = Site::factory()->create([
+            'account_id' => $this->account->id,
+        ]);
+        $install = Install::factory()
+        ->for($site)
+        ->create([
+            'type' => 'dev',
+        ]);
+
+        $response = $this->get(route('installs.cdn', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.cdn.index');
+
+        $response = $this->get(route('installs.redirectRules', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.redirect-rules.index');
+
+        $response = $this->get(route('installs.backupPoints', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.backup-points.index');
+
+        $response = $this->get(route('installs.accessLogs', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.logs.access');
+
+        $response = $this->get(route('installs.errorLogs', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.logs.error');
+
+        $response = $this->get(route('installs.utilities', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.utilities.index');
+
+        $response = $this->get(route('installs.caching', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.caching.index');
+
+        $response = $this->get(route('installs.migration', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.migration.index');
+
+        $response = $this->get(route('installs.liveCheck', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.live-checklist.index');
+
+        $response = $this->get(route('installs.webRules', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.web-rules.index');
+
+        $response = $this->get(route('installs.cron', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        ->assertViewIs('installs.cron.index');
+    }
 }

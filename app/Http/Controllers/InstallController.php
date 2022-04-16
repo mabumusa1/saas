@@ -123,6 +123,7 @@ class InstallController extends Controller
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Installation is locked'));
     }
+
     /*
     Methods at here are not in final place or shape.
     They may get moved or deleted in future.
