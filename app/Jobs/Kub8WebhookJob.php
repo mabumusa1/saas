@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Install;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +11,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
-use App\Models\Install;
 
 class Kub8WebhookJob extends ProcessWebhookJob implements ShouldQueue
 {
@@ -35,19 +35,15 @@ class Kub8WebhookJob extends ProcessWebhookJob implements ShouldQueue
      */
     public function handle()
     {
-        try {
-            $body = \json_decode($hook->payload);
-            switch($body['type']){
-                case "healthCheck":
-                {
-                    $install = Install::findOrfail($body['id']);
-                    $install->status = $body['status'];
-                    $install->save();
-                    break;
-                }
+        $body = \json_decode($this->hook->payload, true);
+        switch ($body['type']) {
+            case 'healthCheck':
+            {
+                $install = Install::findOrfail($body['id']);
+                $install->status = $body['status'];
+                $install->save();
+                break;
             }
-        } catch (\Throwable $th) {
-            $this->fail();
         }
     }
 }

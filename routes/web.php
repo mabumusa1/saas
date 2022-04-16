@@ -11,7 +11,7 @@
 |
 */
 
-/**
+/*
  * The name of the route is the configuration array that will be loaded
  * App\Http\Controllers\WebhookController is the only controller needed
  */
