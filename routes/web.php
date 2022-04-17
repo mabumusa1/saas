@@ -15,6 +15,13 @@
  * The name of the route is the configuration array that will be loaded
  * App\Http\Controllers\WebhookController is the only controller needed
  */
+
+use App\Kub8\Kub8ClientImpl;
+
+Route::get('kuby', function () {
+    $client = new Kub8ClientImpl();
+    $client->create();
+});
 Route::post('kub8', App\Http\Controllers\WebhookController::class)->name('kub8');
 
 Route::get('/invite/{invite:token}', 'InviteController@index')->name('invites.index');
