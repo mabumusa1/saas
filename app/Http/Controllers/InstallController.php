@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\InstallCopyEvent;
-use App\Events\InstallDeleteEvent;
+use App\Events\InstallDestroy;
 use App\Events\SiteLockEvent;
 use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
@@ -12,8 +12,6 @@ use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use App\Notifications\InstallCopyNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Notification;
 
 class InstallController extends Controller
@@ -200,6 +198,8 @@ class InstallController extends Controller
         }
 
         $install->delete();
+
+        InstallDestroy::dispatch($install);
 
         return redirect()->route('sites.index', [$account])->with('success', __('Install Deleted Successfully'));
     }

@@ -2,35 +2,35 @@
 
 namespace App\Listeners;
 
-use App\Events\InstallCreated;
-use App\Models\Contact;
+use App\Events\InstallCopyEvent;
+use Http;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Http;
 
-class InstallCreatedListener implements ShouldQueue
+class InstallCopyEventListener
 {
-    use InteractsWithQueue;
-
     /**
-     * The number of times the queued listener may be attempted.
+     * Create the event listener.
      *
-     * @var int
+     * @return void
      */
-    public $tries = 5;
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Handle the event.
      *
-     * @param InstallCreated $event
+     * @param InstallCopyEvent $event
      * @return void
      */
-    public function handle(InstallCreated $event)
+    public function handle(InstallCopyEvent $event)
     {
         $response = Http::withHeaders([
             'X-API-Key' => env('KUB8_API_KEY'),
         ])
-        ->post(env('KUB8_API')."install/{$event->install->name}", [
+        ->post(env('KUB8_API')."install/{$event->install->name}/copy", [
             'env_type' => $event->install->type,
             'size' => $event->install->size,
             'domain' => $event->install->domain,
@@ -44,17 +44,5 @@ class InstallCreatedListener implements ShouldQueue
                 'memory' => '4',
             ],*/
         ]);
-    }
-
-    /**
-     * Handle a job failure.
-     *
-     * @param  \App\Events\InstallCreated  $event
-     * @param  \Throwable  $exception
-     * @return void
-     */
-    public function failed(InstallCreated $event, $exception)
-    {
-        //
     }
 }
