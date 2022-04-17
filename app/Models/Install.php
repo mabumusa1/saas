@@ -172,4 +172,33 @@ class Install extends Model
     {
         return $this->domains->where('primary', true)->first();
     }
+
+    /**
+     * Get subscription size assoicated
+     * with this install.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function size(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                return $this->site->subscription->name;
+            },
+        );
+    }
+
+    /**
+     * Get install region.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function region(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                return $this->site->account->dataCenter->region;
+            },
+        );
+    }
 }

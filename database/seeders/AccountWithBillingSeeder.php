@@ -56,8 +56,8 @@ class AccountWithBillingSeeder extends Seeder
 
             if ($install->backups()->count() === 0) {
                 Backup::factory()->count(2)->state(new Sequence(
-                    ['install_id' => $install->id, 'status' => 'restoring'], //TODO: Check the value init isn't in the table migration
                     ['install_id' => $install->id, 'status' => 'creating'],
+                    ['install_id' => $install->id, 'status' => 'restoring'],
                     ['install_id' => $install->id, 'status' => 'ready'],
                     ['install_id' => $install->id, 'status' => 'failed']
                 ))->create();
