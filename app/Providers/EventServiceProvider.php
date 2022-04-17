@@ -4,10 +4,19 @@ namespace App\Providers;
 
 use App\Events\AccountUpdatedEvent;
 use App\Events\ActivityLoggerEvent;
+use App\Events\InstallBackupEvent;
+use App\Events\InstallCopyEvent;
 use App\Events\InstallCreated;
+use App\Events\InstallDestroy;
+use App\Events\InstallResize;
+use App\Events\InstallSetDomain;
 use App\Events\SetDomainPrimaryEvent;
 use App\Events\SetDomainRedirectEvent;
 use App\Events\UserInvitedEvent;
+use App\Listeners\InstallCopyEventListener;
+use App\Listeners\InstallDestroyListener;
+use App\Listeners\InstallResizeListener;
+use App\Listeners\InstallSetDomainListener;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
@@ -70,6 +79,22 @@ class EventServiceProvider extends ServiceProvider
 
         InstallCreated::class => [
             \App\Listeners\InstallCreatedListener::class,
+        ],
+
+        InstallCopyEvent::class => [
+            InstallCopyEventListener::class,
+        ],
+        InstallResize::class => [
+            InstallResizeListener::class,
+        ],
+        InstallDestroy::class => [
+            InstallDestroyListener::class,
+        ],
+        InstallBackupEvent::class => [
+            \App\Listeners\InstallBackupEventListener::class,
+        ],
+        InstallSetDomain::class => [
+            InstallSetDomainListener::class,
         ],
     ];
 
