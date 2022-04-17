@@ -34,5 +34,7 @@
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="KUB8_WEBHOOK_CLIENT_SECRET" value="somtest"/>
+        <server name="KUB8_API" value="https://kub8.steercampaign.com/v1/"/>
+        <server name="KUB8_API_KEY" value="somekey"/>
     </php>
 </phpunit>
