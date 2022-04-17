@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers;
 
 use App\Events\InstallCopyEvent;
+use App\Events\InstallDestroy;
 use App\Events\SiteLockEvent;
 use App\Models\Account;
 use App\Models\Contact;
@@ -221,6 +222,7 @@ class InstallControllerTest extends TestCase
 
     public function test_destroy_install()
     {
+        Event::fake();
         $site = Site::factory()->create([
             'account_id' => $this->account->id,
         ]);
@@ -233,6 +235,9 @@ class InstallControllerTest extends TestCase
         ->create();
 
         $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $site, 'install' => $install1]));
+        Event::assertDispatched(function (InstallDestroy $event) use ($install1) {
+            return $event->install->id === $install1->id;
+        });
         $response->assertRedirect();
         $response->assertSessionHas('success');
         $this->assertSoftDeleted($install1);
