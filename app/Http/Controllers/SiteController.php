@@ -90,25 +90,30 @@ class SiteController extends Controller
         $siteData['account_id'] = $account->id;
         $siteData['name'] = $validated['sitename'];
         $user = $request->user();
-        // try {
-        $site = DB::transaction(function () use ($siteData, $validated, $user) {
-            return tap(Site::create($siteData), function (Site $site) use ($validated, $user) {
-                $install = Install::create([
+        try {
+            $site = DB::transaction(function () use ($siteData, $validated, $user) {
+                return tap(Site::create($siteData), function (Site $site) use ($validated, $user) {
+                    $install = Install::create([
                         'site_id' => $site->id,
                         'name' => $validated['installname'],
                         'type' => $validated['type'],
                         'owner' => $validated['owner'],
                         'locked' => ($validated['owner'] === 'transferable') ? true : false,
                     ]);
-                InstallCreated::dispatch($install, $user);
+                    Contact::create([
+                        'install_id' => $install->id,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'email' => $user->email,
+                    ]);
+                });
             });
-        });
 
-        return redirect(route('installs.show', [$account, $site, $site->installs->first()]))->with('status', __('Site is under creation, we will send you an update once it is done!'));
-        // @codeCoverageIgnoreStart
-        // } catch (\Throwable $th) {
-            // return redirect(route('sites.index', $account->id))->with('status', __('An error occured, please try again in few minutes'));
-        // }
+            return redirect(route('installs.show', [$account, $site, $site->installs->first()]))->with('status', __('Site is under creation, we will send you an update once it is done!'));
+            // @codeCoverageIgnoreStart
+        } catch (\Throwable $th) {
+            return redirect(route('sites.index', $account->id))->with('status', __('An error occured, please try again in few minutes'));
+        }
         // @codeCoverageIgnoreEnd
     }
 

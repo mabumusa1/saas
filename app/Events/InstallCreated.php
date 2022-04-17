@@ -25,9 +25,8 @@ class InstallCreated
      *
      * @return void
      */
-    public function __construct(Install $install, User $user)
+    public function __construct(Install $install)
     {
         $this->install = $install;
-        $this->user = $user;
     }
 }
