@@ -54,6 +54,8 @@ class Install extends Model
 {
     use HasFactory, SoftDeletes, LogsActivity;
 
+    protected $observables = ['copied', 'locked'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -200,5 +202,16 @@ class Install extends Model
                 return $this->site->account->dataCenter->region;
             },
         );
+    }
+
+    public function lock()
+    {
+        $this->update(['locked' => true, 'owner' => 'transferable']);
+        $this->fireModelEvent('locked');
+    }
+
+    public function copy()
+    {
+        $this->fireModelEvent('copied');
     }
 }
