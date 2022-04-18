@@ -102,7 +102,7 @@ class DomainController extends Controller
             $sourceDomain->save();
         }
 
-        SetDomainRedirectEvent::dispatch($sourceDomain);
+        $sourceDomain->redirect();
 
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Redirect is set'));
     }
@@ -125,7 +125,7 @@ class DomainController extends Controller
         $domain->primary = true;
         $domain->save();
 
-        SetDomainPrimaryEvent::dispatch($domain);
+        $domain->makePrimary();
 
         return redirect()->route('domains.index', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Domain set as primary'));
     }

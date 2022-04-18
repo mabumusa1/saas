@@ -43,15 +43,14 @@
         <div
             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4"
             data-kt-menu="true">
-        @foreach ( Auth::user()->accounts as $account)
+            @foreach ( Auth::user()->accounts as $account)
             <!--begin::Menu item-->
                 <div class="menu-item px-3">
-                    <a href="{{ route('sites.index', $account->id) }}" class="menu-link px-3">
+                    <a href="{{ route('dashboard', $account) }}" class="menu-link px-3">
                         {{ $account->name }}
-                    </a>
+                    </a>                    
                 </div>
                 <!--end::Menu item-->
-
             @endforeach
         </div>
         @endif
