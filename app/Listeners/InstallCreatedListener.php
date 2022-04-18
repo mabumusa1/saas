@@ -27,23 +27,6 @@ class InstallCreatedListener implements ShouldQueue
      */
     public function handle(InstallCreated $event)
     {
-        $response = Http::withHeaders([
-            'X-API-Key' => env('KUB8_API_KEY'),
-        ])
-        ->post(env('KUB8_API')."install/{$event->install->name}", [
-            'env_type' => $event->install->type,
-            'size' => $event->install->size,
-            'domain' => $event->install->domain,
-            'region' => $event->install->region,
-          /*
-           * This will be used i
-           * the future, keep it
-           */
-            /*'custom' => [
-                'cpu' => '1',
-                'memory' => '4',
-            ],*/
-        ]);
     }
 
     /**

@@ -90,7 +90,7 @@ class InstallController extends Controller
      */
     public function copy(Account $account, Site $site, Install $install, CopyInstallRequest $request)
     {
-        InstallCopyEvent::dispatch($install);
+        $install->copy();
 
         Notification::route('mail', $request->input('email'))->notify(new InstallCopyNotification($install));
 
@@ -115,9 +115,7 @@ class InstallController extends Controller
 
     public function lock(Account $account, Site $site, Install $install)
     {
-        $install->update(['locked' => true, 'owner' => 'transferable']);
-
-        SiteLockEvent::dispatch($install);
+        $install->lock();
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('Installation is locked'));
     }
@@ -198,8 +196,6 @@ class InstallController extends Controller
         }
 
         $install->delete();
-
-        InstallDestroy::dispatch($install);
 
         return redirect()->route('sites.index', [$account])->with('success', __('Install Deleted Successfully'));
     }
