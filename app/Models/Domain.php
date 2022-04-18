@@ -72,4 +72,14 @@ class Domain extends Model
             get: fn () => ($this->name === $this->install->cname),
         );
     }
+
+    public function redirect()
+    {
+        $this->fireModelEvent('redirected');
+    }
+
+    public function copy()
+    {
+        $this->fireModelEvent('makePrimary');
+    }
 }

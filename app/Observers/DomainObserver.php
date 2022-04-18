@@ -27,4 +27,14 @@ class DomainObserver
     {
         //TODO: Send API Call to remove mapping
     }
+
+    public function redirected(Domain $domain)
+    {
+        //TODO: Send API Call to redirect
+    }
+
+    public function makePrimary(Domain $domain)
+    {
+        //TODO: Send API Call to redirect
+    }
 }

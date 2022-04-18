@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\InstallCopyEvent;
-use App\Events\InstallDestroy;
-use App\Events\SiteLockEvent;
 use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
