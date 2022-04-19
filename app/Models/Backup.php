@@ -22,4 +22,9 @@ class Backup extends Model
     {
         return $this->belongsTo(Install::class);
     }
+
+    public function restore(): void
+    {
+        $this->fireModelEvent('restored');
+    }
 }

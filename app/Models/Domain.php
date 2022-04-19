@@ -78,7 +78,7 @@ class Domain extends Model
         $this->fireModelEvent('redirected');
     }
 
-    public function copy()
+    public function makePrimary()
     {
         $this->fireModelEvent('makePrimary');
     }
