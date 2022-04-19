@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Events\AccountUpdatedEvent;
 use App\Events\ActivityLoggerEvent;
 use App\Events\UserInvitedEvent;
+use App\Models\Backup;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\User;
+use App\Observers\BackupObserver;
 use App\Observers\DomainObserver;
 use App\Observers\InstallObserver;
 use App\Observers\SiteObserver;
@@ -70,6 +72,7 @@ class EventServiceProvider extends ServiceProvider
         Domain::class => [DomainObserver::class],
         Install::class => [InstallObserver::class],
         Site::class => [SiteObserver::class],
+        Backup::class => [BackupObserver::class],
     ];
 
     /**

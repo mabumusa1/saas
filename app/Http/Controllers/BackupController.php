@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateBackupEvent;
-use App\Events\RestoreBackupEvent;
 use App\Http\Requests\StoreBackupRequest;
 use App\Models\Account;
 use App\Models\Backup;
@@ -36,14 +34,12 @@ class BackupController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        CreateBackupEvent::dispatch($backup);
-
         return redirect()->route('backups.index', ['account' => $account, 'site' => $site, 'install' => $install]);
     }
 
     public function restore(Account $account, Site $site, Install $install, Backup $backup)
     {
-        RestoreBackupEvent::dispatch($backup);
+        $backup->restore();
 
         return redirect()->route('backups.index', ['account' => $account, 'site' => $site, 'install' => $install]);
     }

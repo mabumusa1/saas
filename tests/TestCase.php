@@ -13,6 +13,7 @@ use App\Models\Site;
 use App\Models\User;
 use Event;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Http;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 abstract class TestCase extends BaseTestCase
