@@ -17,7 +17,7 @@ class ActivityLoggerListenerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount(false);
+        parent::addSite();
     }
 
     /**

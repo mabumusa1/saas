@@ -21,23 +21,11 @@ class BackupControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $install;
-
-    private $site;
-
-    private $backup;
-
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->site = Site::factory()->for($this->account)->create();
-        $this->install = Install::factory()
-        ->for($this->site)
-        ->create(['name' => 'install']);
-        $this->backup = Backup::factory()
-        ->for($this->install)
-        ->create(['install_id' => $this->install->id]);
+        parent::addSite();
+        parent::addBackup();
     }
 
     /**

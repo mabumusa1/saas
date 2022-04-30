@@ -24,7 +24,7 @@ class UserControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
+        parent::addSite();
     }
 
     /**

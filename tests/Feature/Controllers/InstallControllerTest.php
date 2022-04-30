@@ -22,7 +22,7 @@ class InstallControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
+        parent::addSite();
     }
 
     /**
@@ -32,25 +32,14 @@ class InstallControllerTest extends TestCase
      */
     public function test_show_displays_view()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create();
-        $contact = Contact::factory()->create([
-            'install_id' => $install->id,
-        ]);
-        $this->get(route('installs.show', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $this->get(route('installs.show', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
             ->assertOk()
             ->assertViewIs('installs.show');
     }
 
     public function test_create_all_types_used()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        $site = Site::factory()->for($this->account)->create();
         $install = Install::factory()
         ->count(3)
         ->for($site)
@@ -68,9 +57,7 @@ class InstallControllerTest extends TestCase
 
     public function test_create_displays_view_specific_env()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        $site = Site::factory()->for($this->account)->create();
         $install = Install::factory()
         ->for($site)
         ->create(['type' => 'stg']);
@@ -82,9 +69,7 @@ class InstallControllerTest extends TestCase
 
     public function test_create_displays_view()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        $site = Site::factory()->for($this->account)->create();
         $install = Install::factory()
         ->for($site)
         ->create();
@@ -95,9 +80,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_fails_if_type_is_wrong()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        $site = Site::factory()->for($this->account)->create();
         $install = Install::factory()
         ->for($site)
         ->create([
@@ -111,9 +94,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_fails_if_wrong_url()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        $site = Site::factory()->for($this->account)->create();
         $install = Install::factory()
         ->for($site)
         ->create([

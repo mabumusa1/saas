@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
-use App\Models\Cashier\Subscription;
 use App\Models\Group;
 use App\Models\Site;
 use App\Models\User;
@@ -17,31 +16,18 @@ class GroupControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @property \App\Models\Subscription $subscription
-     */
-    protected $subscription;
+    private $group;
 
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->subscription = Subscription::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        parent::addSite();
 
         $this->group = Group::factory()
         ->for($this->account)
         ->create([
             'name' => 'test',
             'notes' => 'test',
-        ]);
-
-        $this->site = Site::factory()
-        ->for($this->account)
-        ->for($this->subscription)
-        ->create([
-            'name' => 'test',
         ]);
     }
 

@@ -22,7 +22,8 @@
     },
     "require-dev": {
         "amirami/localizator": "^0.8.1@alpha",
-        "barryvdh/laravel-ide-helper": "^2.10",        
+        "barryvdh/laravel-ide-helper": "^2.10",
+        "brianium/paratest": "^6.4",
         "friendsofphp/php-cs-fixer": "^3.0",
         "jasonmccreary/laravel-test-assertions": "^2.0",
         "laravel-shift/blueprint": "^2.1",

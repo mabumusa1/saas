@@ -21,22 +21,10 @@ class Kub8WebhooksTest extends TestCase
 
     private array $headers = [];
 
-    private Install $install;
-
-    private Site $site;
-
     public function setUp(): void
     {
         parent::setUp();
-        $this->setUpAccount(false);
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'prd',
-        ]);
+        parent::addSite(true);
     }
 
     private function updateReqest()

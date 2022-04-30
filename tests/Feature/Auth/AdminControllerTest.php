@@ -14,18 +14,18 @@ class AdminControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $normalUser;
-
     private $adminUser;
+
+    private $adminAccount;
 
     public function setUp():void
     {
         parent::setUp();
+        parent::addAccount();
 
-        $this->normalUser = User::factory()->create();
         $this->adminUser = User::factory()->create();
-        $adminAccount = $this->adminUser->accounts()->first();
-        $adminAccount->users()->sync([$this->adminUser->id => ['role' => 'admin']]);
+        $this->adminAccount = Account::factory()->create();
+        $this->adminAccount->users()->sync([$this->adminUser->id => ['role' => 'admin']]);
         $this->actingAs($this->adminUser);
     }
 
@@ -34,8 +34,8 @@ class AdminControllerTest extends TestCase
      */
     public function test_login_as_admin()
     {
-        $response = $this->get(route('admin.dashboard', $this->adminUser->accounts()->first()));
-        $this->assertEquals($response->getStatusCode(), 200);
+        $response = $this->get(route('admin.dashboard', $this->adminAccount));
+        $response->assertSuccessful();
         $response->assertViewIs('admin.index');
         $response->assertViewHas('accounts');
     }
@@ -45,15 +45,18 @@ class AdminControllerTest extends TestCase
      */
     public function test_admin_can_impersonate_and_leave()
     {
-        $response = $this->get(route('impersonate', $this->normalUser->id));
-        $response->assertStatus(302);
+        $this->actingAs($this->user);
+        $response = $this->get(route('impersonate', $this->user->id));
+        $response->assertForbidden();
 
-        $response = $this->get(route('dashboard', $this->adminUser));
-        $response->assertStatus(200);
+        $this->actingAs($this->adminUser);
+        $response = $this->get(route('impersonate', $this->user->id));
+        $response->assertRedirectContains(route('home'));
+
+        $response = $this->get(route('dashboard', $this->account->id));
+        $response->assertSuccessful();
 
         $response = $this->get(route('impersonate.leave'));
-        $response->assertStatus(302);
-
-        $response = $this->get(route('admin.dashboard', $this->adminUser->accounts()->first()));
+        $response->assertRedirectContains(route('home'));
     }
 }

@@ -23,14 +23,7 @@ class ScheduleTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->site = Site::factory()->for($this->account)->create();
-        $this->install = Install::factory()
-        ->for($this->site)
-        ->create(['name' => 'domain']);
-        $this->domain = Domain::factory()
-        ->for($this->install)
-        ->create(['name' => 'domain.steercampaign.com', 'primary' => true, 'verified_at' => null]);
+        parent::addSite(true);
     }
 
     /**

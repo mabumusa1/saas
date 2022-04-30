@@ -20,24 +20,7 @@ class SearchControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->subscription = Subscription::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-
-        $this->site = Site::factory()
-        ->for($this->account)
-        ->for($this->subscription)
-        ->create([
-            'name' => 'Site test name',
-        ]);
-
-        Install::factory()
-        ->for($this->site)
-        ->create([
-            'name' => 'Install test name',
-            'type' => 'dev',
-        ]);
+        parent::addSite();
     }
 
     /**

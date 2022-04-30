@@ -14,16 +14,10 @@ class Kub8WebhookJobTest extends TestCase
 {
     use RefreshDatabase;
 
-    private Install $install;
-
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->site = Site::factory()->for($this->account)->create();
-        $this->install = Install::factory()
-        ->for($this->site)
-        ->create(['name' => 'domain']);
+        parent::addSite();
     }
 
     public function test_healthCheck()

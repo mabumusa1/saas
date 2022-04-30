@@ -86,7 +86,6 @@ if (! function_exists('VerifyDomainHelper')) {
         $dns = new Dns();
         $dns->useNameserver('8.8.8.8');
         $records = $dns->getRecords($domain->name, 'CNAME');
-
         if ($records) {
             foreach ($records as $record) {
                 /* @phpstan-ignore-next-line */
