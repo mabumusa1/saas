@@ -20,10 +20,6 @@ class CreateInstallListenerTest extends TestCase
 
     private $subscription;
 
-    private Site $site;
-
-    private Install $install;
-
     public function setUp(): void
     {
         parent::setUp();
