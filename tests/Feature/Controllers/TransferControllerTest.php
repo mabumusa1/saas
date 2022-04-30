@@ -27,13 +27,6 @@ class TransferControllerTest extends TestCase
     {
         parent::setUp();
         parent::addSite();
-        $this->site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-
-        $this->install = Install::factory()->create([
-            'site_id' => $this->site->id,
-        ]);
     }
 
     public function test_start_transfer()

@@ -15,14 +15,15 @@ class BackupTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::addSite();
+        parent::addBackup();
+    }
+
     public function test_install_backup():void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
-        $backup = Backup::factory()->create([
-            'install_id' => $install->id,
-        ]);
-        $this->assertEquals($backup->install->id, $install->id);
+        $this->assertEquals($this->backup->install->id, $this->install->id);
     }
 }

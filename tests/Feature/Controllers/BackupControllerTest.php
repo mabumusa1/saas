@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Controllers;
 
-use App\Events\CreateBackupEvent;
-use App\Events\RestoreBackupEvent;
 use App\Models\Account;
 use App\Models\Backup;
 use App\Models\Domain;
@@ -49,7 +47,7 @@ class BackupControllerTest extends TestCase
         $this->assertDatabaseHas('backups', [
             'description' => 'sometest',
         ]);
-        Event::assertDispatched(CreateBackupEvent::class);
+        Event::assertDispatched('eloquent.created: App\Models\Backup');
     }
 
     public function test_backups_restore_success()
@@ -59,6 +57,6 @@ class BackupControllerTest extends TestCase
         $this->post(route('backups.restore', [$this->account, $this->site, $this->install, $this->backup]))
         ->assertRedirect();
 
-        Event::assertDispatched(RestoreBackupEvent::class);
+        Event::assertDispatched('eloquent.restored: App\Models\Backup');
     }
 }
