@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Gate;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
@@ -144,7 +145,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function belongToRoles(Account $account, array $roles): bool
     {
         return in_array(
-            $this->accounts()->get()->where('id', $account->id)->first()->pivot->role,  /* @phpstan-ignore-line */
+            $this->accounts()->firstWhere('accounts.id', $account->id)->pivot->role, /* @phpstan-ignore-line */
             $roles
         );
     }
@@ -165,8 +166,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function canImpersonate()
     {
-        /* @phpstan-ignore-next-line */
-        return $this->accounts()->first()->pivot->role === 'admin';
+        return Gate::allows('isAdmin', $this);
     }
 
     /**

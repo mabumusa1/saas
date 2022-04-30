@@ -3,7 +3,11 @@
 namespace Tests;
 
 use App\Models\Account;
+use App\Models\Backup;
 use App\Models\Cashier\Subscription;
+use App\Models\Contact;
+use App\Models\Domain;
+use App\Models\Install;
 use App\Models\Plan;
 use App\Models\Site;
 use App\Models\User;
@@ -15,34 +19,57 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public $user;
+    protected User $user;
 
-    public $account;
+    protected Account $account;
 
-    public function createMockedSubscription(Account $account, Plan $plan, $data = []): CashierSubscription
+    protected Site $site;
+
+    protected Install $install;
+
+    protected Contact $contact;
+
+    protected Domain $domain;
+
+    protected Backup $backup;
+
+    public function setUp():void
     {
-        $sub = null;
-        Event::fakeFor(function () use ($account, $plan, $data, &$sub) {
-            $sub = Subscription::factory()->create(array_merge([
-                'account_id' => $account->id,
-                'name' => $plan->name,
-                'stripe_status' => \Stripe\Subscription::STATUS_ACTIVE,
-                'stripe_price' => $plan->stripe_plan_id,
-                'quantity' => 1,
-                'trial_ends_at' => null,
-                'ends_at' => null,
-            ], $data));
-        });
-        // by default active subscription
-        return $sub;
+        parent::setUp();
     }
 
-    public function setUpAccount($authenticate = true)
+    public function addAccount()
     {
         $this->user = User::factory()->create();
-        $this->account = $this->user->accounts()->first();
-        if ($authenticate) {
-            $this->actingAs($this->user);
+        $this->account = Account::factory()->create();
+        $this->account->users()->sync([$this->user->id => ['role' => 'owner']]);
+        $this->actingAs($this->user);
+    }
+
+    public function addSite($addDomain = false)
+    {
+        if (empty($this->account)) {
+            $this->addAccount();
         }
+        $this->site = Site::factory()->for($this->account)->create();
+        $this->install = Install::factory()->for($this->site)->create(['name' => 'domain']);
+        $this->contact = Contact::factory()->for($this->install)->create();
+
+        if ($addDomain) {
+            $this->domain = Domain::factory()
+            ->for($this->install)
+            ->create(['name' => 'domain.steercampaign.com', 'primary' => true, 'verified_at' => null]);
+        }
+    }
+
+    public function addBackup()
+    {
+        if (empty($this->install)) {
+            $this->addSite();
+        }
+
+        $this->backup = Backup::factory()
+        ->for($this->install)
+        ->create();
     }
 }

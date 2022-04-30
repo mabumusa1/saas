@@ -46,6 +46,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('account', \App\Models\Account::class);
         Route::model('user', \App\Models\User::class);
         Route::model('site', \App\Models\Site::class);
+        Route::model('install', \App\Models\Install::class);
+        Route::model('backup', \App\Models\Backup::class);
+        Route::model('domain', \App\Models\Domain::class);
     }
 
     /**

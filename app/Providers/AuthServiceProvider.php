@@ -40,8 +40,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('isAdmin', function (User $user) {
-            /* @phpstan-ignore-next-line */
-            return $user->accounts()->first()->pivot->role === 'admin';
+            return $user->accounts()->where('role', 'admin')->exists();
         });
     }
 }

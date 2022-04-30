@@ -22,23 +22,15 @@ class SiteControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $subscription;
+
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
+        parent::addSite();
         $this->subscription = Subscription::factory()->create([
             'account_id' => $this->account->id,
             'name' => 's1',
-        ]);
-    }
-
-    protected function createSite()
-    {
-        return Site::factory()
-        ->for($this->account)
-        ->for($this->subscription)
-        ->create([
-            'name' => 'Site test name',
         ]);
     }
 
@@ -47,9 +39,7 @@ class SiteControllerTest extends TestCase
      */
     public function test_index_displays_view()
     {
-        $this->createSite();
-
-        $response = $this->call('GET', route('sites.index', $this->account), ['q'=>'test']);
+        $response = $this->call('GET', route('sites.index', $this->account));
 
         $response->assertOk();
         $response->assertViewIs('sites.index');
@@ -59,7 +49,8 @@ class SiteControllerTest extends TestCase
 
     public function test_index_displays_empty_with_no_sites()
     {
-        $response = $this->call('GET', route('sites.index', $this->account), ['q'=>'test']);
+        $this->account->sites()->delete();
+        $response = $this->call('GET', route('sites.index', $this->account));
 
         $response->assertOk();
         $response->assertViewIs('sites.empty');
@@ -107,9 +98,9 @@ class SiteControllerTest extends TestCase
             'subscription_id' => $subscription->id,
             'start' => 'blank',
         ]);
-        $site = $this->account->sites()->first();
-        $install = $site->installs()->first();
-        $response->assertRedirect(route('installs.show', [$this->account, $site, $install]));
+        $expectedSite = $this->account->sites()->orderBy('id', 'desc')->first();
+        $expectedInstall = $expectedSite->installs()->orderBy('id', 'desc')->first();
+        $response->assertRedirect(route('installs.show', [$this->account, $expectedSite, $expectedInstall]));
         $response->assertSessionHas('status', __('Site is under creation, we will send you an update once it is done!'));
     }
 
@@ -234,9 +225,7 @@ class SiteControllerTest extends TestCase
      */
     public function test_edit_displays_view()
     {
-        $site = $this->createSite();
-
-        $response = $this->get(route('sites.edit', ['account' => $this->account, 'site' => $site]));
+        $response = $this->get(route('sites.edit', ['account' => $this->account, 'site' => $this->site]));
 
         $response->assertOk();
         $response->assertViewIs('sites.edit');
@@ -250,9 +239,7 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_update_fail_without_name()
     {
-        $site = $this->createSite();
-
-        $response = $this->put(route('sites.update', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->put(route('sites.update', ['account' => $this->account, 'site' => $this->site]), [
             'name' => '',
         ]);
 
@@ -265,8 +252,7 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_update()
     {
-        $site = $this->createSite();
-        $response = $this->put(route('sites.update', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->put(route('sites.update', ['account' => $this->account, 'site' => $this->site]), [
             'name' => 'test name',
         ]);
 
@@ -278,9 +264,8 @@ class SiteControllerTest extends TestCase
      */
     public function test_site_destroy()
     {
-        $site = $this->createSite();
-        $install = Install::factory()->for($site)->create();
-        $response = $this->delete(route('sites.destroy', ['account' => $this->account, 'site' => $site]));
+        $install = Install::factory()->for($this->site)->create();
+        $response = $this->delete(route('sites.destroy', ['account' => $this->account, 'site' => $this->site]));
         $response->assertRedirect();
     }
 }

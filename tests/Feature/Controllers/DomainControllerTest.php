@@ -17,23 +17,10 @@ class DomainControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $install;
-
-    private $site;
-
-    private $domain;
-
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->site = Site::factory()->for($this->account)->create();
-        $this->install = Install::factory()
-        ->for($this->site)
-        ->create(['name' => 'domain']);
-        $this->domain = Domain::factory()
-        ->for($this->install)
-        ->create(['name' => 'domain.steercampaign.com', 'primary' => true]);
+        parent::addSite(true);
     }
 
     /**
@@ -178,6 +165,8 @@ class DomainControllerTest extends TestCase
 
     public function test_domains_destroy_can_not_delete_builtin()
     {
+        $this->install->name = 'domain';
+        $this->install->save();
         $response = $this->delete(route('domains.destroy', [$this->account, $this->site, $this->install, $this->domain]))
         ->assertUnauthorized();
     }
@@ -187,6 +176,9 @@ class DomainControllerTest extends TestCase
         $domain = Domain::factory()
         ->for($this->install)
         ->create(['name' => 'x.com', 'primary' => true]);
+
+        $this->install->name = 'domain';
+        $this->install->save();
         $this->domain->primary = false;
         $this->domain->save();
 

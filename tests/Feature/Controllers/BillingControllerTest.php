@@ -33,6 +33,8 @@ class BillingControllerTest extends TestCase
     public function setUp():void
     {
         parent::setUp();
+        parent::addAccount();
+        parent::addSite();
 
         /**
          * Clear the Mock Server first before any test.
@@ -59,20 +61,11 @@ class BillingControllerTest extends TestCase
 
         ]);
 
-        $this->account = Account::factory()->create([
-            'name' => 'Test Account',
-            'email' => 'test@domain.com',
-        ]);
-        $this->user = User::factory()->create();
         $this->plan = Plan::first();
-
-        $this->account->users()->attach($this->user->id, ['role' => 'owner']);
         $this->account->createOrGetStripeCustomer();
 
         $this->account->addPaymentMethod($this->paymentMethod);
         $this->account->updateDefaultPaymentMethod($this->paymentMethod);
-
-        $this->actingAs($this->user);
     }
 
     /**

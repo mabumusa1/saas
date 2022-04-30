@@ -4,7 +4,6 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
-use App\Models\Cashier\Subscription;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\Transfer;
@@ -22,19 +21,12 @@ class TransferControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $site;
-
     private $subscription;
-
-    private $install;
 
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->subscription = Subscription::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
+        parent::addSite();
         $this->site = Site::factory()->create([
             'account_id' => $this->account->id,
         ]);

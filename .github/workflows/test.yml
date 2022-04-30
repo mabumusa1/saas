@@ -86,7 +86,7 @@ jobs:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
     - name: Test with phpunit
-      run: php artisan test  --coverage-clover build/logs/clover.xml --min=90
+      run: php artisan test --parallel --recreate-databases --coverage-clover build/logs/clover.xml --min=90
       env:
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"

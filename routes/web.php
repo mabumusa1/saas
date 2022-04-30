@@ -106,7 +106,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             /*
              * Specific Install Operations
              */
-            Route::prefix('{install}')->group(function () {
+            Route::prefix('installs/{install}')->group(function () {
                 /*
                  * Backups
                  */

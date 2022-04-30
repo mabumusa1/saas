@@ -22,33 +22,7 @@ class ContactControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        parent::setUpAccount();
-        $this->subscription = Subscription::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-
-        $this->site = Site::factory()
-        ->for($this->account)
-        ->for($this->subscription)
-        ->create([
-            'name' => 'Site test name',
-        ]);
-
-        $this->install = Install::factory()
-        ->for($this->site)
-        ->create([
-            'name' => 'Install test name',
-            'type' => 'dev',
-        ]);
-
-        $this->contact = Contact::factory()
-        ->for($this->install)
-        ->create([
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
-            'email' => 'example@gmail.com',
-            'phone' => '12345678',
-        ]);
+        parent::addSite();
     }
 
     /**
