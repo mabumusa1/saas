@@ -13,6 +13,13 @@ class SiteIndexTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    public function setUp():void
+    {
+        parent::setUp();
+        parent::addAccount();
+        parent::addSite();
+    }
+
     /**
      * A Dusk test example.
      *
@@ -20,14 +27,8 @@ class SiteIndexTest extends DuskTestCase
      */
     public function testShowInstallCheckbox()
     {
-        $user = User::factory()->create();
-        $account = $user->accounts()->first();
-        $site = Site::factory()->create([
-            'account_id' => $account->id,
-        ]);
-        Install::factory()
-        ->for($site)
-        ->create();
+        $user = $this->user;
+        $account = $this->account;
         $this->browse(function (Browser $browser) use ($user, $account) {
             $browser
             ->loginAs($user)
@@ -41,14 +42,9 @@ class SiteIndexTest extends DuskTestCase
 
     public function testSortableItems()
     {
-        $user = User::factory()->create();
-        $account = $user->accounts()->first();
-        $site = Site::factory()->create([
-            'account_id' => $account->id,
-        ]);
-        Install::factory()
-        ->for($site)
-        ->create();
+        $user = $this->user;
+        $account = $this->account;
+
         $this->browse(function (Browser $browser) use ($user, $account) {
             $browser
             ->loginAs($user)
