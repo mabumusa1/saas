@@ -24,13 +24,13 @@ class InstallController extends Controller
     public function create(Account $account, Site $site)
     {
         $envs = $site->installs->pluck('type')->toArray();
+
         $allowed = ['prd', 'stg', 'dev'];
         $envs = array_diff($allowed, $envs);
         /// The user is not allowed to create more envs
         if ([] === $envs) {
             return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $site->installs()->first()])->with('error', __('You can not create more installs for this site'));
         }
-
         $selectedEnv = '';
         if (in_array(request()->query('env'), $envs)) {
             $selectedEnv = request()->query('env');

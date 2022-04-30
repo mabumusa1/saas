@@ -2,9 +2,6 @@
 
 namespace Tests\Feature\Controllers;
 
-use App\Events\InstallCopyEvent;
-use App\Events\InstallDestroy;
-use App\Events\SiteLockEvent;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Install;
@@ -40,54 +37,42 @@ class InstallControllerTest extends TestCase
 
     public function test_create_all_types_used()
     {
-        $site = Site::factory()->for($this->account)->create();
-        $install = Install::factory()
-        ->count(3)
-        ->for($site)
-        ->state(new Sequence(
-            ['type' => 'prd'],
-            ['type' => 'stg'],
-            ['type' => 'dev']
-        ))
-        ->create();
+        $this->site->installs()->delete();
+        Install::withoutEvents(function () {
+            Install::factory()
+            ->count(3)
+            ->for($this->site)
+            ->state(new Sequence(
+                ['type' => 'prd'],
+                ['type' => 'stg'],
+                ['type' => 'dev']
+            ))
+            ->create();
+        });
 
-        $response = $this->get(route('installs.create', ['account' => $this->account, 'site' => $site, 'install' => $install]));
+        $response = $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site]));
         $response->assertRedirect();
         $response->assertSessionHas('error');
     }
 
     public function test_create_displays_view_specific_env()
     {
-        $site = Site::factory()->for($this->account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create(['type' => 'stg']);
-        $this->get(route('installs.create', ['account' => $this->account, 'site' => $site, 'env' => 'dev']))
-            ->assertOk()
-            ->assertViewIs('installs.create')
-            ->assertViewHas('selectedEnv', 'dev');
+        $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site, 'env' => 'stg']))
+        ->assertOk()
+        ->assertViewIs('installs.create')
+        ->assertViewHas('selectedEnv', 'stg');
     }
 
     public function test_create_displays_view()
     {
-        $site = Site::factory()->for($this->account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create();
-        $this->get(route('installs.create', ['account' => $this->account, 'site' => $site]))
+        $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site]))
             ->assertOk()
             ->assertViewIs('installs.create');
     }
 
     public function test_store_fails_if_type_is_wrong()
     {
-        $site = Site::factory()->for($this->account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'type' => 'dev',
         ]);
         $response->assertSessionHasErrors('type');
@@ -95,13 +80,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_fails_if_wrong_url()
     {
-        $site = Site::factory()->for($this->account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'type' => 'dev',
             'name' => '[]',
         ]);
@@ -110,15 +89,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_validation()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'name' => 'test',
             'isValidation' => true,
         ]);
@@ -127,15 +98,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_same_type()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'name' => 'test',
             'type' => 'dev',
         ]);
@@ -144,15 +107,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_success()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $site]), [
+        $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'name' => 'test',
             'type' => 'prd',
         ]);
@@ -162,26 +117,21 @@ class InstallControllerTest extends TestCase
     public function test_copy_success()
     {
         Event::fake();
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-        $dest = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'prd',
-        ]);
 
-        $response = $this->put(route('installs.copy', ['account' => $this->account, 'site' => $site, 'install' => $install]), [
+        $dest = Install::withoutEvents(function () {
+            return Install::factory()
+            ->for($this->site)
+            ->create([
+                'type' => 'prd',
+            ]);
+        });
+
+        $response = $this->put(route('installs.copy', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]), [
             'destination' => $dest->id,
 
         ]);
 
-        Event::assertDispatched(InstallCopyEvent::class);
+        Event::assertDispatched('eloquent.copied: App\Models\Install');
 
         $response->assertRedirect();
         $response->assertSessionHas('success');
@@ -190,57 +140,33 @@ class InstallControllerTest extends TestCase
     public function test_lock_success()
     {
         Event::fake();
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
 
-        $response = $this->post(route('installs.lock', ['account' => $this->account, 'site' => $site, 'install' => $install]));
+        $response = $this->post(route('installs.lock', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]));
 
         $response->assertRedirect();
 
-        Event::assertDispatched(SiteLockEvent::class);
+        Event::assertDispatched('eloquent.locked: App\Models\Install');
     }
 
     public function test_destroy_install_fail()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create();
-
-        $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $site, 'install' => $install]));
+        $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]));
         $response->assertRedirect();
         $response->assertSessionHas('error');
     }
 
     public function test_destroy_install()
     {
-        Event::fake();
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install1 = Install::factory()
-        ->for($site)
-        ->create();
+        Install::withoutEvents(function () {
+            $anotherInstall = Install::factory()
+            ->for($this->site)
+            ->create();
 
-        $install2 = Install::factory()
-        ->for($site)
-        ->create();
-
-        $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $site, 'install' => $install1]));
-        Event::assertDispatched(function (InstallDestroy $event) use ($install1) {
-            return $event->install->id === $install1->id;
+            $response = $this->delete(route('installs.destroy', ['account' => $this->account, 'site' => $this->site, 'install' => $anotherInstall]));
+            $response->assertRedirect();
+            $response->assertSessionHas('success');
+            $this->assertSoftDeleted($anotherInstall);
         });
-        $response->assertRedirect();
-        $response->assertSessionHas('success');
-        $this->assertSoftDeleted($install1);
     }
 
     /***
@@ -250,46 +176,37 @@ class InstallControllerTest extends TestCase
 
     public function test_views_install()
     {
-        $site = Site::factory()->create([
-            'account_id' => $this->account->id,
-        ]);
-        $install = Install::factory()
-        ->for($site)
-        ->create([
-            'type' => 'dev',
-        ]);
-
-        $response = $this->get(route('installs.cdn', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.cdn', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.cdn.index');
 
-        $response = $this->get(route('installs.redirectRules', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.redirectRules', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.redirect-rules.index');
 
-        $response = $this->get(route('installs.backupPoints', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.backupPoints', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.backup-points.index');
 
-        $response = $this->get(route('installs.accessLogs', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.accessLogs', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.logs.access');
 
-        $response = $this->get(route('installs.errorLogs', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.errorLogs', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.logs.error');
 
-        $response = $this->get(route('installs.utilities', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.utilities', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.utilities.index');
 
-        $response = $this->get(route('installs.caching', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.caching', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.caching.index');
 
-        $response = $this->get(route('installs.migration', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.migration', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.migration.index');
 
-        $response = $this->get(route('installs.liveCheck', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.liveCheck', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.live-checklist.index');
 
-        $response = $this->get(route('installs.webRules', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.webRules', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.web-rules.index');
 
-        $response = $this->get(route('installs.cron', ['account' => $this->account, 'site' => $site, 'install' => $install]))
+        $response = $this->get(route('installs.cron', ['account' => $this->account, 'site' => $this->site, 'install' => $this->install]))
         ->assertViewIs('installs.cron.index');
     }
 }

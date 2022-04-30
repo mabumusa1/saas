@@ -15,6 +15,12 @@ class InstallTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::addSite();
+    }
+
     /**
      * check account with datacenter.
      *
@@ -22,33 +28,21 @@ class InstallTest extends TestCase
      */
     public function test_contact_install():void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
-        $contact = Contact::factory()->create(['install_id' => $install->id]);
-        $this->assertEquals($contact->install->contact->id, $contact->id);
+        $this->assertEquals($this->contact->install->contact->id, $this->contact->id);
     }
 
     public function test_transfer_install():void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
         $transfer = Transfer::factory()->create([
-            'install_id' => $install->id,
+            'install_id' => $this->install->id,
             'code' => 'somecode',
         ]);
-        $this->assertEquals($install->transfer->id, $transfer->id);
+        $this->assertEquals($this->install->transfer->id, $transfer->id);
     }
 
     public function test_backup_install():void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
-        $backup = Backup::factory()->create([
-            'install_id' => $install->id,
-        ]);
-        $this->assertEquals($install->backups->first()->id, $backup->id);
+        $this->addBackup();
+        $this->assertEquals($this->install->backups->first()->id, $this->backup->id);
     }
 }

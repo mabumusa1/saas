@@ -14,16 +14,19 @@ class TransferTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::addSite();
+    }
+
     public function test_install_transfer():void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
         $transfer = Transfer::factory()->create([
-            'install_id' => $install->id,
+            'install_id' => $this->install->id,
             'code' => 'somecode',
         ]);
 
-        $this->assertEquals($transfer->install->id, $install->id);
+        $this->assertEquals($transfer->install->id, $this->install->id);
     }
 }

@@ -17,10 +17,46 @@ class DomainControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private Account $otherAccount;
+
+    private User $otherUser;
+
+    private Site $otherSite;
+
+    private Install $otherInstall;
+
+    private Domain $otherDomain;
+
     public function setUp(): void
     {
         parent::setUp();
         parent::addSite(true);
+
+        $this->otherAccount = Account::withoutEvents(function () {
+            return Account::factory()->create();
+        });
+        $otherAccount = $this->otherAccount;
+
+        $this->otherUser = User::withoutEvents(function () {
+            return User::factory()->create();
+        });
+
+        $this->otherSite = Site::withoutEvents(function () use ($otherAccount) {
+            return Site::factory()->for($otherAccount)->create();
+        });
+
+        $otherSite = $this->otherSite;
+        $this->otherInstall = Install::withoutEvents(function () use ($otherSite) {
+            return Install::factory()->for($otherSite)->create();
+        });
+        $otherInstall = $this->otherInstall;
+        $this->otherDomain = Domain::withoutEvents(function () use ($otherInstall) {
+            return Domain::factory()
+            ->for($otherInstall)
+            ->create(['name' => 'x.steercampaign.com', 'primary' => true]);
+        });
+
+        $this->otherAccount->users()->attach($this->otherUser->id, ['role' => 'owner']);
     }
 
     /**
@@ -65,16 +101,6 @@ class DomainControllerTest extends TestCase
 
     public function test_domains_store_validation_another_account()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-        $site = Site::factory()->for($account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create();
-        $domain = Domain::factory()
-        ->for($install)
-        ->create(['name' => 'x.steercampaign.com', 'primary' => true]);
         $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'x.steercampaign.com']);
         $response->assertSessionHasErrors(['name']);
     }
@@ -85,15 +111,6 @@ class DomainControllerTest extends TestCase
      */
     public function test_domains_store_validation_same_domain_verified()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-        $site = Site::factory()->for($account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create();
-        $this->actingAs($user);
-
         $this->dnsMock = Mockery::mock('overload:Spatie\Dns\Dns');
         $this->dnsMock = $this->dnsMock->shouldReceive('useNameserver')
         ->once()
@@ -104,7 +121,7 @@ class DomainControllerTest extends TestCase
                 'ttl' => 3600,
                 'class' => 'IN',
                 'type' => 'TXT',
-                'txt'=> "sc-verification={$install->name}",
+                'txt'=> "sc-verification={$this->install->name}",
             ]),
         ];
         $this->dnsMock->shouldReceive('getRecords')
@@ -112,9 +129,9 @@ class DomainControllerTest extends TestCase
         ->withArgs([$this->domain->name, 'TXT'])
         ->andReturn($dnsResponse);
 
-        $response = $this->post(route('domains.store', [$account, $site, $install]), ['name' => 'domain.steercampaign.com']);
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.steercampaign.com']);
         $this->assertDatabaseHas('domains', [
-            'install_id' => $install->id,
+            'install_id' => $this->install->id,
             'name' => 'domain.steercampaign.com',
         ]);
 
@@ -127,15 +144,6 @@ class DomainControllerTest extends TestCase
      */
     public function test_domains_store_validation_same_domain_not_verified()
     {
-        $account = Account::factory()->create();
-        $user = User::factory()->create();
-        $account->users()->attach($user->id, ['role' => 'owner']);
-        $site = Site::factory()->for($account)->create();
-        $install = Install::factory()
-        ->for($site)
-        ->create();
-        $this->actingAs($user);
-
         $this->dnsMock = Mockery::mock('overload:Spatie\Dns\Dns');
         $this->dnsMock = $this->dnsMock->shouldReceive('useNameserver')
         ->once()
@@ -154,7 +162,7 @@ class DomainControllerTest extends TestCase
         ->withArgs([$this->domain->name, 'TXT'])
         ->andReturn($dnsResponse);
 
-        $response = $this->post(route('domains.store', [$account, $site, $install]), ['name' => 'domain.steercampaign.com']);
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.steercampaign.com']);
         $this->assertDatabaseHas('domains', [
             'install_id' => $this->install->id,
             'name' => 'domain.steercampaign.com',

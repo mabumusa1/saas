@@ -61,8 +61,8 @@ abstract class TestCase extends BaseTestCase
         $this->site = Site::withoutEvents(function () {
             return Site::factory()->for($this->account)->create();
         });
-        $this->install = install::withoutEvents(function () {
-            return install::factory()->for($this->site)->create(['name' => 'domain']);
+        $this->install = Install::withoutEvents(function () {
+            return Install::factory()->for($this->site)->create(['name' => 'domain', 'type' => 'dev']);
         });
         $this->contact = Contact::withoutEvents(function () {
             return Contact::factory()->for($this->install)->create();

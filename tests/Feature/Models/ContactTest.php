@@ -13,6 +13,12 @@ class ContactTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        parent::addSite();
+    }
+
     /**
      * check account with datacenter.
      *
@@ -20,11 +26,7 @@ class ContactTest extends TestCase
      */
     public function test_contact_install() : void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
-        $contact = Contact::factory()->create(['install_id' => $install->id]);
-        $this->assertEquals($contact->install->name, $install->name);
+        $this->assertEquals($this->contact->install->name, $this->install->name);
     }
 
     /**
@@ -34,10 +36,10 @@ class ContactTest extends TestCase
      */
     public function test_contact_name() : void
     {
-        $account = Account::factory()->create();
-        $site = Site::factory()->create(['account_id' => $account->id]);
-        $install = Install::factory()->create(['site_id' => $site->id]);
-        $contact = Contact::factory()->create(['install_id' => $install->id, 'first_name' => 'test', 'last_name' => 'Test']);
-        $this->assertEquals($contact->fullName, 'Test Test');
+        $this->contact->first_name = 'test';
+        $this->contact->last_name = 'Test';
+        $this->contact->save();
+
+        $this->assertEquals($this->contact->fullName, 'Test Test');
     }
 }
