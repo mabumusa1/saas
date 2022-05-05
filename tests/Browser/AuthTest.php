@@ -12,6 +12,12 @@ class AuthTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    public function setUp():void
+    {
+        parent::setUp();
+        $this->addAccount();
+    }
+
     /**
      * Can Login.
      *
@@ -19,22 +25,12 @@ class AuthTest extends DuskTestCase
      */
     public function test_login()
     {
-        Account::factory()->hasAttached(
-            User::factory()
-            ->sequence(
-                fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
-            )
-        )->create();
-
-        $user = User::where('email', 'email0@domain.com')->first();
-
-        $this->browse(function ($browser) use ($user) {
+        $this->browse(function ($browser) {
             $browser->visit('/login')
-                    ->type('email', $user->email)
+                    ->type('email', $this->user->email)
                     ->type('password', 'password')
                     ->press('Login')
                     ->assertPathIs('/account/1');
-            $browser->screenshot('filename');
         });
     }
 
@@ -46,8 +42,9 @@ class AuthTest extends DuskTestCase
     public function test_logout()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
-                    ->assertPathIs('/');
+            $browser->loginAs($this->user)
+            ->clickLink('Sign Out')
+            ->assertPathIs('/login');
         });
     }
 
@@ -66,7 +63,8 @@ class AuthTest extends DuskTestCase
                     ->type('password', 'password@1234')
                     ->type('password_confirmation', 'password@1234')
                     ->check('terms')
-                    ->press('Register');
+                    ->press('Register')
+                    ->assertPathIs('/account/1');
         });
     }
 }

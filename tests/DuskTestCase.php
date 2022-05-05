@@ -41,10 +41,15 @@ abstract class DuskTestCase extends BaseTestCase
 
     public function addAccount()
     {
-        $this->user = User::factory()->create();
-        $this->account = Account::factory()->create();
+        $this->user = User::withoutEvents(function () {
+            return User::factory()->create();
+        });
+
+        $this->account = Account::withoutEvents(function () {
+            return Account::factory()->create();
+        });
+
         $this->account->users()->sync([$this->user->id => ['role' => 'owner']]);
-        $this->actingAs($this->user);
     }
 
     public function addSite($addDomain = false)
@@ -52,14 +57,22 @@ abstract class DuskTestCase extends BaseTestCase
         if (empty($this->account)) {
             $this->addAccount();
         }
-        $this->site = Site::factory()->for($this->account)->create();
-        $this->install = Install::factory()->for($this->site)->create(['name' => 'domain']);
-        $this->contact = Contact::factory()->for($this->install)->create();
+        $this->site = Site::withoutEvents(function () {
+            return Site::factory()->for($this->account)->create();
+        });
+        $this->install = Install::withoutEvents(function () {
+            return Install::factory()->for($this->site)->create(['name' => 'domain', 'type' => 'dev']);
+        });
+        $this->contact = Contact::withoutEvents(function () {
+            return Contact::factory()->for($this->install)->create();
+        });
 
         if ($addDomain) {
-            $this->domain = Domain::factory()
-            ->for($this->install)
-            ->create(['name' => 'domain.steercampaign.com', 'primary' => true, 'verified_at' => null]);
+            $this->domain = Domain::withoutEvents(function () {
+                return Domain::factory()
+                    ->for($this->install)
+                    ->create(['name' => 'domain.steercampaign.com', 'primary' => true, 'verified_at' => null]);
+            });
         }
     }
 
@@ -68,10 +81,11 @@ abstract class DuskTestCase extends BaseTestCase
         if (empty($this->install)) {
             $this->addSite();
         }
-
-        $this->backup = Backup::factory()
-        ->for($this->install)
-        ->create();
+        $this->backup = Backup::withoutEvents(function () {
+            return Backup::factory()
+                ->for($this->install)
+                ->create();
+        });
     }
 
     /**
