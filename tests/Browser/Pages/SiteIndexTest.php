@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Pages;
 
 use App\Models\Install;
 use App\Models\Site;
@@ -27,12 +27,10 @@ class SiteIndexTest extends DuskTestCase
      */
     public function testShowInstallCheckbox()
     {
-        $user = $this->user;
-        $account = $this->account;
-        $this->browse(function (Browser $browser) use ($user, $account) {
+        $this->browse(function (Browser $browser) {
             $browser
-            ->loginAs($user)
-            ->visit("/account/{$account->id}/sites")
+            ->loginAs($this->user)
+            ->visit("/account/{$this->account->id}/sites")
             ->press('#show_env')
             ->assertAttributeContains('.env', 'class', 'd-none')
             ->press('#show_env')
@@ -42,13 +40,10 @@ class SiteIndexTest extends DuskTestCase
 
     public function testSortableItems()
     {
-        $user = $this->user;
-        $account = $this->account;
-
-        $this->browse(function (Browser $browser) use ($user, $account) {
+        $this->browse(function (Browser $browser) {
             $browser
-            ->loginAs($user)
-            ->visit("/account/{$account->id}/sites")
+            ->loginAs($this->user)
+            ->visit("/account/{$this->account->id}/sites")
             ->press('#sortable')
             ->assertQueryStringHas('order', 'ASC')
             ->press('#sortable')
