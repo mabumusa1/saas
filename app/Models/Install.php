@@ -185,7 +185,7 @@ class Install extends Model
     {
         return new Attribute(
             get: function () {
-                if ($this->site->subscription->exists) {
+                if ($this->site->subscription()->exists()) {
                     return $this->site->subscription->name;
                 } else {
                     return 's0';

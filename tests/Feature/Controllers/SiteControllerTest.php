@@ -38,7 +38,17 @@ class SiteControllerTest extends TestCase
      */
     public function test_index_displays_view()
     {
-        $response = $this->call('GET', route('sites.index', $this->account));
+        $response = $this->get(route('sites.index', $this->account));
+
+        $response->assertOk();
+        $response->assertViewIs('sites.index');
+        $response->assertViewHas('sites');
+        $response->assertViewHas('order');
+    }
+
+    public function test_index_displays_view_with_query()
+    {
+        $response = $this->call('GET', route('sites.index', $this->account), ['q' => $this->site->name]);
 
         $response->assertOk();
         $response->assertViewIs('sites.index');

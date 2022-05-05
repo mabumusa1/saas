@@ -45,4 +45,9 @@ class InstallTest extends TestCase
         $this->addBackup();
         $this->assertEquals($this->install->backups->first()->id, $this->backup->id);
     }
+
+    public function test_size_install():void
+    {
+        $this->assertEquals($this->install->size, 's0');
+    }
 }

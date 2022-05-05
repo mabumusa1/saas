@@ -98,6 +98,7 @@ class InstallControllerTest extends TestCase
 
     public function test_store_same_type()
     {
+        Event::fake();
         $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'name' => 'test',
             'type' => 'dev',
@@ -105,12 +106,17 @@ class InstallControllerTest extends TestCase
         $response->assertSessionHasErrors(['type']);
     }
 
-    public function test_store_success()
+    public function test_install_store_success()
     {
+        Event::fake();
         $response = $this->post(route('installs.store', ['account' => $this->account, 'site' => $this->site]), [
             'name' => 'test',
             'type' => 'prd',
         ]);
+        Event::assertDispatched('eloquent.created: App\Models\Install');
+        Event::assertDispatched('eloquent.created: App\Models\Domain');
+
+        $response->assertRedirect();
         $response->assertSessionHasNoErrors();
     }
 

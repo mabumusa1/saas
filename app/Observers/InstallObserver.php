@@ -9,10 +9,7 @@ class InstallObserver
 {
     public function created($install)
     {
-        $response = Http::withHeaders([
-            'X-API-Key' => env('KUB8_API_KEY'),
-        ])
-        ->post(env('KUB8_API')."install/{$install->name}", [
+        $response = Http::kub8()->post("install/{$install->name}", [
             'env_type' => $install->type,
             'size' => $install->size,
             'domain' => $install->domain,
@@ -47,18 +44,12 @@ class InstallObserver
      */
     public function deleted(Install $install)
     {
-        $response = Http::withHeaders([
-            'X-API-Key' => env('KUB8_API_KEY'),
-        ])
-        ->delete(env('KUB8_API')."install/{$install->name}");
+        $response = Http::kub8()->delete("install/{$install->name}");
     }
 
     public function copied($install)
     {
-        $response = Http::withHeaders([
-            'X-API-Key' => env('KUB8_API_KEY'),
-        ])
-        ->post(env('KUB8_API')."install/{$install->name}/copy", [
+        $response = Http::kub8()->post("install/{$install->name}/copy", [
             'env_type' => $install->type,
             'size' => $install->size,
             'domain' => $install->domain,
