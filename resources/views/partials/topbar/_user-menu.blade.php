@@ -35,7 +35,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-        <a href="#" data-action="{{ route('logout') }}" data-method="post" data-csrf="{{ csrf_token() }}" data-reload="true" class="button-ajax menu-link px-5">
+        <a href="#" data-action="{{ route('logout') }}" data-method="post" data-csrf="{{ csrf_token() }}" data-reload="true" class="button-ajax menu-link px-5" dusk="logout-button">
             {{ __('Sign Out') }}
         </a>
     </div>

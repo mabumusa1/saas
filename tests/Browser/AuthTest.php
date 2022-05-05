@@ -30,7 +30,7 @@ class AuthTest extends DuskTestCase
                     ->type('email', $this->user->email)
                     ->type('password', 'password')
                     ->press('Login')
-                    ->assertPathIs('/account/1');
+                    ->assertRouteIs('dashboard', ['account' => $this->account->id]);
         });
     }
 
@@ -43,8 +43,8 @@ class AuthTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)
-            ->clickLink('Sign Out')
-            ->assertPathIs('/login');
+            ->visit('/logout')->logout()
+            ->assertGuest();
         });
     }
 
@@ -64,7 +64,7 @@ class AuthTest extends DuskTestCase
                     ->type('password_confirmation', 'password@1234')
                     ->check('terms')
                     ->press('Register')
-                    ->assertPathIs('/account/1');
+                    ->assertSee('Resend Verification Email');
         });
     }
 }
