@@ -109,7 +109,6 @@ if (! function_exists('VerifyDomainOwnershipHelper')) {
         $dns = new Dns();
         $dns->useNameserver('8.8.8.8');
         $records = $dns->getRecords($value, 'TXT');
-
         if ($records) {
             foreach ($records as $record) {
                 // the user managed to verify the domain, they own it

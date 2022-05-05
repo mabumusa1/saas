@@ -8,6 +8,7 @@ use App\Models\Cashier\Subscription;
 use App\Resolvers\AccountResolver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -68,6 +69,12 @@ class AppServiceProvider extends ServiceProvider
         // Domain check rate limiter
         RateLimiter::for('VerifyDomain', function ($job) {
             return Limit::perHour(50)->by($job->domain->id);
+        });
+
+        Http::macro('kub8', function () {
+            return Http::withHeaders([
+                'X-API-Key' => env('KUB8_API_KEY'),
+            ])->baseUrl(env('KUB8_API'));
         });
     }
 }

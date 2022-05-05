@@ -171,6 +171,105 @@ class DomainControllerTest extends TestCase
         $response->assertRedirect();
     }
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function test_domain_added_another_account_not_verified()
+    {
+        $otherAccount = Account::withoutEvents(function () {
+            return Account::factory()->create();
+        });
+        $otherSite = Site::withoutEvents(function () use ($otherAccount) {
+            return Site::factory()->for($otherAccount)->create();
+        });
+        $otherInstall = Install::withoutEvents(function () use ($otherSite) {
+            return Install::factory()->for($otherSite)->create(['name' => 'iab', 'type' => 'dev']);
+        });
+        $otherDomain = Domain::withoutEvents(function () use ($otherInstall) {
+            return Domain::factory()
+                ->for($otherInstall)
+                ->create(['name' => 'm.iabaustralia.com.au', 'primary' => false, 'verified_at' => null]);
+        });
+
+        $this->dnsMock = Mockery::mock('overload:Spatie\Dns\Dns');
+        $this->dnsMock = $this->dnsMock->shouldReceive('useNameserver')
+        ->once()
+        ->andReturnSelf();
+
+        $dnsResponse = [
+            new TXT([
+                'host' => 'm.iabaustralia.com.au',
+                'ttl' => 3600,
+                'class' => 'IN',
+                'type' => 'TXT',
+                'txt'=> "sc-verification={$this->install->name}",
+            ]),
+        ];
+        $this->dnsMock->shouldReceive('getRecords')
+        ->once()
+        ->withArgs(['m.iabaustralia.com.au', 'TXT'])
+        ->andReturn($dnsResponse);
+
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'm.iabaustralia.com.au']);
+
+        $this->assertDatabaseMissing('domains', [
+            'install_id' => $otherInstall->id,
+            'name' => 'm.iabaustralia.com.au',
+        ]);
+        $response->assertRedirect();
+    }
+
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function test_domain_added_another_account_not_verified_error()
+    {
+        $otherAccount = Account::withoutEvents(function () {
+            return Account::factory()->create();
+        });
+        $otherSite = Site::withoutEvents(function () use ($otherAccount) {
+            return Site::factory()->for($otherAccount)->create();
+        });
+        $otherInstall = Install::withoutEvents(function () use ($otherSite) {
+            return Install::factory()->for($otherSite)->create(['name' => 'iab', 'type' => 'dev']);
+        });
+        $otherDomain = Domain::withoutEvents(function () use ($otherInstall) {
+            return Domain::factory()
+                ->for($otherInstall)
+                ->create(['name' => 'm.iabaustralia.com.au', 'primary' => false, 'verified_at' => null]);
+        });
+
+        $this->dnsMock = Mockery::mock('overload:Spatie\Dns\Dns');
+        $this->dnsMock = $this->dnsMock->shouldReceive('useNameserver')
+        ->once()
+        ->andReturnSelf();
+
+        $dnsResponse = [
+            new TXT([
+                'host' => 'm.iabaustralia.com.au',
+                'ttl' => 3600,
+                'class' => 'IN',
+                'type' => 'TXT',
+                'txt'=> 'sc-verification=error',
+            ]),
+        ];
+        $this->dnsMock->shouldReceive('getRecords')
+        ->once()
+        ->withArgs(['m.iabaustralia.com.au', 'TXT'])
+        ->andReturn($dnsResponse);
+
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'm.iabaustralia.com.au']);
+        $this->assertDatabaseHas('domains', [
+            'install_id' => $this->install->id,
+            'name' => 'domain.steercampaign.com',
+        ]);
+        $response->assertSessionHasErrors(['name']);
+
+        $response->assertRedirect();
+    }
+
     public function test_domains_destroy_can_not_delete_builtin()
     {
         $this->install->name = 'domain';
