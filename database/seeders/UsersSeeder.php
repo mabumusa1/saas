@@ -15,9 +15,11 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::factory()->count(10)
-        ->sequence(
-            fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
-        )->create();
+        User::withoutEvents(function () {
+            return User::factory()->count(10)
+            ->sequence(
+                fn ($sequence) => ['email' => "email{$sequence->index}@domain.com"]
+            )->create();
+        });
     }
 }
