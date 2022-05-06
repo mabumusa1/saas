@@ -20,10 +20,16 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $adminAccount = Account::create(['name'=>'Admin Account', 'data_center_id' => 1]);
+        $adminAccount = Account::withoutEvents(function () {
+            return Account::factory()->create(['name'=>'Admin Account', 'data_center_id' => 1]);
+        });
         AccountResolver::setAccount($adminAccount);
-        $admin = User::factory()->create(['email' => 'm.abumusa@gmail.com']);
-        CauserResolver::setCauser(User::find(1));
+
+        $admin = User::withoutEvents(function () {
+            return User::factory()->create(['email' => 'm.abumusa@gmail.com']);
+        });
+
+        CauserResolver::setCauser($admin);
 
         $admin->accounts()->attach($adminAccount->id, ['role' => 'admin']);
     }
