@@ -112,11 +112,8 @@
                                                     data-kt-menu="true">
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3">
+                                                        <a href="!#" class="menu-link px-3 btn-backup" data-bs-toggle="modal" data-bs-target="#site_backup_modal" data-install="{{ $install->id }}" data-site="{{ $site->id }}">
                                                             {{ __('Backup Install') }}
-                                                        </a>
-                                                        <a href="#" class="menu-link px-3">
-                                                            {{ __('Clear Cache') }}
                                                         </a>
                                                         <a href="!#" data-href="{{ route('installs.destroy', ['account' => $currentAccount, 'site' => $site, 'install' => $install]) }}" class="menu-link px-3 btn-install-delete">
                                                             {{ __('Delete Install') }}
@@ -174,6 +171,39 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="site_backup_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('Backup Site Install') }}</h5>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-2x">
+                            {!! get_svg_icon('skin/media/icons/duotone/General/Times.svg') !!}
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form action="!#" method="POST">
+                    @csrf
+                    <div class="modal-body">
+
+                        <div class="form-group mb-10">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Backup') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     @push('scripts')
         <script>
             var showEnv = document.getElementById('show_env');
@@ -207,7 +237,15 @@
                 let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname +
                     '?' + searchParams.toString();
                 location.href = newurl;
-
+            });
+            var backup = document.querySelectorAll('.btn-backup');
+            backup.forEach(function(el) {
+                el.addEventListener('click', function() {
+                    let site = el.dataset.site;
+                    let install = el.dataset.install;
+                    let url = "{{ route('backups.store', [$currentAccount->id, ':site', ':install']) }}".replace(':site', site).replace(':install', install);
+                    $('#site_backup_modal form').attr('action', url);
+                });
             });
             var deleteBtn = document.querySelectorAll('.btn-delete');
             deleteBtn.forEach(function(button) {
