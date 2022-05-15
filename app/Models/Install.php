@@ -23,6 +23,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $type
  * @property string $owner
  * @property string $status
+ * @property string $size
+ * @property string $domain
+ * @property string $region
  * @property string|null $transfer_key
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
