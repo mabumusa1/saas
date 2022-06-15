@@ -10,7 +10,6 @@ use App\Models\Install;
 use App\Models\Site;
 use App\Models\Transfer;
 use App\Notifications\TransferRequestNotification;
-use Illuminate\Notifications\AnonymousNotifiable;
 use Notification;
 use Str;
 
@@ -92,7 +91,7 @@ class TransferController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->input('transfer_way') == 'existing') {
+        if ($request->input('transfer_way') === 'existing') {
             $site = $account->sites()->findOrFail($data['site_id']);
         } else {
             $site = $account->sites()->create(['name' => $data['site_name']]);

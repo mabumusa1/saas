@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Install;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -56,8 +55,8 @@ class Domain extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-                    ->useLogName('account')
-                    ->setDescriptionForEvent(fn (string $eventName) =>  __(':domain :action to :install', ['domain' => $this->name, 'action' => $eventName, 'install' => $this->install->name]));
+            ->useLogName('account')
+            ->setDescriptionForEvent(fn (string $eventName) => __(':domain :action to :install', ['domain' => $this->name, 'action' => $eventName, 'install' => $this->install->name]));
     }
 
     /**

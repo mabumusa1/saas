@@ -2,9 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Account;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -42,9 +40,9 @@ class TransferRequestNotification extends Notification
     public function toMail()
     {
         // TODO: Better copywriting for the transfer message
-        return (new MailMessage)
-        ->greeting(__('Someone sent you a shiny, new environment!'))
-        ->line(__("Here's your code to pick it up"))
-        ->line($this->code);
+        return (new MailMessage())
+            ->greeting(__('Someone sent you a shiny, new environment!'))
+            ->line(__("Here's your code to pick it up"))
+            ->line($this->code);
     }
 }

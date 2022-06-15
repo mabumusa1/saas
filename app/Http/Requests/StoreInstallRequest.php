@@ -31,7 +31,8 @@ class StoreInstallRequest extends FormRequest
                 if (! Validator::make($input, $rules)->passes()) {
                     $fail(__('Invalid Install Name'));
                 }
-            }],
+            },
+            ],
             'type' => 'required_if:isValidation,null|in:stg,dev,prd',
             'isValidation' => 'sometimes|boolean',
         ];

@@ -25,7 +25,6 @@ class InviteNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     *
      * @return array
      */
     public function via()

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\SiteCreated;
 use App\Models\Cashier\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,14 +22,16 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @property-read \App\Models\Account $account
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Group> $groups
  * @property-read int|null $groups_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Install[] $installs
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Install> $installs
  * @property-read int|null $installs_count
  * @property-read Subscription|null $subscription
+ *
  * @method static \Database\Factories\SiteFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Site newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Site newQuery()
@@ -45,6 +46,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Site whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Site withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Site withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Site extends Model
@@ -120,8 +122,8 @@ class Site extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('account')
-        ->setDescriptionForEvent(fn (string $eventName) =>  __('Site :Action', ['action' => $eventName]));
+            ->useLogName('account')
+            ->setDescriptionForEvent(fn (string $eventName) => __('Site :Action', ['action' => $eventName]));
     }
 
     public function hasInstallType(string $type): bool

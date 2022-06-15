@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\InstallCreated;
-use App\Models\Domain;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,10 +28,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Contact|null $contact
  * @property-read \App\Models\Site $site
+ *
  * @method static \Database\Factories\InstallFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Install newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Install newQuery()
@@ -51,6 +51,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Install whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Install withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Install withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Install extends Model
@@ -120,8 +121,8 @@ class Install extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('account')
-        ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name Install :Action', ['name' => $this->name, 'action' => $eventName]));
+            ->useLogName('account')
+            ->setDescriptionForEvent(fn (string $eventName) => __(':Name Install :Action', ['name' => $this->name, 'action' => $eventName]));
     }
 
     /**
@@ -190,9 +191,9 @@ class Install extends Model
             get: function () {
                 if ($this->site->subscription()->exists()) {
                     return $this->site->subscription->name;
-                } else {
-                    return 's0';
                 }
+
+                return 's0';
             },
         );
     }

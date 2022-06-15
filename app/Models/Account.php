@@ -30,21 +30,23 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\DataCenter $dataCenter
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Group> $groups
  * @property-read int|null $groups_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Install[] $installs
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Install> $installs
  * @property-read int|null $installs_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invite[] $invites
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Invite> $invites
  * @property-read int|null $invites_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Site[] $sites
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Site> $sites
  * @property-read int|null $sites_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Subscription[] $subscriptions
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Subscription> $subscriptions
  * @property-read int|null $subscriptions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Database\Factories\AccountFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Account newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Account newQuery()
@@ -63,6 +65,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Account withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Account withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Account extends Model
@@ -200,7 +203,7 @@ class Account extends Model
     {
         return LogOptions::defaults()
             ->useLogName('account')
-            ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name :Action', ['name' => $this->name, 'action' => $eventName]));
+            ->setDescriptionForEvent(fn (string $eventName) => __(':Name :Action', ['name' => $this->name, 'action' => $eventName]));
     }
 
     /**
@@ -214,9 +217,9 @@ class Account extends Model
             get: function () {
                 if ($this->quota === 0) {
                     return $this->quota;
-                } else {
-                    return $this->quota - $this->installs()->where('owner', 'transferable')->count();
                 }
+
+                return $this->quota - $this->installs()->where('owner', 'transferable')->count();
             }
         );
     }

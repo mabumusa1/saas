@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\InstallCreated;
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
@@ -98,7 +97,7 @@ class SiteController extends Controller
                         'name' => $validated['installname'],
                         'type' => $validated['type'],
                         'owner' => $validated['owner'],
-                        'locked' => ($validated['owner'] === 'transferable') ? true : false,
+                        'locked' => $validated['owner'] === 'transferable' ? true : false,
                     ]);
                     Contact::create([
                         'install_id' => $install->id,

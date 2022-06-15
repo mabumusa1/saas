@@ -43,15 +43,16 @@ class TransferPolicy
         $allowedRoles = ['admin', 'owner', 'fb', 'fnb'];
         if (request()->session()->has('code')) {
             return (request()->session()->get('code') === $transfer->code) && $user->belongToRoles($this->account, $allowedRoles);
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
      * Determine whether the user can accept a transfer.
      *
      * @param  \App\Models\User  $user
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function accept(User $user)

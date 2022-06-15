@@ -18,11 +18,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $account_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \App\Models\Account $account
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Site[] $sites
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Site> $sites
  * @property-read int|null $sites_count
+ *
  * @method static \Database\Factories\GroupFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Group newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Group newQuery()
@@ -33,6 +35,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Group whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Group whereNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Group whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Group extends Model
@@ -84,7 +87,7 @@ class Group extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->useLogName('account')
-        ->setDescriptionForEvent(fn (string $eventName) =>  __(':Name Group :Action', ['name'=> $this->name, 'action' => $eventName]));
+            ->useLogName('account')
+            ->setDescriptionForEvent(fn (string $eventName) => __(':Name Group :Action', ['name' => $this->name, 'action' => $eventName]));
     }
 }

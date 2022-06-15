@@ -111,7 +111,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
                  * Backups
                  */
                 Route::resource('backups', App\Http\Controllers\BackupController::class)
-                ->only([
+                    ->only([
                     'index',
                     'store',
                 ]);

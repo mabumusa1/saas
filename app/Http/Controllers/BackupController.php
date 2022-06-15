@@ -26,6 +26,7 @@ class BackupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreBackupRequest  $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Account $account, Site $site, Install $install, StoreBackupRequest $request)

@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Models\Install;
 use Http;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,7 +35,7 @@ class CopyInstall implements ShouldQueue
     public function handle()
     {
         $requestBody = [
-            'id'=> $this->install->name,
+            'id' => $this->install->name,
             'env_type' => $this->install->type,
             'size' => $this->install->size,
             'domain' => $this->install->domain,
