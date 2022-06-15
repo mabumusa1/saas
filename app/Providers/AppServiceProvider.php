@@ -72,9 +72,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Http::macro('kub8', function () {
-            return Http::withHeaders([
-                'X-API-Key' => env('KUB8_API_KEY'),
-            ])->baseUrl(env('KUB8_API'));
+            return Http::withBasicAuth([env('KUB8_USERNAME'), env('KUB8_PASSWORD')])->baseUrl(env('KUB8_API'));
         });
     }
 }

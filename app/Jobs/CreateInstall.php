@@ -23,24 +23,24 @@ class CreateInstall implements ShouldQueue
 
     /**
      * Execute the job.
+     * TODO: Add custom parameters for the future.
+     *
+     *
+     *       'custom' => [
+     *          'cpu' => '1',
+     *          'memory' => '4',
+     *      ],
      *
      * @return void
      */
     public function handle()
     {
-        $response = Http::kub8()->post("install/{$this->install->name}", [
+        $response = Http::kub8()->post('install/create', [
+            'id'=> $this->install->name,
             'env_type' => $this->install->type,
             'size' => $this->install->size,
             'domain' => $this->install->domain,
             'region' => $this->install->region,
-          /*
-           * This will be used i
-           * the future, keep it
-           */
-            /*'custom' => [
-                'cpu' => '1',
-                'memory' => '4',
-            ],*/
         ]);
     }
 }
