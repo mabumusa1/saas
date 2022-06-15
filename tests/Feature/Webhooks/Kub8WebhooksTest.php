@@ -36,6 +36,8 @@ class Kub8WebhooksTest extends TestCase
     /**
      * A basic feature test example.
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @return void
      */
     public function test_basic_hook()

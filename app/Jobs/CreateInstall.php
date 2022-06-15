@@ -14,7 +14,7 @@ class CreateInstall implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected Install $install;
+    public Install $install;
 
     public function __construct(Install $install)
     {

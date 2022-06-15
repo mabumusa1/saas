@@ -15,7 +15,7 @@ class DeleteInstall implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected Install $install;
+    public Install $install;
 
     /**
      * Create a new job instance.

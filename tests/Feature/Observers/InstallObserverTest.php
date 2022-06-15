@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Observers;
 
+use App\Jobs\CopyInstall;
+use App\Jobs\CreateInstall;
+use App\Jobs\DeleteInstall;
 use App\Observers\InstallObserver;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Bus;
 use Tests\TestCase;
 
 class InstallObserverTest extends TestCase
@@ -19,58 +21,33 @@ class InstallObserverTest extends TestCase
         parent::setUp();
         $this->addSite(true);
         $this->observer = new InstallObserver();
+        Bus::fake();
     }
 
     public function test_install_created():void
     {
-        Http::fake([
-            env('KUB8_API')."install/{$this->install->name}" => Http::response([], 200),
-        ]);
-
         $this->observer->created($this->install);
-
-        Http::assertSent(function (Request $request) {
-            return $request->hasHeader('X-API-Key', env('KUB8_API_KEY')) &&
-                   $request->url() == env('KUB8_API')."install/{$this->install->name}" &&
-                   $request->method() == 'POST' &&
-                   $request['env_type'] == $this->install->type &&
-                   $request['size'] == $this->install->size &&
-                   $request['domain'] == $this->install->domain &&
-                   $request['region'] == $this->install->region;
+        $install = $this->install;
+        Bus::assertDispatched(function (CreateInstall $job) use ($install) {
+            return $job->install->id === $install->id;
         });
     }
 
     public function test_install_deleted():void
     {
-        Http::fake([
-            env('KUB8_API')."install/{$this->install->name}" => Http::response([], 200),
-        ]);
-
         $this->observer->deleted($this->install);
-
-        Http::assertSent(function (Request $request) {
-            return $request->hasHeader('X-API-Key', env('KUB8_API_KEY')) &&
-                   $request->url() == env('KUB8_API')."install/{$this->install->name}" &&
-                   $request->method() == 'DELETE';
+        $install = $this->install;
+        Bus::assertDispatched(function (DeleteInstall $job) use ($install) {
+            return $job->install->id === $install->id;
         });
     }
 
     public function test_install_copied():void
     {
-        Http::fake([
-            env('KUB8_API')."install/{$this->install->name}/copy" => Http::response([], 200),
-        ]);
-
         $this->observer->copied($this->install);
-
-        Http::assertSent(function (Request $request) {
-            return $request->hasHeader('X-API-Key', env('KUB8_API_KEY')) &&
-                   $request->url() == env('KUB8_API')."install/{$this->install->name}/copy" &&
-                   $request->method() == 'POST' &&
-                   $request['env_type'] == $this->install->type &&
-                   $request['size'] == $this->install->size &&
-                   $request['domain'] == $this->install->domain &&
-                   $request['region'] == $this->install->region;
+        $install = $this->install;
+        Bus::assertDispatched(function (CopyInstall $job) use ($install) {
+            return $job->install->id === $install->id;
         });
     }
 }
