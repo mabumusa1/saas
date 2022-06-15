@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Log;
 
 class CreateInstall implements ShouldQueue
 {
@@ -35,12 +36,22 @@ class CreateInstall implements ShouldQueue
      */
     public function handle()
     {
-        $response = Http::kub8()->post('install/create', [
-            'id'=> $this->install->name,
-            'env_type' => $this->install->type,
-            'size' => $this->install->size,
-            'domain' => $this->install->domain,
-            'region' => $this->install->region,
-        ]);
+        $requestBody =
+            [
+                'id'=> $this->install->name,
+                'env_type' => $this->install->type,
+                'size' => $this->install->size,
+                'domain' => $this->install->domain,
+                'region' => $this->install->region,
+            ];
+        $response = Http::kub8()->post('install/create', $requestBody);
+
+        $response->onError(function ($response) use ($requestBody) {
+            /* @var Response $response */
+            Log::emergency(
+                'Kub8 Request Failed '.$response->getStatusCode().' : '.
+             \json_encode($response->body().' Orgianl Request: '.\json_encode($requestBody))
+            );
+        });
     }
 }
