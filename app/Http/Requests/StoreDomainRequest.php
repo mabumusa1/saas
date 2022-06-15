@@ -32,7 +32,8 @@ class StoreDomainRequest extends FormRequest
                 if (! Validator::make($input, $rules)->passes()) {
                     $fail(__('Invalid Domain Name'));
                 }
-            }, new UniqueDomainRule($this->account, $this->install)],
+            }, new UniqueDomainRule($this->account, $this->install),
+            ],
             'isValidation' => 'sometimes|boolean',
 
         ];

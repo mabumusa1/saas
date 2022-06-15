@@ -33,7 +33,8 @@ class StoreSiteRequest extends FormRequest
                 if (! Validator::make($input, $rules)->passes()) {
                     $fail(__('Invalid Install Name'));
                 }
-            }],
+            },
+            ],
             'type' => 'required_if:isValidation,null|in:dev,stg,prd',
             'owner' => 'required_if:isValidation,null|in:mine,transferable',
             'subscription_id' => ['required_if:owner,mine',

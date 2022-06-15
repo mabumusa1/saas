@@ -7,9 +7,6 @@ use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Laravel\Cashier\Invoice;
-use stdClass;
-use Symfony\Component\HttpFoundation\Response;
 
 class BillingController extends Controller
 {

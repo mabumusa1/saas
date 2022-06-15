@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\SetDomainPrimaryEvent;
-use App\Events\SetDomainRedirectEvent;
 use App\Http\Requests\DomainRedirectRequest;
 use App\Http\Requests\StoreDomainRequest;
 use App\Models\Account;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
-use Illuminate\Http\Request;
 
 class DomainController extends Controller
 {
@@ -20,6 +17,7 @@ class DomainController extends Controller
      * @param Account $account
      * @param Site $site
      * @param Install $install
+     *
      * @return \Illuminate\View\View
      */
     public function index(Account $account, Site $site, Install $install)
@@ -34,6 +32,7 @@ class DomainController extends Controller
      * @param Site $site
      * @param Install $install
      * @param StoreDomainRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse | \Illuminate\Http\JsonResponse
      */
     public function store(Account $account, Site $site, Install $install, StoreDomainRequest $request)
@@ -59,6 +58,7 @@ class DomainController extends Controller
      * @param Site $site
      * @param Install $install
      * @param Domain $domain
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Site $site, Install $install, Domain $domain)
@@ -87,6 +87,7 @@ class DomainController extends Controller
      * @param Site $site
      * @param Install $install
      * @param DomainRedirectRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function redirect(Account $account, Site $site, Install $install, DomainRedirectRequest $request)
@@ -114,6 +115,7 @@ class DomainController extends Controller
      * @param Site $site
      * @param Install $install
      * @param Domain $domain
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function setPrimary(Account $account, Site $site, Install $install, Domain $domain)

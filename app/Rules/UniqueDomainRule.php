@@ -7,7 +7,6 @@ use App\Models\Domain;
 use App\Models\Install;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Spatie\Dns\Dns;
 
 class UniqueDomainRule implements Rule
 {
@@ -33,6 +32,7 @@ class UniqueDomainRule implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
+     *
      * @return bool
      */
     public function passes($attribute, $value)
@@ -45,15 +45,14 @@ class UniqueDomainRule implements Rule
                 $this->message = __('Domain name is already configured as a domain on the install :name. Please choose a unique name.', ['name' => $install->name]);
 
                 return false;
-            } else {
-                if (! VerifyDomainOwnershipHelper($value, $this->install->name, $domain)) {
-                    $this->message = __('Domain name has already been taken');
-
-                    return false;
-                }
-
-                return true;
             }
+            if (! VerifyDomainOwnershipHelper($value, $this->install->name, $domain)) {
+                $this->message = __('Domain name has already been taken');
+
+                return false;
+            }
+
+            return true;
         } catch (ModelNotFoundException $e) {
             return true;
         }

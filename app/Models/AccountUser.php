@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Account;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -19,8 +17,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $role
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
+ *
  * @method static \Database\Factories\AccountUserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser newQuery()
@@ -31,6 +31,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class AccountUser extends Pivot
@@ -52,20 +53,20 @@ class AccountUser extends Pivot
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-                ->useLogName('account')
-                ->setDescriptionForEvent(function (string $eventName) {
-                    switch ($eventName) {
+            ->useLogName('account')
+            ->setDescriptionForEvent(function (string $eventName) {
+                switch ($eventName) {
                         case 'created':
                             /* @phpstan-ignore-next-line */
-                            return __(':User associated with :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
+                            return __(':User associated with :Account', ['user' => $this->user->fullName, 'account' => $this->account->name]);
                         case 'updated':
                             /* @phpstan-ignore-next-line */
-                            return __(':User changed role to :Role with :Account', ['user'=>$this->user->fullName, 'role' => roles()[$this->role], 'account' => $this->account->name]);
+                            return __(':User changed role to :Role with :Account', ['user' => $this->user->fullName, 'role' => roles()[$this->role], 'account' => $this->account->name]);
                         case 'deleted':
                             /* @phpstan-ignore-next-line */
-                            return __(':User removed from :Account', ['user'=>$this->user->fullName, 'account' => $this->account->name]);
+                            return __(':User removed from :Account', ['user' => $this->user->fullName, 'account' => $this->account->name]);
                     }
-                });
+            });
     }
 
     /**

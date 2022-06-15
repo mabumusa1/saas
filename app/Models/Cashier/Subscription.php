@@ -4,11 +4,9 @@ namespace App\Models\Cashier;
 
 use App\Models\Plan;
 use App\Models\Site;
-use Database\Factories\SubscriptionFactory;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Cashier\Subscription as CashierSubscription;
@@ -27,13 +25,15 @@ use Laravel\Cashier\Subscription as CashierSubscription;
  * @property \Illuminate\Support\Carbon|null $ends_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Cashier\SubscriptionItem[] $items
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\Laravel\Cashier\SubscriptionItem> $items
  * @property-read int|null $items_count
  * @property-read \App\Models\Account $owner
  * @property-read Plan|null $plan
- * @property-read \Illuminate\Database\Eloquent\Collection|Site[] $sites
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Site> $sites
  * @property-read int|null $sites_count
  * @property-read \App\Models\Account $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription active()
  * @method static Builder|Subscription available()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription canceled()
@@ -63,6 +63,7 @@ use Laravel\Cashier\Subscription as CashierSubscription;
  * @method static Builder|Subscription whereStripeStatus($value)
  * @method static Builder|Subscription whereTrialEndsAt($value)
  * @method static Builder|Subscription whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Subscription extends CashierSubscription
@@ -81,6 +82,7 @@ class Subscription extends CashierSubscription
      * Scope a query to check if it has available sites.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeAvailable($query): Builder

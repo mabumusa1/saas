@@ -19,6 +19,7 @@ class InstallController extends Controller
      * @param Account $account
      *
      * @param Site $site
+     *
      * @return \Illuminate\View\View | \Illuminate\Http\RedirectResponse
      */
     public function create(Account $account, Site $site)
@@ -28,7 +29,7 @@ class InstallController extends Controller
         $allowed = ['prd', 'stg', 'dev'];
         $envs = array_diff($allowed, $envs);
         /// The user is not allowed to create more envs
-        if ([] === $envs) {
+        if ($envs === []) {
             return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $site->installs()->first()])->with('error', __('You can not create more installs for this site'));
         }
         $selectedEnv = '';
@@ -184,6 +185,7 @@ class InstallController extends Controller
      * @param Account $account
      * @param Site $site
      * @param Install $install
+     *
      * @return  \Illuminate\Http\RedirectResponse
      */
     public function destroy(Account $account, Site $site, Install $install)

@@ -104,7 +104,7 @@ if (! function_exists('VerifyDomainHelper')) {
 }
 
 if (! function_exists('VerifyDomainOwnershipHelper')) {
-    function VerifyDomainOwnershipHelper(String $value, String $installName, Domain $domain)
+    function VerifyDomainOwnershipHelper(string $value, string $installName, Domain $domain)
     {
         $dns = new Dns();
         $dns->useNameserver('8.8.8.8');
@@ -118,10 +118,9 @@ if (! function_exists('VerifyDomainOwnershipHelper')) {
                     $domain->delete();
 
                     return true;
-                } else {
-                    //someone else has the domain, we check DNS TXT records
-                    return false;
                 }
+                //someone else has the domain, we check DNS TXT records
+                return false;
             }
         }
     }

@@ -64,10 +64,10 @@ class UserPolicy
         }
 
         if ($targetUser->role($this->account) === 'owner') {
-            return ($this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true : false;
-        } else {
-            return true;
+            return $this->account->users()->wherePivot('role', 'owner')->count() > 1 ? true : false;
         }
+
+        return true;
     }
 
     /**
@@ -86,6 +86,6 @@ class UserPolicy
             return false;
         }
 
-        return ($targetUser->role($this->account) === 'owner' && $this->account->users()->wherePivot('role', 'owner')->count() > 1) ? true : false;
+        return $targetUser->role($this->account) === 'owner' && $this->account->users()->wherePivot('role', 'owner')->count() > 1 ? true : false;
     }
 }

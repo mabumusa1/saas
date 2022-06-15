@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Install;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -44,7 +43,7 @@ class Kub8WebhookJob extends ProcessWebhookJob implements ShouldQueue
                 $install->status = $body['status'];
                 $install->save();
                 break;
-            }
+                }
         }
     }
 }

@@ -38,7 +38,7 @@ class CreateInstall implements ShouldQueue
     {
         $requestBody =
             [
-                'id'=> $this->install->name,
+                'id' => $this->install->name,
                 'env_type' => $this->install->type,
                 'size' => $this->install->size,
                 'domain' => $this->install->domain,
