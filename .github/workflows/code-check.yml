@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php-versions: ['8.0']
+        php-versions: ['8.1']
         commands: ['PHPSTAN', 'CS Fixer']
     name: ${{ matrix.commands }}
 
