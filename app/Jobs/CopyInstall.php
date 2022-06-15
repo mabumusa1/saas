@@ -34,19 +34,12 @@ class CopyInstall implements ShouldQueue
      */
     public function handle()
     {
-        $response = Http::kub8()->post("install/{$this->install->name}/copy", [
+        $response = Http::kub8()->post('install/copy', [
+            'id'=> $this->install->name,
             'env_type' => $this->install->type,
             'size' => $this->install->size,
             'domain' => $this->install->domain,
             'region' => $this->install->region,
-          /*
-           * This will be used i
-           * the future, keep it
-           */
-            /*'custom' => [
-                'cpu' => '1',
-                'memory' => '4',
-            ],*/
         ]);
     }
 }
