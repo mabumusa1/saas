@@ -42,7 +42,7 @@ class DomainController extends Controller
         }
 
         $data = $request->safe()->all();
-        $domain = Domain::create([
+        Domain::create([
             'install_id' => $install->id,
             'name' => $data['name'],
             'primary' => false,

@@ -65,7 +65,7 @@ class AccountUser extends Pivot
                         case 'deleted':
                             /* @phpstan-ignore-next-line */
                             return __(':User removed from :Account', ['user' => $this->user->fullName, 'account' => $this->account->name]);
-                    }
+                }
             });
     }
 

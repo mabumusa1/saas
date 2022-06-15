@@ -43,7 +43,7 @@ class Kub8WebhookJob extends ProcessWebhookJob implements ShouldQueue
                 $install->status = $body['status'];
                 $install->save();
                 break;
-                }
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ class BackupController extends Controller
      */
     public function store(Account $account, Site $site, Install $install, StoreBackupRequest $request)
     {
-        $backup = $install->backups()->create([
+        $install->backups()->create([
             'description' => $request->input('description'),
         ]);
 

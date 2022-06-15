@@ -112,9 +112,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
                  */
                 Route::resource('backups', App\Http\Controllers\BackupController::class)
                     ->only([
-                    'index',
-                    'store',
-                ]);
+                        'index',
+                        'store',
+                    ]);
                 Route::post('backups/{backup}/restore', [App\Http\Controllers\BackupController::class, 'restore'])->name('backups.restore');
 
                 /*

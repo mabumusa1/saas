@@ -55,8 +55,6 @@ class InstallController extends Controller
      */
     public function store(Account $account, Site $site, StoreInstallRequest $request)
     {
-        $validated = $request->safe()->all();
-
         if ($request->has('isValidation')) {
             return response()->json(['valid' => true]);
         }
