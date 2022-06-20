@@ -38,6 +38,7 @@ class CopyInstall implements ShouldQueue
             'id' => $this->install->name,
             'env_type' => $this->install->type,
             'size' => $this->install->size,
+            /* @phpstan-ignore-next-line */
             'domain' => $this->install->cname,
             'region' => $this->install->region,
         ];
