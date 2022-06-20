@@ -34,13 +34,18 @@ class DeleteInstall implements ShouldQueue
      */
     public function handle()
     {
-        $response = Http::kub8()->delete("install/{$this->install->name}");
-        $response->onError(function ($response) {
-            /* @var Response $response */
-            Log::emergency(
-                'Kub8 Request Failed '.$response->getStatusCode().' : '.
-             \json_encode($response->body().' Orgianl Request: '.$this->install->name)
-            );
-        });
+        try {
+            $response = Http::kub8()->delete("install/{$this->install->name}");
+            $response->onError(function ($response) {
+                /* @var Response $response */
+                Log::emergency(
+                    'Kub8 Request Failed '.$response->getStatusCode().' : '.
+                 \json_encode($response->body().' Orgianl Request: '.$this->install->name)
+                );
+            });
+    
+        } catch (\Throwable $th) {            
+            Log::emergency($th->getMessage());
+        }
     }
 }
