@@ -43,8 +43,7 @@ class DeleteInstall implements ShouldQueue
                  \json_encode($response->body().' Orgianl Request: '.$this->install->name)
                 );
             });
-    
-        } catch (\Throwable $th) {            
+        } catch (\Throwable $th) {
             Log::emergency($th->getMessage());
         }
     }
