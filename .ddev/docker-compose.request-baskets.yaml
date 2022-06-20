@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+  requestbaskets:
+    image: darklynx/request-baskets
+    environment:
+      - BASKET=default
+      - TOKEN=test
+    container_name: request-baskets
+    networks: ["default"]
+    ports:
+      - "55555:55555"

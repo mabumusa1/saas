@@ -39,9 +39,19 @@ class Kub8JobTest extends TestCase
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
                    $request['size'] == $this->install->size &&
-                   $request['domain'] == $this->install->domain &&
+                   $request['domain'] == $this->install->cname &&
                    $request['region'] == $this->install->region;
         });
+    }
+    public function test_create_install_job_exception():void
+    {
+        Log::shouldReceive('emergency')
+        ->once()
+        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/install/create');
+        
+
+        $job = new CreateInstall($this->install);
+        $job->handle();
     }
 
     public function test_create_install_job_fail():void
@@ -55,6 +65,7 @@ class Kub8JobTest extends TestCase
 
         Log::shouldReceive('emergency')
         ->once();
+        
 
         $job = new CreateInstall($this->install);
         $job->handle();
@@ -65,7 +76,7 @@ class Kub8JobTest extends TestCase
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
                    $request['size'] == $this->install->size &&
-                   $request['domain'] == $this->install->domain &&
+                   $request['domain'] == $this->install->cname &&
                    $request['region'] == $this->install->region;
         });
     }
@@ -85,10 +96,22 @@ class Kub8JobTest extends TestCase
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
                    $request['size'] == $this->install->size &&
-                   $request['domain'] == $this->install->domain &&
+                   $request['domain'] == $this->install->cname &&
                    $request['region'] == $this->install->region;
         });
     }
+
+    public function test_copy_install_job_exception():void
+    {
+        Log::shouldReceive('emergency')
+        ->once()
+        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/install/copy');
+        
+
+        $job = new CopyInstall($this->install);
+        $job->handle();
+    }
+
 
     public function test_copy_install_job_fail():void
     {
@@ -96,8 +119,8 @@ class Kub8JobTest extends TestCase
             env('KUB8_API').'install/copy' => Http::response([], 500),
         ]);
         Log::shouldReceive('emergency')
-        ->once()
-        ->with('Kub8 Request Failed 500 : "[] Orgianl Request: {\"id\":\"domain\",\"env_type\":\"dev\",\"size\":\"s0\",\"domain\":null,\"region\":\"us-east-1\"}"');
+        ->once();
+
 
         $job = new CopyInstall($this->install);
         $job->handle();
@@ -108,7 +131,7 @@ class Kub8JobTest extends TestCase
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
                    $request['size'] == $this->install->size &&
-                   $request['domain'] == $this->install->domain &&
+                   $request['domain'] == $this->install->cname &&
                    $request['region'] == $this->install->region;
         });
     }
@@ -127,6 +150,18 @@ class Kub8JobTest extends TestCase
                    $request->method() == 'DELETE';
         });
     }
+
+    public function test_delete_install_job_exception():void
+    {
+        Log::shouldReceive('emergency')
+        ->once()
+        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/install/domain');
+        
+
+        $job = new DeleteInstall($this->install);
+        $job->handle();
+    }
+
 
     public function test_delete_install_job_fail():void
     {

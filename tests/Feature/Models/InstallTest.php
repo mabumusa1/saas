@@ -10,6 +10,7 @@ use App\Models\Site;
 use App\Models\Transfer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Cashier\Subscription;
 
 class InstallTest extends TestCase
 {
@@ -50,4 +51,17 @@ class InstallTest extends TestCase
     {
         $this->assertEquals($this->install->size, 's0');
     }
+
+    public function test_size_install_with_subscription():void
+    {
+        $this->subscription = Subscription::factory()->create([
+            'account_id' => $this->account->id,
+            'name' => 's1',
+        ]);
+
+        $this->site->subscription_id = $this->subscription->id;
+        $this->site->save();
+        $this->assertEquals($this->install->size, 's1');
+    }
+
 }

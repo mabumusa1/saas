@@ -116,25 +116,6 @@ class SiteControllerTest extends TestCase
         $response->assertSessionHas('status', __('Site is under creation, we will send you an update once it is done!'));
     }
 
-    public function test_site_store_blank_with_error()
-    {
-        $subscription = Subscription::factory()->create([
-            'account_id' => $this->account->id,
-            'quantity' => 1,
-        ]);
-
-        $response = $this->post(route('sites.store', $this->account), [
-            'sitename' => 'test name',
-            'installname' => 'test',
-            'type' => 'stg',
-            'owner' => 'mine',
-            'subscription_id' => $subscription->id,
-            'start' => 'blank',
-        ]);
-        $response->assertRedirect(route('sites.index', [$this->account]));
-        $response->assertSessionHas('error');
-    }
-
     /**
      * @test
      */
