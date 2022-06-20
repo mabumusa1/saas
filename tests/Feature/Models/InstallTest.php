@@ -4,13 +4,13 @@ namespace Tests\Feature\Models;
 
 use App\Models\Account;
 use App\Models\Backup;
+use App\Models\Cashier\Subscription;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
 use App\Models\Transfer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\Cashier\Subscription;
 
 class InstallTest extends TestCase
 {
@@ -63,5 +63,4 @@ class InstallTest extends TestCase
         $this->site->save();
         $this->assertEquals($this->install->size, 's1');
     }
-
 }

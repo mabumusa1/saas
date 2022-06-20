@@ -44,7 +44,7 @@ class CreateInstall implements ShouldQueue
                 'domain' => $this->install->cname,
                 'region' => $this->install->region,
             ];
-        try{
+        try {
             $response = Http::kub8()->post('install/create', $requestBody);
 
             $response->onError(function ($response) use ($requestBody) {
@@ -57,6 +57,5 @@ class CreateInstall implements ShouldQueue
         } catch (\Throwable $th) {
             Log::emergency($th->getMessage());
         }
-            
     }
 }

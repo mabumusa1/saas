@@ -44,7 +44,7 @@ class CopyInstall implements ShouldQueue
 
         try {
             $response = Http::kub8()->post('install/copy', $requestBody);
-            
+
             $response->onError(function ($response) use ($requestBody) {
                 /* @var Response $response */
                 Log::emergency(
@@ -52,10 +52,8 @@ class CopyInstall implements ShouldQueue
                  \json_encode($response->body().' Orgianl Request: '.\json_encode($requestBody))
                 );
             });
-            
         } catch (\Throwable $th) {
             Log::emergency($th->getMessage());
         }
-
     }
 }
