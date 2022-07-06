@@ -26,10 +26,6 @@ env:
   SESSION_DRIVER: database
   TELESCOPE_ENABLED: false
   NODE_ENV: development
-  STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"       
-  DUSK_DRIVER_URL: "http://127.0.0.1:9515"
-
-  
 
 jobs:
   dusk:
@@ -113,7 +109,7 @@ jobs:
       env:
         APP_URL: "http://127.0.0.1:8000"
         DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"       
+        STRIPE_API_BASE: "http://127.0.0.1:8420"       
         DUSK_DRIVER_URL: "http://127.0.0.1:9515"
 
     - name: Upload Screenshots
