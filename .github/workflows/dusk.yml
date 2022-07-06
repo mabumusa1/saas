@@ -75,8 +75,9 @@ jobs:
         node-version: '14'
         cache: 'npm'
     - name: Complile Assets
-      run: npm ci
-       
+      run: |
+        npm ci
+        php run build
 
     - name: Install Composer dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
