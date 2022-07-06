@@ -77,7 +77,7 @@ jobs:
     - name: Complile Assets
       run: |
         npm ci
-        php run build
+        npm run build
 
     - name: Install Composer dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
