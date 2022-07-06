@@ -104,7 +104,6 @@ class BillingController extends Controller
         } else {
             $price = $plan->stripe_yearly_price_id;
         }
-        /* @phpstan-ignore-next-line */
         $account->newSubscription($plan->name, $price)->create($account->defaultPaymentMethod()->id);
 
         return redirect(route('sites.index', [$account->id]))->with('status', __('New site has been added to your account'));
