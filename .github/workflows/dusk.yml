@@ -35,6 +35,10 @@ jobs:
 
     name: PHP Dusk    
     services:
+      localstripe:
+        image: adrienverge/localstripe:latest
+        ports:
+          - 8420
       mysql:
         image: mysql:latest
         env:
