@@ -27,14 +27,14 @@ class Kub8JobTest extends TestCase
     public function test_create_install_job():void
     {
         Http::fake([
-            env('KUB8_API').'install' => Http::response([], 200),
+            env('KUB8_API').'install/create' => Http::response([], 200),
         ]);
 
         $job = new CreateInstall($this->install);
         $job->handle();
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Basic '.\base64_encode(env('KUB8_USERNAME').':'.env('KUB8_PASSWORD'))) &&
-                   $request->url() == env('KUB8_API').'install' &&
+                   $request->url() == env('KUB8_API').'install/create' &&
                    $request->method() == 'POST' &&
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
@@ -48,7 +48,7 @@ class Kub8JobTest extends TestCase
     {
         Log::shouldReceive('emergency')
         ->once()
-        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/install');
+        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/install/create');
 
         $job = new CreateInstall($this->install);
         $job->handle();
@@ -57,7 +57,7 @@ class Kub8JobTest extends TestCase
     public function test_create_install_job_fail():void
     {
         Http::fake([
-            env('KUB8_API').'install' => Http::response([
+            env('KUB8_API').'install/create' => Http::response([
                 'status' => 'error',
                 'message' =>'statefulsets.apps "recorder3" not found',
             ], 413),
@@ -70,7 +70,7 @@ class Kub8JobTest extends TestCase
         $job->handle();
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Basic '.\base64_encode(env('KUB8_USERNAME').':'.env('KUB8_PASSWORD'))) &&
-                   $request->url() == env('KUB8_API').'install' &&
+                   $request->url() == env('KUB8_API').'install/create' &&
                    $request->method() == 'POST' &&
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
@@ -83,14 +83,14 @@ class Kub8JobTest extends TestCase
     public function test_copy_install_job():void
     {
         Http::fake([
-            env('KUB8_API').'copy' => Http::response([], 200),
+            env('KUB8_API').'install/copy' => Http::response([], 200),
         ]);
 
         $job = new CopyInstall($this->install);
         $job->handle();
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Basic '.\base64_encode(env('KUB8_USERNAME').':'.env('KUB8_PASSWORD'))) &&
-                   $request->url() == env('KUB8_API').'copy' &&
+                   $request->url() == env('KUB8_API').'install/copy' &&
                    $request->method() == 'POST' &&
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&
@@ -104,7 +104,7 @@ class Kub8JobTest extends TestCase
     {
         Log::shouldReceive('emergency')
         ->once()
-        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/copy');
+        ->with('cURL error 6: Could not resolve host: kub8.steercampaign.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://kub8.steercampaign.com/v1/install/copy');
 
         $job = new CopyInstall($this->install);
         $job->handle();
@@ -113,7 +113,7 @@ class Kub8JobTest extends TestCase
     public function test_copy_install_job_fail():void
     {
         Http::fake([
-            env('KUB8_API').'copy' => Http::response([], 500),
+            env('KUB8_API').'install/copy' => Http::response([], 500),
         ]);
         Log::shouldReceive('emergency')
         ->once();
@@ -122,7 +122,7 @@ class Kub8JobTest extends TestCase
         $job->handle();
         Http::assertSent(function (Request $request) {
             return $request->hasHeader('Authorization', 'Basic '.\base64_encode(env('KUB8_USERNAME').':'.env('KUB8_PASSWORD'))) &&
-                   $request->url() == env('KUB8_API').'copy' &&
+                   $request->url() == env('KUB8_API').'install/copy' &&
                    $request->method() == 'POST' &&
                    $request['id'] == $this->install->name &&
                    $request['env_type'] == $this->install->type &&

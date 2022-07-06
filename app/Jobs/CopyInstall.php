@@ -44,7 +44,7 @@ class CopyInstall implements ShouldQueue
         ];
 
         try {
-            $response = Http::kub8()->post('copy', $requestBody);
+            $response = Http::kub8()->post('install/copy', $requestBody);
 
             $response->onError(function ($response) use ($requestBody) {
                 /* @var Response $response */
