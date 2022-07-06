@@ -20,5 +20,4 @@ hooks:
     # Fix line endings on Windows
     - exec: sed -i -e 's/\r$//' ./.ddev/laravel-setup.sh
     - exec: sed -i -e 's/\r$//' ./.git/hooks/*
-    - exec: "yes | ./.ddev/laravel-setup.sh"
-    - exec: "nohup bash -c '/var/www/html/artisan queue:work --sleep=3 --tries=3 &'"
+    - exec: "yes | ./.ddev/laravel-setup.sh"    
