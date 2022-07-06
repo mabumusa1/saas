@@ -11,7 +11,7 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
                 <div class="col-8">
                     <div class="card card-bordered border-gray-600 shadow-sm">
                         <div class="card-body">
-                            <h2 class="mb-4 text-center">{{ __('My Susbscriptions') }}</h2>
+                            <h2 class="mb-4 text-center">{{ __('My Subscriptions') }}</h2>
                             @include('billing.partials.subscriptions')
                         </div>
                     </div>
@@ -33,7 +33,7 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
                             </div>
                             <label for="contactsNumber"
                                 class="form-label">{{ __('How many contacts do you have?') }}</label>
-                            <select id="contactsNumber" class="form-select form-select-lg mb-3"
+                                <select name="contactsNumber" id="contactsNumber" class="form-select form-select-lg mb-3"
                                 aria-label="{{ __('Select your number of contacts') }}">
                                 @foreach ($plans as $plan)
                                     <option value="{{ $plan->id }}"
@@ -249,8 +249,8 @@ cardButton.addEventListener('click', async (event) => {
 
             document.getElementById("contactsNumber").addEventListener("change", (event) => {
                 const location = "{{ route('billing.manageSubscriptions', [$currentAccount->id]) }}"
-                window.location.href = location + "?plan=" + event.target.value + "&period=" + document.querySelector(
-                    '#plan_peroid').value;
+                const planPeriod = document.querySelector('#plan_peroid') ? document.querySelector('#plan_peroid').value : 'month';
+                window.location.href = location + "?plan=" + event.target.value + "&period=" + planPeriod;                
             });
         </script>
     @endpush

@@ -17,7 +17,6 @@
                                 <!--begin::Step 1-->
                                 <div class="flex-column current" data-kt-stepper-element="content">
                                     <h3 class="text-dark mb-8">{{ __('Who owns the site?') }}</h3>
-
                                     <!-- Begin Site Type -->
                                     <div class="mb-10">
                                         <div class="form-check form-check-custom form-check-lg">
@@ -114,7 +113,7 @@
                                         <hr />
                                         <div class="mt-5">
                                             <h3 class="text-dark">{{ __('Select an Install to use') }}</h3>
-                                            <select class="form-select" name="install_id" required>
+                                            <select class="form-select" name="install_id">
                                                 <option value="" disabled selected>
                                                     {{ __('Please select an install') }}</option>
                                                 @foreach ($installs as $install)
@@ -212,8 +211,8 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="type" value="stg" disabled
-                                                        @if ($subscriptions->count() === 0) checked @endif />
+                                                    <input class="form-check-input" type="radio" name="type" value="stg"
+                                                    disabled @if ($subscriptions->count() === 0) checked @endif />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -303,9 +302,10 @@
                 </div>
                 <!--end::Stepper-->
             </div>
-            @if ($subscriptions->count() === 0 && $currentAccount->availableQuota === 0)
+            @if ($activeSubscriptions->count() === 0 && $currentAccount->availableQuota === 0)
                 <div class="overlay-layer bg-dark bg-opacity-25 flex-column">
-                    <div class="alert alert-danger">You don't have active subscriptions or Quota Please Consider Adding One</div>
+                    <div class="alert alert-danger">You don't have active subscriptions or Quota Please Consider Adding
+                        One</div>
                     <button class="btn btn-primary">Add Subscription</button>
                 </div>
             @endif
@@ -333,16 +333,19 @@
     @endpush
     @push('scripts')
         <script>
+            var installId = document.querySelector('[name="install_id"]');
             document.querySelectorAll('input[name="start"]').forEach(function(el) {
                 el.addEventListener('change', function() {
+                    installId.classList.remove('is-invalid');
                     if (el.value !== 'blank') {
                         document.querySelector('.installs').classList.remove('d-none');
                     } else {
+                        installId.value = '';
                         document.querySelector('.installs').classList.add('d-none');
                     }
                 })
             })
-            var installId = document.querySelector('[name="install_id"]');
+            
             installId.addEventListener('change', function() {
                 installId.classList.remove('is-invalid');
             })
@@ -352,6 +355,12 @@
 
             // Handle next step
             stepper.on("kt.stepper.next", function(stepper) {
+                if (stepper.currentStepIndex === 1) {
+                    if (document.querySelector('[name="start"]:checked').value !== 'blank' && installId.value === '') {
+                        installId.classList.add('is-invalid');
+                        return false;
+                    }
+                }                
                 stepper.goNext();
                 document.querySelector('.btn-cancel').classList.add('d-none');
             });
