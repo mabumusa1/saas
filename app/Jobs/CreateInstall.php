@@ -46,7 +46,7 @@ class CreateInstall implements ShouldQueue
                 'region' => $this->install->region,
             ];
         try {
-            $response = Http::kub8()->post('install/create', $requestBody);
+            $response = Http::kub8()->post('install', $requestBody);
 
             $response->onError(function ($response) use ($requestBody) {
                 /* @var Response $response */
