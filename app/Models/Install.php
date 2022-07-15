@@ -153,7 +153,7 @@ class Install extends Model
     public function cname(): Attribute
     {
         return new Attribute(
-            get: fn () => "{$this->name}.steercampaign.com",
+            get: fn () => "{$this->name}.".env('CNAME_DOMAIN'),
         );
     }
 

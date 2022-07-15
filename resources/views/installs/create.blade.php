@@ -35,7 +35,7 @@
                                                         <input name="name" type="text"
                                                             class="w-50 form-control form-control-solid @error('name') is-invalid @enderror"
                                                             placeholder="{{ __('Install Name') }}" value="{{ old('name') }}"/>
-                                                        <p class="m-0">.steercampaign.com</p>
+                                                        <p class="m-0">.{{env('CNAME_DOMAIN')}}</p>
                                                     </div>
                                                     @error('name')
                                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -221,7 +221,7 @@
                             name: {
                                 uri: function(field, element, validator) {
                                     var value = element.value;
-                                    var uri = 'https://' + value + '.steercampaign.com';
+                                    var uri = 'https://' + value + '.' {{env('CNAME_DOMAIN')}};
                                     return uri;
                                 }
                             }

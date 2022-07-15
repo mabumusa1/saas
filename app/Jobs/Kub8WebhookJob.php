@@ -38,11 +38,11 @@ class Kub8WebhookJob extends ProcessWebhookJob implements ShouldQueue
         $body = \json_decode($this->hook->payload, true);
         switch ($body['type']) {
             case 'healthCheck':
-            {
-                $install = Install::findOrfail($body['id']);
-                $install->status = $body['status'];
-                $install->save();
-                break;
+                {
+                    $install = Install::findOrfail($body['id']);
+                    $install->status = $body['status'];
+                    $install->save();
+                    break;
                 }
         }
     }

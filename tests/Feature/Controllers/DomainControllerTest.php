@@ -53,7 +53,7 @@ class DomainControllerTest extends TestCase
         $this->otherDomain = Domain::withoutEvents(function () use ($otherInstall) {
             return Domain::factory()
             ->for($otherInstall)
-            ->create(['name' => 'x.steercampaign.com', 'primary' => true]);
+            ->create(['name' => 'x.'.env('CNAME_DOMAIN'), 'primary' => true]);
         });
 
         $this->otherAccount->users()->attach($this->otherUser->id, ['role' => 'owner']);
@@ -95,13 +95,13 @@ class DomainControllerTest extends TestCase
 
     public function test_domains_store_validation_same_account()
     {
-        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.steercampaign.com']);
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.'.env('CNAME_DOMAIN')]);
         $response->assertSessionHasErrors(['name']);
     }
 
     public function test_domains_store_validation_another_account()
     {
-        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'x.steercampaign.com']);
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'x.'.env('CNAME_DOMAIN')]);
         $response->assertSessionHasErrors(['name']);
     }
 
@@ -129,10 +129,10 @@ class DomainControllerTest extends TestCase
         ->withArgs([$this->domain->name, 'TXT'])
         ->andReturn($dnsResponse);
 
-        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.steercampaign.com']);
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.'.env('CNAME_DOMAIN')]);
         $this->assertDatabaseHas('domains', [
             'install_id' => $this->install->id,
-            'name' => 'domain.steercampaign.com',
+            'name' => 'domain.'.env('CNAME_DOMAIN'),
         ]);
 
         $response->assertRedirect();
@@ -162,10 +162,10 @@ class DomainControllerTest extends TestCase
         ->withArgs([$this->domain->name, 'TXT'])
         ->andReturn($dnsResponse);
 
-        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.steercampaign.com']);
+        $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'domain.'.env('CNAME_DOMAIN')]);
         $this->assertDatabaseHas('domains', [
             'install_id' => $this->install->id,
-            'name' => 'domain.steercampaign.com',
+            'name' => 'domain.'.env('CNAME_DOMAIN'),
         ]);
         $response->assertSessionHasErrors(['name']);
         $response->assertRedirect();
@@ -263,7 +263,7 @@ class DomainControllerTest extends TestCase
         $response = $this->post(route('domains.store', [$this->account, $this->site, $this->install]), ['name' => 'm.iabaustralia.com.au']);
         $this->assertDatabaseHas('domains', [
             'install_id' => $this->install->id,
-            'name' => 'domain.steercampaign.com',
+            'name' => 'domain.'.env('CNAME_DOMAIN'),
         ]);
         $response->assertSessionHasErrors(['name']);
 

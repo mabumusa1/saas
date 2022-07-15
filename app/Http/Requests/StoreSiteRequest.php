@@ -29,7 +29,7 @@ class StoreSiteRequest extends FormRequest
             'sitename' => 'required_if:isValidation,null|min:1|max:40',
             'installname' => ['required', 'min:3', 'unique:installs,name', function ($attribute, $value, $fail) {
                 $rules = ['installname' => 'url'];
-                $input = ['installname' => "https://{$value}.steercampaign.com"];
+                $input = ['installname' => "https://{$value}.".env('CNAME_DOMAIN')];
                 if (! Validator::make($input, $rules)->passes()) {
                     $fail(__('Invalid Install Name'));
                 }

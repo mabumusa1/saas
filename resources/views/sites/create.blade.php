@@ -171,7 +171,7 @@
                                                         <input name="installname" type="text"
                                                             class="w-50 form-control form-control-solid"
                                                             placeholder="{{ __('Install Name') }}" />
-                                                        <p class="m-0">.steercampaign.com</p>
+                                                        <p class="m-0">.{{env('CNAME_DOMAIN')}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -435,7 +435,7 @@
                             installname: {
                                 uri: function(field, element, validator) {
                                     var value = element.value;
-                                    var uri = 'https://' + value + '.steercampaign.com';
+                                    var uri = 'https://' + value + '.'. env('CNAME_DOMAIN');
                                     return uri;
                                 }
                             }

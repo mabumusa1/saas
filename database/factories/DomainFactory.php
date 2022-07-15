@@ -17,7 +17,7 @@ class DomainFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstName().'.steercampaign.com',
+            'name' => $this->faker->firstName().'.'.env('CNAME_DOMAIN'),
             'primary' => true,
             'verified_at' => now(),
         ];
