@@ -47,7 +47,7 @@ class VerifyDomainTest extends TestCase
                 'ttl' => 3600,
                 'class' => 'IN',
                 'type' => 'CNAME',
-                'target'=> 'domain.steercampaign.com',
+                'target'=> 'domain.'.env('CNAME_DOMAIN'),
             ]),
         ];
 
@@ -76,7 +76,7 @@ class VerifyDomainTest extends TestCase
                 'ttl' => 3600,
                 'class' => 'IN',
                 'type' => 'CNAME',
-                'target'=> 'start.steercampaign.com',
+                'target'=> 'start.'.env('CNAME_DOMAIN'),
             ]),
         ];
 
