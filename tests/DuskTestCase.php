@@ -71,7 +71,7 @@ abstract class DuskTestCase extends BaseTestCase
             $this->domain = Domain::withoutEvents(function () {
                 return Domain::factory()
                     ->for($this->install)
-                    ->create(['name' => 'domain.steercampaign.com', 'primary' => true, 'verified_at' => null]);
+                    ->create(['name' => 'domain.'.env('CNAME_DOMAIN'), 'primary' => true, 'verified_at' => null]);
             });
         }
     }
