@@ -8,7 +8,7 @@ on:
     branches: 
       - dev
 env:
-  APP_ENV: local
+  APP_ENV: ci
   APP_URL: "http://127.0.0.1:8000"
   DUSK_DRIVER_URL: "http://127.0.0.1:9515"
   DB_CONNECTION: mysql
@@ -40,7 +40,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Prepare The Environment
-      run: cp .env.dusk.testing .env      
+      run: cp .env.dusk.ci .env      
     
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
