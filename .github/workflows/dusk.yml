@@ -7,26 +7,16 @@ on:
     branches: 
       - dev
 env:
-  DB_CONNECTION: mysql
-  DB_HOST: 127.0.0.1
-  DB_PORT: 3306
-  DB_DATABASE: db
-  DB_USERNAME: db
-  DB_PASSWORD: db
-  STRIPE_KEY: "sk_test_4eC39HqLyjWDarjtT1zdp7af"            
-  STRIPE_SECRET: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"  
   APP_ENV: testing
-  APP_KEY: base64:YDLaFvN8fTX8yOAnYcw4OJWFyLq4R9yBZqNdEldw6Wk=
-  APP_DEBUG: true
-  APP_URL: http://localhost
-  BCRYPT_ROUNDS: 4
-  CACHE_DRIVER: array
-  MAIL_MAILER: array 
-  QUEUE_CONNECTION: sync
-  SESSION_DRIVER: database
-  TELESCOPE_ENABLED: false
-  NODE_ENV: development
-
+  APP_URL: "http://127.0.0.1:8000"
+  DB_PORT: ${{ job.services.mariadb.ports['3306'] }}
+  STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"
+  DUSK_DRIVER_URL: "http://127.0.0.1:9515"
+  DB_CONNECTION: mysql
+  DB_HOST: 127.0.0.1        
+  DB_DATABASE: db
+  DB_USERNAME: root
+  DB_PASSWORD: ""
 jobs:
   dusk:
     runs-on: ubuntu-latest
@@ -37,14 +27,11 @@ jobs:
         image: adrienverge/localstripe:latest
         ports:
           - 8420
-      mysql:
-        image: mysql:latest
+      mariadb:
+        image: mariadb:latest
         env:
-          MYSQL_DATABASE: db
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_USER: db
-          MYSQL_PASSWORD: db
-          MYSQL_ROOT_PASSWORD: db
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: db          
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -71,16 +58,6 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
-    - name: Build NPM Assets
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-        cache: 'npm'
-    - name: Complile Assets
-      run: |
-        npm ci
-        npm run build
-
     - name: Install Composer dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
@@ -95,6 +72,28 @@ jobs:
         php artisan event:clear
         php artisan view:clear
 
+    - name: Run Migration
+      run: php artisan migrate --force
+      env:
+        DB_PORT: ${{ job.services.mariadb.ports['3306'] }}
+
+    - name: Run DB Seed
+      run: php artisan db:seed
+      env:
+        DB_PORT: ${{ job.services.mariadb.ports['3306'] }}
+
+    - name: Build NPM Assets
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
+    - name: Complile Assets
+      env:
+        NODE_ENV: development
+      run: |
+        npm ci
+        npm run build
+
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
@@ -106,11 +105,6 @@ jobs:
 
     - name: Run Dusk Tests
       run: php artisan dusk
-      env:
-        APP_URL: "http://127.0.0.1:8000"
-        DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"
-        DUSK_DRIVER_URL: "http://127.0.0.1:9515"
 
     - name: Upload Screenshots
       if: failure()
