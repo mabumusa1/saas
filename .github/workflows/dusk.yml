@@ -112,7 +112,7 @@ jobs:
       run: php artisan dusk
       env: 
         DB_PORT: ${{ job.services.mariadb.ports['3306'] }}
-        STRIPE_API_BASE: "127.0.0.1:${{ job.services.localstripe.ports[8420] }}"
+        STRIPE_API_BASE: "localstripe:${{ job.services.localstripe.ports[8420] }}"
 
     - name: Upload Screenshots
       if: failure()
