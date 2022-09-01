@@ -26,7 +26,7 @@ jobs:
       localstripe:
         image: adrienverge/localstripe:latest
         ports:
-          - 8420
+          - 8420:8420
       mariadb:
         image: mariadb:latest
         env:
