@@ -6,9 +6,8 @@ setup_laravel() {
     [ -z "${MAILHOG_URL}" ] && MAILHOG_URL="https://${DDEV_HOSTNAME}:8026"
 
     printf "Installing Laravel Composer dependencies...\n"
-    free -g
+    
     composer install
-
     cp .env.example .env
     php artisan key:generate
     php artisan db:wipe
