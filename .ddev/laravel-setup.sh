@@ -8,7 +8,7 @@ setup_laravel() {
     printf "Installing Laravel Composer dependencies...\n"
     composer install
 
-    cp ./.env.example ./.env
+    cp .env.example .env
     php artisan key:generate
     php artisan db:wipe
     php artisan migrate
