@@ -7,7 +7,6 @@ image:
 tasks:
   - name: Startup 
   - command: |
-      cp .env.example .env
       bash .ddev/gitpod-setup-ddev.sh
       gp ports await 8080 && gp preview $(gp url 8080)/index.php 
 

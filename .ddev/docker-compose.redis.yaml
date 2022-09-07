@@ -3,6 +3,11 @@ services:
   redis:
     container_name: ddev-${DDEV_SITENAME}-redis
     image: redis:6
+    resources:
+      limits:
+        memory: 5G
+      reservations:
+        memory: 4G
     # These labels ensure this service is discoverable by ddev.
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}

@@ -2,12 +2,23 @@ version: '3.6'
 services:
   selenium-hub:
     image: selenium/hub:3.141.59-20200326
+    resources:
+      limits:
+        memory: 5G
+      reservations:
+        memory: 4G
     container_name: ddev-${DDEV_SITENAME}-selenium-hub
     ports:
       - "4444:4444"
 
   chrome:
     image: selenium/node-chrome:3.141.59-20200326
+    resources:
+      limits:
+        memory: 5G
+      reservations:
+        memory: 4G
+
     container_name: ddev-${DDEV_SITENAME}-chrome
     volumes:
       - /ddev/shm:/ddev/shm
