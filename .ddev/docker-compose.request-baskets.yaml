@@ -2,12 +2,6 @@ version: '3.6'
 services:
   requestbaskets:
     image: darklynx/request-baskets
-    deploy:
-      resources:
-        limits:
-          memory: 5G
-        reservations:
-          memory: 2G
     environment:
       - BASKET=default
       - TOKEN=test
