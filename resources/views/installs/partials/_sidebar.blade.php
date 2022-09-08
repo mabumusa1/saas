@@ -43,23 +43,6 @@ $links = [
                     Production</a>
             @endif
         @endif
-        @if ($install->type !== 'stg')
-            @if ($site->hasInstallType('stg'))
-                @php
-                    $stgInstall = $site->installs->where('type', 'stg')->first();
-                @endphp
-                <a href="{{ route('installs.show', ['account' => $account, 'site' => $site, 'install' => $stgInstall->id]) }}"
-                    class="btn border-square border w-100 text-start border-primary">
-                    <span class="badge badge-warning me-3">{{ __('STG') }}</span>
-                    {{ $stgInstall->name }}
-                </a>
-            @else
-                <a href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg"
-                    class="btn border-square border w-100 text-start border-primary pb-3">{!! get_svg_icon('icons/duotone/Navigation/Plus.svg', 'svg-icon-dark svg-icon-2') !!}
-                    {{ __('Add Staging Install') }}
-                </a>
-            @endif
-        @endif
         @if ($install->type !== 'dev')
             @if ($site->hasInstallType('dev'))
                 @php

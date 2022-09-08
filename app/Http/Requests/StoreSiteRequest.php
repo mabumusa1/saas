@@ -35,7 +35,7 @@ class StoreSiteRequest extends FormRequest
                 }
             },
             ],
-            'type' => 'required_if:isValidation,null|in:dev,stg,prd',
+            'type' => 'required_if:isValidation,null|in:dev,prd',
             'owner' => 'required_if:isValidation,null|in:mine,transferable',
             'subscription_id' => ['required_if:owner,mine',
                 Rule::exists('subscriptions', 'id')->whereIn('id', $this->account->subscriptions->pluck('id')),

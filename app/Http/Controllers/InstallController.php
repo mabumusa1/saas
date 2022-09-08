@@ -26,7 +26,7 @@ class InstallController extends Controller
     {
         $envs = $site->installs->pluck('type')->toArray();
 
-        $allowed = ['prd', 'stg', 'dev'];
+        $allowed = ['prd', 'dev'];
         $envs = array_diff($allowed, $envs);
         /// The user is not allowed to create more envs
         if ($envs === []) {

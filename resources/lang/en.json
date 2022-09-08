@@ -17,7 +17,7 @@
     "Add Group": "Add Group",
     "Add now": "Add now",
     "Add Sites to this group": "Add Sites to this group",
-    "Add Staging": "Add Staging",
+
     "Add User": "Add User",
     "Add user": "Add user",
     "Already have an account?": "Already have an account?",
@@ -192,7 +192,6 @@
     "Staging (optional sandbox)": "Staging (optional sandbox)",
     "Start with a blank site": "Start with a blank site",
     "Steer Campaign": "Steer Campaign",
-    "STG": "STG",
     "Storage": "Storage",
     "Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.": "Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.",
     "Subject": "Subject",

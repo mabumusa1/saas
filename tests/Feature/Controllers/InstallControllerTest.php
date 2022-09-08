@@ -44,7 +44,6 @@ class InstallControllerTest extends TestCase
             ->for($this->site)
             ->state(new Sequence(
                 ['type' => 'prd'],
-                ['type' => 'stg'],
                 ['type' => 'dev']
             ))
             ->create();
@@ -53,14 +52,6 @@ class InstallControllerTest extends TestCase
         $response = $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site]));
         $response->assertRedirect();
         $response->assertSessionHas('error');
-    }
-
-    public function test_create_displays_view_specific_env()
-    {
-        $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site, 'env' => 'stg']))
-        ->assertOk()
-        ->assertViewIs('installs.create')
-        ->assertViewHas('selectedEnv', 'stg');
     }
 
     public function test_create_displays_view()

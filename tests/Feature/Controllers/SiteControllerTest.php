@@ -103,7 +103,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 'test',
-            'type' => 'stg',
+            'type' => 'dev',
             'owner' => 'mine',
             'subscription_id' => $subscription->id,
             'start' => 'blank',
@@ -128,7 +128,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 123,
-            'type' => 'stg',
+            'type' => 'dev',
             'owner' => 'transferable',
         ]);
 
@@ -140,7 +140,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 'test',
-            'type' => 'stg',
+            'type' => 'dev',
             'owner' => 'mine',
             'subscription_id' => 22,
             'start' => 'blank',
@@ -159,7 +159,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 'ss[]',
-            'type' => 'stg',
+            'type' => 'dev',
             'owner' => 'mine',
             'subscription_id' => $subscription->id,
             'start' => 'blank',
@@ -177,7 +177,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 'test',
-            'type' => 'stg',
+            'type' => 'dev',
             'owner' => 'mine',
             'subscription_id' => $this->subscription->id,
             'start' => 'blank',
@@ -194,7 +194,7 @@ class SiteControllerTest extends TestCase
         $response = $this->post(route('sites.store', $this->account), [
             'sitename' => 'test name',
             'installname' => 'test',
-            'type' => 'stg',
+            'type' => 'dev',
             'isValidation' => true,
         ]);
 
