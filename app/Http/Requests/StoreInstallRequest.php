@@ -33,7 +33,7 @@ class StoreInstallRequest extends FormRequest
                 }
             },
             ],
-            'type' => 'required_if:isValidation,null|in:stg,dev,prd',
+            'type' => 'required_if:isValidation,null|in:dev,prd',
             'isValidation' => 'sometimes|boolean',
         ];
     }

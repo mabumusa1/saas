@@ -22,7 +22,6 @@ if (! function_exists('installType')) {
     {
         return [
             'prd' => 'Production',
-            'stg' => 'Staging',
             'dev' => 'Dev',
         ];
     }

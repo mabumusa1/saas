@@ -27,9 +27,6 @@
                                                 @case('prd')
                                                     <span class="badge badge-success">{{ __('PRD') }}</span>
                                                 @break
-                                                @case('stg')
-                                                    <span class="badge badge-light-success">{{ __('STG') }}</span>
-                                                @break
                                                 @case('dev')
                                                     <span class="badge badge-light-dark">{{ __('DEV') }}</span>
                                                 @break

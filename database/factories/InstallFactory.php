@@ -18,7 +18,7 @@ class InstallFactory extends Factory
     {
         return [
             'name' =>  $this->faker->firstName(),
-            'type' => $this->faker->randomElement(['prd', 'stg', 'dev']),
+            'type' => $this->faker->randomElement(['prd', 'dev']),
             'locked' => false,
             'status' => $this->faker->randomElement(['creating', 'up', 'down']),
         ];

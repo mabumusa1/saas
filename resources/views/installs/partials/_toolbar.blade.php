@@ -48,42 +48,8 @@
                             <a class="menu-link px-3 d-flex justify-content-between disabled" href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=prd">{{ __('Add Production install') }}</a>
                         </div>
                         @endif
-
-                        @if($site->hasInstallType('stg'))
-                        @if($install->type !== 'stg')
-                        <?php
-                            $stgInstall = $site->installs->where('type', 'stg')->first();
-                        ?>
-                        <div class="menu-item">
-                            <a href="{{ route('installs.show', ['account' => $account, 'site' => $site, 'install' => $stgInstall->id]) }}" class="menu-link px-3 d-flex justify-content-between">
-                                <div>
-                                    <span class="badge badge-warning me-3">{{ __('STG') }}</span>
-                                    {{ $stgInstall->name }}
-                                </div>
-                            </a>
-                        </div>
-                        @endif
-                        @else
-                        <div class="menu-item bg-light-primary text-light">
-                            <a class="menu-link px-3 d-flex justify-content-between disabled" {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=stg" --}}>{{ __('Add Staging install') }}</a>
-                        </div>
-                        @endif
-
+ 
                         @if($site->hasInstallType('dev'))
-                        @if($install->type !== 'dev')
-                        <?php
-                            $devInstall = $site->installs->where('type', 'dev')->first();
-                        ?>
-                        <div class="menu-item">
-                            <a href="{{ route('installs.show', ['account' => $account, 'site' => $site, 'install' => $devInstall->id]) }}" class="menu-link px-3 d-flex justify-content-between">
-                                <div>
-                                    <span class="badge badge-warning me-3">{{ __('STG') }}</span>
-                                    {{ $devInstall->name }}
-                                </div>
-                            </a>
-                        </div>
-                        @endif
-                        @else
                         <div class="menu-item bg-light-primary text-light">
                             <a class="menu-link px-3 d-flex justify-content-between disabled" {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev" --}}>{{ __('Add Development install') }}</a>
                         </div>
