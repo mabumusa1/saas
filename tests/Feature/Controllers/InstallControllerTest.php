@@ -54,8 +54,15 @@ class InstallControllerTest extends TestCase
         $response->assertSessionHas('error');
     }
 
+    public function test_duplicate_env()
+    {
+        $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site, 'env' => 'dev']))
+        ->assertRedirect(route('installs.show', ['account' => $this->account, 'site' => $this->site, 'install' => $this->site->installs()->first()]));
+    }
+
     public function test_create_displays_view_specific_env()
     {
+        $this->site->installs()->delete();
         $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site, 'env' => 'dev']))
         ->assertOk()
         ->assertViewIs('installs.create')
