@@ -54,6 +54,14 @@ class InstallControllerTest extends TestCase
         $response->assertSessionHas('error');
     }
 
+    public function test_create_displays_view_specific_env()
+    {
+        $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site, 'env' => 'dev']))
+        ->assertOk()
+        ->assertViewIs('installs.create')
+        ->assertViewHas('selectedEnv', 'dev');
+    }
+
     public function test_create_displays_view()
     {
         $this->get(route('installs.create', ['account' => $this->account, 'site' => $this->site]))
