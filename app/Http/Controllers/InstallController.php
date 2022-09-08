@@ -25,6 +25,12 @@ class InstallController extends Controller
     public function create(Account $account, Site $site)
     {
         $envs = $site->installs->pluck('type')->toArray();
+        $requestedEnv = request()->query('env');
+
+        // The user is not allowed to create duplicate environemnt
+        if (in_array($requestedEnv, $envs)) {
+            return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $site->installs()->first()])->with('error', __('You have already created '.$requestedEnv.' site'));
+        }
 
         $allowed = ['prd', 'dev'];
         $envs = array_diff($allowed, $envs);
@@ -32,9 +38,10 @@ class InstallController extends Controller
         if ($envs === []) {
             return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $site->installs()->first()])->with('error', __('You can not create more installs for this site'));
         }
+
         $selectedEnv = '';
-        if (in_array(request()->query('env'), $envs)) {
-            $selectedEnv = request()->query('env');
+        if (in_array($requestedEnv, $envs)) {
+            $selectedEnv = $requestedEnv;
         } else {
             $selectedEnv = reset($envs);
         }
