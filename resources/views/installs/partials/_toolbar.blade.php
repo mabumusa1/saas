@@ -49,7 +49,7 @@
                         </div>
                         @endif
  
-                        @if($site->hasInstallType('dev'))
+                        @if(!$site->hasInstallType('dev'))
                         <div class="menu-item bg-light-primary text-light">
                             <a class="menu-link px-3 d-flex justify-content-between disabled" {{-- href="{{ route('installs.create', ['account' => $currentAccount, 'site' => $site]) }}?env=dev" --}}>{{ __('Add Development install') }}</a>
                         </div>
