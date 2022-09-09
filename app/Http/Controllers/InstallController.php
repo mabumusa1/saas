@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CopyInstallRequest;
 use App\Http\Requests\StoreInstallRequest;
 use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Site;
 use App\Notifications\InstallCopyNotification;
+use Illuminate\Support\Facades\DB;
 use Notification;
 
 class InstallController extends Controller
@@ -62,20 +64,33 @@ class InstallController extends Controller
      */
     public function store(Account $account, Site $site, StoreInstallRequest $request)
     {
+        $user = $request->user();
         if ($request->has('isValidation')) {
             return response()->json(['valid' => true]);
         }
         $data = $request->validated();
         $data['site_id'] = $site->id;
-        $install = Install::create($data);
-        Domain::create([
-            'install_id' => $install->id,
-            /* @phpstan-ignore-next-line */
-            'name' => $install->cname,
-            'primary' => true,
-            'verified' => true,
-            'verified_at' => now(),
-        ]);
+
+        $install = DB::transaction(function () use ($data, $user) {
+            $install = Install::create($data);
+            Contact::create([
+                'install_id' => $install->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+            ]);
+
+            Domain::create([
+                'install_id' => $install->id,
+                /* @phpstan-ignore-next-line */
+                'name' => $install->cname,
+                'primary' => true,
+                'verified' => true,
+                'verified_at' => now(),
+            ]);
+
+            return $install;
+        });
 
         return redirect()->route('installs.show', ['account' => $account, 'site' => $site, 'install' => $install])->with('success', __('New installation is created'));
     }
