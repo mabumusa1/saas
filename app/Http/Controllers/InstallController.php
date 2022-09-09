@@ -12,6 +12,7 @@ use App\Models\Site;
 use App\Notifications\InstallCopyNotification;
 use Illuminate\Support\Facades\DB;
 use Notification;
+use PhpParser\Node\Stmt\Switch_;
 
 class InstallController extends Controller
 {
@@ -68,10 +69,28 @@ class InstallController extends Controller
         if ($request->has('isValidation')) {
             return response()->json(['valid' => true]);
         }
+
+        // limit users in case someone modify html or javascript on the frontend
+        switch ($request->type) {
+            case 'prd':
+                if ($account->activeSubscriptions === 0) {
+                    return redirect()->back()->with('error', __('Please add a new subsription'));
+                }
+
+                break;
+            case 'dev':
+                if ($account->availableQuota === 0 && $account->activeSubscriptions === 0) {
+                    return redirect()->back()->with('error', __('You have already consumed free quota. Please subscribe. '));
+                } else {
+                    $account->quota -= 1;
+                }
+                break;
+        }
+
         $data = $request->validated();
         $data['site_id'] = $site->id;
 
-        $install = DB::transaction(function () use ($data, $user) {
+        $install = DB::transaction(function () use ($data, $user, $account) {
             $install = Install::create($data);
             Contact::create([
                 'install_id' => $install->id,
@@ -88,6 +107,10 @@ class InstallController extends Controller
                 'verified' => true,
                 'verified_at' => now(),
             ]);
+
+            if ($install->type === 'dev') {
+                $account->update();
+            }
 
             return $install;
         });

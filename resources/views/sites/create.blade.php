@@ -188,7 +188,7 @@
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
                                                     <input class="form-check-input" type="radio" name="type" value="prd"
-                                                        @if ($subscriptions->count() > 0) checked @else disabled @endif />
+                                                        @if ($subscriptions->count() > $installs->where('type', 'prd')->count()) checked @else disabled @endif />
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -211,8 +211,7 @@
                                             <div class="d-flex me-2">
                                                 <!--begin::Radio-->
                                                 <div class="form-check-custom form-check-solid form-check-primary me-2">
-                                                    <input class="form-check-input" type="radio" name="type" value="dev"
-                                                        disabled />
+                                                    <input class="form-check-input" type="radio" name="type" value="dev" @if ($currentAccount->activeSubscriptions === $installs->where('type', 'dev')->count()) || $currentAccount->availableQuota === 0) disabled @endif/>
                                                 </div>
                                                 <!--end::Radio-->
 
@@ -392,7 +391,7 @@
                                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
                                             'content')
                                     },
-                                    url: '{{ route('sites.store', $currentAccount->id) }}',
+                                    url: "{{ route('sites.store', $currentAccount->id) }}",
                                     data: function(val) {
                                         return {
                                             installname: val,
