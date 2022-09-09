@@ -219,7 +219,7 @@ class Account extends Model
                     return $this->quota;
                 }
 
-                return $this->quota - $this->installs()->where('owner', 'transferable')->count();
+                return $this->quota - $this->installs()->where(['owner', 'transferable'])->count();
             }
         );
     }

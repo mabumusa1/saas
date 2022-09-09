@@ -42,3 +42,42 @@ We implement three methods to control the quality of the code:
 
 Each code you push to Github or PR you start will be evaluated using these scripts on Github
 
+# Trouble Shooting
+Turn of DDEV
+```
+ddev poweroff
+```
+
+Delete all containers using the following command:
+```
+docker rm -f $(docker ps -a -q)
+```
+Delete all volumes using the following command:
+```
+docker volume rm $(docker volume ls -q)
+```
+Stop docker
+```
+sudo service docker stop
+```
+If docker-docker desktop and docker (cli) both are running remove one or bind 
+rm .ddev/laravel-preference
+rm .env
+rm -rf vendor/*
+git checkout dev
+git pull origin dev
+
+Stop apache
+
+```
+sudo service apache2 stop
+```
+
+Restart Docker
+```
+sudo service docker  restart
+```
+Start DDEV
+```
+ddev start 
+```
