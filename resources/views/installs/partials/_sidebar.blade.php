@@ -2,17 +2,17 @@
 $links = [
     ['label' => __('Overview'), 'link' => route('installs.show', [$account, $site, $install])],
     ['label' => __('Domains'), 'link' => route('domains.index', [$account, $site, $install])],
-    ['label' => __('CDN'), 'link' => route('installs.cdn', [$account, $site, $install])],
-    ['label' => __('Redirect Rules'), 'link' => route('installs.redirectRules', [$account, $site, $install])],
+    //['label' => __('CDN'), 'link' => route('installs.cdn', [$account, $site, $install])],
+    //['label' => __('Redirect Rules'), 'link' => route('installs.redirectRules', [$account, $site, $install])],
     ['label' => __('Backups'), 'link' => route('backups.index', [$account, $site, $install])],
-    ['label' => __('Access Logs'), 'link' => route('installs.accessLogs', [$account, $site, $install])],
-    ['label' => __('Error Logs'), 'link' => route('installs.errorLogs', [$account, $site, $install])],
-    ['label' => __('Utilities'), 'link' => route('installs.utilities', [$account, $site, $install])],
-    ['label' => __('Caching'), 'link' => route('installs.caching', [$account, $site, $install])],
-    ['label' => __('Site Migration'), 'link' => route('installs.migration', [$account, $site, $install])],
-    ['label' => __('Go live checklist'), 'link' => route('installs.liveCheck', [$account, $site, $install])],
-    ['label' => __('Web Rules'), 'link' => route('installs.webRules', [$account, $site, $install])],
-    ['label' => __('Cron Commands'), 'link' => route('installs.cron', [$account, $site, $install])],
+    //['label' => __('Access Logs'), 'link' => route('installs.accessLogs', [$account, $site, $install])],
+    //['label' => __('Error Logs'), 'link' => route('installs.errorLogs', [$account, $site, $install])],
+    //['label' => __('Utilities'), 'link' => route('installs.utilities', [$account, $site, $install])],
+    //['label' => __('Caching'), 'link' => route('installs.caching', [$account, $site, $install])],
+    //['label' => __('Site Migration'), 'link' => route('installs.migration', [$account, $site, $install])],
+    //['label' => __('Go live checklist'), 'link' => route('installs.liveCheck', [$account, $site, $install])],
+    //['label' => __('Web Rules'), 'link' => route('installs.webRules', [$account, $site, $install])],
+    //['label' => __('Cron Commands'), 'link' => route('installs.cron', [$account, $site, $install])],
 ];
 
 ?>
