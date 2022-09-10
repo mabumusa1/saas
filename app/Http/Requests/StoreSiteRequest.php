@@ -47,4 +47,24 @@ class StoreSiteRequest extends FormRequest
             'isValidation' => 'sometimes|boolean',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->has('type')) {
+                switch ($this->input('type')) {
+                    case 'prd':
+                        if ($this->account->activeSubscriptions === 0) {
+                            $validator->errors()->add('type', __('Please add a new subsription.'));
+                        }
+                        break;
+                    case 'dev':
+                        if ($this->account->availableQuota === 0 && $this->account->activeSubscriptions === 0) {
+                            $validator->errors()->add('type', __('You have already consumed free quota. Please subscribe.'));
+                        }
+                        break;
+                }
+            }
+        });
+    }
 }

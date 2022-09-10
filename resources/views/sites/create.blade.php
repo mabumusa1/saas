@@ -43,14 +43,12 @@
                                                 @if ($currentAccount->availableQuota === 0 && $activeSubscriptions->count() === 0) disabled @endif
                                                 @if ($activeSubscriptions->count() === 0 && $currentAccount->availableQuota > 0) checked @endif>
                                             <label class="form-check-label opacity-100" for="radioTransferable">
+                                                
                                                 {{ __('This site is transferable; it will be moved to someone elses account.') }}
                                                 <br />
                                                 {{ __('You will be transferring the site to a client or collaborator') }}
-                                                @if ($currentAccount->availableQuota === 0)
-                                                    {{ __('Get unlimited transfered sites when you subscribe to one of our plans') }}
-                                                    {{ __('or request transferable sites without entering your billing details') }}
-                                                    <a href="#">{{ __('Request Form') }}</a>
-                                                @endif
+                                                <br />
+                                                {{ __('You have :quota installs to be created', ['quota' => $currentAccount->availableQuota]) }}
                                             </label>
                                         </div>
                                     </div>

@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('pm_last_four', 4)->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->string('email')->nullable();
-            $table->integer('quota')->default(0);
+            $table->integer('quota')->default(1);
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('data_center_id')->references('id')->on('data_centers');
