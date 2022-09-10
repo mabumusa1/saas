@@ -45,6 +45,20 @@ class StoreInstallRequest extends FormRequest
                 if ($this->site->hasInstallType($this->input('type'))) {
                     $validator->errors()->add('type', __('This install type already exists.'));
                 }
+
+                // limit users in case someone modify html or javascript on the frontend
+                switch ($this->input('type')) {
+                    case 'prd':
+                        if ($this->account->activeSubscriptions === 0) {
+                            $validator->errors()->add('type', __('Please add a new subsription.'));
+                        }
+                        break;
+                    case 'dev':
+                        if ($this->account->availableQuota === 0 && $this->account->activeSubscriptions === 0) {
+                            $validator->errors()->add('type', __('You have already consumed free quota. Please subscribe.'));
+                        }
+                        break;
+                }
             }
         });
     }

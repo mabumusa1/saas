@@ -145,8 +145,7 @@ class SiteControllerTest extends TestCase
             'subscription_id' => 22,
             'start' => 'blank',
         ]);
-
-        $response->assertForbidden();
+        $response->assertSessionHasErrors('subscription_id');
     }
 
     public function test_site_store_fails_when_passing_wrong_url()
