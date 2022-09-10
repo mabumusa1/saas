@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('site_id');
             $table->string('name')->unique();
-            $table->enum('type', ['prd', 'stg', 'dev']);
+            $table->enum('type', ['prd', 'dev']);
             $table->enum('owner', ['mine', 'transferable']);
             $table->boolean('locked')->default(false);
             $table->enum('status', ['creating', 'up', 'down'])->default('creating');
