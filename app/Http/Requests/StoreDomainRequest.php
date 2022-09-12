@@ -33,9 +33,13 @@ class StoreDomainRequest extends FormRequest
                     $fail(__('Invalid Domain Name'));
                 }
             }, new UniqueDomainRule($this->account, $this->install),
+            function ($attribute, $value, $fail) {
+                if (count($this->install->domains) > 2) {
+                    $fail(__('Cannot install more than one domain.'));
+                }
+            },
             ],
             'isValidation' => 'sometimes|boolean',
-
         ];
     }
 

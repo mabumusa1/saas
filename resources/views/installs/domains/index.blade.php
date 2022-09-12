@@ -9,9 +9,11 @@
         <div class="card card-borded">
             <div class="card-header">
                 <h2 class="mb-0 card-title">{{ __('Domains & Redirect') }}</h2>
+                @if(count($install->domains) < 2 )
                 <div class="card-toolbar">
                     <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#create_domain_modal">{{ __('Add Domain') }}</button>
-                </div>        
+                </div> 
+               @endif 
             </div>
             <div class="card-body">
                 <h3>{{ __('Primary Domain') }}</h3>
