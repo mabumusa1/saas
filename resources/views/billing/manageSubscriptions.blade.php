@@ -1,6 +1,7 @@
 <?php
 $selectedPlan = $plans->first();
 if (request()->has('plan') && $plans->where('id', request()->input('plan'))->count() == 1) {
+    
     $selectedPlan = $plans->where('id', request()->input('plan'))->first();
 }
 ?>
@@ -25,9 +26,9 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
                                 <div class="nav-group nav-group-outline mx-auto mb-15" data-kt-buttons="true">
                                     <a href="#"
                                         class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active"
-                                        data-kt-plan="month">Monthly</a>
+                                        data-kt-plan="month">{{ __('Monthly') }}</a>
                                     <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3"
-                                        data-kt-plan="annual">Annual</a>
+                                        data-kt-plan="annual">{{ __('Annual') }}</a>
                                 </div>
                                 <!--end::Nav group-->
                             </div>
@@ -38,7 +39,7 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
                                 @foreach ($plans as $plan)
                                     <option value="{{ $plan->id }}"
                                         {{ $plan->id == $selectedPlan->id ? 'selected' : '' }}>
-                                        {{ $plan->contacts }}</option>
+                                        {{ number_format($plan->contacts,0) }}</option>
                                 @endforeach
                             </select>
 
@@ -60,8 +61,8 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
                                         <div class="text-center" id="plan_price">
                                             <span class="mb-2 text-primary">{{ __('$') }}</span>
                                             <span id="priceSpan" class="fs-3x fw-bolder text-primary"
-                                                data-kt-plan-price-month="{{ $selectedPlan->monthly_price }}"
-                                                data-kt-plan-price-annual="{{ $selectedPlan->yearly_price }}">{{ $selectedPlan->monthly_price }}</span>
+                                                data-kt-plan-price-month="{{ number_format($selectedPlan->monthly_price, 0) }}"
+                                                data-kt-plan-price-annual="{{ number_format($selectedPlan->yearly_price,0) }}">{{ number_format($selectedPlan->monthly_price, 0) }}</span>
                                             <span class="fs-7 fw-bold opacity-50">/
                                                 <span data-kt-element="period">{{ __('Mon') }}</span></span>
                                         </div>
@@ -70,7 +71,7 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
                                     <!--end::Heading-->
                                     <!--begin::Features-->
                                     <div class="w-100 mb-10" id="features">
-                                        @foreach ($plan->features as $feature)
+                                        @foreach ($selectedPlan->features as $feature)
                                             <div class="d-flex align-items-center mb-5">
                                                 <span
                                                     class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3">{{ $feature }}</span>
@@ -114,7 +115,7 @@ if (request()->has('plan') && $plans->where('id', request()->input('plan'))->cou
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Card</h5>
+                    <h5 class="modal-title">{{ __('Add Card') }}</h5>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"

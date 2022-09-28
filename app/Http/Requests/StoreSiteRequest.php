@@ -59,10 +59,16 @@ class StoreSiteRequest extends FormRequest
                         }
                         break;
                     case 'dev':
-                        if ($this->account->availableQuota === 0 && $this->account->activeSubscriptions === 0) {
+                        if ($this->account->availableQuota === 0) {
                             $validator->errors()->add('type', __('You have already consumed free quota. Please subscribe.'));
                         }
                         break;
+                }
+            }
+
+            if ($this->has('owner')) {
+                if ($this->input('owner') === 'transfezrable' && $this->input('type') === 'prd') {
+                    $validator->errors()->add('type', __('Only Dev installation types are allowed with transferable sites.'));
                 }
             }
         });

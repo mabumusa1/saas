@@ -87,8 +87,10 @@ class Subscription extends CashierSubscription
      */
     public function scopeAvailable($query): Builder
     {
-        /* @phpstan-ignore-next-line */
-        return $query->has('sites', '<', DB::raw('`quantity`'));
+        return $query->whereHas('sites', function ($query) {
+            $query->whereNull('deleted_at')
+            ->whereNull('subscription_id');
+        });
     }
 
     /**
