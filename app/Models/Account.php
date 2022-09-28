@@ -207,7 +207,7 @@ class Account extends Model
     }
 
     /**
-     * Get avaialbeQouta for transferable sites.
+     * Get the number of sites a user can create on qouta for transferable sites.
      *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
@@ -225,7 +225,7 @@ class Account extends Model
     }
 
     /**
-     * Get avaialbeQouta for transferable sites.
+     * Get the number of subscriptions that are attached to sites.
      *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
@@ -239,7 +239,7 @@ class Account extends Model
     }
 
     /**
-     * Get totalActiveSubscriptions for transferable sites.
+     * Get the total number of subscriptions regardless of if they are attached to sites or not.
      *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
@@ -247,13 +247,28 @@ class Account extends Model
     {
         return new Attribute(
             get: function () {
-                return $this->subscriptions()->active()->sum('quantity');
+                return $this->subscriptions()->active()->available()->sum('quantity');
             }
         );
     }
 
     /**
-     * Get availableSubscriptions for transferable sites.
+     * Get availableSubscriptionsCount for mine sites.
+     *
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function availableSubscriptionsCount(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                /* @phpstan-ignore-next-line */
+                return $this->totalActiveSubscriptions - $this->activeSubscriptions->count();
+            }
+        );
+    }
+
+    /**
+     * Get availableSubscriptions for mine sites.
      *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
@@ -261,8 +276,7 @@ class Account extends Model
     {
         return new Attribute(
             get: function () {
-                /* @phpstan-ignore-next-line */
-                return $this->activeSubscriptions->sum('quantity') - $this->activeSubscriptions->sum('sites_count');
+                return $this->subscriptions()->active()->available()->get();
             }
         );
     }

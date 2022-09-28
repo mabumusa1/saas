@@ -55,9 +55,20 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        $installs = $account->installs()->get();
-        /* @phpstan-ignore-next-line */
-        return view('sites.create', ['installs' => $installs, 'subscriptions' => $account->subscriptions()->withCount('sites')->get(), 'totalActiveSubscriptions' => $account->totalActiveSubscriptions, 'activeSubscriptions' => $account->activeSubscriptions]);
+        $canCreateMine = $canCreateTransferable = $canCreateMineChecked = $canCreateTransferableChecked = false;
+        if ($account->availableSubscriptionsCount > 0) {
+            $canCreateMine = true;
+            $canCreateTransferable = true;
+            $canCreateMineChecked = true;
+            $canCreateTransferableChecked = false;
+        } elseif ($account->availableQuota > 0) {
+            $canCreateMine = false;
+            $canCreateTransferable = true;
+            $canCreateMineChecked = false;
+            $canCreateTransferableChecked = true;
+        }
+
+        return view('sites.create', ['canCreateMine' => $canCreateMine, 'canCreateTransferable' => $canCreateTransferable, 'canCreateMineChecked' => $canCreateMineChecked, 'canCreateTransferableChecked' => $canCreateTransferableChecked]);
     }
 
     /**
