@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Events\AccountUpdatedEvent;
-use App\Models\Cashier\Subscription;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -145,16 +144,6 @@ class Account extends Model
     }
 
     /**
-     * Get all of the subscriptions for the Account.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
-     */
-    public function subscriptions()
-    {
-        return $this->hasMany(Subscription::class);
-    }
-
-    /**
      * Get all of the installs for the Account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
@@ -220,63 +209,6 @@ class Account extends Model
                 }
 
                 return $this->quota - $this->installs()->where('owner', 'transferable')->count();
-            }
-        );
-    }
-
-    /**
-     * Get the number of subscriptions that are attached to sites.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    public function activeSubscriptions(): Attribute
-    {
-        return new Attribute(
-            get: function () {
-                return $this->subscriptions()->active()->available()->withCount('sites')->get();
-            }
-        );
-    }
-
-    /**
-     * Get the total number of subscriptions regardless of if they are attached to sites or not.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    public function totalActiveSubscriptions(): Attribute
-    {
-        return new Attribute(
-            get: function () {
-                return $this->subscriptions()->active()->available()->sum('quantity');
-            }
-        );
-    }
-
-    /**
-     * Get availableSubscriptionsCount for mine sites.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    public function availableSubscriptionsCount(): Attribute
-    {
-        return new Attribute(
-            get: function () {
-                /* @phpstan-ignore-next-line */
-                return $this->totalActiveSubscriptions - $this->activeSubscriptions->count();
-            }
-        );
-    }
-
-    /**
-     * Get availableSubscriptions for mine sites.
-     *
-     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    public function availableSubscriptions(): Attribute
-    {
-        return new Attribute(
-            get: function () {
-                return $this->subscriptions()->active()->available()->get();
             }
         );
     }

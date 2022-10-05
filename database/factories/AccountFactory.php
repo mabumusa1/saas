@@ -29,7 +29,7 @@ class AccountFactory extends Factory
         ];
     }
 
-    /**
+    /*
      * Configure the model factory.
      *
      * @return $this
@@ -37,23 +37,25 @@ class AccountFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Account $account) {
-            if ($account->stripe_id == 'cus_LIGOOQC7OuqyAn') {
+            if ($account->stripe_id == 'cus_MYaek9JzpJVKic') {
                 $subscriptions = [
-                    ['account_id' => $account->id, 'name' => 's1', 'stripe_id' => 'sub_1Kbft4JJANQIX4AvXASaiV7R', 'stripe_status' => 'active', 'stripe_price' => 'price_1KYcdZJJANQIX4AvM2ySzZzb', 'quantity' => 1],
-                    ['account_id' => $account->id, 'name' => 's5', 'stripe_id' => 'sub_1KbfurJJANQIX4AvVTWFgUVW', 'stripe_status' => 'active', 'stripe_price' => 'price_1KYchzJJANQIX4AvCfLCKqjQ', 'quantity' => 1],
-                    ['account_id' => $account->id, 'name' => 's1', 'stripe_id' => 'sub_1KbfwQJJANQIX4AvatnKerTc', 'stripe_status' => 'active', 'stripe_price' => 'price_1KYcdZJJANQIX4AvM2ySzZzb', 'quantity' => 1],
-                ];
+                        ['name' => 's1', 'stripe_id' => 'sub_1LpTfLQtw9T5bCK1gBnPinct', 'stripe_status' => 'active', 'stripe_price' => 'price_1LmDwTQtw9T5bCK19IZz3F3M', 'quantity' => 1],
+                        ['name' => 's2', 'stripe_id' => 'sub_1LpTduQtw9T5bCK1fPtIMrnK', 'stripe_status' => 'active', 'stripe_price' => 'price_1LmE0IQtw9T5bCK1vLuWjLgn', 'quantity' => 1],
+                        ['name' => 's1', 'stripe_id' => 'sub_1LpTXUQtw9T5bCK15I1T5ARP', 'stripe_status' => 'active', 'stripe_price' => 'price_1LmDwTQtw9T5bCK19IZz3F3M', 'quantity' => 1],
+                    ];
                 foreach ($subscriptions as $subscription) {
                     $m = new Subscription($subscription);
                     $m->save();
-                    if ($subscription['stripe_id'] == 'sub_1Kbft4JJANQIX4AvXASaiV7R') {
-                        DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ?, ?)', [$m->id, 'si_LIGPEjRwAEbdS8', 'prod_LF6rlbuqYaz6k1', 'price_1KYcdZJJANQIX4AvM2ySzZzb', 1]);
-                    } elseif ($subscription['stripe_id'] == 'sub_1KbfurJJANQIX4AvVTWFgUVW') {
-                        DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ? ,?)', [$m->id, 'si_LIGRB2xa5SrEdq', 'prod_LF6vLk0UO67X1C', 'price_1KYchzJJANQIX4AvCfLCKqjQ', 1]);
-                    } elseif ($subscription['stripe_id'] == 'sub_1KbfwQJJANQIX4AvatnKerTc') {
-                        DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ? ,?)', [$m->id, 'si_LIGTYjTvt0jSF8', 'prod_LF6rlbuqYaz6k1', 'price_1KYcdZJJANQIX4AvM2ySzZzb', 1]);
+                    if ($subscription['stripe_id'] == 'sub_1LpTfLQtw9T5bCK1gBnPinct') {
+                        DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ?, ?)', [$m->id, 'si_MYaiaj3zmUzjLu', 'prod_MVEPWB3RPLdOEI', 'price_1LmDwTQtw9T5bCK19IZz3F3M', 1]);
+                    } elseif ($subscription['stripe_id'] == 'sub_1LpTduQtw9T5bCK1fPtIMrnK') {
+                        DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ? ,?)', [$m->id, 'si_MYapvVAf7iWFO1', 'prod_MVETjTi3IupeLK', 'price_1LmE0IQtw9T5bCK1vLuWjLgn', 1]);
+                    } elseif ($subscription['stripe_id'] == 'sub_1LpTXUQtw9T5bCK15I1T5ARP') {
+                        DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ? ,?)', [$m->id, 'si_MYardAsDAVX51y', 'prod_MVEPWB3RPLdOEI', 'price_1LmDwTQtw9T5bCK19IZz3F3M', 1]);
                     }
-                    Site::factory()->state(['account_id'=>$account->id, 'subscription_id' => $m->id, 'transferable' => false])->create();
+                    $site = Site::factory()->state(['account_id'=>$account->id, 'transferable' => false])->create();
+                    $m->site_id = $site->id;
+                    $m->save();
                 }
             }
         });

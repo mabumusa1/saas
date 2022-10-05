@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 /**
@@ -69,13 +70,13 @@ use Laravel\Cashier\Subscription as CashierSubscription;
 class Subscription extends CashierSubscription
 {
     /**
-     * Get all of the sites for the Subscription.
+     * Get the site that belongs to this Subscription.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sites(): HasMany
+    public function site(): BelongsTo
     {
-        return $this->hasMany(Site::class);
+        return $this->belongsTo(Site::class);
     }
 
     /**

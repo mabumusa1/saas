@@ -28,7 +28,7 @@ class AccountWithBillingSeeder extends Seeder
         CauserResolver::setCauser(User::find(2));
         $account = Account::withoutEvents(function () {
             return Account::factory()->state(new Sequence(
-                ['stripe_id' => 'cus_LIGOOQC7OuqyAn', 'pm_type' => 'visa', 'pm_last_four' => 4242],
+                ['name' => 'Jane Doe', 'stripe_id' => 'cus_MYaek9JzpJVKic', 'pm_type' => 'visa', 'pm_last_four' => 4242, 'email' => 'jane@example.com'],
             ))->create();
         });
 
@@ -36,6 +36,7 @@ class AccountWithBillingSeeder extends Seeder
 
         $account1Roles = [2=>['role'=>'owner'], 3 => ['role'=>'fb'], 4 => ['role'=>'fnb'], 5 => ['role'=>'pb'], 6 => ['role'=>'pnb']];
         $account->users()->sync($account1Roles);
+
         $sites = $account->sites()->get();
         foreach ($sites as $key => $site) {
             if ($site->installs->count() < 2) {

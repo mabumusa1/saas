@@ -27,15 +27,18 @@
                                                     <p>{{ __('Available Subscriptions') }}</p>
                                                     <p class="text-muted">{{ __('# of subscriptions you purchased') }}</p>
                                                 </td>
-                                                <td>{{ $currentAccount->subscriptions->count() }}</td>
+                                                {{-- {{ $currentAccount->sites->count() }} --}}<td>Insert Number of subscriptions</td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <p>{{ __('Available Transferable Sites') }}</p>
                                                     <p class="text-muted">{{ __('# of sites you can transfer') }}</p>
-                                                    @if($currentAccount->subscriptions->count() === 0)
+                                                    {{--  
+                                                    @if($currentAccount->sites->count() === 0)
                                                     <a href="{{ route('billing.manageSubscriptions', $currentAccount) }}">{{ __('Purchase at least one subscription and get unlimited free transfers') }}</a>
                                                     @endif
+                                                       
+                                                    --}}
                                                 </td>
                                                 <td>                                                    
                                                     {{ $currentAccount->quota }}                                                    

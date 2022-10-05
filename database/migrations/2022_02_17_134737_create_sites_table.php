@@ -15,7 +15,6 @@ return new class extends Migration {
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('account_id');
-            $table->foreignId('subscription_id')->nullable()->constrained()->references('id')->on('subscriptions');
             $table->string('name');
             $table->boolean('transferable')->default(false);
             $table->timestamps();
