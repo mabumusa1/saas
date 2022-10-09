@@ -69,7 +69,6 @@ class Install extends Model
         'site_id',
         'name',
         'type',
-        'owner',
         'locked',
         'status',
     ];

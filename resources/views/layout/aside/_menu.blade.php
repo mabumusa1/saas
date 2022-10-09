@@ -158,7 +158,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">{{ __('Invoices') }}</span>
+                        <span class="menu-title">{{ __('Invoices & Billing Details') }}</span>
                     </a>
                 </div>
                 <div class="menu-item">

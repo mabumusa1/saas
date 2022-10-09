@@ -80,21 +80,6 @@ class Subscription extends CashierSubscription
     }
 
     /**
-     * Scope a query to check if it has available sites.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeAvailable($query): Builder
-    {
-        return $query->whereHas('sites', function ($query) {
-            $query->whereNull('deleted_at')
-            ->whereNull('subscription_id');
-        });
-    }
-
-    /**
      * Get the plan that owns the Subscription.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

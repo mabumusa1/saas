@@ -34,11 +34,17 @@
                         @include('sites._partials._step1')
                         @include('sites._partials._step2')
                         @include('sites._partials._step3')
-                        
+                        @include('sites._partials._step4')
                     </div>
                     <div class="card-footer text-end">
-                        <button type="submit" name="submitButton" class="btn btn-success btn-lg">
+                        <button id="btn-submit" type="submit" name="submitButton" class="btn btn-success btn-lg" data-kt-stepper-action="submit">
+                            <span class="indicator-label">
                                 {{ __('Add site') }}
+                            </span>
+                            <span class="indicator-progress">
+                                {{ __('Please wait...') }} <span
+                                    class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>                                
                         </button>
                     </div>
                 </form>
@@ -47,5 +53,10 @@
             </div>
         </div>
     </div>
+@push('scripts')
+<script>
+    const plans = @json($plans);
+</script>
+@endpush   
 @include('sites._partials._scripts')  
 </x-base-layout>

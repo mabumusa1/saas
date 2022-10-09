@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-6">
                 <!--begin::Option-->
-                <input type="radio" class="btn-check" name="owner" value="mine" id="radioMine" autocomplete="off" @if($canCreateMine) checked @else disabled @endif>
+                <input type="radio" class="btn-check" name="owner" value="mine" id="radioMine" autocomplete="off" checked>
                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5" for="radioMine">
                     <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                     <span class="svg-icon svg-icon-4x me-4">
@@ -24,18 +24,13 @@
                         <span class="text-muted fw-semibold fs-6">
                             {{ __('This site will be used in production and I will run it and pay for it') }}
                         </span>
-                        <span class="d-block fw-semibold text-start mt-3">
-                            <span class="fw-semibold fs-6">
-                                {{ __('You have :available subscription to be used', ['available' => $currentAccount->availableSubscriptionsCount]) }}
-                            </span>
-                        </span>    
                     </span>
                 </label>
                 <!--end::Option-->
             </div>
             <div class="col-6">
                 <!--begin::Option-->
-                <input type="radio" class="btn-check" name="owner" value="transferable" autocomplete="off" id="radioTransferable" @if(!$canCreateTransferable) disabled @endif @if($canCreateTransferableChecked) checked @endif  /> 
+                <input type="radio" class="btn-check" name="owner" value="transferable" autocomplete="off" id="radioTransferable" @if($currentAccount->availableQuota === 0) disabled @endif /> 
                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center" for="radioTransferable">
                     <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
                     <span class="svg-icon svg-icon-4x me-4">
@@ -53,12 +48,6 @@
                     <span class="d-block fw-semibold text-start">
                         <span class="text-dark fw-bold d-block fs-3">{{ __('This site is transferable') }}</span>
                         <span class="text-muted fw-semibold fs-6">{{ __('I am building it for someone else, it will be moved their account, and they will pay for it ') }}</span>
-                        <span class="d-block fw-semibold text-start mt-3">
-                            <span class="fw-semibold fs-6">
-                                {{ __('You have :available transferable site to be used', ['available' => $currentAccount->availableQuota]) }}
-                            </span>
-                        </span>
-
                     </span>
                     
                 </label>
