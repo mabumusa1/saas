@@ -16,12 +16,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Account> $accounts
  * @property-read int|null $accounts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|DataCenter newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DataCenter newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DataCenter query()
@@ -31,7 +29,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|DataCenter whereLabel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DataCenter whereRegion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DataCenter whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class DataCenter extends Model

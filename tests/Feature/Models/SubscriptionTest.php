@@ -4,8 +4,8 @@ namespace Tests\Feature\Models;
 
 use App\Models\Account;
 use App\Models\Activity;
-use App\Models\Cashier\Subscription;
 use App\Models\Plan;
+use App\Models\Subscription;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

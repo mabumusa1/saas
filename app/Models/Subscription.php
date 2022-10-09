@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Models\Cashier;
+namespace App\Models;
 
 use App\Models\Plan;
 use App\Models\Site;
-use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 /**
- * App\Models\Cashier\Subscription.
+ * App\Models\Subscription.
  *
  * @property int $id
  * @property int $account_id
@@ -26,7 +27,6 @@ use Laravel\Cashier\Subscription as CashierSubscription;
  * @property \Illuminate\Support\Carbon|null $ends_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Laravel\Cashier\SubscriptionItem> $items
  * @property-read int|null $items_count
  * @property-read \App\Models\Account $owner
@@ -34,7 +34,6 @@ use Laravel\Cashier\Subscription as CashierSubscription;
  * @property-read \Illuminate\Database\Eloquent\Collection|array<Site> $sites
  * @property-read int|null $sites_count
  * @property-read \App\Models\Account $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription active()
  * @method static Builder|Subscription available()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription canceled()
@@ -64,11 +63,16 @@ use Laravel\Cashier\Subscription as CashierSubscription;
  * @method static Builder|Subscription whereStripeStatus($value)
  * @method static Builder|Subscription whereTrialEndsAt($value)
  * @method static Builder|Subscription whereUpdatedAt($value)
- *
  * @mixin \Eloquent
+ * @property int|null $site_id
+ * @property-read Site|null $site
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription expiredTrial()
+ * @method static Builder|Subscription whereSiteId($value)
  */
-class Subscription extends CashierSubscription
+class Subscription extends Model
 {
+    use HasFactory;
+
     /**
      * Get the site that belongs to this Subscription.
      *

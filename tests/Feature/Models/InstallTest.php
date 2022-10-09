@@ -4,10 +4,10 @@ namespace Tests\Feature\Models;
 
 use App\Models\Account;
 use App\Models\Backup;
-use App\Models\Cashier\Subscription;
 use App\Models\Contact;
 use App\Models\Install;
 use App\Models\Site;
+use App\Models\Subscription;
 use App\Models\Transfer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -55,12 +55,12 @@ class InstallTest extends TestCase
     public function test_size_install_with_subscription():void
     {
         $this->subscription = Subscription::factory()->create([
-            'account_id' => $this->account->id,
             'name' => 's1',
         ]);
 
         $this->site->subscription_id = $this->subscription->id;
         $this->site->save();
+
         $this->assertEquals($this->install->size, 's1');
     }
 }

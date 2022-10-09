@@ -9,6 +9,36 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * App\Models\Domain.
+ *
+ * @property int $id
+ * @property int $install_id
+ * @property string $name
+ * @property string|null $redirect_to
+ * @property bool $primary
+ * @property int|null $verified_at
+ * @property bool $verification_failed
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Install $install
+ * @method static \Database\Factories\DomainFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereInstallId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain wherePrimary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereRedirectTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereVerificationFailed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Domain whereVerifiedAt($value)
+ * @mixin \Eloquent
+ */
 class Domain extends Model
 {
     use HasFactory, LogsActivity;

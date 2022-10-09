@@ -27,10 +27,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $available
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
- *
  * @method static \Database\Factories\PlanFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Plan newQuery()
@@ -51,7 +49,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereStripeYearlyPriceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereYearlyPrice($value)
- *
  * @mixin \Eloquent
  */
 class Plan extends Model

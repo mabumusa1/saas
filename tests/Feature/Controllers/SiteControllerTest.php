@@ -4,10 +4,10 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Account;
 use App\Models\AccountUser;
-use App\Models\Cashier\Subscription;
 use App\Models\Install;
 use App\Models\Plan;
 use App\Models\Site;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
