@@ -6,7 +6,6 @@ use App\Http\Requests\UpdateBillingRequest;
 use App\Models\Account;
 use App\Models\Plan;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class BillingController extends Controller
 {
@@ -75,38 +74,7 @@ class BillingController extends Controller
      */
     public function manageSubscriptions(Account $account)
     {
-        $plans = Plan::where('available', true)->get();
-
-        return view('billing.manageSubscriptions', ['plans' => $plans, 'intent' => $account->createSetupIntent()]);
-    }
-
-    /**
-     * Subscribe the account to a plan.
-     *
-     * @param Account $account
-     *
-     * @param Plan $plan
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function subscribe(Account $account, Plan $plan, Request $request)
-    {
-        $request->validate([
-            'period' => ['required',
-                Rule::in(['year', 'month']),
-            ],
-        ]);
-        $price = null;
-        if ($request->input('period') === 'month') {
-            $price = $plan->stripe_monthly_price_id;
-        } else {
-            $price = $plan->stripe_yearly_price_id;
-        }
-        $account->newSubscription($plan->name, $price)->create($account->defaultPaymentMethod()->id);
-
-        return redirect(route('sites.index', [$account->id]))->with('status', __('New site has been added to your account'));
+        return view('billing.manageSubscriptions');
     }
 
     /**

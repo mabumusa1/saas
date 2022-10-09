@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateSiteRequest;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Install;
+use App\Models\Plan;
 use App\Models\Site;
 use DB;
 use Illuminate\Http\Request;
@@ -55,20 +56,9 @@ class SiteController extends Controller
      */
     public function create(Account $account)
     {
-        $canCreateMine = $canCreateTransferable = $canCreateMineChecked = $canCreateTransferableChecked = false;
-        if ($account->availableSubscriptionsCount > 0) {
-            $canCreateMine = true;
-            $canCreateTransferable = true;
-            $canCreateMineChecked = true;
-            $canCreateTransferableChecked = false;
-        } elseif ($account->availableQuota > 0) {
-            $canCreateMine = false;
-            $canCreateTransferable = true;
-            $canCreateMineChecked = false;
-            $canCreateTransferableChecked = true;
-        }
+        $plans = Plan::where('available', true)->get();
 
-        return view('sites.create', ['canCreateMine' => $canCreateMine, 'canCreateTransferable' => $canCreateTransferable, 'canCreateMineChecked' => $canCreateMineChecked, 'canCreateTransferableChecked' => $canCreateTransferableChecked]);
+        return view('sites.create', ['plans' => $plans, 'intent' => $account->createSetupIntent()]);
     }
 
     /**
@@ -83,41 +73,40 @@ class SiteController extends Controller
     {
         $validated = $request->safe()->all();
 
-        if ($request->has('isValidation')) {
-            return response()->json(['valid' => true]);
-        }
-
         $siteData = [];
-
-        if ($request->filled('subscription_id')) {
-            $subscription = $account->subscriptions()->active()->available()->where('id', $validated['subscription_id'])->first();
-            if (is_null($subscription)) {
-                return redirect(route('sites.index', $account->id))->with('status', __('Subscription not found, site was not created'));
-            }
-            $siteData['subscription_id'] = $subscription->id;
-        }
-
         $siteData['account_id'] = $account->id;
         $siteData['name'] = $validated['sitename'];
         $user = $request->user();
+        if ($request->filled('planId')) {
+            $plan = Plan::where('id', $request->planId)->first();
+            if ($request->input('period') === 'month') {
+                $siteData['price'] = $plan->stripe_monthly_price_id;
+            } else {
+                $siteData['price'] = $plan->stripe_yearly_price_id;
+            }
 
-        $site = DB::transaction(function () use ($siteData, $validated, $user) {
-            return tap(Site::create($siteData), function (Site $site) use ($validated, $user) {
-                $install = Install::create([
-                    'site_id' => $site->id,
-                    'name' => $validated['installname'],
-                    'type' => $validated['type'],
-                    'owner' => $validated['owner'],
-                    'locked' => $validated['owner'] === 'transferable' ? true : false,
-                ]);
-                Contact::create([
-                    'install_id' => $install->id,
-                    'first_name' => $user->first_name,
-                    'last_name' => $user->last_name,
-                    'email' => $user->email,
-                ]);
-            });
-        });
+            $x = $account->newSubscription($plan->name, $siteData['price'])->create($account->defaultPaymentMethod()->id);
+            dd($x);
+        }
+
+        $site = Site::create([
+
+        ]);
+
+        $install = Install::create([
+            'site_id' => $site->id,
+            'name' => $validated['installname'],
+            'type' => $validated['type'],
+            'owner' => $validated['owner'],
+            'locked' => $validated['owner'] === 'transferable' ? true : false,
+        ]);
+
+        Contact::create([
+            'install_id' => $install->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+        ]);
 
         return redirect(route('installs.show', [$account, $site, $site->installs->first()]))->with('status', __('Site is under creation, we will send you an update once it is done!'));
     }
@@ -167,8 +156,8 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        $site->delete();
+        $site->subscription('default')->cancel();
 
-        return redirect(route('sites.index', $account->id))->with('status', __('Site successfully deleted!'));
+        return redirect(route('billing.manageSubscriptions', $account->id))->with('status', __('Site is scheduled for deletion'));
     }
 }

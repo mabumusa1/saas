@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('site_id');
             $table->string('name')->unique();
             $table->enum('type', ['prd', 'dev']);
-            $table->enum('owner', ['mine', 'transferable']);
             $table->boolean('locked')->default(false);
             $table->enum('status', ['creating', 'up', 'down'])->default('creating');
             $table->foreign('site_id')->references('id')->on('sites');

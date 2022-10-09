@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
@@ -93,7 +94,6 @@ class Plan extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'id',
         'available',
         'stripe_product_id',
         'stripe_monthly_price_id',
@@ -102,7 +102,6 @@ class Plan extends Model
         'updated_at',
         'archived',
         'options',
-        'features',
     ];
 
     /**
@@ -115,5 +114,41 @@ class Plan extends Model
         return LogOptions::defaults()
             ->useLogName('system')
             ->setDescriptionForEvent(fn (string $eventName) => __('Plan :Action', ['action' => $eventName]));
+    }
+
+    /**
+     * Get the plan contacts number.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function contacts(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => number_format($value, 0),
+        );
+    }
+
+    /**
+     * Get the plan monthly price.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function monthlyPrice(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => number_format($value, 0),
+        );
+    }
+
+    /**
+     * Get the plan annual price.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function yearlyPrice(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => number_format($value, 0),
+        );
     }
 }
