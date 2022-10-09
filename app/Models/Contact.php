@@ -20,11 +20,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $phone
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Install $install
- *
  * @method static \Database\Factories\ContactFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
@@ -37,7 +35,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Contact extends Model

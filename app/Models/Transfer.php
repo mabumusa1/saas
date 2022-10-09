@@ -8,6 +8,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * App\Models\Transfer.
+ *
+ * @property int $id
+ * @property string $email
+ * @property int $install_id
+ * @property string|null $note
+ * @property string $code
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Activity[] $activities
+ * @property-read int|null $activities_count
+ * @property-read \App\Models\Install $install
+ * @method static \Database\Factories\TransferFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereInstallId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transfer whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Transfer extends Model
 {
     use HasFactory, LogsActivity;

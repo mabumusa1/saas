@@ -28,12 +28,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\Contact|null $contact
  * @property-read \App\Models\Site $site
- *
  * @method static \Database\Factories\InstallFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Install newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Install newQuery()
@@ -51,8 +49,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Install whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Install withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Install withoutTrashed()
- *
  * @mixin \Eloquent
+ * @property bool $locked
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Backup[] $backups
+ * @property-read int|null $backups_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Domain[] $domains
+ * @property-read int|null $domains_count
+ * @property-read \App\Models\Transfer|null $transfer
+ * @method static \Illuminate\Database\Eloquent\Builder|Install whereLocked($value)
  */
 class Install extends Model
 {
@@ -188,6 +192,7 @@ class Install extends Model
     {
         return new Attribute(
             get: function () {
+                dd($this->site->subscription);
                 if ($this->site->subscription()->exists()) {
                     return $this->site->subscription->name;
                 }

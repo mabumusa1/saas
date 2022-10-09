@@ -2,8 +2,8 @@
 
 namespace Tests\Browser;
 
-use App\Models\Cashier\Subscription;
 use App\Models\Plan;
+use App\Models\Subscription;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;

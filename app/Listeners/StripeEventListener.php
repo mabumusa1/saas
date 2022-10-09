@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Models\Cashier\Subscription;
+use App\Models\Subscription;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Cashier\Events\WebhookReceived;
 

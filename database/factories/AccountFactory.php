@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Account;
-use App\Models\Cashier\Subscription;
 use App\Models\Site;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -53,7 +53,7 @@ class AccountFactory extends Factory
                     } elseif ($subscription['stripe_id'] == 'sub_1LpTXUQtw9T5bCK15I1T5ARP') {
                         DB::insert('insert into subscription_items (subscription_id, stripe_id, stripe_product, stripe_price, quantity) values (?, ?, ?, ? ,?)', [$m->id, 'si_MYardAsDAVX51y', 'prod_MVEPWB3RPLdOEI', 'price_1LmDwTQtw9T5bCK19IZz3F3M', 1]);
                     }
-                    $site = Site::factory()->state(['account_id'=>$account->id, 'transferable' => false])->create();
+                    $site = Site::factory()->state(['account_id'=>$account->id, 'subscription_id' => $m->id, 'transferable' => false])->create();
                     $m->site_id = $site->id;
                     $m->save();
                 }

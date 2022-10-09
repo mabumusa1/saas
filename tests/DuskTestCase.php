@@ -4,12 +4,12 @@ namespace Tests;
 
 use App\Models\Account;
 use App\Models\Backup;
-use App\Models\Cashier\Subscription;
 use App\Models\Contact;
 use App\Models\Domain;
 use App\Models\Install;
 use App\Models\Plan;
 use App\Models\Site;
+use App\Models\Subscription;
 use App\Models\User;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;

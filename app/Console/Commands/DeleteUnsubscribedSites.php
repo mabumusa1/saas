@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Cashier\Subscription;
 use App\Models\Site;
+use App\Models\Subscription;
 use Illuminate\Console\Command;
 
 class DeleteUnsubscribedSites extends Command

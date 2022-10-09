@@ -3,8 +3,8 @@
 namespace Tests\Feature\Listeners;
 
 use App\Models\Account;
-use App\Models\Cashier\Subscription;
 use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

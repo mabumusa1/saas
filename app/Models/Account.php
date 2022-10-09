@@ -29,7 +29,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \App\Models\DataCenter $dataCenter
@@ -45,7 +44,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read int|null $subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\User> $users
  * @property-read int|null $users_count
- *
  * @method static \Database\Factories\AccountFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Account newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Account newQuery()
@@ -64,8 +62,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Account withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Account withoutTrashed()
- *
  * @mixin \Eloquent
+ * @property int $quota
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereQuota($value)
  */
 class Account extends Model
 {
@@ -208,7 +207,7 @@ class Account extends Model
                     return $this->quota;
                 }
 
-                return $this->quota - $this->installs()->where('owner', 'transferable')->count();
+                return $this->quota - $this->sites()->where('transferable', true)->count();
             }
         );
     }

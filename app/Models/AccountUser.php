@@ -17,10 +17,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $role
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
- *
  * @method static \Database\Factories\AccountUserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser newQuery()
@@ -31,8 +29,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountUser whereUserId($value)
- *
  * @mixin \Eloquent
+ * @property-read \App\Models\Account $account
+ * @property-read \App\Models\User $user
  */
 class AccountUser extends Pivot
 {

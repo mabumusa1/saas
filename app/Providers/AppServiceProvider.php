@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Classes\ActivityLogger as GlobalActivityLogger;
 use App\Models\Account;
-use App\Models\Cashier\Subscription;
+use App\Models\Subscription;
 use App\Resolvers\AccountResolver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Pagination\Paginator;

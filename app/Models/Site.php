@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Cashier\Subscription;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +23,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- *
  * @property-read \App\Models\Account $account
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Activity> $activities
  * @property-read int|null $activities_count
@@ -32,7 +31,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Install> $installs
  * @property-read int|null $installs_count
  * @property-read Subscription|null $subscription
- *
  * @method static \Database\Factories\SiteFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Site newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Site newQuery()
@@ -47,8 +45,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static \Illuminate\Database\Eloquent\Builder|Site whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Site withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Site withoutTrashed()
- *
  * @mixin \Eloquent
+ * @property bool $transferable
+ * @method static \Illuminate\Database\Eloquent\Builder|Site whereTransferable($value)
  */
 class Site extends Model
 {
