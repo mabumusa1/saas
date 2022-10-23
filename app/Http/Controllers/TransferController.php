@@ -72,8 +72,9 @@ class TransferController extends Controller
     public function show(Account $account, Transfer $transfer)
     {
         $this->authorize('show', $transfer);
-        /* @phpstan-ignore-next-line */
-        return view('transfers.show', ['account' => $account, 'transfer' => $transfer, 'sites' => $account->sites, 'subscriptions' => $account->subscriptions, 'totalActiveSubscriptions' => $account->totalActiveSubscriptions]);
+
+        //TODO: Fix transfer
+        return view('transfers.show', ['account' => $account, 'transfer' => $transfer]);
     }
 
     /**

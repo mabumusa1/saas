@@ -1,5 +1,4 @@
 <x-base-layout>
-    {{-- @dd(request()) --}}
     <div class="card">
         <div class="card-body">
             <div class="row mb-2">

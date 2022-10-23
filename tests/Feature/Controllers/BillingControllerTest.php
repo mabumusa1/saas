@@ -33,6 +33,23 @@ class BillingControllerTest extends TestCase
     public function setUp():void
     {
         parent::setUp();
+        $this->plan = new Plan([
+            'name' => 's1',
+            'display_name' => 'Small - 2,500 Leads',
+            'short_description' => 'Small Mautic installation supports up to 2,500 leads',
+            'stripe_product_id' => 'prod_LF6rlbuqYaz6k1',
+            'stripe_monthly_price_id' => 'price_1KYcdZJJANQIX4AvM2ySzZzb',
+            'stripe_yearly_price_id' => 'price_1KYcdZJJANQIX4AvZvUiYVZz',
+            'monthly_price' => 50,
+            'yearly_price' => 500,
+            'features' => ['2,500 Contacts', 'Backups', 'Hosting', 'Security', 'Scalablity'],
+            'contacts' => 2500,
+            'options' => ['backups', 'hosting'],
+            'archived' => false,
+            'available' => true,
+        ]);
+        $this->plan->save();
+
         parent::addAccount();
         parent::addSite();
 
@@ -61,7 +78,6 @@ class BillingControllerTest extends TestCase
 
         ]);
 
-        $this->plan = Plan::first();
         $this->account->createOrGetStripeCustomer();
 
         $this->account->addPaymentMethod($this->paymentMethod);
@@ -134,55 +150,18 @@ class BillingControllerTest extends TestCase
 
     public function test_manage_subscriptions()
     {
-        $response = $this->get(route('billing.manageSubscriptions', $this->account));
+        $this->subscription = Subscription::factory()->create([
+            'name' => 's1',
+        ]);
 
+        $this->site->subscription_id = $this->subscription->id;
+        $this->site->save();
+        $this->subscription->site_id = $this->site->id;
+        $this->subscription->save();
+
+        $response = $this->get(route('billing.manageSubscriptions', $this->account));
         $response->assertStatus(200);
         $response->assertViewIs('billing.manageSubscriptions');
-    }
-
-    public function test_subscribe_with_monthly_subscription()
-    {
-        /**
-         * This test is using Mock because localstripe does not support prices
-         * Once it support prices this test should be changed.
-         */
-        $builderMock = \Mockery::mock(SubscriptionBuilder::class);
-        $builderMock->shouldReceive('create')->andReturn(true);
-
-        $accountMock = \Mockery::mock($this->account);
-        $accountMock->shouldReceive('newSubscription')
-        ->andReturn($builderMock);
-
-        $request = \Request::create(route('billing.subscribe', ['account' => $accountMock, 'plan' => $this->plan]), 'POST', [
-            'period' => 'month',
-        ]);
-
-        $controller = new \App\Http\Controllers\BillingController();
-        $response = $controller->subscribe($accountMock, $this->plan, $request);
-        $this->assertEquals(302, $response->getStatusCode());
-    }
-
-    public function test_subscribe_with_yearly_subscription()
-    {
-
-        /**
-         * This test is using Mock because localstripe does not support prices
-         * Once it support prices this test should be changed.
-         */
-        $builderMock = \Mockery::mock(SubscriptionBuilder::class);
-        $builderMock->shouldReceive('create')->andReturn(true);
-
-        $accountMock = \Mockery::mock($this->account);
-        $accountMock->shouldReceive('newSubscription')
-        ->andReturn($builderMock);
-
-        $request = \Request::create(route('billing.subscribe', ['account' => $accountMock, 'plan' => $this->plan]), 'POST', [
-            'period' => 'year',
-        ]);
-
-        $controller = new \App\Http\Controllers\BillingController();
-        $response = $controller->subscribe($accountMock, $this->plan, $request);
-        $this->assertEquals(302, $response->getStatusCode());
     }
 
     public function test_invoice_returns_404_with_wrong_invoice()

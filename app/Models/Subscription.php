@@ -69,7 +69,7 @@ use Laravel\Cashier\Subscription as CashierSubscription;
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription expiredTrial()
  * @method static Builder|Subscription whereSiteId($value)
  */
-class Subscription extends Model
+class Subscription extends CashierSubscription
 {
     use HasFactory;
 
@@ -98,7 +98,7 @@ class Subscription extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function period(): Attribute
+    protected function period(): Attribute
     {
         return new Attribute(
             get: function () {
@@ -120,7 +120,7 @@ class Subscription extends Model
      *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function displayName(): Attribute
+    protected function displayName(): Attribute
     {
         $plan = Plan::where('name', $this->name)->first();
 

@@ -111,7 +111,7 @@ class Site extends Model
      */
     public function subscription(): HasOne
     {
-        return $this->hasOne(Subscription::class);
+        return $this->hasOne(Subscription::class, 'id', 'subscription_id');
     }
 
     /**

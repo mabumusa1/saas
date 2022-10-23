@@ -60,7 +60,6 @@ class InstallTest extends TestCase
 
         $this->site->subscription_id = $this->subscription->id;
         $this->site->save();
-
         $this->assertEquals($this->install->size, 's1');
     }
 }
