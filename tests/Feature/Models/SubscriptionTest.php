@@ -33,6 +33,7 @@ class SubscriptionTest extends TestCase
             'archived' => false,
             'available' => true,
         ]);
+        $this->plan->save();
         $this->account = Account::factory()->create();
     }
 
@@ -45,7 +46,6 @@ class SubscriptionTest extends TestCase
     public function test_subscription_period(string $expectedOutput, string $input):void
     {
         $subscription = new Subscription();
-        $subscription->account_id = $this->account->id;
         $subscription->name = $this->plan->name;
         $subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
         $subscription->stripe_status = 'test';
@@ -60,7 +60,6 @@ class SubscriptionTest extends TestCase
     public function test_subscription_wrong_period():void
     {
         $subscription = new Subscription();
-        $subscription->account_id = $this->account->id;
         $subscription->name = $this->plan->name;
         $subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
         $subscription->stripe_status = 'test';
@@ -75,7 +74,6 @@ class SubscriptionTest extends TestCase
     public function test_subscription_displayName()
     {
         $subscription = new Subscription();
-        $subscription->account_id = $this->account->id;
         $subscription->name = $this->plan->name;
         $subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
         $subscription->stripe_status = 'test';

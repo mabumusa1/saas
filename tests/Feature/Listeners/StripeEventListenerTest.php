@@ -17,6 +17,24 @@ class StripeEventListenerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->addSite(false);
+        $this->plan = new Plan([
+            'name' => 's1',
+            'display_name' => 'Small - 2,500 Leads',
+            'short_description' => 'Small Mautic installation supports up to 2,500 leads',
+            'stripe_product_id' => 'prod_LF6rlbuqYaz6k1',
+            'stripe_monthly_price_id' => 'price_1KYcdZJJANQIX4AvM2ySzZzb',
+            'stripe_yearly_price_id' => 'price_1KYcdZJJANQIX4AvZvUiYVZz',
+            'monthly_price' => 50,
+            'yearly_price' => 500,
+            'features' => ['2,500 Contacts', 'Backups', 'Hosting', 'Security', 'Scalablity'],
+            'contacts' => 2500,
+            'options' => ['backups', 'hosting'],
+            'archived' => false,
+            'available' => true,
+        ]);
+        $this->plan->save();
+
         $this->account = Account::factory()->create([
             'name' => 'test',
             'email' => 'test@a.com',
@@ -25,11 +43,10 @@ class StripeEventListenerTest extends TestCase
         $this->user = User::factory()->create();
         $this->plan = Plan::first();
         $this->account->users()->attach($this->user->id, ['role' => 'owner']);
-
         $this->actingAs($this->user);
         $this->subscription = new Subscription();
-        $this->subscription->account_id = $this->account->id;
         $this->subscription->name = $this->plan->name;
+        $this->subscription->site_id = $this->site->id;
         $this->subscription->stripe_id = 'sub_1KeidZJJANQIX4AvkeasYUuG';
         $this->subscription->stripe_status = 'test';
         $this->subscription->stripe_price = 'test';

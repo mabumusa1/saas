@@ -28,7 +28,7 @@ class StripeEventListener implements ShouldQueue
     {
         if ($event->payload['type'] === 'customer.subscription.deleted') {
             $subscription = Subscription::where('stripe_id', $event->payload['data']['object']['id'])->first();
-            $subscription->sites()->delete();
+            $subscription->site->delete();
         }
     }
 }

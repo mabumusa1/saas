@@ -86,7 +86,6 @@ class SiteController extends Controller
             }
 
             $x = $account->newSubscription($plan->name, $siteData['price'])->create($account->defaultPaymentMethod()->id);
-            dd($x);
         }
 
         $site = Site::create([

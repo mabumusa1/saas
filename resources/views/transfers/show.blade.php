@@ -50,10 +50,6 @@
                 <select class="form-select" name="site_id">
                     <option value="" disabled selected>
                         {{ __('Please select an site') }}</option>
-                    @foreach ($sites as $site)
-                        <option value="{{ $site->id }}">{{ $site->name }}
-                        </option>
-                    @endforeach
                 </select>
                 <div class="d-flex justify-content-end mt-10">
                     <button class="btn btn-primary" type="submit">{{ __('Accept Transfer') }}</button>
@@ -88,14 +84,6 @@
                                     <div class="col">
                                         {{ __('This site is mine; it will count towards my site allowance') }}
                                         <br />
-                                        {{ __('You have ') . $subscriptions->sum('quantity') - $subscriptions->sum('sites_count') }}
-                                        of {{ $totalActiveSubscriptions }} {{ __('sites available.') }}
-                                        @if ($subscriptions->count() === 0)
-                                            {{ __('Delete site or ') }} <a class="text-primary"
-                                                href="{{ route('billing.index', [$currentAccount]) }}">
-                                                {{ __('Upgrade your plan') }}</a>
-                                        @endif
-        
                                     </div>
                                 </div>
                             </div>
