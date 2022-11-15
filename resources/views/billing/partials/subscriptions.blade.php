@@ -1,25 +1,25 @@
 @foreach ($currentAccount->sites as $site )
     <div class="row">
         <div class="col-8">
-            <h3>{{ $site->subscription->displayName }}
-                @if($site->subscription->canceled())
+            <h3>{{ $site->subscription?->displayName }}
+                @if($site->subscription?->canceled())
                     <span class="badge badge-warning">{{ __('Scheduled for deletion') }}</span>
                 @else
-                    <span class="badge badge-success">{{ \Str::title($site->subscription->period) }}</span>
+                    <span class="badge badge-success">{{ \Str::title($site->subscription?->period) }}</span>
                 @endif
             </h3>
-            <p class="text-muted mb-2 mt-2">{{ __('Subscription Started on: :start', ['start' => $site->subscription->created_at->format('Y-m-d')]) }}</p>
-            @if($site->subscription->canceled())
-                <p class="text-muted mb-2 mt-2">{{ __('Subscription ends on: :end', ['end' => $site->subscription->ends_at->format('Y-m-d')]) }}</p>
+            <p class="text-muted mb-2 mt-2">{{ __('Subscription Started on: :start', ['start' => $site->subscription?->created_at->format('Y-m-d')]) }}</p>
+            @if($site->subscription?->canceled())
+                <p class="text-muted mb-2 mt-2">{{ __('Subscription ends on: :end', ['end' => $site->subscription?->ends_at->format('Y-m-d')]) }}</p>
             @endif
-            <p class="mb-2"><a href="{{ route('installs.show', [$currentAccount, $site, $site->installs()->first()]) }}">{{ __('Assoicated with :site', ['site' => $site->subscription->site->name]) }}</a></p> 
+            <p class="mb-2"><a href="{{ route('installs.show', [$currentAccount, $site, $site->installs()?->first()]) }}">{{ __('Assoicated with :site', ['site' => $site->subscription?->site->name]) }}</a></p>
         </div>
         <div class="col-4">
-            @if(!$site->subscription->canceled())
+            @if(!$site->subscription?->canceled())
                 <a class="btn-delete btn btn-outline btn-outline-danger btn-active-light-danger btn-icon-danger" data-target=".delete_form{{ $site->id }}">
                     {!! get_svg_icon('icons/duotune/general/gen040.svg') !!}
                     {{ __('Delete') }}
-                </a>    
+                </a>
                 <form
                 action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
                 class="delete_form{{ $site->id }}" method="post">

@@ -55,30 +55,13 @@
                             <tbody>
                                 @foreach ($sites as $site)
                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                        <td>{{ $site->name }}</td>
+                                        <td>{{ $site->name }}<br/><a class="text-muted small text-hover-primary" href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">Edit</a></td>
                                         <td>
                                             @foreach ($site->groups as $group)
                                                 <span class="badge badge-secondary">{{ $group->name }}</span>
                                             @endforeach
                                         </td>
-                                        <td class="text-center">
-                                            <a class="btn btn-icon btn-primary me-2 mb-2 btn-sm"
-                                                href="{{ route('sites.edit', [$currentAccount->id, $site->id]) }}">
-                                                {!! get_svg_icon('icons/duotune/general/gen055.svg') !!}
-                                            </a>
-                                            <a class="btn btn-icon btn-danger me-2 mb-2 btn-sm btn-delete"
-                                                data-target=".delete_form{{ $site->id }}">
-                                                {!! get_svg_icon('icons/duotune/general/gen034.svg') !!}
-                                            </a>
-
-                                            <form
-                                                action="{{ route('sites.destroy', [$currentAccount->id, $site->id]) }}"
-                                                class="delete_form{{ $site->id }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </td>
-                                    </tr>
+                                                                            </tr>
                                     @foreach ($site->installs as $install)
                                         <tr
                                             class="env {{ request()->has('env') ? (request()->get('env') == 1 ? '' : 'd-none') : '' }}">

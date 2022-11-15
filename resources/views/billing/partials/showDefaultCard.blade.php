@@ -13,9 +13,12 @@
     </div>
     <div class="card-footer">
         <div class="d-flex justify-content-end">
-            <a href="{{ route('billing.index', $currentAccount->id) }}" class="btn btn-danger me-2 mb-2">{{__('Delete Card')}}</a>
-            <a href="{{ route('billing.index', [$currentAccount->id, 'update' => true]) }}" class="btn btn-primary me-2 mb-2">{{__('Update Card')}}</a>            
-        </div>                                
+            <form method="post" action="{{ route('billing.destroy', $currentAccount) }}">
+                @csrf
+                @method('DELETE')
+                <button href="{{ route('billing.index', $currentAccount->id) }}" class="btn btn-danger me-2 mb-2" type="submit">{{__('Delete Card')}}</button>
+            </form>
+            <a href="{{ route('billing.index', [$currentAccount->id, 'update' => true]) }}" class="btn btn-primary me-2 mb-2">{{__('Update Card')}}</a>
+        </div>
     </div>
 </div>
-        

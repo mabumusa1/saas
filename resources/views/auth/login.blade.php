@@ -32,7 +32,7 @@
             <!--end::Label-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" type="email" name="email" id="email" autocomplete="off"
+            <input tabindex="1" class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" type="email" name="email" id="email" autocomplete="off"
                 value="{{ old('email') }}" required autofocus />
             <!--end::Input-->
             @error('email')
@@ -60,7 +60,7 @@
             <!--end::Wrapper-->
 
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="password" name="password"
+            <input tabindex="2" class="form-control form-control-lg form-control-solid" type="password" name="password"
                 autocomplete="off" required />
             <!--end::Input-->
         </div>
@@ -69,7 +69,7 @@
         <!--begin::Input group-->
         <div class="fv-row mb-10">
             <label class="form-check form-check-custom form-check-solid">
-                <input class="form-check-input" type="checkbox" name="remember" />
+                <input tabindex="3" class="form-check-input" type="checkbox" name="remember" />
                 <span class="form-check-label fw-bold text-gray-700 fs-6">{{ __('Remember me') }}
                 </span>
             </label>
@@ -79,7 +79,7 @@
         <!--begin::Actions-->
         <div class="text-center">
             <!--begin::Submit button-->
-            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+            <button tabindex="4" type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
                 @include('partials.general._button-indicator', ['label' => __('Login')])
             </button>
             <!--end::Submit button-->
@@ -89,6 +89,6 @@
     <!--end::Signin Form-->
 
     @push('scripts')
-        <script src="skin/js/custom/authentication/sign-in/general.js"></script>  
+        <script src="skin/js/custom/authentication/sign-in/general.js"></script>
     @endpush
 </x-auth-layout>
