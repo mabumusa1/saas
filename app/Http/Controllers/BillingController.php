@@ -93,4 +93,13 @@ class BillingController extends Controller
             'product' => 'Your Product',
         ]);
     }
+
+    public function destroy(Account $account)
+    {
+        $paymentMethod = $account->defaultPaymentMethod();
+        $paymentMethod->delete();
+
+        return back();
+        // $account->deletePaymentMethods();
+    }
 }

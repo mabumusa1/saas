@@ -19,7 +19,7 @@ class SubscriptionFactory extends Factory
     {
         return [
             'name' => 'test',
-            'stripe_id' => 'test',
+            'stripe_id' => $this->faker->name,
             'stripe_status' => StripeSubscription::STATUS_ACTIVE,
             'stripe_price' => 'test',
             'quantity' => 1,

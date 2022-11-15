@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteRequest;
+use App\Jobs\DeleteSite;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Install;
@@ -58,7 +59,7 @@ class SiteController extends Controller
     {
         $plans = Plan::where('available', true)->get();
 
-        return view('sites.create', ['plans' => $plans, 'intent' => $account->createSetupIntent()]);
+        return view('sites.create', ['account' => $account, 'plans' => $plans, 'intent' => $account->createSetupIntent()]);
     }
 
     /**
@@ -72,12 +73,13 @@ class SiteController extends Controller
     public function store(Account $account, StoreSiteRequest $request)
     {
         $validated = $request->safe()->all();
+        abort_if(! $account->subscription() && ! $account->quota, 403);
 
         $siteData = [];
         $siteData['account_id'] = $account->id;
         $siteData['name'] = $validated['sitename'];
         $user = $request->user();
-        if ($request->filled('planId')) {
+        if ($request->filled('planId') && $request->input('type') !== 'dev') {
             $plan = Plan::where('id', $request->planId)->first();
             if ($request->input('period') === 'month') {
                 $siteData['price'] = $plan->stripe_monthly_price_id;
@@ -85,12 +87,16 @@ class SiteController extends Controller
                 $siteData['price'] = $plan->stripe_yearly_price_id;
             }
 
-            $x = $account->newSubscription($plan->name, $siteData['price'])->create($account->defaultPaymentMethod()->id);
+            $subscription = $account->newSubscription($plan->name, $siteData['price'])->create($account->defaultPaymentMethod()->id);
+            $siteData['subscription_id'] = $subscription->id;
         }
 
-        $site = Site::create([
+        $site = Site::create($siteData);
 
-        ]);
+        if (isset($subscription)) {
+            $subscription->site_id = $site->id;
+            $subscription->save();
+        }
 
         $install = Install::create([
             'site_id' => $site->id,
@@ -155,7 +161,16 @@ class SiteController extends Controller
      */
     public function destroy(Account $account, Site $site)
     {
-        $site->subscription('default')->cancel();
+        if ($site->subscription()->exists()) {
+            $site->subscription->cancel();
+            DeleteSite::dispatch($site)->delay($site->subscription->ends_at);
+            $msg = 'Site is scheduled for deletion';
+        } else {
+            $site->installs()->delete();
+            $site->delete();
+            $msg = 'Site Deleted';
+        }
+        // $site->subscription('default')->cancel();
 
         return redirect(route('billing.manageSubscriptions', $account->id))->with('status', __('Site is scheduled for deletion'));
     }

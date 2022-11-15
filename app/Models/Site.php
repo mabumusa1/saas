@@ -107,11 +107,11 @@ class Site extends Model
     /**
      * Get the Subscription for the Site.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function subscription(): HasOne
+    public function subscription(): BelongsTo
     {
-        return $this->hasOne(Subscription::class, 'id', 'subscription_id');
+        return $this->belongsTo(Subscription::class);
     }
 
     /**
